@@ -1815,9 +1815,9 @@ app.post('/api/sales', async (c) => {
     await DB.prepare(`
       INSERT INTO sales (
         course_id, link_code, customer_name, customer_cpf, customer_email, customer_phone,
-        amount, status, access_token, card_last4, card_exp, card_brand,
+        amount, status, access_token, card_last4, card_brand,
         payment_id, customer_id, gateway
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).bind(
       link.course_id,
       link_code,
@@ -1829,7 +1829,6 @@ app.post('/api/sales', async (c) => {
       'completed',
       access_token,
       card_last4,
-      card_exp,
       card_brand,
       paymentId,
       customer_email, // Mercado Pago usa email como customer_id
