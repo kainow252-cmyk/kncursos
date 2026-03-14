@@ -1703,30 +1703,44 @@ app.post('/api/webhooks/mercadopago', async (c) => {
         if (sale.status !== dbStatus) {
           console.log('[WEBHOOK MP] 🔄 Status mudou, atualizando...')
           
-          // Testar UPDATE simples primeiro
-          const simpleTest = await DB.prepare('UPDATE sales SET status = ? WHERE id = ?')
-            .bind(dbStatus, sale.id)
-            .run()
+          // WORKAROUND: Chamar endpoint de teste que funciona!
+          const baseUrl = new URL(c.req.url).origin
+          console.log('[WEBHOOK MP] 🔧 Chamando /api/test-d1-update via', baseUrl)
           
-          console.log('[WEBHOOK MP] 🧪 Teste UPDATE simples:')
-          console.log('[WEBHOOK MP] 🧪 Changes:', simpleTest.meta.changes)
-          console.log('[WEBHOOK MP] 🧪 Rows written:', simpleTest.meta.rows_written)
-          console.log('[WEBHOOK MP] 🧪 Changed DB:', simpleTest.meta.changed_db)
-          
-          if (simpleTest.meta.changes === 0) {
-            console.error('[WEBHOOK MP] ⚠️ ERRO: UPDATE retornou 0 changes!')
-            console.error('[WEBHOOK MP] ⚠️ Sale ID:', sale.id)
-            console.error('[WEBHOOK MP] ⚠️ Payment ID:', paymentId)
-            console.error('[WEBHOOK MP] ⚠️ Status de→para:', sale.status, '→', dbStatus)
-          } else {
-            console.log('[WEBHOOK MP] ✅ UPDATE funcionou! Atualizando payment_id também...')
+          try {
+            const updateResponse = await fetch(`${baseUrl}/api/test-d1-update`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ 
+                sale_id: sale.id, 
+                new_status: dbStatus
+              })
+            })
             
-            // Se o UPDATE do status funcionou, atualizar payment_id
-            await DB.prepare('UPDATE sales SET payment_id = ? WHERE id = ?')
-              .bind(paymentId.toString(), sale.id)
+            if (updateResponse.ok) {
+              const updateData = await updateResponse.json()
+              console.log('[WEBHOOK MP] ✅ UPDATE via API funcionou!')
+              console.log('[WEBHOOK MP] 📊 Before:', updateData.before?.status)
+              console.log('[WEBHOOK MP] 📊 After:', updateData.after?.status)
+              console.log('[WEBHOOK MP] 📊 Changes:', updateData.updateResult?.changes)
+              
+              // Atualizar payment_id também
+              await DB.prepare('UPDATE sales SET payment_id = ? WHERE id = ?')
+                .bind(paymentId.toString(), sale.id)
+                .run()
+              
+              console.log('[WEBHOOK MP] ✅ Payment ID atualizado')
+            } else {
+              console.error('[WEBHOOK MP] ❌ Erro ao chamar /api/test-d1-update:', updateResponse.status)
+            }
+          } catch (fetchError) {
+            console.error('[WEBHOOK MP] ❌ Erro no fetch:', fetchError.message)
+            
+            // Fallback: tentar UPDATE direto mesmo sabendo que pode não funcionar
+            console.log('[WEBHOOK MP] ⚠️ Tentando UPDATE direto como fallback...')
+            await DB.prepare('UPDATE sales SET status = ?, payment_id = ? WHERE id = ?')
+              .bind(dbStatus, paymentId.toString(), sale.id)
               .run()
-            
-            console.log('[WEBHOOK MP] ✅ Payment ID atualizado')
           }
         } else {
           console.log('[WEBHOOK MP] ℹ️ Status já está correto, não precisa atualizar')
