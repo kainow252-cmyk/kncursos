@@ -21,8 +21,10 @@ ASAAS_ENV=production
 
 ### **Webhook Token**
 ```
-ASAAS_WEBHOOK_TOKEN=whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM
+ASAAS_WEBHOOK_TOKEN=whsec_9YVKoFYtPFuvWqRZgrmLEXWmzVv1jwZWjm2YDl6jyms
 ```
+**⚠️ Atualizado em:** 14/03/2026  
+**Status:** ✅ Configurado no Cloudflare e Asaas
 
 ---
 

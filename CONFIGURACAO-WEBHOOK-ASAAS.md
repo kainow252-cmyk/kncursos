@@ -67,20 +67,21 @@ v3 (mais recente disponível)
 
 ## ✅ CAMPO 6: TOKEN DE AUTENTICAÇÃO
 
-### **OPÇÃO A: Se tem campo para inserir token manualmente**
+### **✅ TOKEN CONFIGURADO:**
 
 ```
-whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM
+whsec_9YVKoFYtPFuvWqRZgrmLEXWmzVv1jwZWjm2YDl6jyms
 ```
 
-**Cole:** `whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM`
+**✅ Este token JÁ FOI configurado no sistema!**
 
-### **OPÇÃO B: Se só tem botão "Gerar Token"**
+**Status:**
+- ✅ Gerado pelo Asaas
+- ✅ Configurado no Cloudflare Pages
+- ✅ Atualizado em .dev.vars
+- ✅ Pronto para receber webhooks
 
-1. Clique em **"Gerar Token"**
-2. O Asaas gerará um token automaticamente
-3. **COPIE o token gerado**
-4. **IMPORTANTE:** Você precisará atualizar este token no código depois!
+**Data de configuração:** 14/03/2026
 
 ---
 
