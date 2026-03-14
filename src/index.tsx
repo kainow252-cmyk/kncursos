@@ -1643,24 +1643,117 @@ app.post('/api/webhooks/mercadopago', async (c) => {
     
     console.log('[WEBHOOK MP] 🔄 Status mapeado:', dbStatus)
     
-    // Buscar venda no banco pelo email do pagador
+    // Buscar venda no banco pelo payment_id OU email do pagador
     const payerEmail = payment.payer?.email
     
     if (payerEmail) {
       console.log('[WEBHOOK MP] 📧 Buscando venda por email:', payerEmail)
       
-      // Atualizar status da venda no banco
-      const result = await DB.prepare(`
-        UPDATE sales 
-        SET status = ?
-        WHERE customer_email = ?
-        AND amount = ?
-        ORDER BY created_at DESC
+      // Primeiro tentar buscar por payment_id, depois por email
+      const { results: sales } = await DB.prepare(`
+        SELECT s.*, c.title as course_title, c.pdf_url
+        FROM sales s
+        JOIN courses c ON s.course_id = c.id
+        WHERE (s.payment_id = ? OR s.customer_email = ?)
+        AND s.amount = ?
+        ORDER BY s.purchased_at DESC
         LIMIT 1
-      `).bind(dbStatus, payerEmail, payment.transaction_amount).run()
+      `).bind(paymentId.toString(), payerEmail, payment.transaction_amount).all()
       
-      if (result.success) {
+      const sale = sales?.[0]
+      
+      if (sale) {
+        console.log('[WEBHOOK MP] 🔍 Venda encontrada:', sale.id)
+        console.log('[WEBHOOK MP] 🔍 Status atual:', sale.status)
+        console.log('[WEBHOOK MP] 🔍 Novo status:', dbStatus)
+        
+        // Atualizar status e payment_id da venda no banco
+        await DB.prepare(`
+          UPDATE sales 
+          SET status = ?, payment_id = ?
+          WHERE id = ?
+        `).bind(dbStatus, paymentId.toString(), sale.id).run()
+        
         console.log('[WEBHOOK MP] ✅ Status da venda atualizado no banco')
+        
+        // Se o pagamento foi aprovado e o status mudou, enviar email
+        if (dbStatus === 'completed' && sale.status !== 'completed') {
+          console.log('[WEBHOOK MP] 📧 Pagamento aprovado! Enviando email de acesso...')
+          
+          const { RESEND_API_KEY, EMAIL_FROM } = c.env
+          
+          if (RESEND_API_KEY && EMAIL_FROM) {
+            const Resend = (await import('resend')).Resend
+            const resend = new Resend(RESEND_API_KEY)
+            
+            const downloadLink = sale.pdf_url 
+              ? `https://kncursos.com.br/download/${sale.access_token}`
+              : null
+            
+            const emailHtml = `
+              <!DOCTYPE html>
+              <html>
+              <head>
+                <meta charset="utf-8">
+                <style>
+                  body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+                  .header { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+                  .header h1 { margin: 0; font-size: 28px; }
+                  .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
+                  .button { display: inline-block; background: #10b981; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 20px 0; }
+                  .button:hover { background: #059669; }
+                  .info { background: white; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #10b981; }
+                  .footer { text-align: center; color: #6b7280; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
+                </style>
+              </head>
+              <body>
+                <div class="header">
+                  <h1>🎉 Pagamento Confirmado!</h1>
+                </div>
+                <div class="content">
+                  <p>Olá <strong>${sale.customer_name}</strong>,</p>
+                  
+                  <p>Seu pagamento foi aprovado com sucesso!</p>
+                  
+                  <div class="info">
+                    <p><strong>Curso:</strong> ${sale.course_title}</p>
+                    <p><strong>Valor:</strong> R$ ${parseFloat(sale.amount).toFixed(2)}</p>
+                    <p><strong>Gateway:</strong> Mercado Pago</p>
+                    <p><strong>ID do Pagamento:</strong> ${paymentId}</p>
+                  </div>
+                  
+                  ${downloadLink ? `
+                    <p>Clique no botão abaixo para fazer o download do seu curso:</p>
+                    <a href="${downloadLink}" class="button">📥 Baixar Curso Agora</a>
+                    <p><small>Este link é exclusivo e permanente para você.</small></p>
+                  ` : `
+                    <p>O acesso ao curso será liberado em breve. Você receberá um novo email com as instruções.</p>
+                  `}
+                  
+                  <div class="footer">
+                    <p>Se você tiver alguma dúvida, entre em contato conosco.</p>
+                    <p>© ${new Date().getFullYear()} KN Cursos - Todos os direitos reservados</p>
+                  </div>
+                </div>
+              </body>
+              </html>
+            `
+            
+            try {
+              await resend.emails.send({
+                from: EMAIL_FROM,
+                to: sale.customer_email,
+                subject: `✅ Pagamento Aprovado - ${sale.course_title}`,
+                html: emailHtml
+              })
+              console.log('[WEBHOOK MP] ✅ Email de acesso enviado com sucesso!')
+            } catch (emailError) {
+              console.error('[WEBHOOK MP] ❌ Erro ao enviar email:', emailError)
+            }
+          } else {
+            console.log('[WEBHOOK MP] ⚠️ RESEND_API_KEY ou EMAIL_FROM não configurados')
+          }
+        }
       } else {
         console.log('[WEBHOOK MP] ⚠️ Nenhuma venda encontrada para atualizar')
       }
