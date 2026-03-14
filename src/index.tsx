@@ -2101,10 +2101,11 @@ app.post('/api/resend-email/:saleId', async (c) => {
     
     // Preparar email
     const resend = new Resend(RESEND_API_KEY)
-    const downloadLink = sale.pdf_url 
+    
+    // Sempre usar o link do KN Cursos para controle de acesso
+    const accessLink = sale.pdf_url || sale.external_url
       ? `https://kncursos.com.br/download/${sale.access_token}`
       : null
-    const accessLink = sale.external_url || downloadLink
     
     const emailHtml = `
       <!DOCTYPE html>
@@ -2133,14 +2134,10 @@ app.post('/api/resend-email/:saleId', async (c) => {
             <p><strong>Valor:</strong> R$ ${parseFloat(sale.amount).toFixed(2)}</p>
             ${sale.payment_id ? `<p><strong>ID Pagamento:</strong> ${sale.payment_id}</p>` : ''}
           </div>
-          ${downloadLink ? `
-            <p>Clique no botão abaixo para fazer o download do seu curso:</p>
-            <a href="${downloadLink}" class="button">📥 Baixar Curso Agora</a>
+          ${accessLink ? `
+            <p>Clique no botão abaixo para ${sale.pdf_url ? 'fazer o download' : 'acessar'} seu curso:</p>
+            <a href="${accessLink}" class="button">${sale.pdf_url ? '📥 Baixar Curso Agora' : '🎓 Acessar Curso Agora'}</a>
             <p><small>Este link é exclusivo e permanente para você.</small></p>
-          ` : accessLink ? `
-            <p>Clique no botão abaixo para acessar seu curso:</p>
-            <a href="${accessLink}" class="button">🎓 Acessar Curso Agora</a>
-            <p><small>Você será redirecionado para a plataforma do curso.</small></p>
           ` : `
             <p>O acesso ao curso será liberado em breve. Você receberá um novo email com as instruções.</p>
           `}
@@ -2548,7 +2545,7 @@ app.get('/download/:token', async (c) => {
   
   // Buscar venda pelo token
   const sale = await DB.prepare(`
-    SELECT s.*, c.pdf_url, c.title
+    SELECT s.*, c.pdf_url, c.external_url, c.title
     FROM sales s
     JOIN courses c ON s.course_id = c.id
     WHERE s.access_token = ? AND s.status = 'completed'
@@ -2574,35 +2571,37 @@ app.get('/download/:token', async (c) => {
     `, 403)
   }
   
-  if (!sale.pdf_url) {
+  // Verificar se tem PDF ou URL externa
+  if (!sale.pdf_url && !sale.external_url) {
     return c.html(`
       <!DOCTYPE html>
       <html lang="pt-BR">
       <head>
           <meta charset="UTF-8">
-          <title>PDF Não Disponível</title>
+          <title>Conteúdo Não Disponível</title>
           <script src="https://cdn.tailwindcss.com"></script>
       </head>
       <body class="bg-gray-50 flex items-center justify-center min-h-screen">
           <div class="bg-white p-8 rounded-lg shadow-lg text-center max-w-md">
-              <i class="fas fa-file-pdf text-yellow-500 text-5xl mb-4"></i>
-              <h1 class="text-2xl font-bold text-gray-800 mb-2">PDF Não Disponível</h1>
-              <p class="text-gray-600">Este curso não possui material para download.</p>
+              <i class="fas fa-hourglass-half text-yellow-500 text-5xl mb-4"></i>
+              <h1 class="text-2xl font-bold text-gray-800 mb-2">Aguarde</h1>
+              <p class="text-gray-600">O acesso ao curso será liberado em breve. Você receberá um email com as instruções.</p>
           </div>
       </body>
       </html>
     `, 404)
   }
   
-  // Atualizar contadores de download
+  // Atualizar contadores de acesso
   await DB.prepare(`
     UPDATE sales 
     SET pdf_downloaded = 1, download_count = download_count + 1
     WHERE access_token = ?
   `).bind(token).run()
   
-  // Redirecionar para o PDF
-  return c.redirect(sale.pdf_url)
+  // Redirecionar para PDF ou URL externa
+  const redirectUrl = sale.pdf_url || sale.external_url
+  return c.redirect(redirectUrl)
 })
 
 // ============= TESTE DE E-MAIL =============
