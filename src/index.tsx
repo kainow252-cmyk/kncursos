@@ -2081,7 +2081,8 @@ app.post('/api/resend-email/:saleId', async (c) => {
         s.access_token,
         s.payment_id,
         c.title as course_title,
-        c.pdf_url
+        c.pdf_url,
+        c.external_url
       FROM sales s
       JOIN courses c ON s.course_id = c.id
       WHERE s.id = ?
@@ -2103,6 +2104,7 @@ app.post('/api/resend-email/:saleId', async (c) => {
     const downloadLink = sale.pdf_url 
       ? `https://kncursos.com.br/download/${sale.access_token}`
       : null
+    const accessLink = sale.external_url || downloadLink
     
     const emailHtml = `
       <!DOCTYPE html>
@@ -2135,6 +2137,10 @@ app.post('/api/resend-email/:saleId', async (c) => {
             <p>Clique no botão abaixo para fazer o download do seu curso:</p>
             <a href="${downloadLink}" class="button">📥 Baixar Curso Agora</a>
             <p><small>Este link é exclusivo e permanente para você.</small></p>
+          ` : accessLink ? `
+            <p>Clique no botão abaixo para acessar seu curso:</p>
+            <a href="${accessLink}" class="button">🎓 Acessar Curso Agora</a>
+            <p><small>Você será redirecionado para a plataforma do curso.</small></p>
           ` : `
             <p>O acesso ao curso será liberado em breve. Você receberá um novo email com as instruções.</p>
           `}
