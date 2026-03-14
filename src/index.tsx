@@ -1630,97 +1630,142 @@ app.post('/api/webhooks/asaas', async (c) => {
   }
 })
 
-// Webhook do SuitPay para confirmação de pagamentos
+// Webhook do SuitPay para confirmação de pagamentos (Cartão)
+// Documentação: https://api.suitpay.app/#webhook
 app.post('/api/webhooks/suitpay', async (c) => {
   try {
-    const { DB } = c.env
+    const { DB, SUITPAY_CLIENT_SECRET } = c.env
     
-    // SuitPay envia eventos de pagamento
+    // SuitPay envia webhooks no formato oficial documentado
     const payload = await c.req.json()
     
-    console.log('[WEBHOOK SUITPAY] Evento recebido:', payload.event || payload.type)
-    console.log('[WEBHOOK SUITPAY] Payment ID:', payload.payment_id || payload.id)
-    console.log('[WEBHOOK SUITPAY] Status:', payload.status)
+    console.log('[WEBHOOK SUITPAY] Webhook recebido')
+    console.log('[WEBHOOK SUITPAY] Type:', payload.typeTransaction)
+    console.log('[WEBHOOK SUITPAY] Transaction ID:', payload.idTransaction)
+    console.log('[WEBHOOK SUITPAY] Status:', payload.statusTransaction)
     console.log('[WEBHOOK SUITPAY] Payload completo:', JSON.stringify(payload, null, 2))
     
-    // Identificar o payment_id (pode variar dependendo da estrutura do SuitPay)
-    const paymentId = payload.payment_id || payload.id || payload.data?.id
+    // Validar IP de origem (opcional - somente IPs oficiais do SuitPay)
+    const clientIp = c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for')
+    const suitpayOfficialIp = '3.132.137.46'
     
-    if (!paymentId) {
-      console.error('[WEBHOOK SUITPAY] ❌ Payment ID não encontrado no payload')
-      return c.json({ error: 'Payment ID not found' }, 400)
+    if (clientIp && clientIp !== suitpayOfficialIp) {
+      console.warn(`[WEBHOOK SUITPAY] ⚠️ IP não oficial: ${clientIp} (esperado: ${suitpayOfficialIp})`)
+      // Não bloquear, apenas alertar
     }
     
-    // Processar diferentes status de pagamento do SuitPay
-    const status = payload.status || payload.data?.status
+    // Extrair dados do webhook (formato oficial SuitPay para Cartão)
+    const {
+      idTransaction,
+      typeTransaction,
+      statusTransaction,
+      hash
+    } = payload
     
-    switch (status) {
-      case 'approved':
-      case 'paid':
-      case 'confirmed':
-        // Pagamento confirmado - atualizar status no banco
-        console.log('[WEBHOOK SUITPAY] ✅ Pagamento confirmado:', paymentId)
+    // Validar campos obrigatórios
+    if (!idTransaction) {
+      console.error('[WEBHOOK SUITPAY] ❌ idTransaction não encontrado')
+      return c.json({ error: 'idTransaction is required' }, 400)
+    }
+    
+    if (typeTransaction !== 'CARD') {
+      console.warn(`[WEBHOOK SUITPAY] ⚠️ Tipo de transação não é CARD: ${typeTransaction}`)
+      // Continuar mesmo assim, pode ser útil no futuro
+    }
+    
+    // TODO: Validar hash SHA-256 para garantir autenticidade
+    // if (SUITPAY_CLIENT_SECRET && hash) {
+    //   const isValid = validateSuitPayHash(payload, hash, SUITPAY_CLIENT_SECRET)
+    //   if (!isValid) {
+    //     console.error('[WEBHOOK SUITPAY] ❌ Hash inválido - possível tentativa de fraude')
+    //     return c.json({ error: 'Invalid hash' }, 401)
+    //   }
+    // }
+    
+    // Processar status oficiais da documentação SuitPay
+    let dbStatus = 'pending'
+    
+    switch (statusTransaction) {
+      case 'PAID_OUT':
+      case 'PAYMENT_ACCEPT':
+        // Pagamento confirmado/aprovado
+        console.log('[WEBHOOK SUITPAY] ✅ Pagamento aprovado/pago:', idTransaction)
+        dbStatus = 'completed'
         
         try {
-          await DB.prepare(`
+          const result = await DB.prepare(`
             UPDATE sales 
-            SET status = 'completed'
+            SET status = ?
             WHERE suitpay_payment_id = ?
-          `).bind(paymentId).run()
+          `).bind(dbStatus, idTransaction).run()
           
-          console.log('[WEBHOOK SUITPAY] ✅ Status atualizado no banco')
+          if (result.meta.changes > 0) {
+            console.log('[WEBHOOK SUITPAY] ✅ Status atualizado no banco')
+          } else {
+            console.warn('[WEBHOOK SUITPAY] ⚠️ Nenhuma venda encontrada com ID:', idTransaction)
+          }
         } catch (dbError) {
           console.error('[WEBHOOK SUITPAY] ❌ Erro ao atualizar banco:', dbError)
         }
         break
       
-      case 'pending':
-      case 'processing':
-        console.log('[WEBHOOK SUITPAY] ⏳ Pagamento em processamento:', paymentId)
+      case 'WAITING_FOR_APPROVAL':
+        // Aguardando aprovação
+        console.log('[WEBHOOK SUITPAY] ⏳ Aguardando aprovação:', idTransaction)
+        dbStatus = 'pending'
         
         await DB.prepare(`
           UPDATE sales 
-          SET status = 'pending'
+          SET status = ?
           WHERE suitpay_payment_id = ?
-        `).bind(paymentId).run()
+        `).bind(dbStatus, idTransaction).run()
         break
       
-      case 'cancelled':
-      case 'refunded':
-        console.log('[WEBHOOK SUITPAY] ❌ Pagamento cancelado/reembolsado:', paymentId)
+      case 'CANCELED':
+        // Cancelado
+        console.log('[WEBHOOK SUITPAY] ❌ Pagamento cancelado:', idTransaction)
+        dbStatus = 'cancelled'
         
         await DB.prepare(`
           UPDATE sales 
-          SET status = 'refunded'
+          SET status = ?
           WHERE suitpay_payment_id = ?
-        `).bind(paymentId).run()
+        `).bind(dbStatus, idTransaction).run()
         break
       
-      case 'failed':
-      case 'declined':
-      case 'rejected':
-        console.log('[WEBHOOK SUITPAY] 🚫 Pagamento recusado:', paymentId)
+      case 'CHARGEBACK':
+        // Chargeback (estorno forçado pelo cliente)
+        console.log('[WEBHOOK SUITPAY] 💳 Chargeback recebido:', idTransaction)
+        dbStatus = 'refunded'
         
         await DB.prepare(`
           UPDATE sales 
-          SET status = 'failed'
+          SET status = ?
           WHERE suitpay_payment_id = ?
-        `).bind(paymentId).run()
+        `).bind(dbStatus, idTransaction).run()
         break
       
       default:
-        console.log('[WEBHOOK SUITPAY] ℹ️ Status não processado:', status)
+        console.log('[WEBHOOK SUITPAY] ℹ️ Status não mapeado:', statusTransaction)
+        // Não atualizar o banco para status desconhecidos
     }
     
-    // Retornar 200 OK para confirmar recebimento
+    // Retornar 200 OK para confirmar recebimento (obrigatório para SuitPay)
     return c.json({ 
-      received: true, 
-      status: status,
-      payment_id: paymentId 
-    })
+      success: true,
+      received: true,
+      idTransaction,
+      statusTransaction,
+      processedAt: new Date().toISOString()
+    }, 200)
+    
   } catch (error) {
     console.error('[WEBHOOK SUITPAY] ❌ Erro ao processar webhook:', error)
-    return c.json({ error: 'Webhook processing failed' }, 500)
+    return c.json({ 
+      success: false,
+      error: 'Webhook processing failed',
+      message: error.message 
+    }, 500)
   }
 })
 
