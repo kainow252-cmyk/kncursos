@@ -2055,6 +2055,119 @@ app.get('/api/cron/check-pending-payments', async (c) => {
   }
 })
 
+// ============= REENVIO DE EMAIL =============
+// Endpoint para reenviar email de acesso para vendas completed
+
+app.post('/api/resend-email/:saleId', async (c) => {
+  const { DB, RESEND_API_KEY, EMAIL_FROM } = c.env
+  const saleId = c.req.param('saleId')
+  
+  console.log(`[RESEND EMAIL] 📧 Reenviando email para venda ${saleId}...`)
+  
+  try {
+    // Buscar venda
+    const sale = await DB.prepare(`
+      SELECT 
+        s.id,
+        s.customer_name,
+        s.customer_email,
+        s.amount,
+        s.status,
+        s.access_token,
+        s.payment_id,
+        c.title as course_title,
+        c.pdf_url
+      FROM sales s
+      JOIN courses c ON s.course_id = c.id
+      WHERE s.id = ?
+    `).bind(saleId).first()
+    
+    if (!sale) {
+      return c.json({ error: 'Venda não encontrada' }, 404)
+    }
+    
+    if (sale.status !== 'completed') {
+      return c.json({ 
+        error: 'Venda não está completa',
+        status: sale.status 
+      }, 400)
+    }
+    
+    // Preparar email
+    const resend = new Resend(RESEND_API_KEY)
+    const downloadLink = sale.pdf_url 
+      ? `https://kncursos.com.br/download/${sale.access_token}`
+      : null
+    
+    const emailHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+          .header h1 { margin: 0; font-size: 28px; }
+          .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
+          .button { display: inline-block; background: #10b981; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 20px 0; }
+          .info { background: white; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #10b981; }
+          .footer { text-align: center; color: #6b7280; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <h1>🎉 Seu Acesso ao Curso!</h1>
+        </div>
+        <div class="content">
+          <p>Olá <strong>${sale.customer_name}</strong>,</p>
+          <p>Aqui está o acesso ao seu curso:</p>
+          <div class="info">
+            <p><strong>Curso:</strong> ${sale.course_title}</p>
+            <p><strong>Valor:</strong> R$ ${parseFloat(sale.amount).toFixed(2)}</p>
+            ${sale.payment_id ? `<p><strong>ID Pagamento:</strong> ${sale.payment_id}</p>` : ''}
+          </div>
+          ${downloadLink ? `
+            <p>Clique no botão abaixo para fazer o download do seu curso:</p>
+            <a href="${downloadLink}" class="button">📥 Baixar Curso Agora</a>
+            <p><small>Este link é exclusivo e permanente para você.</small></p>
+          ` : `
+            <p>O acesso ao curso será liberado em breve. Você receberá um novo email com as instruções.</p>
+          `}
+          <div class="footer">
+            <p>Se você tiver alguma dúvida, entre em contato conosco.</p>
+            <p>© ${new Date().getFullYear()} KN Cursos - Todos os direitos reservados</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `
+    
+    // Enviar email
+    await resend.emails.send({
+      from: EMAIL_FROM,
+      to: sale.customer_email,
+      subject: `Seu acesso ao curso: ${sale.course_title}`,
+      html: emailHtml
+    })
+    
+    console.log(`[RESEND EMAIL] ✅ Email reenviado para ${sale.customer_email}`)
+    
+    return c.json({
+      success: true,
+      message: 'Email reenviado com sucesso',
+      sale_id: sale.id,
+      customer: sale.customer_name,
+      email: sale.customer_email
+    })
+    
+  } catch (error) {
+    console.error('[RESEND EMAIL] ❌ Erro:', error)
+    return c.json({ 
+      error: error.message 
+    }, 500)
+  }
+})
+
 // ============= VENDAS / SALES =============
 
 // Processar pagamento e registrar venda com Mercado Pago
