@@ -9,6 +9,7 @@ type Bindings = {
   DB: D1Database;
   R2: R2Bucket;
   MERCADOPAGO_ACCESS_TOKEN: string;
+  MERCADOPAGO_TEST_ACCESS_TOKEN: string;
   MERCADOPAGO_PUBLIC_KEY: string;
   RESEND_API_KEY: string;
   RESEND_WEBHOOK_SECRET: string;
@@ -1851,6 +1852,209 @@ app.post('/api/webhooks/mercadopago', async (c) => {
   }
 })
 
+// ============= CRONJOB: VERIFICAR PAGAMENTOS PENDENTES =============
+// Endpoint que pode ser chamado por serviços externos de cronjob (cron-job.org, EasyCron, etc)
+// Configure para rodar a cada 3 minutos: */3 * * * *
+
+app.get('/api/cron/check-pending-payments', async (c) => {
+  console.log('[CRONJOB] 🔄 Iniciando verificação de pagamentos pendentes...')
+  
+  try {
+    const { DB, MERCADOPAGO_ACCESS_TOKEN, RESEND_API_KEY, EMAIL_FROM } = c.env
+    
+    // Buscar vendas pendentes dos últimos 30 minutos
+    const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString().slice(0, 19).replace('T', ' ')
+    
+    const pendingSales = await DB.prepare(`
+      SELECT 
+        s.id,
+        s.customer_name,
+        s.customer_email,
+        s.amount,
+        s.payment_id,
+        s.access_token,
+        s.status,
+        s.purchased_at,
+        c.title as course_title,
+        c.pdf_url
+      FROM sales s
+      JOIN courses c ON s.course_id = c.id
+      WHERE s.status = 'pending'
+        AND s.payment_id IS NOT NULL
+        AND s.purchased_at >= ?
+      ORDER BY s.purchased_at DESC
+    `).bind(thirtyMinutesAgo).all()
+    
+    console.log(`[CRONJOB] 📋 Encontradas ${pendingSales.results.length} vendas pendentes`)
+    
+    if (pendingSales.results.length === 0) {
+      return c.json({
+        success: true,
+        message: 'Nenhuma venda pendente para verificar',
+        checked: 0,
+        approved: 0,
+        rejected: 0,
+        stillPending: 0
+      })
+    }
+    
+    let approvedCount = 0
+    let rejectedCount = 0
+    let stillPendingCount = 0
+    const processedSales = []
+    
+    // Processar cada venda pendente
+    for (const sale of pendingSales.results as any[]) {
+      try {
+        console.log(`[CRONJOB] 🔍 Verificando pagamento ${sale.payment_id}...`)
+        
+        // Consultar status no Mercado Pago
+        const mpResponse = await fetch(`https://api.mercadopago.com/v1/payments/${sale.payment_id}`, {
+          headers: {
+            'Authorization': `Bearer ${MERCADOPAGO_ACCESS_TOKEN}`,
+            'Content-Type': 'application/json'
+          }
+        })
+        
+        if (!mpResponse.ok) {
+          console.error(`[CRONJOB] ⚠️ Erro ao consultar MP: ${mpResponse.status}`)
+          continue
+        }
+        
+        const paymentData = await mpResponse.json()
+        const mpStatus = paymentData.status
+        
+        console.log(`[CRONJOB] 📊 Payment ${sale.payment_id} - Status: ${mpStatus}`)
+        
+        // Mapear status
+        let newStatus = 'pending'
+        
+        if (mpStatus === 'approved' || mpStatus === 'authorized') {
+          newStatus = 'completed'
+          approvedCount++
+        } else if (mpStatus === 'rejected' || mpStatus === 'cancelled') {
+          newStatus = 'failed'
+          rejectedCount++
+        } else if (mpStatus === 'pending' || mpStatus === 'in_process') {
+          stillPendingCount++
+          continue
+        } else if (mpStatus === 'refunded' || mpStatus === 'charged_back') {
+          newStatus = 'refunded'
+        }
+        
+        // Atualizar status no banco
+        console.log(`[CRONJOB] 💾 Atualizando venda ${sale.id} para '${newStatus}'`)
+        
+        const updateResult = await DB.prepare(`
+          UPDATE sales 
+          SET status = ?
+          WHERE id = ?
+        `).bind(newStatus, sale.id).run()
+        
+        console.log(`[CRONJOB] 📊 Update: ${updateResult.changes} row(s) affected`)
+        
+        processedSales.push({
+          sale_id: sale.id,
+          payment_id: sale.payment_id,
+          old_status: 'pending',
+          new_status: newStatus,
+          customer: sale.customer_name
+        })
+        
+        // Se aprovado, enviar email
+        if (newStatus === 'completed') {
+          console.log(`[CRONJOB] 📧 Enviando email para ${sale.customer_email}...`)
+          
+          const downloadLink = sale.pdf_url 
+            ? `https://kncursos.com.br/download/${sale.access_token}`
+            : null
+          
+          const emailHtml = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <meta charset="utf-8">
+              <style>
+                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+                .header { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+                .header h1 { margin: 0; font-size: 28px; }
+                .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
+                .button { display: inline-block; background: #10b981; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 20px 0; }
+                .info { background: white; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #10b981; }
+                .footer { text-align: center; color: #6b7280; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
+              </style>
+            </head>
+            <body>
+              <div class="header">
+                <h1>🎉 Pagamento Confirmado!</h1>
+              </div>
+              <div class="content">
+                <p>Olá <strong>${sale.customer_name}</strong>,</p>
+                <p>Seu pagamento foi aprovado com sucesso!</p>
+                <div class="info">
+                  <p><strong>Curso:</strong> ${sale.course_title}</p>
+                  <p><strong>Valor:</strong> R$ ${parseFloat(sale.amount).toFixed(2)}</p>
+                  <p><strong>ID Pagamento:</strong> ${sale.payment_id}</p>
+                </div>
+                ${downloadLink ? `
+                  <p>Clique no botão abaixo para fazer o download do seu curso:</p>
+                  <a href="${downloadLink}" class="button">📥 Baixar Curso Agora</a>
+                  <p><small>Este link é exclusivo e permanente para você.</small></p>
+                ` : `
+                  <p>O acesso ao curso será liberado em breve. Você receberá um novo email com as instruções.</p>
+                `}
+                <div class="footer">
+                  <p>Se você tiver alguma dúvida, entre em contato conosco.</p>
+                  <p>© ${new Date().getFullYear()} KN Cursos - Todos os direitos reservados</p>
+                </div>
+              </div>
+            </body>
+            </html>
+          `
+          
+          try {
+            const resend = new Resend(RESEND_API_KEY)
+            await resend.emails.send({
+              from: EMAIL_FROM,
+              to: sale.customer_email,
+              subject: `Seu acesso ao curso: ${sale.course_title}`,
+              html: emailHtml
+            })
+            console.log(`[CRONJOB] ✅ Email enviado`)
+          } catch (emailError) {
+            console.error(`[CRONJOB] ⚠️ Erro ao enviar email:`, emailError)
+          }
+        }
+        
+      } catch (error) {
+        console.error(`[CRONJOB] ❌ Erro ao processar venda ${sale.id}:`, error)
+      }
+    }
+    
+    console.log('[CRONJOB] ✅ Verificação concluída!')
+    console.log(`[CRONJOB] 📊 Resumo: ${approvedCount} aprovados | ${rejectedCount} rejeitados | ${stillPendingCount} pendentes`)
+    
+    return c.json({
+      success: true,
+      message: 'Verificação concluída',
+      checked: pendingSales.results.length,
+      approved: approvedCount,
+      rejected: rejectedCount,
+      stillPending: stillPendingCount,
+      processed: processedSales,
+      timestamp: new Date().toISOString()
+    })
+    
+  } catch (error) {
+    console.error('[CRONJOB] ❌ Erro geral:', error)
+    return c.json({
+      success: false,
+      error: error.message,
+      timestamp: new Date().toISOString()
+    }, 500)
+  }
+})
+
 // ============= VENDAS / SALES =============
 
 // Processar pagamento e registrar venda com Mercado Pago
@@ -2121,7 +2325,7 @@ app.post('/api/sales', async (c) => {
       customer_email,
       customer_phone || null,
       parseFloat(link.price),
-      'completed',
+      'pending',  // ✅ Mudado de 'completed' para 'pending'
       access_token,
       card_last4,
       card_brand,
@@ -2129,79 +2333,9 @@ app.post('/api/sales', async (c) => {
       paymentGateway
     ).run()
     
-    console.log('[SALES] ✅ Venda registrada com sucesso!')
+    console.log('[SALES] ✅ Venda registrada com status PENDING - aguardando confirmação do cronjob')
     
-    // Enviar email de confirmação
-    console.log('[EMAIL] Enviando email de confirmação...')
-    
-    const resend = new Resend(RESEND_API_KEY)
-    
-    const downloadLink = link.pdf_url 
-      ? `https://kncursos.com.br/download/${access_token}`
-      : null
-    
-    const emailHtml = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
-          .header { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-          .header h1 { margin: 0; font-size: 28px; }
-          .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
-          .button { display: inline-block; background: #10b981; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 20px 0; }
-          .button:hover { background: #059669; }
-          .info { background: white; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #10b981; }
-          .footer { text-align: center; color: #6b7280; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
-        </style>
-      </head>
-      <body>
-        <div class="header">
-          <h1>🎉 Pagamento Confirmado!</h1>
-        </div>
-        <div class="content">
-          <p>Olá <strong>${customer_name}</strong>,</p>
-          
-          <p>Seu pagamento foi aprovado com sucesso!</p>
-          
-          <div class="info">
-            <p><strong>Curso:</strong> ${link.title}</p>
-            <p><strong>Valor:</strong> R$ ${parseFloat(link.price).toFixed(2)}</p>
-            <p><strong>Gateway:</strong> Mercado Pago</p>
-            <p><strong>Cartão:</strong> **** ${card_last4}</p>
-            <p><strong>ID Pagamento:</strong> ${paymentId}</p>
-          </div>
-          
-          ${downloadLink ? `
-            <p>Clique no botão abaixo para fazer o download do seu curso:</p>
-            <a href="${downloadLink}" class="button">📥 Baixar Curso Agora</a>
-            <p><small>Este link é exclusivo e permanente para você.</small></p>
-          ` : `
-            <p>O acesso ao curso será liberado em breve. Você receberá um novo email com as instruções.</p>
-          `}
-          
-          <div class="footer">
-            <p>Se você tiver alguma dúvida, entre em contato conosco.</p>
-            <p>© ${new Date().getFullYear()} KN Cursos - Todos os direitos reservados</p>
-          </div>
-        </div>
-      </body>
-      </html>
-    `
-    
-    try {
-      await resend.emails.send({
-        from: EMAIL_FROM,
-        to: customer_email,
-        subject: `Seu acesso ao curso: ${link.title}`,
-        html: emailHtml
-      })
-      console.log('[EMAIL] ✅ Email enviado com sucesso!')
-    } catch (emailError) {
-      console.error('[EMAIL] ⚠️ Erro ao enviar email:', emailError)
-      // Não falhar a venda se o email falhar
-    }
+    // ❌ EMAIL REMOVIDO DAQUI - Será enviado pelo cronjob após confirmação real do pagamento
     
     // Retornar sucesso
     return c.json({
