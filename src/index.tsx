@@ -2450,15 +2450,20 @@ app.post('/api/sales', async (c) => {
     
     // ❌ EMAIL REMOVIDO DAQUI - Será enviado pelo cronjob após confirmação real do pagamento
     
+    // Preparar URL de download (se PDF disponível)
+    const downloadUrl = link.pdf_url 
+      ? `https://kncursos.com.br/download/${access_token}`
+      : null
+    
     // Retornar sucesso
     return c.json({
       success: true,
       access_token,
       payment_id: paymentId,
       gateway: paymentGateway,
-      download_url: downloadLink,
+      download_url: downloadUrl,
       course_title: link.title,
-      message: 'Pagamento aprovado! Verifique seu email para acessar o curso.'
+      message: 'Pagamento em processamento! Você receberá um email em até 3 minutos com o acesso ao curso.'
     }, 201)
     
   } catch (error) {
