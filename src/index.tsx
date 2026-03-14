@@ -1671,13 +1671,18 @@ app.post('/api/webhooks/mercadopago', async (c) => {
         console.log('[WEBHOOK MP] 🔍 Novo status:', dbStatus)
         
         // Atualizar status e payment_id da venda no banco
-        await DB.prepare(`
+        const updateResult = await DB.prepare(`
           UPDATE sales 
           SET status = ?, payment_id = ?
           WHERE id = ?
         `).bind(dbStatus, paymentId.toString(), sale.id).run()
         
         console.log('[WEBHOOK MP] ✅ Status da venda atualizado no banco')
+        console.log('[WEBHOOK MP] 📊 Linhas afetadas:', updateResult.meta.changes)
+        
+        if (updateResult.meta.changes === 0) {
+          console.error('[WEBHOOK MP] ⚠️ Nenhuma linha foi atualizada! ID:', sale.id)
+        }
         
         // Se o pagamento foi aprovado e o status mudou, enviar email
         if (dbStatus === 'completed' && sale.status !== 'completed') {
