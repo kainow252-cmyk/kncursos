@@ -1863,35 +1863,13 @@ app.post('/api/sales', async (c) => {
       console.log('[SUITPAY] Cliente:', customer_name, customer_email)
       
       const suitpayBaseUrl = SUITPAY_ENV === 'production'
-        ? 'https://api.suitpay.app'
-        : 'https://sandbox.suitpay.app'
+        ? 'https://ws.suitpay.app'
+        : 'https://sandbox.ws.suitpay.app'
       
-      // 1. Autenticar e obter token
-      console.log('[SUITPAY] Autenticando...')
-      const authResponse = await fetch(`${suitpayBaseUrl}/api/v1/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          client_id: SUITPAY_CLIENT_ID,
-          client_secret: SUITPAY_CLIENT_SECRET
-        })
-      })
+      // SuitPay NÃO usa endpoint de autenticação!
+      // As chaves ci e cs devem ser enviadas diretamente no cabeçalho HTTP
+      console.log('[SUITPAY] Processando pagamento com cartão...')
       
-      if (!authResponse.ok) {
-        const authError = await authResponse.text()
-        console.error('[SUITPAY] Erro de autenticação:', authError)
-        throw new Error('Falha na autenticação SuitPay')
-      }
-      
-      const authData = await authResponse.json()
-      const suitpayToken = authData.token || authData.access_token
-      console.log('[SUITPAY] Token obtido com sucesso')
-      
-      // 2. Processar pagamento com cartão
-      console.log('[SUITPAY] Processando pagamento...')
       const paymentData = {
         amount: parseFloat(link.price),
         description: link.title,
@@ -1915,12 +1893,13 @@ app.post('/api/sales', async (c) => {
         }
       }
       
-      const paymentResponse = await fetch(`${suitpayBaseUrl}/api/v1/payments/credit_card`, {
+      const paymentResponse = await fetch(`${suitpayBaseUrl}/api/v1/gateway/request-qrcode`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': `Bearer ${suitpayToken}`
+          'ci': SUITPAY_CLIENT_ID,
+          'cs': SUITPAY_CLIENT_SECRET
         },
         body: JSON.stringify(paymentData)
       })
