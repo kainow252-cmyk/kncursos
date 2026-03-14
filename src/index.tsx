@@ -1703,7 +1703,7 @@ app.post('/api/sales', async (c) => {
     const tokenResponse = await fetch('https://api.mercadopago.com/v1/card_tokens', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${MERCADOPAGO_PUBLIC_KEY}`,
+        'Authorization': `Bearer ${MERCADOPAGO_ACCESS_TOKEN}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
