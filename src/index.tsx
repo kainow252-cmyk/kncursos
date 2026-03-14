@@ -2065,10 +2065,21 @@ app.post('/api/sales', async (c) => {
       console.log('[ASAAS] Novo cliente criado:', asaasCustomerId)
     }
     
-    // 2. Tokenizar cartão de crédito (endpoint correto!)
-    console.log('[ASAAS] Tokenizando cartão...')
+    // 2. Criar assinatura de pagamento único com cartão
+    // (Subscriptions valida e cobra o cartão imediatamente quando maxPayments=1)
+    console.log('[ASAAS] Criando assinatura de pagamento único...')
     
-    const tokenizeData = {
+    const today = new Date()
+    const nextDueDate = today.toISOString().split('T')[0]
+    
+    const subscriptionData = {
+      customer: asaasCustomerId,
+      billingType: 'CREDIT_CARD',
+      value: parseFloat(link.price),
+      nextDueDate: nextDueDate,
+      cycle: 'MONTHLY',
+      description: link.title,
+      maxPayments: 1, // Apenas 1 pagamento (não é assinatura recorrente)
       creditCard: {
         holderName: card_holder_name,
         number: card_number.replace(/\s/g, ''),
@@ -2084,63 +2095,11 @@ app.post('/api/sales', async (c) => {
         addressNumber: '277',
         phone: customer_phone?.replace(/\D/g, '') || '4738010919'
       },
-      customer: asaasCustomerId,
-      remoteIp: c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for') || '127.0.0.1'
-    }
-    
-    const tokenizeResponse = await fetch(
-      `${asaasBaseUrl}/v3/creditCard/tokenizeCreditCard`,
-      {
-        method: 'POST',
-        headers: {
-          'access_token': ASAAS_API_KEY,
-          'Content-Type': 'application/json',
-          'User-Agent': 'kncursos/1.0'
-        },
-        body: JSON.stringify(tokenizeData)
-      }
-    )
-    
-    console.log('[ASAAS] Status tokenização:', tokenizeResponse.status)
-    
-    if (!tokenizeResponse.ok) {
-      const errorText = await tokenizeResponse.text()
-      console.error('[ASAAS] Erro ao tokenizar cartão:', errorText)
-      throw new Error(`Asaas retornou erro ${tokenizeResponse.status} ao tokenizar cartão`)
-    }
-    
-    const tokenizeText = await tokenizeResponse.text()
-    let tokenizeResult
-    try {
-      tokenizeResult = JSON.parse(tokenizeText)
-    } catch (parseError) {
-      console.error('[ASAAS] Erro ao fazer parse da tokenização')
-      throw new Error('Asaas retornou resposta inválida ao tokenizar cartão')
-    }
-    
-    const creditCardToken = tokenizeResult.creditCardToken
-    console.log('[ASAAS] Token do cartão obtido:', creditCardToken ? 'SIM' : 'NÃO')
-    
-    if (!creditCardToken) {
-      console.error('[ASAAS] Tokenização não retornou token:', tokenizeResult)
-      throw new Error('Asaas não retornou token do cartão')
-    }
-    
-    // 3. Processar pagamento com o token
-    console.log('[ASAAS] Processando pagamento...')
-    
-    const paymentData = {
-      customer: asaasCustomerId,
-      billingType: 'CREDIT_CARD',
-      value: parseFloat(link.price),
-      dueDate: new Date().toISOString().split('T')[0],
-      description: link.title,
-      creditCardToken: creditCardToken,
       remoteIp: c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for') || '127.0.0.1'
     }
     
     const paymentResponse = await fetch(
-      `${asaasBaseUrl}/api/v3/payments`,
+      `${asaasBaseUrl}/v3/subscriptions`,
       {
         method: 'POST',
         headers: {
@@ -2148,12 +2107,12 @@ app.post('/api/sales', async (c) => {
           'Content-Type': 'application/json',
           'User-Agent': 'kncursos/1.0'
         },
-        body: JSON.stringify(paymentData)
+        body: JSON.stringify(subscriptionData)
       }
     )
     
     if (!paymentResponse.ok) {
-      console.error('[ASAAS] Erro HTTP ao processar pagamento:', paymentResponse.status)
+      console.error('[ASAAS] Erro HTTP ao processar assinatura:', paymentResponse.status)
       throw new Error(`Asaas retornou erro ${paymentResponse.status} ao processar pagamento`)
     }
     
@@ -2166,16 +2125,16 @@ app.post('/api/sales', async (c) => {
       throw new Error('Asaas retornou resposta inválida ao processar pagamento')
     }
     
-    console.log('[ASAAS] Resposta do pagamento:', paymentResult)
+    console.log('[ASAAS] Resposta da assinatura:', paymentResult)
     
-    // Verificar se pagamento foi aprovado
-    if (!paymentResponse.ok || paymentResult.status !== 'CONFIRMED') {
-      console.error('[ASAAS] ❌ Pagamento não aprovado:', paymentResult)
-      throw new Error('Pagamento recusado pelo Asaas')
+    // Assinatura criada com sucesso (status pode ser ACTIVE)
+    if (!paymentResponse.ok || (paymentResult.status !== 'ACTIVE' && paymentResult.status !== 'CONFIRMED')) {
+      console.error('[ASAAS] ❌ Assinatura não criada:', paymentResult)
+      throw new Error('Assinatura recusada pelo Asaas')
     }
     
     // Asaas funcionou!
-    console.log('[ASAAS] ✅ Pagamento aprovado!')
+    console.log('[ASAAS] ✅ Assinatura criada com sucesso!')
     paymentSuccess = true
     paymentGateway = 'asaas'
     paymentId = paymentResult.id
