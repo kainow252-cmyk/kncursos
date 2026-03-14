@@ -1906,7 +1906,7 @@ app.post('/api/sales', async (c) => {
             number: customer_cpf.replace(/\D/g, '')
           }
         },
-        security_code: card_cvv,
+        security_code: card_cvv.replace(/\D/g, ''),
         expiration_month: parseInt(card_expiry_month),
         expiration_year: parseInt(card_expiry_year)
       })
@@ -4163,7 +4163,7 @@ app.get('/checkout/:code', async (c) => {
                     
                     // Log detalhado dos details se existir
                     if (error.response?.data?.details) {
-                        console.error('DETALHES DO ERRO ASAAS:', JSON.stringify(error.response.data.details, null, 2));
+                        console.error('DETALHES DO ERRO MERCADOPAGO:', JSON.stringify(error.response.data.details, null, 2));
                     }
                     
                     let errorMsg = 'Erro ao processar pagamento. Verifique os dados do cartão e tente novamente.';
