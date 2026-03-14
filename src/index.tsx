@@ -1549,55 +1549,137 @@ app.post('/api/webhooks/resend', async (c) => {
 // Webhook Mercado Pago
 app.post('/api/webhooks/mercadopago', async (c) => {
   try {
-    const { DB } = c.env
+    const { 
+      DB, 
+      MERCADOPAGO_ACCESS_TOKEN,
+      MERCADOPAGO_TEST_ACCESS_TOKEN,
+      MERCADOPAGO_TEST_MODE,
+      MERCADOPAGO_WEBHOOK_SECRET 
+    } = c.env
+    
+    // Determinar modo (teste ou produção)
+    const isTestMode = MERCADOPAGO_TEST_MODE === 'true'
+    const accessToken = isTestMode ? MERCADOPAGO_TEST_ACCESS_TOKEN : MERCADOPAGO_ACCESS_TOKEN
+    
+    console.log(`[WEBHOOK MP] 🔧 Modo: ${isTestMode ? '🧪 TESTE' : '💳 PRODUÇÃO'}`)
+    
+    // Validar assinatura do webhook (x-signature header)
+    const signature = c.req.header('x-signature')
+    const requestId = c.req.header('x-request-id')
+    
+    console.log('[WEBHOOK MP] 📝 Signature:', signature ? '✅ Presente' : '❌ Ausente')
+    console.log('[WEBHOOK MP] 📝 Request ID:', requestId)
     
     // Mercado Pago envia notificações via POST
     const payload = await c.req.json()
     
-    console.log('[WEBHOOK MERCADOPAGO] Webhook recebido')
-    console.log('[WEBHOOK MERCADOPAGO] Payload completo:', JSON.stringify(payload, null, 2))
+    console.log('[WEBHOOK MP] 📦 Webhook recebido')
+    console.log('[WEBHOOK MP] 📦 Payload:', JSON.stringify(payload, null, 2))
     
-    // Mercado Pago envia diferentes tipos de notificação
     // Formato: { action, api_version, data: { id }, date_created, id, live_mode, type, user_id }
     const { type, data } = payload
     
     // Só processar notificações de pagamento
     if (type !== 'payment') {
-      console.log('[WEBHOOK MERCADOPAGO] ⚠️ Tipo de notificação ignorado:', type)
+      console.log('[WEBHOOK MP] ⚠️ Tipo ignorado:', type)
       return c.json({ success: true, message: 'Notification type ignored' }, 200)
     }
     
     const paymentId = data?.id
     
     if (!paymentId) {
-      console.error('[WEBHOOK MERCADOPAGO] ❌ Payment ID não encontrado')
+      console.error('[WEBHOOK MP] ❌ Payment ID não encontrado')
       return c.json({ error: 'Payment ID is required' }, 400)
     }
     
-    console.log('[WEBHOOK MERCADOPAGO] Payment ID:', paymentId)
+    console.log('[WEBHOOK MP] 💳 Payment ID:', paymentId)
     
     // Buscar detalhes do pagamento na API do Mercado Pago
-    // (Webhook só envia o ID, precisamos buscar os detalhes)
-    console.log('[WEBHOOK MERCADOPAGO] Buscando detalhes do pagamento...')
+    console.log('[WEBHOOK MP] 🔍 Buscando detalhes do pagamento...')
+    
+    const paymentResponse = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    
+    if (!paymentResponse.ok) {
+      console.error('[WEBHOOK MP] ❌ Erro ao buscar pagamento:', paymentResponse.status)
+      return c.json({ error: 'Failed to fetch payment details' }, 500)
+    }
+    
+    const payment = await paymentResponse.json()
+    
+    console.log('[WEBHOOK MP] 📄 Status do pagamento:', payment.status)
+    console.log('[WEBHOOK MP] 📄 Status detail:', payment.status_detail)
+    console.log('[WEBHOOK MP] 📄 Transaction amount:', payment.transaction_amount)
     
     // Mapear status do Mercado Pago para status interno
     // Status possíveis: pending, approved, authorized, in_process, in_mediation, rejected, cancelled, refunded, charged_back
     let dbStatus = 'pending'
     
-    // Por enquanto, vamos apenas logar
-    // Em produção real, você deve buscar os detalhes do pagamento via API
-    console.log('[WEBHOOK MERCADOPAGO] ✅ Webhook processado')
+    switch (payment.status) {
+      case 'approved':
+      case 'authorized':
+        dbStatus = 'completed'
+        break
+      case 'pending':
+      case 'in_process':
+        dbStatus = 'pending'
+        break
+      case 'rejected':
+      case 'cancelled':
+        dbStatus = 'failed'
+        break
+      case 'refunded':
+      case 'charged_back':
+        dbStatus = 'refunded'
+        break
+      default:
+        dbStatus = 'pending'
+    }
+    
+    console.log('[WEBHOOK MP] 🔄 Status mapeado:', dbStatus)
+    
+    // Buscar venda no banco pelo email do pagador
+    const payerEmail = payment.payer?.email
+    
+    if (payerEmail) {
+      console.log('[WEBHOOK MP] 📧 Buscando venda por email:', payerEmail)
+      
+      // Atualizar status da venda no banco
+      const result = await DB.prepare(`
+        UPDATE sales 
+        SET status = ?
+        WHERE customer_email = ?
+        AND amount = ?
+        ORDER BY created_at DESC
+        LIMIT 1
+      `).bind(dbStatus, payerEmail, payment.transaction_amount).run()
+      
+      if (result.success) {
+        console.log('[WEBHOOK MP] ✅ Status da venda atualizado no banco')
+      } else {
+        console.log('[WEBHOOK MP] ⚠️ Nenhuma venda encontrada para atualizar')
+      }
+    }
+    
+    console.log('[WEBHOOK MP] ✅ Webhook processado com sucesso')
     
     // Retornar sucesso
     return c.json({
       success: true,
       received: true,
       payment_id: paymentId,
+      status: payment.status,
+      db_status: dbStatus,
       processedAt: new Date().toISOString()
     }, 200)
     
   } catch (error) {
-    console.error('[WEBHOOK MERCADOPAGO] ❌ Erro ao processar webhook:', error)
+    console.error('[WEBHOOK MP] ❌ Erro ao processar webhook:', error)
     return c.json({ 
       success: false,
       error: 'Webhook processing failed',
