@@ -2065,30 +2065,77 @@ app.post('/api/sales', async (c) => {
       console.log('[ASAAS] Novo cliente criado:', asaasCustomerId)
     }
     
-    // 2. Processar pagamento com cartão de crédito
-    console.log('[ASAAS] Processando pagamento...')
+    // 2. Tokenizar cartão de crédito (endpoint correto!)
+    console.log('[ASAAS] Tokenizando cartão...')
     
-    const paymentData = {
-      customer: asaasCustomerId,
-      billingType: 'CREDIT_CARD',
-      value: parseFloat(link.price),
-      dueDate: new Date().toISOString().split('T')[0], // Data de hoje
-      description: link.title,
+    const tokenizeData = {
       creditCard: {
         holderName: card_holder_name,
         number: card_number.replace(/\s/g, ''),
-        expiryMonth: card_expiration_month.padStart(2, '0'),
-        expiryYear: card_expiration_year,
+        expiryMonth: card_expiry_month.padStart(2, '0'),
+        expiryYear: card_expiry_year,
         ccv: card_cvv
       },
       creditCardHolderInfo: {
         name: customer_name,
         email: customer_email,
         cpfCnpj: customer_cpf.replace(/\D/g, ''),
-        postalCode: '89223005', // CEP válido para testes (da documentação Asaas)
+        postalCode: '89223005',
         addressNumber: '277',
         phone: customer_phone?.replace(/\D/g, '') || '4738010919'
       },
+      customer: asaasCustomerId,
+      remoteIp: c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for') || '127.0.0.1'
+    }
+    
+    const tokenizeResponse = await fetch(
+      `${asaasBaseUrl}/v3/creditCard/tokenizeCreditCard`,
+      {
+        method: 'POST',
+        headers: {
+          'access_token': ASAAS_API_KEY,
+          'Content-Type': 'application/json',
+          'User-Agent': 'kncursos/1.0'
+        },
+        body: JSON.stringify(tokenizeData)
+      }
+    )
+    
+    console.log('[ASAAS] Status tokenização:', tokenizeResponse.status)
+    
+    if (!tokenizeResponse.ok) {
+      const errorText = await tokenizeResponse.text()
+      console.error('[ASAAS] Erro ao tokenizar cartão:', errorText)
+      throw new Error(`Asaas retornou erro ${tokenizeResponse.status} ao tokenizar cartão`)
+    }
+    
+    const tokenizeText = await tokenizeResponse.text()
+    let tokenizeResult
+    try {
+      tokenizeResult = JSON.parse(tokenizeText)
+    } catch (parseError) {
+      console.error('[ASAAS] Erro ao fazer parse da tokenização')
+      throw new Error('Asaas retornou resposta inválida ao tokenizar cartão')
+    }
+    
+    const creditCardToken = tokenizeResult.creditCardToken
+    console.log('[ASAAS] Token do cartão obtido:', creditCardToken ? 'SIM' : 'NÃO')
+    
+    if (!creditCardToken) {
+      console.error('[ASAAS] Tokenização não retornou token:', tokenizeResult)
+      throw new Error('Asaas não retornou token do cartão')
+    }
+    
+    // 3. Processar pagamento com o token
+    console.log('[ASAAS] Processando pagamento...')
+    
+    const paymentData = {
+      customer: asaasCustomerId,
+      billingType: 'CREDIT_CARD',
+      value: parseFloat(link.price),
+      dueDate: new Date().toISOString().split('T')[0],
+      description: link.title,
+      creditCardToken: creditCardToken,
       remoteIp: c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for') || '127.0.0.1'
     }
     
