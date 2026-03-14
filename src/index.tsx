@@ -1610,7 +1610,23 @@ app.post('/api/webhooks/mercadopago', async (c) => {
 
 // Processar pagamento e registrar venda com Mercado Pago
 app.post('/api/sales', async (c) => {
-  const { DB, RESEND_API_KEY, EMAIL_FROM, MERCADOPAGO_ACCESS_TOKEN, MERCADOPAGO_PUBLIC_KEY } = c.env
+  const { 
+    DB, 
+    RESEND_API_KEY, 
+    EMAIL_FROM, 
+    MERCADOPAGO_ACCESS_TOKEN, 
+    MERCADOPAGO_PUBLIC_KEY,
+    MERCADOPAGO_TEST_ACCESS_TOKEN,
+    MERCADOPAGO_TEST_PUBLIC_KEY,
+    MERCADOPAGO_TEST_MODE
+  } = c.env
+  
+  // Determinar modo (teste ou produção)
+  const isTestMode = MERCADOPAGO_TEST_MODE === 'true'
+  const accessToken = isTestMode ? MERCADOPAGO_TEST_ACCESS_TOKEN : MERCADOPAGO_ACCESS_TOKEN
+  const publicKey = isTestMode ? MERCADOPAGO_TEST_PUBLIC_KEY : MERCADOPAGO_PUBLIC_KEY
+  
+  console.log(`[MERCADOPAGO] 🔧 Modo: ${isTestMode ? '🧪 TESTE' : '💳 PRODUÇÃO'}`)
   
   try {
     const body = await c.req.json()
@@ -1703,7 +1719,7 @@ app.post('/api/sales', async (c) => {
     const tokenResponse = await fetch('https://api.mercadopago.com/v1/card_tokens', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${MERCADOPAGO_ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -1740,7 +1756,7 @@ app.post('/api/sales', async (c) => {
     const mpResponse = await fetch('https://api.mercadopago.com/v1/payments', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${MERCADOPAGO_ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
         'X-Idempotency-Key': `kncursos-${Date.now()}`
       },
