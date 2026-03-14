@@ -1959,17 +1959,52 @@ app.post('/api/sales', async (c) => {
     
     const paymentResult = await mpResponse.json()
     console.log('[MERCADOPAGO] Status HTTP:', mpResponse.status)
-    console.log('[MERCADOPAGO] Resposta:', JSON.stringify(paymentResult, null, 2))
+    console.log('[MERCADOPAGO] Status Pagamento:', paymentResult.status)
+    console.log('[MERCADOPAGO] Status Detail:', paymentResult.status_detail)
+    console.log('[MERCADOPAGO] Resposta completa:', JSON.stringify(paymentResult, null, 2))
     
-    // Verificar erros
-    if (!mpResponse.ok || paymentResult.status === 'rejected') {
-      const errorMessage = paymentResult.status_detail || paymentResult.message || 'Pagamento recusado'
-      console.error('[MERCADOPAGO] ❌ Erro:', errorMessage)
+    // Verificar erros explícitos
+    if (!mpResponse.ok) {
+      const errorMessage = paymentResult.message || paymentResult.error || 'Erro ao processar pagamento'
+      console.error('[MERCADOPAGO] ❌ Erro HTTP:', errorMessage)
       
       return c.json({ 
         error: 'Não foi possível processar o pagamento. Tente novamente mais tarde.',
         details: errorMessage
       }, 500)
+    }
+    
+    // Verificar se o pagamento foi rejeitado
+    if (paymentResult.status === 'rejected') {
+      const errorMessage = paymentResult.status_detail || 'Pagamento rejeitado'
+      console.error('[MERCADOPAGO] ❌ Pagamento rejeitado:', errorMessage)
+      
+      // Mapear mensagens de erro comuns
+      let friendlyMessage = 'Pagamento recusado. '
+      switch (paymentResult.status_detail) {
+        case 'cc_rejected_high_risk':
+          friendlyMessage += 'Transação identificada como alto risco. Entre em contato com sua operadora de cartão.'
+          break
+        case 'cc_rejected_insufficient_amount':
+          friendlyMessage += 'Saldo insuficiente no cartão.'
+          break
+        case 'cc_rejected_bad_filled_security_code':
+          friendlyMessage += 'CVV incorreto.'
+          break
+        case 'cc_rejected_bad_filled_card_number':
+          friendlyMessage += 'Número do cartão incorreto.'
+          break
+        case 'cc_rejected_bad_filled_date':
+          friendlyMessage += 'Data de validade incorreta.'
+          break
+        default:
+          friendlyMessage += 'Verifique os dados do cartão e tente novamente.'
+      }
+      
+      return c.json({ 
+        error: friendlyMessage,
+        details: paymentResult.status_detail
+      }, 400)
     }
     
     // Verificar status do pagamento
@@ -2002,12 +2037,12 @@ app.post('/api/sales', async (c) => {
     
     console.log(`[SALES] Registrando venda no banco de dados...`)
     
-    // Inserir venda no banco
+    // Inserir venda no banco COM payment_id e gateway
     await DB.prepare(`
       INSERT INTO sales (
         course_id, link_code, customer_name, customer_cpf, customer_email, customer_phone,
-        amount, status, access_token, card_last4, card_brand
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        amount, status, access_token, card_last4, card_brand, payment_id, gateway
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).bind(
       link.course_id,
       link_code,
@@ -2019,7 +2054,9 @@ app.post('/api/sales', async (c) => {
       'completed',
       access_token,
       card_last4,
-      card_brand
+      card_brand,
+      paymentId,
+      paymentGateway
     ).run()
     
     console.log('[SALES] ✅ Venda registrada com sucesso!')
@@ -2063,6 +2100,7 @@ app.post('/api/sales', async (c) => {
             <p><strong>Valor:</strong> R$ ${parseFloat(link.price).toFixed(2)}</p>
             <p><strong>Gateway:</strong> Mercado Pago</p>
             <p><strong>Cartão:</strong> **** ${card_last4}</p>
+            <p><strong>ID Pagamento:</strong> ${paymentId}</p>
           </div>
           
           ${downloadLink ? `
