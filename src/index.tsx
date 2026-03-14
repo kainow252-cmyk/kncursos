@@ -2121,20 +2121,36 @@ app.post('/api/sales', async (c) => {
     try {
       paymentResult = JSON.parse(paymentText)
     } catch (parseError) {
-      console.error('[ASAAS] Erro ao fazer parse da resposta de pagamento')
-      throw new Error('Asaas retornou resposta inválida ao processar pagamento')
+      console.error('[ASAAS] Erro ao fazer parse da resposta')
+      throw new Error('Asaas retornou resposta inválida')
     }
     
-    console.log('[ASAAS] Resposta da assinatura:', paymentResult)
+    console.log('[ASAAS] Resposta completa:', JSON.stringify(paymentResult, null, 2))
     
-    // Assinatura criada com sucesso (status pode ser ACTIVE)
-    if (!paymentResponse.ok || (paymentResult.status !== 'ACTIVE' && paymentResult.status !== 'CONFIRMED')) {
-      console.error('[ASAAS] ❌ Assinatura não criada:', paymentResult)
-      throw new Error('Assinatura recusada pelo Asaas')
+    // Verificar se há erros na resposta
+    if (paymentResult.errors && paymentResult.errors.length > 0) {
+      const errorMessages = paymentResult.errors.map((e: any) => `${e.code}: ${e.description}`).join(', ')
+      console.error('[ASAAS] ❌ Erros retornados:', errorMessages)
+      throw new Error(`Asaas: ${errorMessages}`)
+    }
+    
+    // Verificar se resposta é um objeto de pagamento/assinatura válido
+    if (!paymentResult.id || !paymentResult.object) {
+      console.error('[ASAAS] ❌ Resposta inválida (sem id ou object):', paymentResult)
+      throw new Error('Asaas não retornou ID válido')
+    }
+    
+    // Status válidos: ACTIVE (assinatura), PENDING, CONFIRMED, RECEIVED
+    const validStatuses = ['ACTIVE', 'PENDING', 'CONFIRMED', 'RECEIVED']
+    if (!validStatuses.includes(paymentResult.status)) {
+      console.error('[ASAAS] ❌ Status inválido:', paymentResult.status)
+      throw new Error(`Asaas: pagamento com status ${paymentResult.status}`)
     }
     
     // Asaas funcionou!
     console.log('[ASAAS] ✅ Assinatura criada com sucesso!')
+    console.log('[ASAAS] ID:', paymentResult.id)
+    console.log('[ASAAS] Status:', paymentResult.status)
     paymentSuccess = true
     paymentGateway = 'asaas'
     paymentId = paymentResult.id
