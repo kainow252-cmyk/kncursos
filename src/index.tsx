@@ -1762,7 +1762,8 @@ app.post('/api/webhooks/mercadopago', async (c) => {
             const Resend = (await import('resend')).Resend
             const resend = new Resend(RESEND_API_KEY)
             
-            const downloadLink = sale.pdf_url 
+            // Sempre usar o link do KN Cursos para controle de acesso
+            const accessLink = sale.pdf_url || c.external_url
               ? `https://kncursos.com.br/download/${sale.access_token}`
               : null
             
@@ -1798,9 +1799,9 @@ app.post('/api/webhooks/mercadopago', async (c) => {
                     <p><strong>ID do Pagamento:</strong> ${paymentId}</p>
                   </div>
                   
-                  ${downloadLink ? `
-                    <p>Clique no botão abaixo para fazer o download do seu curso:</p>
-                    <a href="${downloadLink}" class="button">📥 Baixar Curso Agora</a>
+                  ${accessLink ? `
+                    <p>Clique no botão abaixo para ${sale.pdf_url ? 'fazer o download' : 'acessar'} seu curso:</p>
+                    <a href="${accessLink}" class="button">${sale.pdf_url ? '📥 Baixar Curso Agora' : '🎓 Acessar Curso Agora'}</a>
                     <p><small>Este link é exclusivo e permanente para você.</small></p>
                   ` : `
                     <p>O acesso ao curso será liberado em breve. Você receberá um novo email com as instruções.</p>
