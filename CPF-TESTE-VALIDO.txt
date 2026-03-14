@@ -1,0 +1,24 @@
+# CPFs de Teste Válidos (para usar no checkout)
+
+## Para testes no Asaas Sandbox:
+
+**CPF válido de teste:** 249.715.637-92
+
+**Outros CPFs válidos:**
+- 478.395.608-77
+- 123.456.789-09 (NÃO USE - é inválido)
+
+## Cartão de teste Asaas:
+- Número: 5162 3062 1937 8829
+- Titular: SEU NOME
+- Validade: 05/26
+- CVV: 318
+
+## Como validar CPF:
+
+Um CPF válido tem:
+1. 11 dígitos
+2. Dígitos verificadores corretos
+3. Não pode ser sequência (111.111.111-11)
+
+Use sempre CPFs válidos para evitar erro 400!

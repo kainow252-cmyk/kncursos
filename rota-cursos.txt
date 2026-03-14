@@ -1,0 +1,77 @@
+// Rota /cursos para funcionários gerenciarem cursos (sem acesso a vendas)
+// Adicionar no src/index.tsx antes da rota /admin
+
+app.get('/cursos', async (c) => {
+  try {
+    const token = getCookie(c, 'auth_token')
+    if (!token) return c.redirect('/login')
+
+    const { JWT_SECRET } = c.env
+    try {
+      await verify(token, JWT_SECRET || 'default-secret-key-change-in-production', 'HS256')
+    } catch (error) {
+      return c.redirect('/login')
+    }
+
+  return c.html(`
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>kncursos - Gerenciar Cursos</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-gray-50">
+        <div class="min-h-screen">
+            <!-- Header -->
+            <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
+                <div class="container mx-auto px-4 py-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h1 class="text-3xl font-bold">
+                                <i class="fas fa-book mr-2"></i>
+                                kncursos - Gerenciar Cursos
+                            </h1>
+                            <p class="text-blue-100 mt-2">Adicione e edite cursos</p>
+                        </div>
+                        <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg shadow-md transition">
+                            <i class="fas fa-sign-out-alt mr-2"></i>Sair
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="container mx-auto px-4 py-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Meus Cursos</h2>
+                    <button onclick="showCourseForm()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition">
+                        <i class="fas fa-plus mr-2"></i>Novo Curso
+                    </button>
+                </div>
+
+                <!-- Course Form -->
+                <div id="course-form" class="hidden bg-white rounded-lg shadow-md p-6 mb-6"></div>
+
+                <!-- Courses List -->
+                <div id="courses-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </main>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+        <script>
+            async function logout() {
+                try { await axios.post('/api/auth/logout') } catch (e) {}
+                window.location.href = '/login'
+            }
+        </script>
+        <script src="/static/admin.js"></script>
+    </body>
+    </html>
+  `)
+  } catch (error) {
+    return c.redirect('/login')
+  }
+})

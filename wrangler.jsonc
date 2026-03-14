@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kncursos",
+  "compatibility_date": "2026-03-13",
+  "pages_build_output_dir": "./dist",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "kncursos",
+      "database_id": "6783bc59-1fd5-48b4-894b-98c77e6ca75a"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2",
+      "bucket_name": "kncursos-files"
+    }
+  ]
+}
