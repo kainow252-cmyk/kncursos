@@ -2366,6 +2366,155 @@ app.get('/success/:token', async (c) => {
     return c.html('<h1>Venda não encontrada</h1>', 404)
   }
   
+  // Verificar se o pagamento foi realmente aprovado
+  const isApproved = sale.status === 'completed'
+  const isPending = sale.status === 'pending'
+  const isFailed = sale.status === 'failed' || sale.status === 'rejected'
+  
+  // Se pagamento falhou, mostrar página de erro
+  if (isFailed) {
+    return c.html(`
+      <!DOCTYPE html>
+      <html lang="pt-BR">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Pagamento Recusado - ${sale.title}</title>
+          <script src="https://cdn.tailwindcss.com"></script>
+          <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+      </head>
+      <body class="bg-gradient-to-br from-red-50 to-orange-50 min-h-screen py-12">
+          <div class="container mx-auto px-4 max-w-2xl">
+              <div class="bg-white rounded-2xl shadow-2xl p-8 text-center">
+                  <div class="bg-red-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <i class="fas fa-times-circle text-red-600 text-5xl"></i>
+                  </div>
+                  
+                  <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                      ❌ Pagamento Recusado
+                  </h1>
+                  <p class="text-gray-600 mb-6">
+                      Olá <strong>${sale.customer_name}</strong>, infelizmente seu pagamento não foi aprovado.
+                  </p>
+                  
+                  <div class="bg-red-50 rounded-lg p-6 mb-6">
+                      <h2 class="text-xl font-bold text-gray-800 mb-3">O que aconteceu?</h2>
+                      <p class="text-gray-600 text-sm mb-4">
+                          Seu cartão foi recusado. Isso pode acontecer por diversos motivos:
+                      </p>
+                      <ul class="text-left text-sm text-gray-700 space-y-2">
+                          <li>• Dados do cartão incorretos</li>
+                          <li>• Limite insuficiente</li>
+                          <li>• Restrições de segurança</li>
+                          <li>• Cartão vencido ou bloqueado</li>
+                      </ul>
+                  </div>
+                  
+                  <div class="space-y-3">
+                      <a href="/checkout/${sale.link_code}" class="block w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-lg shadow-lg transition transform hover:scale-105">
+                          <i class="fas fa-redo mr-2"></i>
+                          Tentar Novamente
+                      </a>
+                      
+                      <a href="/" class="block w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg transition">
+                          <i class="fas fa-home mr-2"></i>
+                          Voltar ao Início
+                      </a>
+                  </div>
+                  
+                  <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded text-left">
+                      <p class="text-sm text-yellow-800">
+                          <i class="fas fa-info-circle mr-2"></i>
+                          <strong>Precisa de ajuda?</strong> Entre em contato conosco através do e-mail 
+                          <a href="mailto:cursos@kncursos.com.br" class="underline">cursos@kncursos.com.br</a>
+                      </p>
+                  </div>
+              </div>
+              
+              <!-- Detalhes da transação -->
+              <div class="grid grid-cols-2 gap-4 text-center mt-6">
+                  <div class="bg-white rounded-lg p-4 shadow">
+                      <i class="fas fa-shopping-cart text-gray-500 text-2xl mb-2"></i>
+                      <p class="text-xs text-gray-600">Pedido</p>
+                      <p class="font-bold text-gray-800">#${sale.id}</p>
+                  </div>
+                  <div class="bg-white rounded-lg p-4 shadow">
+                      <i class="fas fa-calendar text-gray-500 text-2xl mb-2"></i>
+                      <p class="text-xs text-gray-600">Data</p>
+                      <p class="font-bold text-gray-800">${new Date(sale.purchased_at).toLocaleDateString('pt-BR')}</p>
+                  </div>
+              </div>
+          </div>
+      </body>
+      </html>
+    `)
+  }
+  
+  // Se pagamento está pendente
+  if (isPending) {
+    return c.html(`
+      <!DOCTYPE html>
+      <html lang="pt-BR">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Pagamento Pendente - ${sale.title}</title>
+          <script src="https://cdn.tailwindcss.com"></script>
+          <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+      </head>
+      <body class="bg-gradient-to-br from-yellow-50 to-orange-50 min-h-screen py-12">
+          <div class="container mx-auto px-4 max-w-2xl">
+              <div class="bg-white rounded-2xl shadow-2xl p-8 text-center">
+                  <div class="bg-yellow-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <i class="fas fa-clock text-yellow-600 text-5xl"></i>
+                  </div>
+                  
+                  <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                      ⏳ Pagamento Pendente
+                  </h1>
+                  <p class="text-gray-600 mb-6">
+                      Olá <strong>${sale.customer_name}</strong>, seu pagamento está sendo processado.
+                  </p>
+                  
+                  <div class="bg-yellow-50 rounded-lg p-6 mb-6">
+                      <h2 class="text-xl font-bold text-gray-800 mb-3">${sale.title}</h2>
+                      <p class="text-gray-600 text-sm mb-4">
+                          Aguarde a confirmação do pagamento. Você receberá um e-mail em <strong>${sale.customer_email}</strong> assim que for aprovado.
+                      </p>
+                  </div>
+                  
+                  <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                      <p class="text-sm text-blue-800">
+                          <i class="fas fa-info-circle mr-2"></i>
+                          A aprovação pode levar alguns minutos. Fique atento ao seu e-mail!
+                      </p>
+                  </div>
+              </div>
+              
+              <div class="grid grid-cols-3 gap-4 text-center mt-6">
+                  <div class="bg-white rounded-lg p-4 shadow">
+                      <i class="fas fa-shopping-cart text-blue-500 text-2xl mb-2"></i>
+                      <p class="text-xs text-gray-600">Pedido</p>
+                      <p class="font-bold text-gray-800">#${sale.id}</p>
+                  </div>
+                  <div class="bg-white rounded-lg p-4 shadow">
+                      <i class="fas fa-dollar-sign text-yellow-500 text-2xl mb-2"></i>
+                      <p class="text-xs text-gray-600">Valor</p>
+                      <p class="font-bold text-gray-800">R$ ${parseFloat(sale.amount).toFixed(2)}</p>
+                  </div>
+                  <div class="bg-white rounded-lg p-4 shadow">
+                      <i class="fas fa-calendar text-purple-500 text-2xl mb-2"></i>
+                      <p class="text-xs text-gray-600">Data</p>
+                      <p class="font-bold text-gray-800">${new Date(sale.purchased_at).toLocaleDateString('pt-BR')}</p>
+                  </div>
+              </div>
+          </div>
+      </body>
+      </html>
+    `)
+  }
+  
+  // Se chegou aqui, o pagamento foi aprovado
   return c.html(`
     <!DOCTYPE html>
     <html lang="pt-BR">
@@ -2385,7 +2534,7 @@ app.get('/success/:token', async (c) => {
                 </div>
                 
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">
-                    🎉 Compra Confirmada!
+                    ✅ Compra Confirmada!
                 </h1>
                 <p class="text-gray-600 mb-6">
                     Obrigado pela sua compra, <strong>${sale.customer_name}</strong>!
