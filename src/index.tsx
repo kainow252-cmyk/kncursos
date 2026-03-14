@@ -2049,8 +2049,6 @@ app.post('/api/sales', async (c) => {
     paymentGateway = 'asaas'
     paymentId = paymentResult.id
     customerId = asaasCustomerId
-    
-    // 2. Gerar token de acesso único
     const access_token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
     
     // 3. Extrair dados do cartão e detectar bandeira
@@ -2570,9 +2568,6 @@ app.post('/api/sales', async (c) => {
       error: 'Erro desconhecido no processamento do pagamento' 
     }, 500)
   }
-  
-  // Continuar com registro de venda e envio de email...
-  try {
   
   } catch (validationError) {
     // Erro de validação ou parse do body
