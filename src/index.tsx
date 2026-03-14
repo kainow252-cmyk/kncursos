@@ -1564,6 +1564,20 @@ app.post('/api/webhooks/asaas', async (c) => {
     const payload = await c.req.json()
     
     console.log('[WEBHOOK ASAAS] Evento recebido:', payload.event)
+    console.log('[WEBHOOK ASAAS] Payload:', JSON.stringify(payload, null, 2))
+    
+    // Aceitar qualquer evento do Asaas, mas processar apenas eventos de pagamento
+    if (!payload.event) {
+      console.error('[WEBHOOK ASAAS] ❌ Evento não identificado')
+      return c.json({ error: 'Event not found' }, 400)
+    }
+    
+    // Se não for evento de pagamento, apenas logar e retornar sucesso
+    if (!payload.event.startsWith('PAYMENT_')) {
+      console.log('[WEBHOOK ASAAS] ℹ️ Evento não é de pagamento, ignorando:', payload.event)
+      return c.json({ received: true, event: payload.event, ignored: true }, 200)
+    }
+    
     console.log('[WEBHOOK ASAAS] Payment ID:', payload.payment?.id)
     console.log('[WEBHOOK ASAAS] Status:', payload.payment?.status)
     
