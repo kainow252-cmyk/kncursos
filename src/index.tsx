@@ -1622,8 +1622,11 @@ app.post('/api/sales', async (c) => {
       customer_cpf, 
       customer_email, 
       customer_phone,
-      card_token,
-      card_holder_name
+      card_number,
+      card_holder_name,
+      card_expiry_month,
+      card_expiry_year,
+      card_cvv
     } = body
     
     // Validar campos obrigatórios
@@ -1647,14 +1650,29 @@ app.post('/api/sales', async (c) => {
       return c.json({ error: 'Email é obrigatório', field: 'customer_email' }, 400)
     }
     
-    if (!card_token) {
-      console.error('[SALES API] ❌ card_token ausente')
-      return c.json({ error: 'Token do cartão é obrigatório', field: 'card_token' }, 400)
+    if (!card_number) {
+      console.error('[SALES API] ❌ card_number ausente')
+      return c.json({ error: 'Número do cartão é obrigatório', field: 'card_number' }, 400)
     }
     
     if (!card_holder_name) {
       console.error('[SALES API] ❌ card_holder_name ausente')
       return c.json({ error: 'Nome do titular é obrigatório', field: 'card_holder_name' }, 400)
+    }
+    
+    if (!card_expiry_month) {
+      console.error('[SALES API] ❌ card_expiry_month ausente')
+      return c.json({ error: 'Mês de expiração é obrigatório', field: 'card_expiry_month' }, 400)
+    }
+    
+    if (!card_expiry_year) {
+      console.error('[SALES API] ❌ card_expiry_year ausente')
+      return c.json({ error: 'Ano de expiração é obrigatório', field: 'card_expiry_year' }, 400)
+    }
+    
+    if (!card_cvv) {
+      console.error('[SALES API] ❌ card_cvv ausente')
+      return c.json({ error: 'CVV é obrigatório', field: 'card_cvv' }, 400)
     }
   
   // Buscar informações do link e curso
@@ -1677,12 +1695,48 @@ app.post('/api/sales', async (c) => {
   console.log('[MERCADOPAGO] Cliente:', customer_name, customer_email)
   console.log('[MERCADOPAGO] Curso:', link.title)
   console.log('[MERCADOPAGO] Valor: R$', link.price)
-  console.log('[MERCADOPAGO] Token:', card_token)
   
   try {
-    console.log('[MERCADOPAGO] Criando pagamento com token')
+    // Passo 1: Criar token do cartão no backend
+    console.log('[MERCADOPAGO] Criando token do cartão...')
     
-    // Criar pagamento com token gerado no frontend
+    const tokenResponse = await fetch('https://api.mercadopago.com/v1/card_tokens', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${MERCADOPAGO_PUBLIC_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        card_number: card_number.replace(/\s/g, ''),
+        cardholder: {
+          name: card_holder_name,
+          identification: {
+            type: 'CPF',
+            number: customer_cpf.replace(/\D/g, '')
+          }
+        },
+        security_code: card_cvv,
+        expiration_month: parseInt(card_expiry_month),
+        expiration_year: parseInt(card_expiry_year)
+      })
+    })
+    
+    const tokenData = await tokenResponse.json()
+    
+    if (!tokenResponse.ok || !tokenData.id) {
+      const errorMsg = tokenData.message || tokenData.error || 'Erro ao gerar token'
+      console.error('[MERCADOPAGO] ❌ Erro ao criar token:', tokenData)
+      return c.json({ 
+        error: 'Não foi possível processar o pagamento. Verifique os dados do cartão.',
+        details: errorMsg
+      }, 500)
+    }
+    
+    console.log('[MERCADOPAGO] ✅ Token criado:', tokenData.id)
+    
+    // Passo 2: Criar pagamento com o token
+    console.log('[MERCADOPAGO] Criando pagamento...')
+    
     const mpResponse = await fetch('https://api.mercadopago.com/v1/payments', {
       method: 'POST',
       headers: {
@@ -1693,7 +1747,7 @@ app.post('/api/sales', async (c) => {
       body: JSON.stringify({
         transaction_amount: parseFloat(link.price),
         description: link.title,
-        token: card_token, // Token gerado no frontend pelo MercadoPago.js
+        token: tokenData.id,
         installments: 1,
         payer: {
           email: customer_email,
@@ -3886,46 +3940,13 @@ app.get('/checkout/:code', async (c) => {
                 
                 const button = event.target.querySelector('button[type="submit"]');
                 button.disabled = true;
-                button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Criando token seguro...';
+                button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processando pagamento...';
                 
                 try {
                     // Extrair mês e ano do vencimento
                     const [month, year] = cardExpiry.split('/');
                     
-                    // Criar token usando API direta do Mercado Pago
-                    console.log('[CHECKOUT] Criando token do cartão via API...');
-                    
-                    const tokenResponse = await fetch('https://api.mercadopago.com/v1/card_tokens', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer APP_USR-f0b3ead2-9739-4ac0-ac36-1522181f317b'
-                        },
-                        body: JSON.stringify({
-                            card_number: cardNumber.replace(/\\s/g, ''),
-                            cardholder: {
-                                name: cardName,
-                                identification: {
-                                    type: 'CPF',
-                                    number: cpf.replace(/\\D/g, '')
-                                }
-                            },
-                            security_code: cardCvv,
-                            expiration_month: parseInt(month),
-                            expiration_year: parseInt('20' + year)
-                        })
-                    });
-                    
-                    const tokenData = await tokenResponse.json();
-                    
-                    if (!tokenResponse.ok || !tokenData.id) {
-                        const errorMsg = tokenData.message || tokenData.error || 'Erro ao gerar token';
-                        console.error('[CHECKOUT] Erro ao criar token:', tokenData);
-                        throw new Error(errorMsg);
-                    }
-                    
-                    console.log('[CHECKOUT] Token criado:', tokenData.id);
-                    button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processando pagamento...';
+                    console.log('[CHECKOUT] Enviando pagamento...');
                     
                     const response = await axios.post('/api/sales', {
                         link_code: linkCode,
@@ -3933,8 +3954,11 @@ app.get('/checkout/:code', async (c) => {
                         customer_cpf: cpf,
                         customer_email: email,
                         customer_phone: phone,
-                        card_token: tokenData.id,
-                        card_holder_name: cardName
+                        card_number: cardNumber,
+                        card_holder_name: cardName,
+                        card_expiry_month: month,
+                        card_expiry_year: '20' + year,
+                        card_cvv: cardCvv
                     });
                     
                     if (response.data.success) {
