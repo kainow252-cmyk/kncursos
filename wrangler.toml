@@ -7,8 +7,8 @@ NODE_VERSION = "18"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "kncursos-db"
-database_id = "YOUR_D1_DATABASE_ID"
+database_name = "kncursos"
+database_id = "6783bc59-1fd5-48b4-894b-98c77e6ca75a"
 
 [[r2_buckets]]
 binding = "R2"
