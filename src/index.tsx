@@ -1647,18 +1647,21 @@ app.post('/api/webhooks/mercadopago', async (c) => {
     const payerEmail = payment.payer?.email
     
     if (payerEmail) {
-      console.log('[WEBHOOK MP] 📧 Buscando venda por email:', payerEmail)
+      console.log('[WEBHOOK MP] 📧 Email do pagador:', payerEmail)
+      console.log('[WEBHOOK MP] 💰 Valor da transação:', payment.transaction_amount)
+      console.log('[WEBHOOK MP] 🔍 Buscando venda por payment_id:', paymentId)
       
-      // Primeiro tentar buscar por payment_id, depois por email
+      // Primeiro tentar buscar por payment_id
       const { results: sales } = await DB.prepare(`
         SELECT s.*, c.title as course_title, c.pdf_url
         FROM sales s
         JOIN courses c ON s.course_id = c.id
-        WHERE (s.payment_id = ? OR s.customer_email = ?)
-        AND s.amount = ?
+        WHERE s.payment_id = ?
         ORDER BY s.purchased_at DESC
         LIMIT 1
-      `).bind(paymentId.toString(), payerEmail, payment.transaction_amount).all()
+      `).bind(paymentId.toString()).all()
+      
+      console.log('[WEBHOOK MP] 📋 Vendas encontradas:', sales?.length || 0)
       
       const sale = sales?.[0]
       
