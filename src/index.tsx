@@ -2003,10 +2003,8 @@ app.post('/api/sales', async (c) => {
       searchResult = JSON.parse(searchText)
     } catch (parseError) {
       console.error('[ASAAS] Erro ao fazer parse da resposta:', parseError)
-      return c.json({ 
-        error: 'Erro ao comunicar com Asaas', 
-        details: `Invalid JSON: ${searchText.substring(0, 100)}` 
-      }, 500)
+      // Lançar exceção para permitir fallback do SuitPay
+      throw new Error(`Asaas retornou resposta inválida (provavelmente HTML). Status: ${searchCustomerResponse.status}`)
     }
     
     if (searchResult.data && searchResult.data.length > 0) {
@@ -2027,11 +2025,23 @@ app.post('/api/sales', async (c) => {
         }
       )
       
-      const customerResult = await createCustomerResponse.json()
-      
       if (!createCustomerResponse.ok) {
-        console.error('[ASAAS] Erro ao criar cliente:', customerResult)
-        return c.json({ error: 'Erro ao criar cliente', details: customerResult }, 400)
+        console.error('[ASAAS] Erro HTTP ao criar cliente:', createCustomerResponse.status)
+        throw new Error(`Asaas retornou erro ${createCustomerResponse.status} ao criar cliente`)
+      }
+      
+      const customerText = await createCustomerResponse.text()
+      let customerResult
+      try {
+        customerResult = JSON.parse(customerText)
+      } catch (parseError) {
+        console.error('[ASAAS] Erro ao fazer parse da resposta de criar cliente')
+        throw new Error('Asaas retornou resposta inválida ao criar cliente')
+      }
+      
+      if (!customerResult.id) {
+        console.error('[ASAAS] Cliente criado mas sem ID:', customerResult)
+        throw new Error('Asaas não retornou ID do cliente')
       }
       
       asaasCustomerId = customerResult.id
@@ -2078,7 +2088,19 @@ app.post('/api/sales', async (c) => {
       }
     )
     
-    const paymentResult = await paymentResponse.json()
+    if (!paymentResponse.ok) {
+      console.error('[ASAAS] Erro HTTP ao processar pagamento:', paymentResponse.status)
+      throw new Error(`Asaas retornou erro ${paymentResponse.status} ao processar pagamento`)
+    }
+    
+    const paymentText = await paymentResponse.text()
+    let paymentResult
+    try {
+      paymentResult = JSON.parse(paymentText)
+    } catch (parseError) {
+      console.error('[ASAAS] Erro ao fazer parse da resposta de pagamento')
+      throw new Error('Asaas retornou resposta inválida ao processar pagamento')
+    }
     
     console.log('[ASAAS] Resposta do pagamento:', paymentResult)
     
