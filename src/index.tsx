@@ -1490,6 +1490,35 @@ app.get('/api/link/:code', async (c) => {
   return c.json(link)
 })
 
+// ============= TESTE D1 UPDATE =============
+app.post('/api/test-d1-update', async (c) => {
+  const { DB } = c.env
+  const { sale_id, new_status } = await c.req.json()
+  
+  console.log('[TEST D1] Tentando atualizar venda:', sale_id, 'para status:', new_status)
+  
+  // Buscar venda atual
+  const sale = await DB.prepare('SELECT * FROM sales WHERE id = ?').bind(sale_id).first()
+  console.log('[TEST D1] Venda encontrada:', sale)
+  
+  // Fazer UPDATE
+  const result = await DB.prepare('UPDATE sales SET status = ? WHERE id = ?')
+    .bind(new_status, sale_id)
+    .run()
+  
+  console.log('[TEST D1] Resultado do UPDATE:', result)
+  
+  // Buscar novamente
+  const saleAfter = await DB.prepare('SELECT * FROM sales WHERE id = ?').bind(sale_id).first()
+  console.log('[TEST D1] Venda após UPDATE:', saleAfter)
+  
+  return c.json({
+    before: sale,
+    updateResult: result.meta,
+    after: saleAfter
+  })
+})
+
 // ============= WEBHOOKS =============
 
 // Webhook do Resend para eventos de email
@@ -1670,18 +1699,37 @@ app.post('/api/webhooks/mercadopago', async (c) => {
         console.log('[WEBHOOK MP] 🔍 Status atual:', sale.status)
         console.log('[WEBHOOK MP] 🔍 Novo status:', dbStatus)
         
-        // Atualizar status e payment_id da venda no banco
-        const updateResult = await DB.prepare(`
-          UPDATE sales 
-          SET status = ?, payment_id = ?
-          WHERE id = ?
-        `).bind(dbStatus, paymentId.toString(), sale.id).run()
-        
-        console.log('[WEBHOOK MP] ✅ Status da venda atualizado no banco')
-        console.log('[WEBHOOK MP] 📊 Linhas afetadas:', updateResult.meta.changes)
-        
-        if (updateResult.meta.changes === 0) {
-          console.error('[WEBHOOK MP] ⚠️ Nenhuma linha foi atualizada! ID:', sale.id)
+        // IMPORTANTE: Só atualizar se o status mudou
+        if (sale.status !== dbStatus) {
+          console.log('[WEBHOOK MP] 🔄 Status mudou, atualizando...')
+          
+          // Testar UPDATE simples primeiro
+          const simpleTest = await DB.prepare('UPDATE sales SET status = ? WHERE id = ?')
+            .bind(dbStatus, sale.id)
+            .run()
+          
+          console.log('[WEBHOOK MP] 🧪 Teste UPDATE simples:')
+          console.log('[WEBHOOK MP] 🧪 Changes:', simpleTest.meta.changes)
+          console.log('[WEBHOOK MP] 🧪 Rows written:', simpleTest.meta.rows_written)
+          console.log('[WEBHOOK MP] 🧪 Changed DB:', simpleTest.meta.changed_db)
+          
+          if (simpleTest.meta.changes === 0) {
+            console.error('[WEBHOOK MP] ⚠️ ERRO: UPDATE retornou 0 changes!')
+            console.error('[WEBHOOK MP] ⚠️ Sale ID:', sale.id)
+            console.error('[WEBHOOK MP] ⚠️ Payment ID:', paymentId)
+            console.error('[WEBHOOK MP] ⚠️ Status de→para:', sale.status, '→', dbStatus)
+          } else {
+            console.log('[WEBHOOK MP] ✅ UPDATE funcionou! Atualizando payment_id também...')
+            
+            // Se o UPDATE do status funcionou, atualizar payment_id
+            await DB.prepare('UPDATE sales SET payment_id = ? WHERE id = ?')
+              .bind(paymentId.toString(), sale.id)
+              .run()
+            
+            console.log('[WEBHOOK MP] ✅ Payment ID atualizado')
+          }
+        } else {
+          console.log('[WEBHOOK MP] ℹ️ Status já está correto, não precisa atualizar')
         }
         
         // Se o pagamento foi aprovado e o status mudou, enviar email
