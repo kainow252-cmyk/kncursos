@@ -14,6 +14,9 @@ type Bindings = {
   SUITPAY_CLIENT_ID: string;
   SUITPAY_CLIENT_SECRET: string;
   SUITPAY_ENV: string;
+  PAGBANK_TOKEN: string;
+  PAGBANK_PUBLIC_KEY: string;
+  PAGBANK_ENV: string;
   RESEND_API_KEY: string;
   RESEND_WEBHOOK_SECRET: string;
   EMAIL_FROM: string;
@@ -1783,11 +1786,125 @@ app.post('/api/webhooks/suitpay', async (c) => {
   }
 })
 
+// Webhook PagBank
+app.post('/api/webhooks/pagbank', async (c) => {
+  try {
+    const { DB, PAGBANK_TOKEN } = c.env
+    
+    // PagBank envia notificações via POST
+    const payload = await c.req.json()
+    
+    console.log('[WEBHOOK PAGBANK] Webhook recebido')
+    console.log('[WEBHOOK PAGBANK] Payload completo:', JSON.stringify(payload, null, 2))
+    
+    // Validar token de autorização
+    const authHeader = c.req.header('Authorization')
+    if (!authHeader || authHeader !== `Bearer ${PAGBANK_TOKEN}`) {
+      console.error('[WEBHOOK PAGBANK] ❌ Token inválido ou ausente')
+      return c.json({ error: 'Unauthorized' }, 401)
+    }
+    
+    // Extrair dados do webhook
+    // PagBank pode enviar diferentes tipos de notificação
+    // O formato mais comum é: { id, reference_id, charges: [...] }
+    const {
+      id: orderId,
+      reference_id,
+      charges
+    } = payload
+    
+    if (!orderId) {
+      console.error('[WEBHOOK PAGBANK] ❌ Order ID não encontrado')
+      return c.json({ error: 'Order ID is required' }, 400)
+    }
+    
+    console.log('[WEBHOOK PAGBANK] Order ID:', orderId)
+    console.log('[WEBHOOK PAGBANK] Reference ID:', reference_id)
+    
+    // Processar status do primeiro charge
+    if (charges && charges.length > 0) {
+      const charge = charges[0]
+      const chargeStatus = charge.status
+      
+      console.log('[WEBHOOK PAGBANK] Charge ID:', charge.id)
+      console.log('[WEBHOOK PAGBANK] Charge Status:', chargeStatus)
+      
+      // Mapear status do PagBank para status interno
+      let dbStatus = 'pending'
+      
+      switch (chargeStatus) {
+        case 'PAID':
+          // Pagamento confirmado
+          console.log('[WEBHOOK PAGBANK] ✅ Pagamento confirmado:', orderId)
+          dbStatus = 'completed'
+          break
+        
+        case 'IN_ANALYSIS':
+          // Pagamento em análise
+          console.log('[WEBHOOK PAGBANK] ⏳ Pagamento em análise:', orderId)
+          dbStatus = 'pending'
+          break
+        
+        case 'DECLINED':
+        case 'CANCELED':
+          // Pagamento recusado ou cancelado
+          console.log('[WEBHOOK PAGBANK] ❌ Pagamento recusado/cancelado:', orderId)
+          dbStatus = 'failed'
+          break
+        
+        case 'AUTHORIZED':
+          // Pagamento autorizado (aguardando captura)
+          console.log('[WEBHOOK PAGBANK] 🔓 Pagamento autorizado:', orderId)
+          dbStatus = 'completed' // Tratar como completo pois já foi autorizado
+          break
+        
+        default:
+          console.log('[WEBHOOK PAGBANK] ⚠️ Status desconhecido:', chargeStatus)
+          dbStatus = 'pending'
+      }
+      
+      // Atualizar status no banco de dados
+      try {
+        const result = await DB.prepare(`
+          UPDATE sales 
+          SET status = ?
+          WHERE payment_id = ? AND gateway = 'pagbank'
+        `).bind(dbStatus, orderId).run()
+        
+        if (result.meta.changes > 0) {
+          console.log('[WEBHOOK PAGBANK] ✅ Status atualizado no banco')
+        } else {
+          console.warn('[WEBHOOK PAGBANK] ⚠️ Nenhuma venda encontrada com Order ID:', orderId)
+        }
+      } catch (dbError) {
+        console.error('[WEBHOOK PAGBANK] ❌ Erro ao atualizar banco:', dbError)
+      }
+    }
+    
+    // Retornar sucesso
+    return c.json({
+      success: true,
+      received: true,
+      order_id: orderId,
+      reference_id,
+      processedAt: new Date().toISOString()
+    }, 200)
+    
+  } catch (error) {
+    console.error('[WEBHOOK PAGBANK] ❌ Erro ao processar webhook:', error)
+    return c.json({ 
+      success: false,
+      error: 'Webhook processing failed',
+      message: error.message 
+    }, 500)
+  }
+})
+
 // ============= VENDAS / SALES =============
 
 // Processar pagamento e registrar venda com Asaas
 app.post('/api/sales', async (c) => {
-  const { DB, ASAAS_API_KEY, ASAAS_ENV, RESEND_API_KEY, EMAIL_FROM, SUITPAY_CLIENT_ID, SUITPAY_CLIENT_SECRET, SUITPAY_ENV } = c.env
+  const { DB, ASAAS_API_KEY, ASAAS_ENV, RESEND_API_KEY, EMAIL_FROM, SUITPAY_CLIENT_ID, SUITPAY_CLIENT_SECRET, SUITPAY_ENV, PAGBANK_TOKEN, PAGBANK_ENV, PAGBANK_PUBLIC_KEY } = c.env
   
   try {
     const body = await c.req.json()
@@ -1866,6 +1983,165 @@ app.post('/api/sales', async (c) => {
   
   if (!link) {
     return c.json({ error: 'Link inválido' }, 404)
+  }
+  
+  // Função auxiliar para processar pagamento via PagBank
+  async function processPagBankPayment() {
+    try {
+      console.log('[PAGBANK] Iniciando processamento de pagamento')
+      console.log('[PAGBANK] Ambiente:', PAGBANK_ENV)
+      console.log('[PAGBANK] Link Code:', link_code)
+      console.log('[PAGBANK] Cliente:', customer_name, customer_email)
+      
+      const pagbankBaseUrl = PAGBANK_ENV === 'production'
+        ? 'https://api.pagseguro.com'
+        : 'https://sandbox.api.pagseguro.com'
+      
+      console.log('[PAGBANK] Base URL:', pagbankBaseUrl)
+      
+      // Gerar reference_id único
+      const reference_id = `KNCURSOS-${Date.now()}-${Math.random().toString(36).substring(7)}`
+      
+      // Preparar dados do pedido conforme documentação PagBank
+      const orderData = {
+        reference_id: reference_id,
+        customer: {
+          name: customer_name,
+          email: customer_email,
+          tax_id: customer_cpf.replace(/\D/g, ''),
+          phones: customer_phone ? [{
+            country: "55",
+            area: customer_phone.replace(/\D/g, '').substring(0, 2),
+            number: customer_phone.replace(/\D/g, '').substring(2),
+            type: "MOBILE"
+          }] : []
+        },
+        items: [
+          {
+            reference_id: link_code,
+            name: link.title.substring(0, 64), // PagBank limita a 64 chars
+            quantity: 1,
+            unit_amount: Math.round(parseFloat(link.price) * 100) // Centavos
+          }
+        ],
+        shipping: {
+          address: {
+            street: "Av. Digital",
+            number: "1000",
+            complement: "Produto Digital",
+            locality: "Centro",
+            city: "São Paulo",
+            region_code: "SP",
+            country: "BRA",
+            postal_code: "01310100"
+          }
+        },
+        notification_urls: [
+          `https://kncursos.com.br/api/webhooks/pagbank`
+        ],
+        charges: [
+          {
+            reference_id: reference_id,
+            description: link.title.substring(0, 64),
+            amount: {
+              value: Math.round(parseFloat(link.price) * 100), // Centavos
+              currency: "BRL"
+            },
+            payment_method: {
+              type: "CREDIT_CARD",
+              installments: 1,
+              capture: true,
+              card: {
+                number: card_number.replace(/\s/g, ''),
+                exp_month: card_expiry_month.padStart(2, '0'),
+                exp_year: card_expiry_year,
+                security_code: card_cvv,
+                holder: {
+                  name: card_holder_name
+                }
+              }
+            }
+          }
+        ]
+      }
+      
+      console.log('[PAGBANK] Payload:', JSON.stringify({
+        ...orderData,
+        charges: [{
+          ...orderData.charges[0],
+          payment_method: {
+            ...orderData.charges[0].payment_method,
+            card: { ...orderData.charges[0].payment_method.card, number: '****', security_code: '***' }
+          }
+        }]
+      }, null, 2))
+      
+      const paymentResponse = await fetch(`${pagbankBaseUrl}/orders`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${PAGBANK_TOKEN}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'User-Agent': 'kncursos/1.0'
+        },
+        body: JSON.stringify(orderData)
+      })
+      
+      const paymentResult = await paymentResponse.json()
+      console.log('[PAGBANK] Status HTTP:', paymentResponse.status)
+      console.log('[PAGBANK] Resposta:', JSON.stringify(paymentResult, null, 2))
+      
+      // Verificar se há erros
+      if (paymentResult.error_messages && paymentResult.error_messages.length > 0) {
+        const errorMessages = paymentResult.error_messages.map((e: any) => 
+          `${e.code}: ${e.description}`
+        ).join(', ')
+        console.error('[PAGBANK] Erros:', errorMessages)
+        throw new Error(errorMessages)
+      }
+      
+      // Verificar se pagamento foi aprovado
+      if (!paymentResponse.ok) {
+        console.error('[PAGBANK] Erro HTTP:', paymentResponse.status)
+        throw new Error(paymentResult.message || 'Erro ao processar pagamento')
+      }
+      
+      // Verificar status do charge (primeira cobrança)
+      const charge = paymentResult.charges?.[0]
+      if (!charge) {
+        console.error('[PAGBANK] Nenhum charge retornado')
+        throw new Error('Nenhuma cobrança retornada pelo PagBank')
+      }
+      
+      console.log('[PAGBANK] Status do charge:', charge.status)
+      
+      // Status possíveis: PAID, IN_ANALYSIS, DECLINED, CANCELED, AUTHORIZED
+      const successStatuses = ['PAID', 'IN_ANALYSIS', 'AUTHORIZED']
+      
+      if (successStatuses.includes(charge.status)) {
+        console.log('[PAGBANK] ✅ Pagamento aprovado/em análise!')
+        return {
+          success: true,
+          payment_id: paymentResult.id,
+          customer_id: reference_id,
+          gateway: 'pagbank',
+          charge_id: charge.id,
+          status: charge.status,
+          pending: charge.status === 'IN_ANALYSIS'
+        }
+      } else {
+        console.error('[PAGBANK] Pagamento não aprovado:', charge.status)
+        const errorMsg = charge.payment_response?.message || 'Pagamento recusado'
+        throw new Error(errorMsg)
+      }
+      
+    } catch (error) {
+      console.error('[PAGBANK] Erro no processamento:', error)
+      return {
+        success: false,
+        error: error.message || 'Erro desconhecido no PagBank'
+      }
+    }
   }
   
   // Função auxiliar para processar pagamento via SuitPay
@@ -1968,14 +2244,46 @@ app.post('/api/sales', async (c) => {
     }
   }
   
-  // TENTATIVA 1: Processar via Asaas
+  // TENTATIVA 1: Processar via PagBank
   let paymentSuccess = false
-  let paymentGateway = 'asaas'
+  let paymentGateway = 'pagbank'
   let paymentId = null
   let customerId = null
   
+  let asaasError = null
+  let suitpayError = null
+  let pagbankError = null
+  
   try {
-    console.log('[ASAAS] Iniciando processamento de pagamento')
+    console.log('='.repeat(50))
+    console.log('[PAGAMENTO] TENTATIVA 1: PagBank')
+    console.log('='.repeat(50))
+    
+    const pagbankResult = await processPagBankPayment()
+    
+    if (pagbankResult.success) {
+      paymentSuccess = true
+      paymentGateway = 'pagbank'
+      paymentId = pagbankResult.payment_id
+      customerId = pagbankResult.customer_id
+      console.log('[PAGBANK] ✅ Sucesso!')
+    } else {
+      pagbankError = pagbankResult.error
+      console.log('[PAGBANK] ❌ Falhou:', pagbankError)
+    }
+  } catch (error) {
+    pagbankError = error.message || 'Erro desconhecido no PagBank'
+    console.error('[PAGBANK] ❌ Exceção capturada:', pagbankError)
+  }
+  
+  // TENTATIVA 2: Processar via Asaas (se PagBank falhou)
+  if (!paymentSuccess) {
+    try {
+      console.log('='.repeat(50))
+      console.log('[PAGAMENTO] TENTATIVA 2: Asaas')
+      console.log('='.repeat(50))
+      
+      console.log('[ASAAS] Iniciando processamento de pagamento')
     console.log('[ASAAS] Ambiente:', ASAAS_ENV)
     console.log('[ASAAS] Link Code:', link_code)
     console.log('[ASAAS] Cliente:', customer_name, customer_email)
@@ -2633,47 +2941,182 @@ app.post('/api/sales', async (c) => {
       message: 'Pagamento aprovado! Verifique seu email para acessar o curso.'
     }, 201)
     
-  } catch (asaasError) {
-    // TENTATIVA 1 FALHOU - Tentar fallback com SuitPay
+  } catch (error) {
+    asaasError = error.message || 'Erro desconhecido no Asaas'
     console.error('[ASAAS] ❌ Erro ao processar pagamento:', asaasError)
-    console.log('[FALLBACK] 🔄 Tentando processar com SuitPay...')
-    
-    const suitpayResult = await processSuitPayPayment()
-    
-    if (suitpayResult.success) {
-      // SuitPay funcionou!
-      paymentSuccess = true
-      paymentGateway = 'suitpay'
-      paymentId = suitpayResult.payment_id
-      customerId = suitpayResult.customer_id
+  }
+  } // Fecha o if (!paymentSuccess) da TENTATIVA 2 (Asaas)
+  
+  // TENTATIVA 3: Processar via SuitPay (se PagBank e Asaas falharam)
+  if (!paymentSuccess) {
+    try {
+      console.log('='.repeat(50))
+      console.log('[PAGAMENTO] TENTATIVA 3: SuitPay')
+      console.log('='.repeat(50))
       
-      console.log('[SUITPAY] ✅ Fallback bem-sucedido!')
+      const suitpayResult = await processSuitPayPayment()
       
-      // Continuar com o fluxo normal (gerar token, registrar venda, enviar email)
-      // O código abaixo já está implementado e usará as variáveis paymentGateway, paymentId, customerId
-      
-    } else {
-      // Ambos falharam - retornar erro
-      console.error('[FALLBACK] ❌ Todos os gateways falharam')
-      console.error('[ASAAS] Erro:', asaasError.message)
-      console.error('[SUITPAY] Erro:', suitpayResult.error)
-      
-      return c.json({ 
-        error: 'Não foi possível processar o pagamento. Tente novamente mais tarde.',
-        details: {
-          asaas: asaasError.message,
-          suitpay: suitpayResult.error
-        }
-      }, 500)
+      if (suitpayResult.success) {
+        paymentSuccess = true
+        paymentGateway = 'suitpay'
+        paymentId = suitpayResult.payment_id
+        customerId = suitpayResult.customer_id
+        console.log('[SUITPAY] ✅ Sucesso!')
+      } else {
+        suitpayError = suitpayResult.error
+        console.log('[SUITPAY] ❌ Falhou:', suitpayError)
+      }
+    } catch (error) {
+      suitpayError = error.message || 'Erro desconhecido no SuitPay'
+      console.error('[SUITPAY] ❌ Exceção capturada:', suitpayError)
     }
   }
   
-  // Se chegou aqui, o pagamento foi aprovado (Asaas ou SuitPay)
+  // Se todos falharam, retornar erro
   if (!paymentSuccess) {
+    console.error('[FALLBACK] ❌ Todos os gateways falharam')
+    console.error('[PAGBANK] Erro:', pagbankError)
+    console.error('[ASAAS] Erro:', asaasError)
+    console.error('[SUITPAY] Erro:', suitpayError)
+    
     return c.json({ 
-      error: 'Erro desconhecido no processamento do pagamento' 
+      error: 'Não foi possível processar o pagamento. Tente novamente mais tarde.',
+      details: {
+        pagbank: pagbankError,
+        asaas: asaasError,
+        suitpay: suitpayError
+      }
     }, 500)
   }
+  
+  // Se chegou aqui, o pagamento foi aprovado (PagBank, Asaas ou SuitPay)
+  console.log(`[PAGAMENTO] ✅ Pagamento aprovado via ${paymentGateway.toUpperCase()}!`)
+  
+  // Gerar token de acesso aleatório
+  const access_token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+  
+  // Extrair últimos 4 dígitos e bandeira do cartão
+  const card_last4 = card_number.replace(/\s/g, '').slice(-4)
+  const card_exp = `${card_expiry_month}/${card_expiry_year}`
+  
+  // Detectar bandeira do cartão
+  let card_brand = 'unknown'
+  const firstDigit = card_number.replace(/\s/g, '')[0]
+  if (firstDigit === '4') card_brand = 'visa'
+  else if (['5', '2'].includes(firstDigit)) card_brand = 'mastercard'
+  else if (firstDigit === '3') card_brand = 'amex'
+  else if (firstDigit === '6') card_brand = 'elo'
+  
+  console.log(`[SALES] Registrando venda no banco de dados...`)
+  
+  // Inserir venda no banco
+  await DB.prepare(`
+    INSERT INTO sales (
+      course_id, link_code, customer_name, customer_cpf, customer_email, customer_phone,
+      amount, status, access_token, card_last4, card_exp, card_brand,
+      payment_id, customer_id, gateway
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).bind(
+    link.course_id,
+    link_code,
+    customer_name,
+    customer_cpf,
+    customer_email,
+    customer_phone || null,
+    parseFloat(link.price),
+    'completed',
+    access_token,
+    card_last4,
+    card_exp,
+    card_brand,
+    paymentId,
+    customerId,
+    paymentGateway
+  ).run()
+  
+  console.log('[SALES] ✅ Venda registrada com sucesso!')
+  
+  // Enviar email de confirmação
+  console.log('[EMAIL] Enviando email de confirmação...')
+  
+  const resend = new Resend(RESEND_API_KEY)
+  
+  const downloadLink = link.pdf_url 
+    ? `https://kncursos.com.br/download/${access_token}`
+    : null
+  
+  const emailHtml = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+        .header h1 { margin: 0; font-size: 28px; }
+        .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
+        .button { display: inline-block; background: #10b981; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 20px 0; }
+        .button:hover { background: #059669; }
+        .info { background: white; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #10b981; }
+        .footer { text-align: center; color: #6b7280; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
+      </style>
+    </head>
+    <body>
+      <div class="header">
+        <h1>🎉 Pagamento Confirmado!</h1>
+      </div>
+      <div class="content">
+        <p>Olá <strong>${customer_name}</strong>,</p>
+        
+        <p>Seu pagamento foi aprovado com sucesso!</p>
+        
+        <div class="info">
+          <p><strong>Curso:</strong> ${link.title}</p>
+          <p><strong>Valor:</strong> R$ ${parseFloat(link.price).toFixed(2)}</p>
+          <p><strong>Gateway:</strong> ${paymentGateway.toUpperCase()}</p>
+          <p><strong>Cartão:</strong> **** ${card_last4}</p>
+        </div>
+        
+        ${downloadLink ? `
+          <p>Clique no botão abaixo para fazer o download do seu curso:</p>
+          <a href="${downloadLink}" class="button">📥 Baixar Curso Agora</a>
+          <p><small>Este link é exclusivo e permanente para você.</small></p>
+        ` : `
+          <p>O acesso ao curso será liberado em breve. Você receberá um novo email com as instruções.</p>
+        `}
+        
+        <div class="footer">
+          <p>Se você tiver alguma dúvida, entre em contato conosco.</p>
+          <p>© ${new Date().getFullYear()} KN Cursos - Todos os direitos reservados</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `
+  
+  try {
+    await resend.emails.send({
+      from: EMAIL_FROM,
+      to: customer_email,
+      subject: `Seu acesso ao curso: ${link.title}`,
+      html: emailHtml
+    })
+    console.log('[EMAIL] ✅ Email enviado com sucesso!')
+  } catch (emailError) {
+    console.error('[EMAIL] ⚠️ Erro ao enviar email:', emailError)
+    // Não falhar a venda se o email falhar
+  }
+  
+  // Retornar sucesso
+  return c.json({
+    success: true,
+    access_token,
+    payment_id: paymentId,
+    gateway: paymentGateway,
+    download_url: downloadLink,
+    course_title: link.title,
+    message: 'Pagamento aprovado! Verifique seu email para acessar o curso.'
+  }, 201)
   
   } catch (validationError) {
     // Erro de validação ou parse do body
