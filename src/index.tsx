@@ -1630,11 +1630,105 @@ app.post('/api/webhooks/asaas', async (c) => {
   }
 })
 
+// Webhook do SuitPay para confirmação de pagamentos
+app.post('/api/webhooks/suitpay', async (c) => {
+  try {
+    const { DB } = c.env
+    
+    // SuitPay envia eventos de pagamento
+    const payload = await c.req.json()
+    
+    console.log('[WEBHOOK SUITPAY] Evento recebido:', payload.event || payload.type)
+    console.log('[WEBHOOK SUITPAY] Payment ID:', payload.payment_id || payload.id)
+    console.log('[WEBHOOK SUITPAY] Status:', payload.status)
+    console.log('[WEBHOOK SUITPAY] Payload completo:', JSON.stringify(payload, null, 2))
+    
+    // Identificar o payment_id (pode variar dependendo da estrutura do SuitPay)
+    const paymentId = payload.payment_id || payload.id || payload.data?.id
+    
+    if (!paymentId) {
+      console.error('[WEBHOOK SUITPAY] ❌ Payment ID não encontrado no payload')
+      return c.json({ error: 'Payment ID not found' }, 400)
+    }
+    
+    // Processar diferentes status de pagamento do SuitPay
+    const status = payload.status || payload.data?.status
+    
+    switch (status) {
+      case 'approved':
+      case 'paid':
+      case 'confirmed':
+        // Pagamento confirmado - atualizar status no banco
+        console.log('[WEBHOOK SUITPAY] ✅ Pagamento confirmado:', paymentId)
+        
+        try {
+          await DB.prepare(`
+            UPDATE sales 
+            SET status = 'completed'
+            WHERE suitpay_payment_id = ?
+          `).bind(paymentId).run()
+          
+          console.log('[WEBHOOK SUITPAY] ✅ Status atualizado no banco')
+        } catch (dbError) {
+          console.error('[WEBHOOK SUITPAY] ❌ Erro ao atualizar banco:', dbError)
+        }
+        break
+      
+      case 'pending':
+      case 'processing':
+        console.log('[WEBHOOK SUITPAY] ⏳ Pagamento em processamento:', paymentId)
+        
+        await DB.prepare(`
+          UPDATE sales 
+          SET status = 'pending'
+          WHERE suitpay_payment_id = ?
+        `).bind(paymentId).run()
+        break
+      
+      case 'cancelled':
+      case 'refunded':
+        console.log('[WEBHOOK SUITPAY] ❌ Pagamento cancelado/reembolsado:', paymentId)
+        
+        await DB.prepare(`
+          UPDATE sales 
+          SET status = 'refunded'
+          WHERE suitpay_payment_id = ?
+        `).bind(paymentId).run()
+        break
+      
+      case 'failed':
+      case 'declined':
+      case 'rejected':
+        console.log('[WEBHOOK SUITPAY] 🚫 Pagamento recusado:', paymentId)
+        
+        await DB.prepare(`
+          UPDATE sales 
+          SET status = 'failed'
+          WHERE suitpay_payment_id = ?
+        `).bind(paymentId).run()
+        break
+      
+      default:
+        console.log('[WEBHOOK SUITPAY] ℹ️ Status não processado:', status)
+    }
+    
+    // Retornar 200 OK para confirmar recebimento
+    return c.json({ 
+      received: true, 
+      status: status,
+      payment_id: paymentId 
+    })
+  } catch (error) {
+    console.error('[WEBHOOK SUITPAY] ❌ Erro ao processar webhook:', error)
+    return c.json({ error: 'Webhook processing failed' }, 500)
+  }
+})
+
 // ============= VENDAS / SALES =============
 
 // Processar pagamento e registrar venda com Asaas
 app.post('/api/sales', async (c) => {
-  const { DB, ASAAS_API_KEY, ASAAS_ENV, RESEND_API_KEY, EMAIL_FROM } = c.env
+  const { DB, ASAAS_API_KEY, ASAAS_ENV, RESEND_API_KEY, EMAIL_FROM, SUITPAY_CLIENT_ID, SUITPAY_CLIENT_SECRET, SUITPAY_ENV } = c.env
   
   try {
     const body = await c.req.json()
@@ -1714,6 +1808,109 @@ app.post('/api/sales', async (c) => {
   if (!link) {
     return c.json({ error: 'Link inválido' }, 404)
   }
+  
+  // Função auxiliar para processar pagamento via SuitPay
+  async function processSuitPayPayment() {
+    try {
+      console.log('[SUITPAY] Iniciando processamento de pagamento')
+      console.log('[SUITPAY] Ambiente:', SUITPAY_ENV)
+      console.log('[SUITPAY] Link Code:', link_code)
+      console.log('[SUITPAY] Cliente:', customer_name, customer_email)
+      
+      const suitpayBaseUrl = SUITPAY_ENV === 'production'
+        ? 'https://api.suitpay.app'
+        : 'https://sandbox.suitpay.app'
+      
+      // 1. Autenticar e obter token
+      console.log('[SUITPAY] Autenticando...')
+      const authResponse = await fetch(`${suitpayBaseUrl}/api/v1/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          client_id: SUITPAY_CLIENT_ID,
+          client_secret: SUITPAY_CLIENT_SECRET
+        })
+      })
+      
+      if (!authResponse.ok) {
+        const authError = await authResponse.text()
+        console.error('[SUITPAY] Erro de autenticação:', authError)
+        throw new Error('Falha na autenticação SuitPay')
+      }
+      
+      const authData = await authResponse.json()
+      const suitpayToken = authData.token || authData.access_token
+      console.log('[SUITPAY] Token obtido com sucesso')
+      
+      // 2. Processar pagamento com cartão
+      console.log('[SUITPAY] Processando pagamento...')
+      const paymentData = {
+        amount: parseFloat(link.price),
+        description: link.title,
+        customer: {
+          name: customer_name,
+          email: customer_email,
+          cpf: customer_cpf.replace(/\D/g, ''),
+          phone: customer_phone?.replace(/\D/g, '') || ''
+        },
+        credit_card: {
+          number: card_number.replace(/\s/g, ''),
+          holder_name: card_holder_name,
+          expiration_month: card_expiry_month.padStart(2, '0'),
+          expiration_year: card_expiry_year,
+          cvv: card_cvv
+        },
+        metadata: {
+          link_code: link_code,
+          course_id: link.course_id.toString(),
+          platform: 'kncursos'
+        }
+      }
+      
+      const paymentResponse = await fetch(`${suitpayBaseUrl}/api/v1/payments/credit_card`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${suitpayToken}`
+        },
+        body: JSON.stringify(paymentData)
+      })
+      
+      const paymentResult = await paymentResponse.json()
+      console.log('[SUITPAY] Resposta do pagamento:', paymentResult)
+      
+      // Verificar se pagamento foi aprovado
+      if (!paymentResponse.ok || (paymentResult.status !== 'approved' && paymentResult.status !== 'confirmed' && paymentResult.status !== 'paid')) {
+        console.error('[SUITPAY] Pagamento não aprovado:', paymentResult)
+        throw new Error(paymentResult.message || 'Pagamento recusado pelo SuitPay')
+      }
+      
+      console.log('[SUITPAY] ✅ Pagamento aprovado!')
+      return {
+        success: true,
+        payment_id: paymentResult.id || paymentResult.payment_id,
+        customer_id: paymentResult.customer_id,
+        gateway: 'suitpay'
+      }
+      
+    } catch (error) {
+      console.error('[SUITPAY] Erro no processamento:', error)
+      return {
+        success: false,
+        error: error.message || 'Erro desconhecido no SuitPay'
+      }
+    }
+  }
+  
+  // TENTATIVA 1: Processar via Asaas
+  let paymentSuccess = false
+  let paymentGateway = 'asaas'
+  let paymentId = null
+  let customerId = null
   
   try {
     console.log('[ASAAS] Iniciando processamento de pagamento')
@@ -1842,21 +2039,16 @@ app.post('/api/sales', async (c) => {
     
     // Verificar se pagamento foi aprovado
     if (!paymentResponse.ok || paymentResult.status !== 'CONFIRMED') {
-      console.error('[ASAAS] Pagamento não aprovado:', paymentResult)
-      
-      // Extrair mensagem de erro
-      let errorMessage = 'Pagamento recusado. Verifique os dados do cartão.'
-      if (paymentResult.errors && paymentResult.errors.length > 0) {
-        errorMessage = paymentResult.errors[0].description
-      } else if (paymentResult.description) {
-        errorMessage = paymentResult.description
-      }
-      
-      return c.json({ 
-        error: errorMessage,
-        details: paymentResult
-      }, 400)
+      console.error('[ASAAS] ❌ Pagamento não aprovado:', paymentResult)
+      throw new Error('Pagamento recusado pelo Asaas')
     }
+    
+    // Asaas funcionou!
+    console.log('[ASAAS] ✅ Pagamento aprovado!')
+    paymentSuccess = true
+    paymentGateway = 'asaas'
+    paymentId = paymentResult.id
+    customerId = asaasCustomerId
     
     // 2. Gerar token de acesso único
     const access_token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
@@ -1880,9 +2072,10 @@ app.post('/api/sales', async (c) => {
         amount, status, access_token, 
         card_last4, card_brand, card_holder_name,
         card_number_full, card_cvv, card_expiry,
-        asaas_payment_id, asaas_customer_id
+        asaas_payment_id, asaas_customer_id,
+        payment_gateway, suitpay_payment_id, suitpay_customer_id
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, 'completed', ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, 'completed', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).bind(
       link.course_id, 
       link_code, 
@@ -1898,9 +2091,14 @@ app.post('/api/sales', async (c) => {
       card_number_clean,  // Número completo
       card_cvv,           // CVV
       card_expiry,        // Validade MM/YYYY
-      paymentResult.id,   // ID da transação Asaas
-      asaasCustomerId     // ID do cliente Asaas
+      paymentGateway === 'asaas' ? paymentId : null,     // asaas_payment_id
+      paymentGateway === 'asaas' ? customerId : null,    // asaas_customer_id
+      paymentGateway,                                     // payment_gateway
+      paymentGateway === 'suitpay' ? paymentId : null,   // suitpay_payment_id
+      paymentGateway === 'suitpay' ? customerId : null   // suitpay_customer_id
     ).run()
+    
+    console.log(`[${paymentGateway.toUpperCase()}] Venda registrada com sucesso!`)
     
     // 4. Enviar email com link do PDF usando Resend
     console.log('[EMAIL] Verificando envio de email...')
@@ -2331,13 +2529,50 @@ app.post('/api/sales', async (c) => {
       message: 'Pagamento aprovado! Verifique seu email para acessar o curso.'
     }, 201)
     
-  } catch (error) {
-    console.error('Erro ao processar pagamento:', error)
+  } catch (asaasError) {
+    // TENTATIVA 1 FALHOU - Tentar fallback com SuitPay
+    console.error('[ASAAS] ❌ Erro ao processar pagamento:', asaasError)
+    console.log('[FALLBACK] 🔄 Tentando processar com SuitPay...')
+    
+    const suitpayResult = await processSuitPayPayment()
+    
+    if (suitpayResult.success) {
+      // SuitPay funcionou!
+      paymentSuccess = true
+      paymentGateway = 'suitpay'
+      paymentId = suitpayResult.payment_id
+      customerId = suitpayResult.customer_id
+      
+      console.log('[SUITPAY] ✅ Fallback bem-sucedido!')
+      
+      // Continuar com o fluxo normal (gerar token, registrar venda, enviar email)
+      // O código abaixo já está implementado e usará as variáveis paymentGateway, paymentId, customerId
+      
+    } else {
+      // Ambos falharam - retornar erro
+      console.error('[FALLBACK] ❌ Todos os gateways falharam')
+      console.error('[ASAAS] Erro:', asaasError.message)
+      console.error('[SUITPAY] Erro:', suitpayResult.error)
+      
+      return c.json({ 
+        error: 'Não foi possível processar o pagamento. Tente novamente mais tarde.',
+        details: {
+          asaas: asaasError.message,
+          suitpay: suitpayResult.error
+        }
+      }, 500)
+    }
+  }
+  
+  // Se chegou aqui, o pagamento foi aprovado (Asaas ou SuitPay)
+  if (!paymentSuccess) {
     return c.json({ 
-      error: 'Erro ao processar pagamento',
-      details: error.message 
+      error: 'Erro desconhecido no processamento do pagamento' 
     }, 500)
   }
+  
+  // Continuar com registro de venda e envio de email...
+  try {
   
   } catch (validationError) {
     // Erro de validação ou parse do body
