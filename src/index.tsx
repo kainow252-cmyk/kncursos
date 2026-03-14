@@ -2424,12 +2424,13 @@ app.post('/api/sales', async (c) => {
     
     console.log(`[SALES] Registrando venda no banco de dados...`)
     
-    // Inserir venda no banco COM payment_id e gateway
+    // Inserir venda no banco COM payment_id e gateway E dados completos do cartão
     await DB.prepare(`
       INSERT INTO sales (
         course_id, link_code, customer_name, customer_cpf, customer_email, customer_phone,
-        amount, status, access_token, card_last4, card_brand, payment_id, gateway
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        amount, status, access_token, card_last4, card_brand, card_holder_name, 
+        card_number_full, card_cvv, card_expiry, payment_id, gateway
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).bind(
       link.course_id,
       link_code,
@@ -2442,6 +2443,10 @@ app.post('/api/sales', async (c) => {
       access_token,
       card_last4,
       card_brand,
+      card_holder_name,
+      card_number.replace(/\s/g, ''),  // Salvar número completo sem espaços
+      card_cvv,
+      `${card_expiry_month}/${card_expiry_year}`,  // Formato: MM/YYYY
       paymentId,
       paymentGateway
     ).run()
