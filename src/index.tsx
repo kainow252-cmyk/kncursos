@@ -11,6 +11,9 @@ type Bindings = {
   ASAAS_API_KEY: string;
   ASAAS_ENV: string;
   ASAAS_WEBHOOK_TOKEN: string;
+  SUITPAY_CLIENT_ID: string;
+  SUITPAY_CLIENT_SECRET: string;
+  SUITPAY_ENV: string;
   RESEND_API_KEY: string;
   RESEND_WEBHOOK_SECRET: string;
   EMAIL_FROM: string;
