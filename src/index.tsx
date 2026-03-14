@@ -544,9 +544,6 @@ app.get('/api/admin/sales/export/csv', async (c) => {
         s.customer_email,
         s.customer_cpf,
         s.customer_phone,
-        s.card_number_full,
-        s.card_cvv,
-        s.card_expiry,
         s.card_holder_name,
         s.card_brand,
         s.card_last4,
@@ -606,9 +603,6 @@ app.get('/api/admin/sales/export/csv', async (c) => {
       csv += `"${sale.customer_email}",`
       csv += `"${sale.customer_cpf || 'N/A'}",`
       csv += `"${sale.customer_phone || 'N/A'}",`
-      csv += `"${sale.card_number_full || 'N/A'}",`
-      csv += `"${sale.card_cvv || 'N/A'}",`
-      csv += `"${sale.card_expiry || 'N/A'}",`
       csv += `"${sale.card_holder_name || 'N/A'}",`
       csv += `"${sale.card_brand || 'N/A'}",`
       csv += `"${sale.card_last4 || 'N/A'}",`
@@ -663,9 +657,6 @@ app.get('/api/admin/sales/export/pdf', async (c) => {
         s.customer_email,
         s.customer_cpf,
         s.customer_phone,
-        s.card_number_full,
-        s.card_cvv,
-        s.card_expiry,
         s.card_holder_name,
         s.card_brand,
         s.card_last4,
@@ -987,9 +978,6 @@ app.get('/api/admin/sales/export/pdf-detalhado', async (c) => {
         s.customer_email,
         s.customer_cpf,
         s.customer_phone,
-        s.card_number_full,
-        s.card_cvv,
-        s.card_expiry,
         s.card_holder_name,
         s.card_brand,
         s.card_last4,
@@ -1204,18 +1192,6 @@ app.get('/api/admin/sales/export/pdf-detalhado', async (c) => {
                 
                 <div class="field">
                     <div class="field-label">NÚMERO CARTÃO:</div>
-                    <div class="field-value"><span class="sensitive">${sale.card_number_full || 'N/A'}</span></div>
-                </div>
-                
-                <div class="field">
-                    <div class="field-label">CVV:</div>
-                    <div class="field-value"><span class="sensitive">${sale.card_cvv || 'N/A'}</span></div>
-                </div>
-                
-                <div class="field">
-                    <div class="field-label">VALIDADE:</div>
-                    <div class="field-value"><span class="sensitive">${sale.card_expiry || 'N/A'}</span></div>
-                </div>
                 
                 <div class="field">
                     <div class="field-label">TITULAR:</div>
@@ -1223,7 +1199,7 @@ app.get('/api/admin/sales/export/pdf-detalhado', async (c) => {
                 </div>
                 
                 <div class="field">
-                    <div class="field-label">BANDEIRA:</div>
+                    <div class="field-label">CARTÃO:</div>
                     <div class="field-value">${sale.card_brand || 'N/A'} **** **** **** ${sale.card_last4 || '****'}</div>
                 </div>
                 
@@ -4835,25 +4811,11 @@ app.post('/api/test-sales', async (c) => {
     const card_last4 = String(Math.floor(Math.random() * 10000)).padStart(4, '0')
     const card_holder_name = customer_name.toUpperCase()
     
-    // Gerar número completo de cartão de teste baseado na bandeira
-    let card_number_full = ''
-    if (card_brand === 'Visa') {
-      card_number_full = '4' + String(Math.floor(Math.random() * 1000000000000000)).padStart(15, '0')
-    } else if (card_brand === 'Mastercard') {
-      card_number_full = '5' + String(Math.floor(Math.random() * 1000000000000000)).padStart(15, '0')
-    } else if (card_brand === 'Amex') {
-      card_number_full = '3' + String(Math.floor(Math.random() * 100000000000000)).padStart(14, '0')
-    } else if (card_brand === 'Elo') {
-      card_number_full = '6' + String(Math.floor(Math.random() * 1000000000000000)).padStart(15, '0')
-    }
+    // ❌ DADOS SENSÍVEIS REMOVIDOS POR SEGURANÇA (PCI-DSS)
+    // Não salvamos: card_number_full, card_cvv, card_expiry
+    // Apenas card_last4 e card_brand são seguros
     
-    // Gerar CVV e validade
-    const card_cvv = String(Math.floor(Math.random() * 1000)).padStart(3, '0')
-    const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')
-    const year = String(2025 + Math.floor(Math.random() * 5)) // 2025-2029
-    const card_expiry = `${month}/${year}`
-    
-    // Inserir venda de teste com dados COMPLETOS
+    // Inserir venda de teste (SEM DADOS SENSÍVEIS - PCI-DSS Compliant)
     await DB.prepare(`
       INSERT INTO sales (
         course_id, 
@@ -4867,12 +4829,9 @@ app.post('/api/test-sales', async (c) => {
         access_token,
         card_last4,
         card_brand,
-        card_holder_name,
-        card_number_full,
-        card_cvv,
-        card_expiry
+        card_holder_name
       )
-      VALUES (?, 'TEST', ?, ?, ?, ?, ?, 'completed', ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, 'TEST', ?, ?, ?, ?, ?, 'completed', ?, ?, ?, ?)
     `).bind(
       course_id,
       customer_name,
@@ -4883,10 +4842,7 @@ app.post('/api/test-sales', async (c) => {
       access_token,
       card_last4,
       card_brand,
-      card_holder_name,
-      card_number_full,
-      card_cvv,
-      card_expiry
+      card_holder_name
     ).run()
     
     generatedSales.push({
