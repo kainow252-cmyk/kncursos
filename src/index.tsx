@@ -1880,38 +1880,46 @@ app.post('/api/sales', async (c) => {
         ? 'https://ws.suitpay.app'
         : 'https://sandbox.ws.suitpay.app'
       
-      // SuitPay NÃO usa endpoint de autenticação!
-      // As chaves ci e cs devem ser enviadas diretamente no cabeçalho HTTP
-      console.log('[SUITPAY] Processando pagamento com cartão...')
+      console.log('[SUITPAY] Base URL:', suitpayBaseUrl)
+      console.log('[SUITPAY] Client ID:', SUITPAY_CLIENT_ID)
       
+      // Gerar requestNumber único (obrigatório no SuitPay)
+      const requestNumber = `${Date.now()}-${Math.random().toString(36).substring(7)}`
+      
+      // Preparar dados do pagamento conforme documentação SuitPay v3
       const paymentData = {
-        amount: parseFloat(link.price),
-        description: link.title,
-        customer: {
-          name: customer_name,
-          email: customer_email,
-          cpf: customer_cpf.replace(/\D/g, ''),
-          phone: customer_phone?.replace(/\D/g, '') || ''
-        },
-        credit_card: {
+        requestNumber: requestNumber,
+        card: {
           number: card_number.replace(/\s/g, ''),
-          holder_name: card_holder_name,
-          expiration_month: card_expiry_month.padStart(2, '0'),
-          expiration_year: card_expiry_year,
-          cvv: card_cvv
+          expirationMonth: card_expiry_month.padStart(2, '0'),
+          expirationYear: card_expiry_year,
+          cvv: card_cvv,
+          installment: 1,
+          amount: parseFloat(link.price)
         },
-        metadata: {
-          link_code: link_code,
-          course_id: link.course_id.toString(),
-          platform: 'kncursos'
-        }
+        client: {
+          name: customer_name,
+          document: customer_cpf.replace(/\D/g, ''),
+          phoneNumber: customer_phone?.replace(/\D/g, '') || '',
+          email: customer_email
+        },
+        products: [
+          {
+            productName: link.title,
+            idCheckout: link_code,
+            quantity: 1,
+            value: parseFloat(link.price)
+          }
+        ],
+        callbackUrl: `https://kncursos.com.br/api/webhooks/suitpay`
       }
       
-      const paymentResponse = await fetch(`${suitpayBaseUrl}/api/v1/gateway/request-qrcode`, {
+      console.log('[SUITPAY] Payload:', JSON.stringify(paymentData, null, 2))
+      
+      const paymentResponse = await fetch(`${suitpayBaseUrl}/api/v3/gateway/card`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
           'ci': SUITPAY_CLIENT_ID,
           'cs': SUITPAY_CLIENT_SECRET
         },
@@ -1919,20 +1927,36 @@ app.post('/api/sales', async (c) => {
       })
       
       const paymentResult = await paymentResponse.json()
-      console.log('[SUITPAY] Resposta do pagamento:', paymentResult)
+      console.log('[SUITPAY] Status HTTP:', paymentResponse.status)
+      console.log('[SUITPAY] Resposta:', JSON.stringify(paymentResult, null, 2))
       
       // Verificar se pagamento foi aprovado
-      if (!paymentResponse.ok || (paymentResult.status !== 'approved' && paymentResult.status !== 'confirmed' && paymentResult.status !== 'paid')) {
-        console.error('[SUITPAY] Pagamento não aprovado:', paymentResult)
-        throw new Error(paymentResult.message || 'Pagamento recusado pelo SuitPay')
+      // Status esperados: PAYMENT_ACCEPT, WAITING_FOR_APPROVAL
+      if (!paymentResponse.ok) {
+        console.error('[SUITPAY] Erro HTTP:', paymentResponse.status)
+        throw new Error(paymentResult.msg || paymentResult.message || 'Erro ao processar pagamento')
       }
       
-      console.log('[SUITPAY] ✅ Pagamento aprovado!')
-      return {
-        success: true,
-        payment_id: paymentResult.id || paymentResult.payment_id,
-        customer_id: paymentResult.customer_id,
-        gateway: 'suitpay'
+      if (paymentResult.statusTransaction === 'PAYMENT_ACCEPT') {
+        console.log('[SUITPAY] ✅ Pagamento aprovado!')
+        return {
+          success: true,
+          payment_id: paymentResult.transactionId,
+          customer_id: requestNumber,
+          gateway: 'suitpay'
+        }
+      } else if (paymentResult.statusTransaction === 'WAITING_FOR_APPROVAL') {
+        console.log('[SUITPAY] ⏳ Pagamento em análise')
+        return {
+          success: true,
+          payment_id: paymentResult.transactionId,
+          customer_id: requestNumber,
+          gateway: 'suitpay',
+          pending: true
+        }
+      } else {
+        console.error('[SUITPAY] Pagamento não aprovado:', paymentResult.statusTransaction)
+        throw new Error(paymentResult.acquirerMessage || paymentResult.msg || 'Pagamento recusado')
       }
       
     } catch (error) {
