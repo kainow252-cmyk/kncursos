@@ -3598,7 +3598,6 @@ app.get('/checkout/:code', async (c) => {
         <title>Checkout - kncursos</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
-        <script src="https://sdk.mercadopago.com/js/v2"></script>
     </head>
     <body class="bg-gray-50">
         <div class="min-h-screen py-12">
@@ -3773,11 +3772,6 @@ app.get('/checkout/:code', async (c) => {
         <script>
             const linkCode = window.location.pathname.split('/').pop();
             let courseData = null;
-            
-            // Inicializar Mercado Pago
-            const mp = new MercadoPago('${c.env.MERCADOPAGO_PUBLIC_KEY}', {
-                locale: 'pt-BR'
-            });
 
             // Máscaras de formatação
             function formatCPF(value) {
@@ -3898,23 +3892,39 @@ app.get('/checkout/:code', async (c) => {
                     // Extrair mês e ano do vencimento
                     const [month, year] = cardExpiry.split('/');
                     
-                    // Criar token do Mercado Pago
-                    console.log('[CHECKOUT] Criando token do cartão...');
-                    const cardToken = await mp.fields.createCardToken({
-                        cardNumber: cardNumber.replace(/\\s/g, ''),
-                        cardholderName: cardName,
-                        cardExpirationMonth: month,
-                        cardExpirationYear: '20' + year,
-                        securityCode: cardCvv,
-                        identificationType: 'CPF',
-                        identificationNumber: cpf.replace(/\\D/g, '')
+                    // Criar token usando API direta do Mercado Pago
+                    console.log('[CHECKOUT] Criando token do cartão via API...');
+                    
+                    const tokenResponse = await fetch('https://api.mercadopago.com/v1/card_tokens', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer APP_USR-f0b3ead2-9739-4ac0-ac36-1522181f317b'
+                        },
+                        body: JSON.stringify({
+                            card_number: cardNumber.replace(/\\s/g, ''),
+                            cardholder: {
+                                name: cardName,
+                                identification: {
+                                    type: 'CPF',
+                                    number: cpf.replace(/\\D/g, '')
+                                }
+                            },
+                            security_code: cardCvv,
+                            expiration_month: parseInt(month),
+                            expiration_year: parseInt('20' + year)
+                        })
                     });
                     
-                    if (!cardToken || !cardToken.id) {
-                        throw new Error('Erro ao gerar token do cartão. Verifique os dados e tente novamente.');
+                    const tokenData = await tokenResponse.json();
+                    
+                    if (!tokenResponse.ok || !tokenData.id) {
+                        const errorMsg = tokenData.message || tokenData.error || 'Erro ao gerar token';
+                        console.error('[CHECKOUT] Erro ao criar token:', tokenData);
+                        throw new Error(errorMsg);
                     }
                     
-                    console.log('[CHECKOUT] Token criado:', cardToken.id);
+                    console.log('[CHECKOUT] Token criado:', tokenData.id);
                     button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processando pagamento...';
                     
                     const response = await axios.post('/api/sales', {
@@ -3923,7 +3933,7 @@ app.get('/checkout/:code', async (c) => {
                         customer_cpf: cpf,
                         customer_email: email,
                         customer_phone: phone,
-                        card_token: cardToken.id,
+                        card_token: tokenData.id,
                         card_holder_name: cardName
                     });
                     
