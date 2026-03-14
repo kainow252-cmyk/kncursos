@@ -1610,7 +1610,7 @@ app.post('/api/webhooks/mercadopago', async (c) => {
 
 // Processar pagamento e registrar venda com Mercado Pago
 app.post('/api/sales', async (c) => {
-  const { DB, RESEND_API_KEY, EMAIL_FROM, MERCADOPAGO_ACCESS_TOKEN } = c.env
+  const { DB, RESEND_API_KEY, EMAIL_FROM, MERCADOPAGO_ACCESS_TOKEN, MERCADOPAGO_PUBLIC_KEY } = c.env
   
   try {
     const body = await c.req.json()
