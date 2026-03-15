@@ -4668,7 +4668,11 @@ app.get('/checkout/:code', async (c) => {
                     const response = await axios.get('/api/link/' + linkCode);
                     courseData = response.data;
                     
-                    document.getElementById('course-image').src = courseData.image_url || 'https://via.placeholder.com/400x300?text=Curso';
+                    const courseImage = document.getElementById('course-image');
+                    if (courseImage) {
+                        courseImage.src = courseData.image_url || 'https://via.placeholder.com/400x300?text=Curso';
+                    }
+                    
                     document.getElementById('course-title').textContent = courseData.title;
                     document.getElementById('course-description').textContent = courseData.description;
                     document.getElementById('course-content').textContent = courseData.content;

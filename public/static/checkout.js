@@ -16,7 +16,11 @@ async function loadCheckoutData() {
             document.getElementById('course-description').textContent = course.description || 'Sem descrição';
             document.getElementById('course-price').textContent = `R$ ${parseFloat(course.price).toFixed(2)}`;
             document.getElementById('course-content').textContent = course.content || 'Conteúdo não disponível';
-            document.getElementById('course-image').src = course.image_url || 'https://via.placeholder.com/400x300?text=Sem+Imagem';
+            
+            const courseImage = document.getElementById('course-image');
+            if (courseImage) {
+                courseImage.src = course.image_url || 'https://via.placeholder.com/400x300?text=Sem+Imagem';
+            }
             
             // Mostrar conteúdo
             document.getElementById('loading').classList.add('hidden');
