@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test Debug</title></head>
+<body>
+<h1>Debug Test</h1>
+
+<div id="image-preview" class="hidden">
+    <img id="preview-img" src="" alt="Preview">
+</div>
+
+<script>
+console.log("=== DEBUG TEST ===");
+
+// Teste 1: Elemento existe?
+const previewImg = document.getElementById('preview-img');
+console.log("Preview Img Element:", previewImg);
+
+// Teste 2: Tentar setar src
+try {
+    if (previewImg) {
+        previewImg.src = "https://via.placeholder.com/400x300";
+        console.log("✅ SRC setado com sucesso!");
+    } else {
+        console.error("❌ Elemento preview-img NÃO ENCONTRADO!");
+    }
+} catch (error) {
+    console.error("❌ ERRO ao setar src:", error.message);
+}
+
+// Teste 3: Verificar se há outro elemento
+const altImg = document.getElementById('image-preview-img');
+console.log("Alt Img Element:", altImg);
+</script>
+</body>
+</html>

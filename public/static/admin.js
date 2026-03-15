@@ -382,12 +382,15 @@ function updateSalesStats() {
 let editingCourseId = null;
 
 async function editCourse(courseId) {
+    console.log('[EDIT COURSE] Iniciando edição do curso:', courseId);
     editingCourseId = courseId;
     
     // Buscar dados do curso
     try {
+        console.log('[EDIT COURSE] Buscando dados...');
         const response = await axios.get(`/api/courses/${courseId}`);
         const course = response.data;
+        console.log('[EDIT COURSE] Curso carregado:', course);
         
         // Preencher o formulário
         document.getElementById('course-title').value = course.title;
@@ -403,13 +406,21 @@ async function editCourse(courseId) {
         
         // Mostrar preview se houver imagem
         if (course.image_url) {
+            console.log('[EDIT COURSE] Tentando mostrar preview da imagem:', course.image_url);
             const previewImg = document.getElementById('preview-img') || document.getElementById('image-preview-img');
+            console.log('[EDIT COURSE] Elemento preview-img encontrado:', previewImg ? 'SIM' : 'NÃO');
             if (previewImg) {
+                console.log('[EDIT COURSE] Setando src...');
                 previewImg.src = course.image_url;
+                console.log('[EDIT COURSE] ✅ SRC setado com sucesso!');
                 const imagePreview = document.getElementById('image-preview');
+                console.log('[EDIT COURSE] Container image-preview encontrado:', imagePreview ? 'SIM' : 'NÃO');
                 if (imagePreview) {
                     imagePreview.classList.remove('hidden');
+                    console.log('[EDIT COURSE] ✅ Preview mostrado!');
                 }
+            } else {
+                console.error('[EDIT COURSE] ❌ ERRO: Elemento preview-img NÃO ENCONTRADO no DOM!');
             }
         }
         
