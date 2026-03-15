@@ -6,8 +6,16 @@ let currentCourseId = null;
 function showCourseForm() {
     document.getElementById('course-form').classList.remove('hidden');
     currentCourseId = null;
-    document.getElementById('form-title').textContent = 'Adicionar Novo Curso';
-    document.getElementById('submit-btn').innerHTML = '<i class="fas fa-save mr-2"></i>Salvar Curso';
+    
+    const formTitle = document.getElementById('form-title');
+    const submitBtn = document.getElementById('submit-btn');
+    
+    if (formTitle) {
+        formTitle.textContent = 'Adicionar Novo Curso';
+    }
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-save mr-2"></i>Salvar Curso';
+    }
 }
 
 function hideCourseForm() {
@@ -35,8 +43,11 @@ function handleImageUpload(event) {
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            document.getElementById('preview-img').src = e.target.result;
-            document.getElementById('image-preview').classList.remove('hidden');
+            const previewImg = document.getElementById('preview-img');
+            if (previewImg) {
+                previewImg.src = e.target.result;
+                document.getElementById('image-preview').classList.remove('hidden');
+            }
         };
         reader.readAsDataURL(file);
         
@@ -244,17 +255,30 @@ async function editCourse(courseId) {
     
     // Mostrar previews se houver URLs
     if (course.image_url) {
-        document.getElementById('preview-img').src = course.image_url;
-        document.getElementById('image-preview').classList.remove('hidden');
+        const previewImg = document.getElementById('preview-img');
+        if (previewImg) {
+            previewImg.src = course.image_url;
+            document.getElementById('image-preview').classList.remove('hidden');
+        }
     }
     if (course.pdf_url) {
-        document.getElementById('pdf-name').textContent = course.pdf_url.split('/').pop();
-        document.getElementById('pdf-preview').classList.remove('hidden');
+        const pdfName = document.getElementById('pdf-name');
+        if (pdfName) {
+            pdfName.textContent = course.pdf_url.split('/').pop();
+            document.getElementById('pdf-preview').classList.remove('hidden');
+        }
     }
     
     // Atualizar título do formulário
-    document.getElementById('form-title').textContent = 'Editar Curso';
-    document.getElementById('submit-btn').innerHTML = '<i class="fas fa-save mr-2"></i>Atualizar Curso';
+    const formTitle = document.getElementById('form-title');
+    const submitBtn = document.getElementById('submit-btn');
+    
+    if (formTitle) {
+        formTitle.textContent = 'Editar Curso';
+    }
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-save mr-2"></i>Atualizar Curso';
+    }
     
     // Mostrar formulário
     document.getElementById('course-form').classList.remove('hidden');
