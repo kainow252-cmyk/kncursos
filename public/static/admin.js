@@ -395,8 +395,14 @@ async function editCourse(courseId) {
         
         // Mostrar preview se houver imagem
         if (course.image_url) {
-            document.getElementById('image-preview-img').src = course.image_url;
-            document.getElementById('image-preview').classList.remove('hidden');
+            const previewImg = document.getElementById('preview-img') || document.getElementById('image-preview-img');
+            if (previewImg) {
+                previewImg.src = course.image_url;
+                const imagePreview = document.getElementById('image-preview');
+                if (imagePreview) {
+                    imagePreview.classList.remove('hidden');
+                }
+            }
         }
         
         // Mudar título do formulário
@@ -823,7 +829,10 @@ async function handleImageUpload(event) {
         // Atualizar preview
         uploadedImageUrl = response.data.url;
         document.getElementById('course-image').value = uploadedImageUrl;
-        document.getElementById('image-preview-img').src = uploadedImageUrl;
+        const previewImg = document.getElementById('preview-img') || document.getElementById('image-preview-img');
+        if (previewImg) {
+            previewImg.src = uploadedImageUrl;
+        }
         document.getElementById('image-preview').classList.remove('hidden');
         
         // Restaurar botão
@@ -908,7 +917,10 @@ async function handlePDFUpload(event) {
 function removeImage() {
     document.getElementById('course-image').value = '';
     document.getElementById('image-preview').classList.add('hidden');
-    document.getElementById('image-preview-img').src = '';
+    const previewImg = document.getElementById('preview-img') || document.getElementById('image-preview-img');
+    if (previewImg) {
+        previewImg.src = '';
+    }
     document.getElementById('course-image-file').value = '';
     uploadedImageUrl = '';
 }
