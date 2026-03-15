@@ -3853,7 +3853,7 @@ app.get('/admin', async (c) => {
                                 </label>
                                 
                                 <div id="image-preview" class="hidden mb-4 relative">
-                                    <img id="image-preview-img" src="" alt="Preview" class="w-full max-w-md h-48 object-cover rounded-lg shadow-md">
+                                    <img id="preview-img" src="" alt="Preview" class="w-full max-w-md h-48 object-cover rounded-lg shadow-md">
                                     <button type="button" onclick="removeImage()" class="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600 transition">
                                         <i class="fas fa-times"></i>
                                     </button>
