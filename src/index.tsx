@@ -3030,6 +3030,9 @@ app.get('/', async (c) => {
                     <button onclick="filterCategory('all')" class="category-btn active px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-medium transition shadow-md bg-blue-600 text-white hover:bg-blue-700 whitespace-nowrap">
                         <i class="fas fa-th mr-1 text-xs"></i>Todos
                     </button>
+                    <button onclick="filterCategory('Geral')" class="category-btn px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-medium transition shadow-md bg-white text-gray-700 hover:bg-blue-600 hover:text-white whitespace-nowrap">
+                        <i class="fas fa-book mr-1 text-xs"></i>Geral
+                    </button>
                     <button onclick="filterCategory('Marketing Digital')" class="category-btn px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-medium transition shadow-md bg-white text-gray-700 hover:bg-blue-600 hover:text-white whitespace-nowrap">
                         <i class="fas fa-bullhorn mr-1 text-xs"></i>Marketing
                     </button>
@@ -3051,11 +3054,14 @@ app.get('/', async (c) => {
                     <button onclick="filterCategory('Saúde e Bem-Estar')" class="category-btn px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-medium transition shadow-md bg-white text-gray-700 hover:bg-blue-600 hover:text-white whitespace-nowrap">
                         <i class="fas fa-heart mr-1 text-xs"></i>Saúde
                     </button>
-                    <button onclick="filterCategory('Inteligência Artificial')" class="category-btn px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-medium transition shadow-md bg-white text-gray-700 hover:bg-blue-600 hover:text-white whitespace-nowrap">
-                        <i class="fas fa-robot mr-1 text-xs"></i>IA
+                    <button onclick="filterCategory('Desenvolvimento Pessoal')" class="category-btn px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-medium transition shadow-md bg-white text-gray-700 hover:bg-blue-600 hover:text-white whitespace-nowrap">
+                        <i class="fas fa-user-graduate mr-1 text-xs"></i>Pessoal
                     </button>
                     <button onclick="filterCategory('Idiomas')" class="category-btn px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-medium transition shadow-md bg-white text-gray-700 hover:bg-blue-600 hover:text-white whitespace-nowrap">
                         <i class="fas fa-language mr-1 text-xs"></i>Idiomas
+                    </button>
+                    <button onclick="filterCategory('Redes Sociais')" class="category-btn px-2 md:px-3 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-medium transition shadow-md bg-white text-gray-700 hover:bg-blue-600 hover:text-white whitespace-nowrap">
+                        <i class="fas fa-share-alt mr-1 text-xs"></i>Redes
                     </button>
                 </div>
             </div>
@@ -3790,26 +3796,17 @@ app.get('/admin', async (c) => {
                                     </label>
                                     <select id="course-category" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
                                         <option value="">Selecione uma categoria</option>
+                                        <option value="Geral">Geral</option>
                                         <option value="Marketing Digital">Marketing Digital</option>
                                         <option value="Tecnologia">Tecnologia</option>
                                         <option value="Programação">Programação</option>
                                         <option value="Negócios Online">Negócios Online</option>
                                         <option value="Design">Design</option>
-                                        <option value="Vendas">Vendas</option>
                                         <option value="Finanças">Finanças</option>
-                                        <option value="Educação">Educação</option>
                                         <option value="Saúde e Bem-Estar">Saúde e Bem-Estar</option>
-                                        <option value="Carreira">Carreira</option>
                                         <option value="Desenvolvimento Pessoal">Desenvolvimento Pessoal</option>
                                         <option value="Idiomas">Idiomas</option>
-                                        <option value="Produtividade">Produtividade</option>
-                                        <option value="Comunicação">Comunicação</option>
-                                        <option value="Gestão e Liderança">Gestão e Liderança</option>
-                                        <option value="Inteligência Artificial">Inteligência Artificial</option>
-                                        <option value="Fotografia e Vídeo">Fotografia e Vídeo</option>
-                                        <option value="Música e Artes">Música e Artes</option>
-                                        <option value="Culinária">Culinária</option>
-                                        <option value="Geral">Geral</option>
+                                        <option value="Redes Sociais">Redes Sociais</option>
                                     </select>
                                 </div>
                                 <div class="flex items-end">
