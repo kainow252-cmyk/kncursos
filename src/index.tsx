@@ -21,6 +21,13 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>()
 
+// ============= HELPER FUNCTIONS =============
+
+// Gerar código único para payment links
+function generateLinkCode(): string {
+  return Math.random().toString(36).substring(2, 10).toUpperCase()
+}
+
 // ============= SECURITY MIDDLEWARE =============
 
 // Rate limiting simples (em memória) - auto-limpeza ao verificar
@@ -415,14 +422,33 @@ app.post('/api/courses', async (c) => {
       image_height || 300
     ).run()
     
-    console.log('[CREATE COURSE] ✅ Sucesso! ID:', result.meta.last_row_id)
+    const courseId = result.meta.last_row_id
+    console.log('[CREATE COURSE] ✅ Sucesso! ID:', courseId)
+    
+    // Gerar link de pagamento automaticamente
+    const linkCode = generateLinkCode()
+    console.log('[CREATE COURSE] 🔗 Gerando payment link:', linkCode)
+    
+    try {
+      await DB.prepare(`
+        INSERT INTO payment_links (course_id, link_code, status, created_at)
+        VALUES (?, ?, 'active', datetime('now'))
+      `).bind(courseId, linkCode).run()
+      
+      console.log('[CREATE COURSE] ✅ Payment link criado:', linkCode)
+    } catch (linkError) {
+      console.error('[CREATE COURSE] ⚠️ Erro ao criar payment link:', linkError)
+      // Não falha a criação do curso se o payment link falhar
+    }
     
     return c.json({ 
-      id: result.meta.last_row_id, 
+      id: courseId, 
       title, 
       price, 
       category, 
-      featured 
+      featured,
+      link_code: linkCode,
+      checkout_url: `https://kncursos.com.br/checkout/${linkCode}`
     }, 201)
   } catch (error) {
     console.error('[CREATE COURSE] ❌ Erro:', error)
@@ -1447,7 +1473,7 @@ app.post('/api/payment-links', async (c) => {
   }
   
   // Gerar código único
-  const link_code = Math.random().toString(36).substring(2, 10).toUpperCase()
+  const link_code = generateLinkCode()
   
   await DB.prepare(`
     INSERT INTO payment_links (course_id, link_code)
