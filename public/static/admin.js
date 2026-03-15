@@ -53,8 +53,16 @@ function hideCourseForm() {
     
     // Resetar estado de edição
     editingCourseId = null;
-    document.querySelector('#course-form h3').textContent = 'Adicionar Novo Curso';
-    document.querySelector('#course-form button[type="submit"]').innerHTML = '<i class="fas fa-save mr-2"></i>Salvar Curso';
+    
+    const formTitle = document.querySelector('#course-form h3');
+    if (formTitle) {
+        formTitle.textContent = 'Adicionar Novo Curso';
+    }
+    
+    const submitBtn = document.querySelector('#course-form button[type="submit"]');
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-save mr-2"></i>Salvar Curso';
+    }
 }
 
 // Save Course
@@ -406,11 +414,16 @@ async function editCourse(courseId) {
         }
         
         // Mudar título do formulário
-        document.querySelector('#course-form h3').textContent = 'Editar Curso';
+        const formTitle = document.querySelector('#course-form h3');
+        if (formTitle) {
+            formTitle.textContent = 'Editar Curso';
+        }
         
         // Mudar texto do botão
         const submitBtn = document.querySelector('#course-form button[type="submit"]');
-        submitBtn.innerHTML = '<i class="fas fa-save mr-2"></i>Atualizar Curso';
+        if (submitBtn) {
+            submitBtn.innerHTML = '<i class="fas fa-save mr-2"></i>Atualizar Curso';
+        }
         
         // Mostrar formulário
         showCourseForm();
