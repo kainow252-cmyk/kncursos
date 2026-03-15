@@ -3561,7 +3561,19 @@ app.get('/cursos', async (c) => {
                             </div>
                             <div class="mb-4">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Categoria</label>
-                                <input type="text" id="course-category" value="Geral" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <select id="course-category" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="Geral">Geral</option>
+                                    <option value="Marketing Digital">Marketing Digital</option>
+                                    <option value="Tecnologia">Tecnologia</option>
+                                    <option value="Programação">Programação</option>
+                                    <option value="Negócios Online">Negócios Online</option>
+                                    <option value="Design">Design</option>
+                                    <option value="Finanças">Finanças</option>
+                                    <option value="Saúde e Bem-Estar">Saúde e Bem-Estar</option>
+                                    <option value="Desenvolvimento Pessoal">Desenvolvimento Pessoal</option>
+                                    <option value="Idiomas">Idiomas</option>
+                                    <option value="Redes Sociais">Redes Sociais</option>
+                                </select>
                             </div>
                             <div class="mb-4">
                                 <label class="flex items-center">
