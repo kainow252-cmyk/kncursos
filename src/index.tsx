@@ -3114,10 +3114,10 @@ app.get('/', async (c) => {
         <section class="bg-gradient-to-br from-blue-50 to-purple-50 py-3 md:py-4">
             <div class="container mx-auto px-3 md:px-4 text-center">
                 <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-1">
-                    Transforme Sua Carreira com Nossos Cursos
+                    Livros e Cursos direto ao ponto
                 </h2>
                 <p class="text-sm sm:text-base md:text-lg text-gray-600">
-                    Cursos práticos e direto ao ponto para você começar hoje mesmo
+                    Para quem não tem tempo a perder
                 </p>
             </div>
         </section>
