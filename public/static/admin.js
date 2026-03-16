@@ -16,12 +16,17 @@ function showTab(tabName) {
     });
     
     // Show selected tab
-    document.getElementById('content-' + tabName).classList.remove('hidden');
+    const contentTab = document.getElementById('content-' + tabName);
+    if (contentTab) {
+        contentTab.classList.remove('hidden');
+    }
     
     // Add active class to button
     const activeBtn = document.getElementById('tab-' + tabName);
-    activeBtn.classList.add('border-blue-600', 'text-blue-600');
-    activeBtn.classList.remove('text-gray-600');
+    if (activeBtn) {
+        activeBtn.classList.add('border-blue-600', 'text-blue-600');
+        activeBtn.classList.remove('text-gray-600');
+    }
     
     // Load data
     if (tabName === 'courses') {
@@ -33,19 +38,32 @@ function showTab(tabName) {
 
 // Course Form Management
 function showCourseForm() {
-    document.getElementById('course-form').classList.remove('hidden');
+    const courseForm = document.getElementById('course-form');
+    if (courseForm) {
+        courseForm.classList.remove('hidden');
+    }
 }
 
 function hideCourseForm() {
-    document.getElementById('course-form').classList.add('hidden');
-    document.getElementById('course-title').value = '';
-    document.getElementById('course-price').value = '';
-    document.getElementById('course-description').value = '';
-    document.getElementById('course-content').value = '';
-    document.getElementById('course-image').value = '';
-    document.getElementById('course-pdf').value = '';
-    document.getElementById('course-image-width').value = 400;
-    document.getElementById('course-image-height').value = 300;
+    const courseForm = document.getElementById('course-form');
+    const courseTitle = document.getElementById('course-title');
+    const coursePrice = document.getElementById('course-price');
+    const courseDescription = document.getElementById('course-description');
+    const courseContent = document.getElementById('course-content');
+    const courseImage = document.getElementById('course-image');
+    const coursePdf = document.getElementById('course-pdf');
+    const courseImageWidth = document.getElementById('course-image-width');
+    const courseImageHeight = document.getElementById('course-image-height');
+    
+    if (courseForm) courseForm.classList.add('hidden');
+    if (courseTitle) courseTitle.value = '';
+    if (coursePrice) coursePrice.value = '';
+    if (courseDescription) courseDescription.value = '';
+    if (courseContent) courseContent.value = '';
+    if (courseImage) courseImage.value = '';
+    if (coursePdf) coursePdf.value = '';
+    if (courseImageWidth) courseImageWidth.value = 400;
+    if (courseImageHeight) courseImageHeight.value = 300;
     
     // Resetar previews
     removeImage();
@@ -955,23 +973,31 @@ async function handlePDFUpload(event) {
 
 // Remover imagem
 function removeImage() {
-    document.getElementById('course-image').value = '';
-    document.getElementById('image-preview').classList.add('hidden');
+    const courseImage = document.getElementById('course-image');
+    const imagePreview = document.getElementById('image-preview');
     const previewImg = document.getElementById('preview-img') || document.getElementById('image-preview-img');
-    if (previewImg) {
-        previewImg.src = '';
-    }
-    document.getElementById('course-image-file').value = '';
+    const courseImageFile = document.getElementById('course-image-file');
+    
+    if (courseImage) courseImage.value = '';
+    if (imagePreview) imagePreview.classList.add('hidden');
+    if (previewImg) previewImg.src = '';
+    if (courseImageFile) courseImageFile.value = '';
     uploadedImageUrl = '';
 }
 
 // Remover PDF
 function removePDF() {
-    document.getElementById('course-pdf').value = '';
-    document.getElementById('pdf-preview').classList.add('hidden');
-    document.getElementById('pdf-name').textContent = '';
-    document.getElementById('pdf-size').textContent = '';
-    document.getElementById('course-pdf-file').value = '';
+    const coursePdf = document.getElementById('course-pdf');
+    const pdfPreview = document.getElementById('pdf-preview');
+    const pdfName = document.getElementById('pdf-name');
+    const pdfSize = document.getElementById('pdf-size');
+    const coursePdfFile = document.getElementById('course-pdf-file');
+    
+    if (coursePdf) coursePdf.value = '';
+    if (pdfPreview) pdfPreview.classList.add('hidden');
+    if (pdfName) pdfName.textContent = '';
+    if (pdfSize) pdfSize.textContent = '';
+    if (coursePdfFile) coursePdfFile.value = '';
     uploadedPDFUrl = '';
 }
 
