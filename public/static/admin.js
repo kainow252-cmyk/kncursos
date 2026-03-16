@@ -850,12 +850,16 @@ async function handleImageUpload(event) {
         return;
     }
     
+    const button = event.target.previousElementSibling;
+    let originalHTML = '<i class="fas fa-upload"></i> Enviar Imagem';
+    
     try {
         // Mostrar loading
-        const button = event.target.previousElementSibling;
-        const originalHTML = button.innerHTML;
-        button.disabled = true;
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        if (button) {
+            originalHTML = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        }
         
         // Criar FormData
         const formData = new FormData();
@@ -870,16 +874,26 @@ async function handleImageUpload(event) {
         
         // Atualizar preview
         uploadedImageUrl = response.data.url;
-        document.getElementById('course-image').value = uploadedImageUrl;
+        const courseImage = document.getElementById('course-image');
+        if (courseImage) {
+            courseImage.value = uploadedImageUrl;
+        }
+        
         const previewImg = document.getElementById('preview-img') || document.getElementById('image-preview-img');
         if (previewImg) {
             previewImg.src = uploadedImageUrl;
         }
-        document.getElementById('image-preview').classList.remove('hidden');
+        
+        const imagePreview = document.getElementById('image-preview');
+        if (imagePreview) {
+            imagePreview.classList.remove('hidden');
+        }
         
         // Restaurar botão
-        button.disabled = false;
-        button.innerHTML = originalHTML;
+        if (button) {
+            button.disabled = false;
+            button.innerHTML = originalHTML;
+        }
         
         alert('✅ Imagem enviada com sucesso!');
         
@@ -888,9 +902,10 @@ async function handleImageUpload(event) {
         alert('Erro ao enviar imagem: ' + (error.response?.data?.error || error.message));
         
         // Restaurar botão
-        const button = event.target.previousElementSibling;
-        button.disabled = false;
-        button.innerHTML = '<i class="fas fa-upload"></i> Enviar Imagem';
+        if (button) {
+            button.disabled = false;
+            button.innerHTML = originalHTML;
+        }
     }
 }
 
@@ -912,10 +927,10 @@ async function handlePDFUpload(event) {
     }
     
     let originalHTML = '<i class="fas fa-upload"></i> Enviar PDF';
+    const button = event.target.previousElementSibling;
     
     try {
         // Mostrar loading
-        const button = event.target.previousElementSibling;
         if (button) {
             originalHTML = button.innerHTML;
             button.disabled = true;
@@ -950,7 +965,6 @@ async function handlePDFUpload(event) {
         if (pdfPreview) pdfPreview.classList.remove('hidden');
         
         // Restaurar botão
-        const button = event.target.previousElementSibling;
         if (button) {
             button.disabled = false;
             button.innerHTML = originalHTML;
@@ -963,7 +977,6 @@ async function handlePDFUpload(event) {
         alert('Erro ao enviar PDF: ' + (error.response?.data?.error || error.message));
         
         // Restaurar botão
-        const button = event.target.previousElementSibling;
         if (button) {
             button.disabled = false;
             button.innerHTML = originalHTML;
