@@ -214,9 +214,9 @@ app.post('/api/upload', async (c) => {
       }, 400)
     }
     
-    // Validar tamanho (máximo 10MB)
-    if (file.size > 10 * 1024 * 1024) {
-      return c.json({ error: 'Arquivo muito grande (máximo 10MB)' }, 400)
+    // Validar tamanho (máximo 100MB)
+    if (file.size > 100 * 1024 * 1024) {
+      return c.json({ error: 'Arquivo muito grande (máximo 100MB)' }, 400)
     }
     
     // Gerar nome único
@@ -297,9 +297,9 @@ app.post('/api/upload-from-url', async (c) => {
       }, 400)
     }
     
-    // Validar tamanho (máximo 10MB)
-    if (arrayBuffer.byteLength > 10 * 1024 * 1024) {
-      return c.json({ error: 'Arquivo muito grande (máximo 10MB)' }, 400)
+    // Validar tamanho (máximo 100MB)
+    if (arrayBuffer.byteLength > 100 * 1024 * 1024) {
+      return c.json({ error: 'Arquivo muito grande (máximo 100MB)' }, 400)
     }
     
     // Gerar nome único

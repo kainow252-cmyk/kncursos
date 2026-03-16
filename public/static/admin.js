@@ -826,9 +826,9 @@ async function handleImageUpload(event) {
         return;
     }
     
-    // Validar tamanho (máximo 10MB)
-    if (file.size > 10 * 1024 * 1024) {
-        alert('Imagem muito grande. Máximo 10MB');
+    // Validar tamanho (máximo 100MB)
+    if (file.size > 100 * 1024 * 1024) {
+        alert('Imagem muito grande. Máximo 100MB');
         return;
     }
     
@@ -887,9 +887,9 @@ async function handlePDFUpload(event) {
         return;
     }
     
-    // Validar tamanho (máximo 10MB)
-    if (file.size > 10 * 1024 * 1024) {
-        alert('PDF muito grande. Máximo 10MB');
+    // Validar tamanho (máximo 100MB)
+    if (file.size > 100 * 1024 * 1024) {
+        alert('PDF muito grande. Máximo 100MB');
         return;
     }
     
