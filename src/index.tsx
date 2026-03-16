@@ -3105,7 +3105,7 @@ app.get('/', async (c) => {
                         <i class="fas fa-graduation-cap mr-1 md:mr-2 text-base md:text-xl"></i>vemgo
                     </h1>
                     <span class="hidden sm:inline text-blue-100">-</span>
-                    <p class="text-blue-100 text-xs sm:text-sm md:text-base leading-tight sm:leading-normal">Aprenda com os melhores cursos online</p>
+                    <p class="text-blue-100 text-xs sm:text-sm md:text-base leading-tight sm:leading-normal">Livros e cursos online</p>
                 </div>
             </div>
         </header>
