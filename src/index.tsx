@@ -3102,7 +3102,7 @@ app.get('/', async (c) => {
             <div class="container mx-auto px-3 md:px-4 py-2.5 md:py-3.5">
                 <div class="flex items-baseline gap-1 md:gap-2">
                     <h1 class="text-lg md:text-2xl lg:text-3xl font-bold whitespace-nowrap">
-                        <i class="fas fa-graduation-cap mr-1 md:mr-2 text-base md:text-xl"></i>vemgo
+                        <i class="fas fa-graduation-cap mr-1 md:mr-2 text-base md:text-xl"></i>Vemgo
                     </h1>
                     <span class="hidden sm:inline text-blue-100">-</span>
                     <p class="text-blue-100 text-xs sm:text-sm md:text-base leading-tight sm:leading-normal">Livros e cursos online</p>
