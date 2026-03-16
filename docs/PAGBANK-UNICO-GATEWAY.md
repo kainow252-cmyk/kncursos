@@ -3,9 +3,9 @@
 ## Status da Implementação
 🟢 **SIMPLIFICADO E OTIMIZADO** - Gateway único: PagBank
 
-**Deploy:** https://d2a0a89d.kncursos.pages.dev  
-**Produção:** https://kncursos.com.br  
-**Webhook:** https://kncursos.com.br/api/webhooks/pagbank
+**Deploy:** https://d2a0a89d.vemgo.pages.dev  
+**Produção:** https://vemgo.com.br  
+**Webhook:** https://vemgo.com.br/api/webhooks/pagbank
 
 ---
 
@@ -64,13 +64,13 @@ PAGBANK_ENV=production
 
 # Resend
 RESEND_API_KEY=re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6
-EMAIL_FROM=cursos@kncursos.com.br
+EMAIL_FROM=cursos@vemgo.com.br
 RESEND_WEBHOOK_SECRET=whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t
 
 # Admin
 ADMIN_USERNAME=admin
-ADMIN_PASSWORD=kncursos2024
-JWT_SECRET=kncursos-jwt-secret-production-2024
+ADMIN_PASSWORD=vemgo2024
+JWT_SECRET=vemgo-jwt-secret-production-2024
 ```
 
 ### .dev.vars (Local)
@@ -82,13 +82,13 @@ PAGBANK_ENV=production
 
 # Resend
 RESEND_API_KEY=re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6
-EMAIL_FROM=cursos@kncursos.com.br
+EMAIL_FROM=cursos@vemgo.com.br
 RESEND_WEBHOOK_SECRET=whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t
 
 # Admin
 ADMIN_USERNAME=admin
-ADMIN_PASSWORD=kncursos2024
-JWT_SECRET=kncursos-jwt-secret-production-2024
+ADMIN_PASSWORD=vemgo2024
+JWT_SECRET=vemgo-jwt-secret-production-2024
 ```
 
 ---
@@ -146,8 +146,8 @@ Detalhes: ACCESS_DENIED: whitelist access required. Contact PagSeguro
 1. Acesse https://painel.pagbank.com.br
 2. Login → **Integrações** → **API** → **Whitelist**
 3. Adicione:
-   - **Domínio:** `kncursos.com.br`
-   - **Subdomínios (opcional):** `*.kncursos.pages.dev`
+   - **Domínio:** `vemgo.com.br`
+   - **Subdomínios (opcional):** `*.vemgo.pages.dev`
 4. Salve e aguarde 1-2 minutos
 
 #### Opção 2: Suporte PagBank
@@ -159,12 +159,12 @@ Detalhes: ACCESS_DENIED: whitelist access required. Contact PagSeguro
 Olá! Preciso adicionar meu domínio na whitelist da API PagBank.
 
 Token: 36af5904-5c62-4d9c-99b7-896326ac5201...
-Domínio: kncursos.com.br
+Domínio: vemgo.com.br
 Erro: "ACCESS_DENIED: whitelist access required"
 
 Por favor, autorize:
-• https://kncursos.com.br/api/sales
-• https://*.kncursos.pages.dev/api/sales
+• https://vemgo.com.br/api/sales
+• https://*.vemgo.pages.dev/api/sales
 
 Obrigado!
 ```
@@ -232,7 +232,7 @@ Siga as instruções acima.
 /tmp/test_pagbank_only.sh
 
 # Ou manualmente via web
-https://kncursos.com.br
+https://vemgo.com.br
 ```
 
 ### 3. Validar Webhook (≈5 min)

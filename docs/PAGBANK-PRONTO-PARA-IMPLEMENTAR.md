@@ -152,7 +152,7 @@ async function processPagBankPayment(encryptedCard: string) {
         }
       }],
       notification_urls: [
-        "https://kncursos.com.br/api/webhooks/pagbank"
+        "https://vemgo.com.br/api/webhooks/pagbank"
       ]
     }
     
@@ -297,5 +297,5 @@ app.post('/api/webhooks/pagbank', async (c) => {
 
 **Aguardo sua decisão para continuar!** 😊
 
-**Repositório:** https://github.com/kainow252-cmyk/kncursos  
+**Repositório:** https://github.com/kainow252-cmyk/vemgo  
 **Último commit:** Credenciais PagBank configuradas

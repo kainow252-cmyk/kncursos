@@ -17,10 +17,10 @@
 ## ✅ CAMPO 2: NOME DO WEBHOOK
 
 ```
-KN Cursos - Notificações de Pagamento
+Vemgo - Notificações de Pagamento
 ```
 
-**Digite:** `KN Cursos - Notificações de Pagamento`
+**Digite:** `Vemgo - Notificações de Pagamento`
 
 **Observação:** Nome descritivo para identificar este webhook
 
@@ -29,10 +29,10 @@ KN Cursos - Notificações de Pagamento
 ## ✅ CAMPO 3: URL DO WEBHOOK
 
 ```
-https://c02d2ec7.kncursos.pages.dev/webhook/asaas
+https://c02d2ec7.vemgo.pages.dev/webhook/asaas
 ```
 
-**Cole exatamente:** `https://c02d2ec7.kncursos.pages.dev/webhook/asaas`
+**Cole exatamente:** `https://c02d2ec7.vemgo.pages.dev/webhook/asaas`
 
 **⚠️ IMPORTANTE:** 
 - Não adicione `/` no final
@@ -136,8 +136,8 @@ Selecione TODOS os eventos de pagamento
 | Campo | Valor |
 |-------|-------|
 | **Ativo?** | ✅ Sim |
-| **Nome** | KN Cursos - Notificações de Pagamento |
-| **URL** | https://c02d2ec7.kncursos.pages.dev/webhook/asaas |
+| **Nome** | Vemgo - Notificações de Pagamento |
+| **URL** | https://c02d2ec7.vemgo.pages.dev/webhook/asaas |
 | **Email** | gelci.jose.grouptrig@gmail.com |
 | **Versão API** | v3 (ou mais recente) |
 | **Token** | whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM |
@@ -205,7 +205,7 @@ Acesse: **Configurações → Integrações → Webhooks**
 
 ```bash
 # Ver logs em tempo real
-npx wrangler pages deployment tail --project-name kncursos
+npx wrangler pages deployment tail --project-name vemgo
 ```
 
 **Procure por:**

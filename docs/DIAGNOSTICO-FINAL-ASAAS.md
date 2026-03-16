@@ -193,7 +193,7 @@ Enquanto resolve o Asaas:
 | Componente | Status |
 |------------|--------|
 | Código | ✅ 100% funcional (endpoint correto) |
-| Deploy | ✅ Online (https://kncursos.com.br) |
+| Deploy | ✅ Online (https://vemgo.com.br) |
 | Webhook Asaas | ✅ Configurado e testado |
 | SuitPay | ✅ Implementado (precisa habilitar) |
 | Asaas API | ❌ **Bloqueada (precisa suporte)** |

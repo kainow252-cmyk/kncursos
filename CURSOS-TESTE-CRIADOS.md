@@ -121,25 +121,25 @@ Criados **60 cursos** distribuídos em **10 categorias** (6 cursos cada), com **
 ### Criar Cursos
 ```bash
 cd /home/user/webapp
-npx wrangler d1 execute kncursos --local --file=./seed-add-courses.sql
+npx wrangler d1 execute vemgo --local --file=./seed-add-courses.sql
 ```
 
 ### Criar Payment Links
 ```bash
 cd /home/user/webapp
-npx wrangler d1 execute kncursos --local --file=./fix-payment-links.sql
+npx wrangler d1 execute vemgo --local --file=./fix-payment-links.sql
 ```
 
 ### Verificar
 ```bash
 # Total de cursos
-npx wrangler d1 execute kncursos --local --command="SELECT COUNT(*) FROM courses"
+npx wrangler d1 execute vemgo --local --command="SELECT COUNT(*) FROM courses"
 
 # Total de payment_links
-npx wrangler d1 execute kncursos --local --command="SELECT COUNT(*) FROM payment_links"
+npx wrangler d1 execute vemgo --local --command="SELECT COUNT(*) FROM payment_links"
 
 # Cursos por categoria
-npx wrangler d1 execute kncursos --local --command="SELECT category, COUNT(*) as total FROM courses GROUP BY category"
+npx wrangler d1 execute vemgo --local --command="SELECT category, COUNT(*) as total FROM courses GROUP BY category"
 ```
 
 ## 🎨 Características dos Cursos
@@ -196,8 +196,8 @@ npx wrangler d1 execute kncursos --local --command="SELECT category, COUNT(*) as
 - **Checkout**: http://localhost:3000/checkout/MKT2024-001
 
 ### Produção
-- **Home**: https://kncursos.pages.dev/
-- **Admin**: https://kncursos.pages.dev/admin
+- **Home**: https://vemgo.pages.dev/
+- **Admin**: https://vemgo.pages.dev/admin
 
 ## ✅ Checklist
 

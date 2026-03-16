@@ -2,8 +2,8 @@
 
 **Data:** 14/03/2026  
 **Status:** ✅ COMPLETO E FUNCIONANDO  
-**Deploy:** https://0798d808.kncursos.pages.dev  
-**Repositório:** https://github.com/kainow252-cmyk/kncursos
+**Deploy:** https://0798d808.vemgo.pages.dev  
+**Repositório:** https://github.com/kainow252-cmyk/vemgo
 
 ---
 
@@ -99,7 +99,7 @@ const mpResponse = await fetch('https://api.mercadopago.com/v1/payments', {
     headers: {
         'Authorization': `Bearer ${MERCADOPAGO_ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
-        'X-Idempotency-Key': `kncursos-${Date.now()}`
+        'X-Idempotency-Key': `vemgo-${Date.now()}`
     },
     body: JSON.stringify({
         transaction_amount: parseFloat(link.price),
@@ -124,10 +124,10 @@ const card_brand = paymentResult.payment_method_id || 'unknown';
 MERCADOPAGO_ACCESS_TOKEN=APP_USR-5716535937560584-031411-...
 MERCADOPAGO_PUBLIC_KEY=APP_USR-f0b3ead2-9739-4ac0-ac36-...
 RESEND_API_KEY=re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6
-EMAIL_FROM=cursos@kncursos.com.br
+EMAIL_FROM=cursos@vemgo.com.br
 ADMIN_USERNAME=admin
-ADMIN_PASSWORD=kncursos2024
-JWT_SECRET=kncursos-jwt-secret-production-2024
+ADMIN_PASSWORD=vemgo2024
+JWT_SECRET=vemgo-jwt-secret-production-2024
 ```
 
 ---
@@ -136,7 +136,7 @@ JWT_SECRET=kncursos-jwt-secret-production-2024
 
 ### Opção 1: Via Checkout Web (RECOMENDADO)
 
-1. Acessar: https://0798d808.kncursos.pages.dev/checkout/MKT2024ABC
+1. Acessar: https://0798d808.vemgo.pages.dev/checkout/MKT2024ABC
 2. Preencher formulário com:
    - Nome: João Silva Teste
    - CPF: 123.456.789-01
@@ -161,7 +161,7 @@ xdg-open /tmp/test-mercadopago-checkout.html
 
 ```bash
 # Teste simples (validação de campos)
-curl -X POST https://0798d808.kncursos.pages.dev/api/sales \
+curl -X POST https://0798d808.vemgo.pages.dev/api/sales \
   -H "Content-Type: application/json" \
   -d '{
     "link_code": "MKT2024ABC",
@@ -218,7 +218,7 @@ curl -X POST https://0798d808.kncursos.pages.dev/api/sales \
 cd /home/user/webapp
 export CLOUDFLARE_API_TOKEN="3XVV83kDwH6VAfHfn3iBG07He24veho5ENuzj2ld"
 npm run build
-npx wrangler pages deploy dist --project-name=kncursos
+npx wrangler pages deploy dist --project-name=vemgo
 ```
 
 ### Deploy Automático (Script)
@@ -241,7 +241,7 @@ O script:
 
 ### 1. Configurar Webhook no Mercado Pago
 
-**URL:** `https://kncursos.com.br/api/webhooks/mercadopago`  
+**URL:** `https://vemgo.com.br/api/webhooks/mercadopago`  
 **Dashboard:** https://www.mercadopago.com.br/developers/panel
 
 **Eventos para ativar:**
@@ -252,7 +252,7 @@ O script:
 
 ### 2. Promover Preview para Produção
 
-O deploy atual está em **preview** (0798d808.kncursos.pages.dev).
+O deploy atual está em **preview** (0798d808.vemgo.pages.dev).
 
 **Opções:**
 - **A)** Dashboard Cloudflare: Promover deploy para produção
@@ -321,7 +321,7 @@ O deploy atual está em **preview** (0798d808.kncursos.pages.dev).
 ### ⏳ Aguardando configuração:
 
 - [ ] Webhook configurado no painel Mercado Pago
-- [ ] Deploy promovido para domínio de produção (kncursos.com.br)
+- [ ] Deploy promovido para domínio de produção (vemgo.com.br)
 - [ ] Teste de pagamento real em produção
 
 ---

@@ -35,7 +35,7 @@ CREATE TABLE users (
 ### Usuários Criados
 
 **Local (já aplicado):**
-- ✅ Admin: `admin / kncursos2024`
+- ✅ Admin: `admin / vemgo2024`
 - ✅ Funcionário: `funcionario / funcionario123`
 
 **Produção (você precisa aplicar):**
@@ -99,7 +99,7 @@ if (userData.role !== 'admin' && userData.role !== 'employee') {
 ```bash
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"kncursos2024"}'
+  -d '{"username":"admin","password":"vemgo2024"}'
 
 ✅ Resultado:
 {
@@ -129,7 +129,7 @@ curl -X POST http://localhost:3000/api/auth/login \
 
 ### Deploy Atual
 ```
-https://f88c1f78.kncursos.pages.dev
+https://f88c1f78.vemgo.pages.dev
 ```
 
 ### ⚠️ IMPORTANTE: Aplicar SQL Primeiro!
@@ -137,7 +137,7 @@ https://f88c1f78.kncursos.pages.dev
 **Antes de testar**, você **PRECISA** aplicar o SQL no Dashboard D1:
 
 1. Acesse: https://dash.cloudflare.com/ef4dfafae6fc56ebf84a3b58aa7d8b45/workers-and-pages/d1
-2. Clique no banco **"kncursos"**
+2. Clique no banco **"vemgo"**
 3. Aba **"Console"**
 4. Execute os 3 comandos SQL do arquivo `APLICAR-USUARIOS-PRODUCAO.md`
 
@@ -147,15 +147,15 @@ https://f88c1f78.kncursos.pages.dev
 
 ### Admin (Após aplicar SQL)
 ```
-URL: https://f88c1f78.kncursos.pages.dev/login
+URL: https://f88c1f78.vemgo.pages.dev/login
 Usuário: admin
-Senha: kncursos2024
+Senha: vemgo2024
 Acesso: /admin + /cursos
 ```
 
 ### Funcionário (Após aplicar SQL)
 ```
-URL: https://f88c1f78.kncursos.pages.dev/login
+URL: https://f88c1f78.vemgo.pages.dev/login
 Usuário: funcionario
 Senha: funcionario123
 Acesso: /cursos (bloqueado em /admin)
@@ -166,12 +166,12 @@ Acesso: /cursos (bloqueado em /admin)
 ## 📋 Cenários de Teste
 
 ### Cenário 1: Admin Acessa /admin
-1. Login: `admin / kncursos2024`
+1. Login: `admin / vemgo2024`
 2. Acesse: `/admin`
 3. ✅ **Resultado esperado:** Dashboard completo com aba "Vendas"
 
 ### Cenário 2: Admin Acessa /cursos
-1. Login: `admin / kncursos2024`
+1. Login: `admin / vemgo2024`
 2. Acesse: `/cursos`
 3. ✅ **Resultado esperado:** Painel de cursos funcionando
 
@@ -269,6 +269,6 @@ Você pode criar uma página `/admin/usuarios` para:
 
 ---
 
-**Deploy:** https://f88c1f78.kncursos.pages.dev  
+**Deploy:** https://f88c1f78.vemgo.pages.dev  
 **Próximo passo:** Aplicar SQL na produção  
 **Criticidade:** ⚠️ ALTA - Sistema não funcionará sem o SQL

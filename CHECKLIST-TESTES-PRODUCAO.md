@@ -2,7 +2,7 @@
 
 ## 🎯 Status: PRONTO PARA TESTES FINAIS
 
-**Último Deploy:** https://afcfcd33.kncursos.pages.dev
+**Último Deploy:** https://afcfcd33.vemgo.pages.dev
 
 ---
 
@@ -11,8 +11,8 @@
 ### 1️⃣ **AUTENTICAÇÃO E LOGIN**
 
 #### Login Admin
-- [ ] Acessar https://kncursos.pages.dev/login
-- [ ] Testar login com credenciais corretas (admin/kncursos2024)
+- [ ] Acessar https://vemgo.pages.dev/login
+- [ ] Testar login com credenciais corretas (admin/vemgo2024)
 - [ ] Testar login com credenciais incorretas (deve dar erro)
 - [ ] Verificar se redireciona para /admin após login
 - [ ] Verificar botão "Sair" funcionando
@@ -23,7 +23,7 @@
 ### 2️⃣ **ROTA /CURSOS (FUNCIONÁRIOS)**
 
 #### Acesso à Rota
-- [ ] Acessar https://kncursos.pages.dev/cursos
+- [ ] Acessar https://vemgo.pages.dev/cursos
 - [ ] Verificar se redireciona para login (se não autenticado)
 - [ ] Fazer login e verificar se carrega a página de cursos
 - [ ] Verificar se o header mostra "Gerenciar Cursos"
@@ -50,7 +50,7 @@
 ### 3️⃣ **ROTA /ADMIN (ADMINISTRADOR)**
 
 #### Acesso Completo
-- [ ] Acessar https://kncursos.pages.dev/admin
+- [ ] Acessar https://vemgo.pages.dev/admin
 - [ ] Verificar se tem aba "Cursos"
 - [ ] Verificar se tem aba "Vendas"
 - [ ] Alternar entre abas
@@ -81,7 +81,7 @@
 ### 4️⃣ **LOJA PÚBLICA**
 
 #### Página Principal
-- [ ] Acessar https://kncursos.pages.dev/
+- [ ] Acessar https://vemgo.pages.dev/
 - [ ] Verificar se cursos são exibidos
 - [ ] Verificar se imagens carregam
 - [ ] Verificar se preços são exibidos corretamente
@@ -94,7 +94,7 @@
 ### 5️⃣ **CHECKOUT E PAGAMENTO**
 
 #### Página de Checkout
-- [ ] Acessar https://kncursos.pages.dev/checkout/DEV2024XYZ
+- [ ] Acessar https://vemgo.pages.dev/checkout/DEV2024XYZ
 - [ ] Verificar se informações do curso carregam
 - [ ] Verificar se imagem do curso é exibida
 - [ ] Verificar se preço está correto
@@ -127,7 +127,7 @@
 - [ ] Verificar caixa de entrada
 - [ ] Verificar pasta SPAM
 - [ ] Verificar se e-mail chegou
-- [ ] Verificar se remetente está correto (cursos@kncursos.com.br)
+- [ ] Verificar se remetente está correto (cursos@vemgo.com.br)
 - [ ] Verificar se assunto está correto
 - [ ] Abrir e-mail
 - [ ] Verificar se informações estão corretas
@@ -164,7 +164,7 @@
 
 #### Verificar Dados Salvos
 - [ ] Acessar https://dash.cloudflare.com/
-- [ ] Ir em Storage & Databases → D1 → kncursos
+- [ ] Ir em Storage & Databases → D1 → vemgo
 - [ ] Console → Executar: `SELECT * FROM courses LIMIT 5;`
 - [ ] Verificar se cursos estão salvos
 - [ ] Executar: `SELECT * FROM sales ORDER BY id DESC LIMIT 5;`
@@ -177,7 +177,7 @@
 ### 9️⃣ **TESTE DE E-MAIL**
 
 #### Página de Teste
-- [ ] Acessar https://kncursos.pages.dev/test-email
+- [ ] Acessar https://vemgo.pages.dev/test-email
 - [ ] Clicar em "Enviar E-mail de Teste"
 - [ ] Aguardar resposta
 - [ ] Verificar se mostra "Sucesso"
@@ -333,8 +333,8 @@ Assinatura: ____________________
 **🔍 COMECE OS TESTES AGORA!**
 
 **URLs para testar:**
-- Login: https://kncursos.pages.dev/login
-- Cursos: https://kncursos.pages.dev/cursos
-- Admin: https://kncursos.pages.dev/admin
-- Loja: https://kncursos.pages.dev/
-- Checkout: https://kncursos.pages.dev/checkout/DEV2024XYZ
+- Login: https://vemgo.pages.dev/login
+- Cursos: https://vemgo.pages.dev/cursos
+- Admin: https://vemgo.pages.dev/admin
+- Loja: https://vemgo.pages.dev/
+- Checkout: https://vemgo.pages.dev/checkout/DEV2024XYZ

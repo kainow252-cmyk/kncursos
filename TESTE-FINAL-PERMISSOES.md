@@ -8,7 +8,7 @@ SELECT * FROM users;
 ✅ Resultado:
 id | username    | password        | role     | name              | active
 ---+-------------+-----------------+----------+-------------------+--------
-1  | admin       | kncursos2024    | admin    | Administrador     | 1
+1  | admin       | vemgo2024    | admin    | Administrador     | 1
 2  | funcionario | funcionario123  | employee | Funcionário Teste | 1
 ```
 
@@ -20,9 +20,9 @@ id | username    | password        | role     | name              | active
 
 ### Teste 1: Login Admin ✅
 ```
-URL: https://kncursos.pages.dev/login
+URL: https://vemgo.pages.dev/login
 Usuário: admin
-Senha: kncursos2024
+Senha: vemgo2024
 
 Ações:
 1. Fazer login
@@ -39,7 +39,7 @@ Ações:
 
 ### Teste 2: Login Funcionário ✅
 ```
-URL: https://kncursos.pages.dev/login
+URL: https://vemgo.pages.dev/login
 Usuário: funcionario
 Senha: funcionario123
 
@@ -76,7 +76,7 @@ Ações:
 
 ### Teste 4: Admin Pode Acessar Tudo ✅
 ```
-Login: admin / kncursos2024
+Login: admin / vemgo2024
 
 Ações:
 1. Acessar /admin (deve funcionar)
@@ -108,7 +108,7 @@ Ações:
 
 | Funcionalidade | Admin | Funcionário |
 |---|---|---|
-| **Login** | ✅ admin/kncursos2024 | ✅ funcionario/funcionario123 |
+| **Login** | ✅ admin/vemgo2024 | ✅ funcionario/funcionario123 |
 | **Acesso /admin** | ✅ SIM | ❌ NÃO (redireciona) |
 | **Acesso /cursos** | ✅ SIM | ✅ SIM |
 | **Ver aba "Vendas"** | ✅ SIM | ❌ NÃO |
@@ -233,12 +233,12 @@ Adicionar mais roles:
 
 ### Produção (Atual - Cache Cloudflare pode levar 5-10 min)
 ```
-https://kncursos.pages.dev/login
+https://vemgo.pages.dev/login
 ```
 
 ### Preview (Imediato)
 ```
-https://f88c1f78.kncursos.pages.dev/login
+https://f88c1f78.vemgo.pages.dev/login
 ```
 
 ---
@@ -248,7 +248,7 @@ https://f88c1f78.kncursos.pages.dev/login
 ### Administrador
 ```
 Usuário: admin
-Senha: kncursos2024
+Senha: vemgo2024
 Acesso: /admin + /cursos
 ```
 
@@ -264,8 +264,8 @@ Acesso: /cursos (bloqueado em /admin)
 ## 📝 Como Testar
 
 ### Passo 1: Teste Admin
-1. Acesse: https://kncursos.pages.dev/login
-2. Login: `admin` / `kncursos2024`
+1. Acesse: https://vemgo.pages.dev/login
+2. Login: `admin` / `vemgo2024`
 3. Verifique se foi para `/admin`
 4. Verifique se tem aba "Vendas"
 5. Clique em "Cursos" e verifique funcionamento
@@ -306,5 +306,5 @@ Acesso: /cursos (bloqueado em /admin)
 ---
 
 **Criado em:** 14/03/2026 00:15  
-**Deploy:** https://f88c1f78.kncursos.pages.dev  
+**Deploy:** https://f88c1f78.vemgo.pages.dev  
 **Status:** 🚀 Pronto para teste final!

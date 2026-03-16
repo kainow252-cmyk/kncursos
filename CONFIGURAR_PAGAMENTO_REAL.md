@@ -68,7 +68,7 @@ Acesse sua conta no Mercado Pago:
 
 Acesse o painel do Cloudflare Pages:
 
-**URL:** https://dash.cloudflare.com/ef4dfafae6fc56ebf84a3b58aa7d8b45/pages/view/kncursos/settings/environment-variables
+**URL:** https://dash.cloudflare.com/ef4dfafae6fc56ebf84a3b58aa7d8b45/pages/view/vemgo/settings/environment-variables
 
 #### Opção A: Usar APENAS PRODUÇÃO (Recomendado)
 
@@ -107,7 +107,7 @@ Configure estas 5 variáveis:
 
 **Pelo Dashboard:**
 
-1. Acesse: https://dash.cloudflare.com/ef4dfafae6fc56ebf84a3b58aa7d8b45/pages/view/kncursos/settings/environment-variables
+1. Acesse: https://dash.cloudflare.com/ef4dfafae6fc56ebf84a3b58aa7d8b45/pages/view/vemgo/settings/environment-variables
 2. Clique em **"Add variable"**
 3. Adicione cada variável:
    - **Variable name:** `MERCADOPAGO_ACCESS_TOKEN`
@@ -123,13 +123,13 @@ Configure estas 5 variáveis:
 cd /home/user/webapp
 
 # Adicionar Access Token de PRODUÇÃO
-npx wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name=kncursos
+npx wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name=vemgo
 
 # Adicionar Public Key de PRODUÇÃO
-npx wrangler pages secret put MERCADOPAGO_PUBLIC_KEY --project-name=kncursos
+npx wrangler pages secret put MERCADOPAGO_PUBLIC_KEY --project-name=vemgo
 
 # Definir modo como PRODUÇÃO
-npx wrangler pages secret put MERCADOPAGO_TEST_MODE --project-name=kncursos
+npx wrangler pages secret put MERCADOPAGO_TEST_MODE --project-name=vemgo
 # Digite: false
 ```
 
@@ -142,7 +142,7 @@ Depois de configurar as variáveis, faça um novo deploy:
 ```bash
 cd /home/user/webapp
 npm run build
-npx wrangler pages deploy dist --project-name=kncursos
+npx wrangler pages deploy dist --project-name=vemgo
 ```
 
 Ou simplesmente faça um commit e push (o Cloudflare Pages faz deploy automático):
@@ -167,7 +167,7 @@ Faça um teste de pagamento e verifique os logs:
 Ou teste via API:
 
 ```bash
-curl -X POST https://kncursos.com.br/api/sales \
+curl -X POST https://vemgo.com.br/api/sales \
   -H "Content-Type: application/json" \
   -d '{
     "link_code": "MKT2024ABC",
@@ -225,7 +225,7 @@ Para que o sistema receba notificações automáticas de pagamento aprovado/recu
 3. Vá em **"Webhooks"**
 4. Adicione a URL:
    ```
-   https://kncursos.com.br/api/webhooks/mercadopago
+   https://vemgo.com.br/api/webhooks/mercadopago
    ```
 5. Selecione os eventos:
    - ✅ `payment.created`
@@ -300,7 +300,7 @@ As credenciais devem estar **APENAS** no Cloudflare Pages (variáveis de ambient
 
 ### Problema 4: Webhook não está funcionando
 **Causa:** URL não configurada no Mercado Pago  
-**Solução:** Configure `https://kncursos.com.br/api/webhooks/mercadopago` no painel
+**Solução:** Configure `https://vemgo.com.br/api/webhooks/mercadopago` no painel
 
 ---
 

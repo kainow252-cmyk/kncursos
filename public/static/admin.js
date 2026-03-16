@@ -464,7 +464,7 @@ async function deleteCourse(courseId, courseTitle) {
 
 // Export to CSV
 // Senha para exportação (configure aqui)
-const EXPORT_PASSWORD = 'kncursos2024';
+const EXPORT_PASSWORD = 'vemgo2024';
 
 // Solicitar senha antes de exportar
 function requestPasswordForExport(callback) {
@@ -543,7 +543,7 @@ function exportToCSV() {
         const link = document.createElement('a');
         const url = URL.createObjectURL(blob);
         link.setAttribute('href', url);
-        link.setAttribute('download', `vendas_completas_kncursos_${new Date().toISOString().split('T')[0]}.csv`);
+        link.setAttribute('download', `vendas_completas_vemgo_${new Date().toISOString().split('T')[0]}.csv`);
         link.style.visibility = 'hidden';
         document.body.appendChild(link);
         link.click();
@@ -575,7 +575,7 @@ function exportToPDF() {
             <html lang="pt-BR">
             <head>
                 <meta charset="UTF-8">
-                <title>Relatório de Vendas - kncursos</title>
+                <title>Relatório de Vendas - vemgo</title>
                 <style>
                     * { margin: 0; padding: 0; box-sizing: border-box; }
                     body {
@@ -681,7 +681,7 @@ function exportToPDF() {
         <body>
             <div class="header">
                 <h1>📊 Relatório Completo de Vendas</h1>
-                <p>kncursos.com.br - Gerado em ${new Date().toLocaleString('pt-BR')}</p>
+                <p>vemgo.com.br - Gerado em ${new Date().toLocaleString('pt-BR')}</p>
             </div>
             
             <div class="security-notice">
@@ -749,7 +749,7 @@ function exportToPDF() {
             <div class="footer">
                 <p>🔒 Este relatório é confidencial e contém informações sensíveis.</p>
                 <p>Destinado apenas para uso interno autorizado.</p>
-                <p>&copy; 2024 kncursos - Todos os direitos reservados</p>
+                <p>&copy; 2024 vemgo - Todos os direitos reservados</p>
             </div>
             
             <div class="no-print" style="text-align: center; margin-top: 30px;">

@@ -19,7 +19,7 @@
 
 2. **Navegue até o projeto:**
    - Clique em **"Workers & Pages"** no menu lateral
-   - Encontre e clique no projeto **"kncursos"**
+   - Encontre e clique no projeto **"vemgo"**
 
 3. **Vá para Settings:**
    - Clique na aba **"Settings"**
@@ -65,16 +65,16 @@
    - Clique em **"D1 database bindings"**
    - Clique em **"Add binding"**:
      - Variable name: `DB`
-     - D1 database: Selecione `kncursos`
+     - D1 database: Selecione `vemgo`
    - Clique em **"Save"**
 
 ---
 
 ## 🌐 Configurar Domínio Custom (Opcional)
 
-1. No projeto **kncursos**, vá na aba **"Custom domains"**
+1. No projeto **vemgo**, vá na aba **"Custom domains"**
 2. Clique em **"Set up a custom domain"**
-3. Digite: `kncursos.com.br`
+3. Digite: `vemgo.com.br`
 4. Clique em **"Continue"**
 5. O DNS será configurado automaticamente (você já tem o domínio na Cloudflare)
 6. Aguarde 5-15 minutos para propagação
@@ -88,16 +88,16 @@ Depois de adicionar as variáveis de ambiente, teste:
 ### URLs Disponíveis:
 
 ```
-✅ https://kncursos.pages.dev/
-✅ https://cace94e4.kncursos.pages.dev/
-⏳ https://kncursos.com.br/ (após configurar domínio)
+✅ https://vemgo.pages.dev/
+✅ https://cace94e4.vemgo.pages.dev/
+⏳ https://vemgo.com.br/ (após configurar domínio)
 ```
 
 ### Páginas para testar:
 
 1. **Home (vitrine de cursos):**
    ```
-   https://kncursos.pages.dev/
+   https://vemgo.pages.dev/
    ```
    - Deve mostrar 3 cursos
    - Cada curso com botão "COMPRAR AGORA"
@@ -105,7 +105,7 @@ Depois de adicionar as variáveis de ambiente, teste:
 
 2. **Admin (painel de gestão):**
    ```
-   https://kncursos.pages.dev/admin
+   https://vemgo.pages.dev/admin
    ```
    - Deve listar os 3 cursos
    - Permite criar, editar, excluir cursos
@@ -113,7 +113,7 @@ Depois de adicionar as variáveis de ambiente, teste:
 
 3. **Checkout (página de pagamento):**
    ```
-   https://kncursos.pages.dev/checkout/TIKTOK2024
+   https://vemgo.pages.dev/checkout/TIKTOK2024
    ```
    - Formulário completo de pagamento
    - Campos com máscaras automáticas
@@ -134,7 +134,7 @@ CVV: 123
 
 ### Como testar:
 
-1. Acesse: https://kncursos.pages.dev/checkout/TIKTOK2024
+1. Acesse: https://vemgo.pages.dev/checkout/TIKTOK2024
 2. Preencha seus dados:
    - Nome completo: [Seu nome]
    - CPF: 123.456.789-09
@@ -167,7 +167,7 @@ O cliente receberá um email com:
 Após fazer uma compra teste, acesse o painel admin:
 
 ```
-https://kncursos.pages.dev/admin
+https://vemgo.pages.dev/admin
 ```
 
 Na aba **"Vendas"** você verá:
@@ -199,8 +199,8 @@ Na aba **"Vendas"** você verá:
 - https://dash.cloudflare.com/
 
 **Seu Site:**
-- https://kncursos.pages.dev (principal)
-- https://cace94e4.kncursos.pages.dev (versão específica)
+- https://vemgo.pages.dev (principal)
+- https://cace94e4.vemgo.pages.dev (versão específica)
 
 **Documentação:**
 - Arquivo: `/home/user/webapp/SETUP-FINAL.md` - guia completo

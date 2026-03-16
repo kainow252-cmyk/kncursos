@@ -292,8 +292,8 @@ curl -X POST http://localhost:3000/api/courses \
 
 - **Home com Filtros**: http://localhost:3000/
 - **Admin para Cadastro**: http://localhost:3000/admin
-- **Produção**: https://kncursos.pages.dev/
-- **Versão Atual**: https://5e5cdfc8.kncursos.pages.dev/
+- **Produção**: https://vemgo.pages.dev/
+- **Versão Atual**: https://5e5cdfc8.vemgo.pages.dev/
 
 ## ✅ Checklist
 
@@ -354,4 +354,4 @@ curl -X POST http://localhost:3000/api/courses \
 
 **Data**: 2026-03-13  
 **Status**: ✅ Concluído  
-**Deploy**: https://5e5cdfc8.kncursos.pages.dev/
+**Deploy**: https://5e5cdfc8.vemgo.pages.dev/

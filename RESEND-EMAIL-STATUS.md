@@ -19,7 +19,7 @@ O sistema de envio de emails **está 100% implementado** em `src/index.tsx`:
 
 Em **produção (Cloudflare Pages)**:
 - ✅ `RESEND_API_KEY` = `re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6`
-- ✅ `EMAIL_FROM` = `cursos@kncursos.com.br`
+- ✅ `EMAIL_FROM` = `cursos@vemgo.com.br`
 - ✅ `RESEND_WEBHOOK_SECRET` = `whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t`
 
 Em **local (.dev.vars)**:
@@ -54,7 +54,7 @@ Corpo:
 
 #### **Exemplo de Email**:
 ```
-De: cursos@kncursos.com.br
+De: cursos@vemgo.com.br
 Para: cliente@exemplo.com
 Assunto: 🎉 Seu curso está pronto! - Desvende a Renda Extra no TikTok
 
@@ -69,10 +69,10 @@ Você adquiriu:
 [BAIXAR MEU CURSO AGORA]
 
 Link alternativo:
-https://kncursos.com.br/download/[TOKEN_SEGURO]
+https://vemgo.com.br/download/[TOKEN_SEGURO]
 
 Aproveite seu curso!
-Equipe KN Cursos
+Equipe Vemgo
 ```
 
 ---
@@ -115,10 +115,10 @@ curl -X POST 'https://api.resend.com/emails' \
   -H 'Authorization: Bearer re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6' \
   -H 'Content-Type: application/json' \
   -d '{
-    "from": "cursos@kncursos.com.br",
+    "from": "cursos@vemgo.com.br",
     "to": "teste@exemplo.com",
     "subject": "Teste de Email",
-    "html": "<p>Email de teste do sistema KN Cursos</p>"
+    "html": "<p>Email de teste do sistema Vemgo</p>"
   }'
 ```
 
@@ -126,7 +126,7 @@ curl -X POST 'https://api.resend.com/emails' \
 ```json
 {
   "id": "abc123...",
-  "from": "cursos@kncursos.com.br",
+  "from": "cursos@vemgo.com.br",
   "to": "teste@exemplo.com",
   "created_at": "2026-03-14T10:00:00.000Z"
 }
@@ -147,14 +147,14 @@ curl -X POST 'https://api.resend.com/emails' \
 ## ⚠️ **Domínio de Envio**
 
 ### **Status Atual**:
-- **Email FROM**: `cursos@kncursos.com.br`
-- **Domínio**: `kncursos.com.br`
+- **Email FROM**: `cursos@vemgo.com.br`
+- **Domínio**: `vemgo.com.br`
 - **Status do Domínio**: ⚠️ **Precisa verificar se está verificado no Resend**
 
 ### **Opções**:
 
 #### **Opção 1: Usar Email Padrão do Resend** (Mais Fácil)
-Se o domínio `kncursos.com.br` NÃO estiver verificado no Resend:
+Se o domínio `vemgo.com.br` NÃO estiver verificado no Resend:
 - Alterar `EMAIL_FROM` para: `onboarding@resend.dev`
 - Emails serão enviados com esse remetente temporário
 - Funciona imediatamente, sem configuração DNS
@@ -162,20 +162,20 @@ Se o domínio `kncursos.com.br` NÃO estiver verificado no Resend:
 **Como Alterar**:
 ```bash
 # Atualizar secret no Cloudflare
-echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --project-name=kncursos
+echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --project-name=vemgo
 ```
 
 #### **Opção 2: Verificar Domínio Personalizado** (Recomendado para Produção)
 1. Acessar https://resend.com/
 2. Ir em **Domains**
-3. Adicionar `kncursos.com.br`
+3. Adicionar `vemgo.com.br`
 4. Copiar registros DNS fornecidos:
    - **SPF** (TXT): `v=spf1 include:resend.com ~all`
    - **DKIM** (TXT): `[valor fornecido pelo Resend]`
    - **DMARC** (TXT): `v=DMARC1; p=none;`
 5. Adicionar os registros no Cloudflare DNS
 6. Aguardar verificação (5-15 minutos)
-7. Após verificado, pode usar `cursos@kncursos.com.br`
+7. Após verificado, pode usar `cursos@vemgo.com.br`
 
 ---
 
@@ -183,7 +183,7 @@ echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --projec
 
 ### **Teste 1: Compra Completa** (Recomendado)
 ```
-1. Acessar: https://kncursos.com.br/checkout/TIKTOK2024
+1. Acessar: https://vemgo.com.br/checkout/TIKTOK2024
 2. Preencher dados do cliente:
    - Nome: Teste Silva
    - CPF: 249.715.637-92
@@ -202,7 +202,7 @@ echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --projec
 ### **Teste 2: Ver Logs do Cloudflare**
 ```
 1. Acessar: https://dash.cloudflare.com/
-2. Workers & Pages → kncursos
+2. Workers & Pages → vemgo
 3. Logs (Real-time logs)
 4. Buscar por "[EMAIL]" para ver tentativas de envio
 ```
@@ -242,7 +242,7 @@ echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --projec
 2. ⚠️ **Se domínio não estiver verificado**:
    ```bash
    # Usar email padrão temporariamente
-   echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --project-name=kncursos
+   echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --project-name=vemgo
    ```
 
 3. ✅ **Fazer teste de compra real**:
@@ -250,10 +250,10 @@ echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --projec
    - Verificar recebimento
 
 ### **Para Produção** (Recomendado):
-1. Verificar domínio `kncursos.com.br` no Resend
+1. Verificar domínio `vemgo.com.br` no Resend
 2. Adicionar registros DNS no Cloudflare
 3. Aguardar verificação
-4. Manter `EMAIL_FROM=cursos@kncursos.com.br`
+4. Manter `EMAIL_FROM=cursos@vemgo.com.br`
 
 ---
 
@@ -262,16 +262,16 @@ echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --projec
 ### **Ver Secrets Configurados**:
 ```bash
 export CLOUDFLARE_API_TOKEN="3XVV83kDwH6VAfHfn3iBG07He24veho5ENuzj2ld"
-npx wrangler pages secret list --project-name=kncursos
+npx wrangler pages secret list --project-name=vemgo
 ```
 
 ### **Atualizar Email FROM**:
 ```bash
 # Para usar email padrão do Resend (funciona imediatamente)
-echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --project-name=kncursos
+echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --project-name=vemgo
 
 # Ou para usar domínio personalizado (após verificar no Resend)
-echo 'cursos@kncursos.com.br' | npx wrangler pages secret put EMAIL_FROM --project-name=kncursos
+echo 'cursos@vemgo.com.br' | npx wrangler pages secret put EMAIL_FROM --project-name=vemgo
 ```
 
 ### **Testar API do Resend**:
@@ -282,7 +282,7 @@ curl -X POST 'https://api.resend.com/emails' \
   -d '{
     "from": "onboarding@resend.dev",
     "to": "seu_email@gmail.com",
-    "subject": "Teste KN Cursos",
+    "subject": "Teste Vemgo",
     "html": "<p>Email de teste funcionando!</p>"
   }'
 ```
@@ -299,7 +299,7 @@ curl -X POST 'https://api.resend.com/emails' \
 - Logs detalhados
 
 ### ⚠️ **O Que Pode Precisar Atenção**:
-- **Domínio `kncursos.com.br`**: Pode não estar verificado no Resend
+- **Domínio `vemgo.com.br`**: Pode não estar verificado no Resend
 - **Solução Rápida**: Usar `onboarding@resend.dev` temporariamente
 - **Solução Definitiva**: Verificar domínio no Resend + DNS
 

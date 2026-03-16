@@ -22,13 +22,13 @@ UPDATE courses SET active = 1 WHERE active IS NULL OR active = 0;
 **Comando:**
 ```bash
 npm run build
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 ```
 
 **Resultado:**
 - ✅ Build: 430.76 kB
-- ✅ Deploy: https://be06300c.kncursos.pages.dev
-- ✅ Produção: https://kncursos.pages.dev
+- ✅ Deploy: https://be06300c.vemgo.pages.dev
+- ✅ Produção: https://vemgo.pages.dev
 
 ---
 
@@ -36,9 +36,9 @@ npx wrangler pages deploy dist --project-name kncursos
 
 ### Teste 1: Loja Pública
 ```
-URL: https://be06300c.kncursos.pages.dev/
+URL: https://be06300c.vemgo.pages.dev/
 ou
-URL: https://kncursos.pages.dev/ (aguardar 5-10 min cache)
+URL: https://vemgo.pages.dev/ (aguardar 5-10 min cache)
 
 ✅ Verificar:
 - [ ] Cursos aparecem na home
@@ -49,10 +49,10 @@ URL: https://kncursos.pages.dev/ (aguardar 5-10 min cache)
 
 ### Teste 2: Verificar Quantos Cursos Ativos
 ```
-URL: https://be06300c.kncursos.pages.dev/api/courses
+URL: https://be06300c.vemgo.pages.dev/api/courses
 
 Comando:
-curl -s https://be06300c.kncursos.pages.dev/api/courses | jq 'length'
+curl -s https://be06300c.vemgo.pages.dev/api/courses | jq 'length'
 
 ✅ Resultado Esperado:
 - Deve retornar número > 3 (antes eram apenas 3 ativos)
@@ -60,11 +60,11 @@ curl -s https://be06300c.kncursos.pages.dev/api/courses | jq 'length'
 
 ### Teste 3: Login e Permissões
 ```
-URL: https://be06300c.kncursos.pages.dev/login
+URL: https://be06300c.vemgo.pages.dev/login
 
 Admin:
 - Usuário: admin
-- Senha: kncursos2024
+- Senha: vemgo2024
 - Deve ir para: /admin
 - Deve ver: Aba "Vendas"
 
@@ -77,7 +77,7 @@ Funcionário:
 
 ### Teste 4: Checkout Completo
 ```
-URL: https://be06300c.kncursos.pages.dev/checkout/DEV2024XYZ
+URL: https://be06300c.vemgo.pages.dev/checkout/DEV2024XYZ
 
 Dados de Teste:
 - Nome: Teste Silva
@@ -102,7 +102,7 @@ Cartão (Asaas Sandbox):
 
 ### Teste 5: Criar Curso (Funcionário)
 ```
-URL: https://be06300c.kncursos.pages.dev/cursos
+URL: https://be06300c.vemgo.pages.dev/cursos
 
 Login: funcionario / funcionario123
 
@@ -134,25 +134,25 @@ Login: funcionario / funcionario123
 
 ### 1. Quantos cursos ativos?
 ```bash
-curl -s https://be06300c.kncursos.pages.dev/api/courses | jq 'length'
+curl -s https://be06300c.vemgo.pages.dev/api/courses | jq 'length'
 ```
 
 ### 2. Loja carrega?
 ```bash
-curl -s https://be06300c.kncursos.pages.dev/ | grep -c "class=\"course-card\""
+curl -s https://be06300c.vemgo.pages.dev/ | grep -c "class=\"course-card\""
 ```
 
 ### 3. Login funciona?
 ```bash
-curl -s -X POST https://be06300c.kncursos.pages.dev/api/auth/login \
+curl -s -X POST https://be06300c.vemgo.pages.dev/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"kncursos2024"}' \
+  -d '{"username":"admin","password":"vemgo2024"}' \
   | jq '.success'
 ```
 
 ### 4. Checkout carrega?
 ```bash
-curl -I https://be06300c.kncursos.pages.dev/checkout/DEV2024XYZ \
+curl -I https://be06300c.vemgo.pages.dev/checkout/DEV2024XYZ \
   | grep "HTTP"
 ```
 
@@ -163,7 +163,7 @@ curl -I https://be06300c.kncursos.pages.dev/checkout/DEV2024XYZ \
 ### Problema: Cursos não aparecem
 **Solução:**
 ```sql
--- No Dashboard D1 → kncursos → Console
+-- No Dashboard D1 → vemgo → Console
 SELECT COUNT(*) FROM courses WHERE active = 1;
 -- Se retornar 0 ou poucos, executar:
 UPDATE courses SET active = 1;
@@ -207,13 +207,13 @@ SELECT username, role, active FROM users;
 
 ## 🌐 URLs DE PRODUÇÃO
 
-- **Preview (Imediato):** https://be06300c.kncursos.pages.dev
-- **Produção (5-10 min):** https://kncursos.pages.dev
-- **Loja:** https://kncursos.pages.dev/
-- **Login:** https://kncursos.pages.dev/login
-- **Admin:** https://kncursos.pages.dev/admin
-- **Cursos:** https://kncursos.pages.dev/cursos
-- **Checkout:** https://kncursos.pages.dev/checkout/DEV2024XYZ
+- **Preview (Imediato):** https://be06300c.vemgo.pages.dev
+- **Produção (5-10 min):** https://vemgo.pages.dev
+- **Loja:** https://vemgo.pages.dev/
+- **Login:** https://vemgo.pages.dev/login
+- **Admin:** https://vemgo.pages.dev/admin
+- **Cursos:** https://vemgo.pages.dev/cursos
+- **Checkout:** https://vemgo.pages.dev/checkout/DEV2024XYZ
 
 ---
 
@@ -228,7 +228,7 @@ SELECT username, role, active FROM users;
 ## 🎯 PRÓXIMO PASSO
 
 **TESTE AGORA:**
-1. Acesse: https://be06300c.kncursos.pages.dev/
+1. Acesse: https://be06300c.vemgo.pages.dev/
 2. Verifique se cursos aparecem
 3. Faça login como admin
 4. Faça login como funcionário
@@ -242,5 +242,5 @@ SELECT username, role, active FROM users;
 ---
 
 **Status:** ⏳ Aguardando testes de produção  
-**Deploy:** https://be06300c.kncursos.pages.dev  
+**Deploy:** https://be06300c.vemgo.pages.dev  
 **Hora:** 14/03/2026 00:40 BRT

@@ -1,7 +1,7 @@
 # 🧪 RESULTADO DOS TESTES EM PRODUÇÃO
 
 ## 📅 Data: 14/03/2026 00:45 BRT
-## 🔗 Ambiente: https://be06300c.kncursos.pages.dev
+## 🔗 Ambiente: https://be06300c.vemgo.pages.dev
 
 ---
 
@@ -26,7 +26,7 @@
 
 ### Teste 1: API Courses ✅
 ```bash
-curl https://be06300c.kncursos.pages.dev/api/courses | jq 'length'
+curl https://be06300c.vemgo.pages.dev/api/courses | jq 'length'
 ```
 **Resultado:** 3 cursos ativos
 - Curso 1: Marketing Digital
@@ -39,8 +39,8 @@ curl https://be06300c.kncursos.pages.dev/api/courses | jq 'length'
 
 ### Teste 2: Login Admin ✅
 ```bash
-curl -X POST https://be06300c.kncursos.pages.dev/api/auth/login \
-  -d '{"username":"admin","password":"kncursos2024"}'
+curl -X POST https://be06300c.vemgo.pages.dev/api/auth/login \
+  -d '{"username":"admin","password":"vemgo2024"}'
 ```
 **Resultado:**
 ```json
@@ -56,7 +56,7 @@ curl -X POST https://be06300c.kncursos.pages.dev/api/auth/login \
 
 ### Teste 3: Login Funcionário ✅
 ```bash
-curl -X POST https://be06300c.kncursos.pages.dev/api/auth/login \
+curl -X POST https://be06300c.vemgo.pages.dev/api/auth/login \
   -d '{"username":"funcionario","password":"funcionario123"}'
 ```
 **Resultado:**
@@ -73,7 +73,7 @@ curl -X POST https://be06300c.kncursos.pages.dev/api/auth/login \
 
 ### Teste 4: Login Inválido ✅
 ```bash
-curl -X POST https://be06300c.kncursos.pages.dev/api/auth/login \
+curl -X POST https://be06300c.vemgo.pages.dev/api/auth/login \
   -d '{"username":"admin","password":"senhaerrada"}'
 ```
 **Resultado:**
@@ -89,7 +89,7 @@ curl -X POST https://be06300c.kncursos.pages.dev/api/auth/login \
 
 ### Teste 5: Página Checkout ✅
 ```bash
-curl -I https://be06300c.kncursos.pages.dev/checkout/DEV2024XYZ
+curl -I https://be06300c.vemgo.pages.dev/checkout/DEV2024XYZ
 ```
 **Resultado:**
 ```
@@ -102,7 +102,7 @@ content-type: text/html; charset=UTF-8
 
 ### Teste 6: API Vendas ✅
 ```bash
-curl https://be06300c.kncursos.pages.dev/api/sales | jq 'length'
+curl https://be06300c.vemgo.pages.dev/api/sales | jq 'length'
 ```
 **Resultado:** 63 vendas registradas
 **Status:** ✅ PASSOU
@@ -111,7 +111,7 @@ curl https://be06300c.kncursos.pages.dev/api/sales | jq 'length'
 
 ### Teste 7: Loja Pública ⚠️
 ```bash
-curl https://be06300c.kncursos.pages.dev/
+curl https://be06300c.vemgo.pages.dev/
 ```
 **Resultado:**
 - Página carrega (HTTP 200)
@@ -120,7 +120,7 @@ curl https://be06300c.kncursos.pages.dev/
 - Cursos renderizados via JavaScript (não visível no curl)
 
 **Nota:** Curl não pode executar JavaScript. Para verificar visualmente:
-1. Acesse: https://be06300c.kncursos.pages.dev/
+1. Acesse: https://be06300c.vemgo.pages.dev/
 2. Os 3 cursos devem aparecer na home
 
 **Status:** ⚠️ Necessita verificação visual
@@ -129,7 +129,7 @@ curl https://be06300c.kncursos.pages.dev/
 
 ### Teste 8: E-mail de Teste ✅
 ```bash
-curl -X POST https://be06300c.kncursos.pages.dev/api/test-email
+curl -X POST https://be06300c.vemgo.pages.dev/api/test-email
 ```
 **Resultado:**
 ```json
@@ -194,7 +194,7 @@ curl -X POST https://be06300c.kncursos.pages.dev/api/test-email
 
 ### 1. Loja Pública (Navegador)
 ```
-URL: https://be06300c.kncursos.pages.dev/
+URL: https://be06300c.vemgo.pages.dev/
 
 Verificar:
 - [ ] 3 cursos aparecem na home
@@ -205,9 +205,9 @@ Verificar:
 
 ### 2. Login Admin (Navegador)
 ```
-URL: https://be06300c.kncursos.pages.dev/login
+URL: https://be06300c.vemgo.pages.dev/login
 
-Credenciais: admin / kncursos2024
+Credenciais: admin / vemgo2024
 
 Verificar:
 - [ ] Login bem-sucedido
@@ -219,7 +219,7 @@ Verificar:
 
 ### 3. Login Funcionário (Navegador)
 ```
-URL: https://be06300c.kncursos.pages.dev/login
+URL: https://be06300c.vemgo.pages.dev/login
 
 Credenciais: funcionario / funcionario123
 
@@ -233,7 +233,7 @@ Verificar:
 
 ### 4. Checkout Completo (Navegador)
 ```
-URL: https://be06300c.kncursos.pages.dev/checkout/DEV2024XYZ
+URL: https://be06300c.vemgo.pages.dev/checkout/DEV2024XYZ
 
 Dados de Teste:
 - Nome: Teste Silva
@@ -317,4 +317,4 @@ Se quiser ter mais cursos na produção:
 **Autor:** Sistema de Testes Automatizados  
 **Data:** 14/03/2026 00:45 BRT  
 **Status:** ✅ Todos os testes aprovados  
-**Deploy:** https://be06300c.kncursos.pages.dev
+**Deploy:** https://be06300c.vemgo.pages.dev

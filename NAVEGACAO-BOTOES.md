@@ -1,4 +1,4 @@
-# 🔙 Análise de Navegação e Botões VOLTAR - kncursos
+# 🔙 Análise de Navegação e Botões VOLTAR - vemgo
 
 ## 📋 Análise Completa de Todas as Páginas
 
@@ -83,7 +83,7 @@ DASHBOARD (/admin)
 
 **Posição:**
 - Canto superior esquerdo
-- Antes do logo "kncursos"
+- Antes do logo "vemgo"
 - Ao lado do ícone "Compra segura"
 
 ---
@@ -156,24 +156,24 @@ DASHBOARD (/admin)
 ## 🌐 URLs e Testes
 
 ### **Produção:**
-- ✅ Checkout: https://kncursos.pages.dev/checkout/TIKTOK2024
-- ✅ Teste de Vendas: https://kncursos.pages.dev/test-sales
-- ✅ Home: https://kncursos.pages.dev/
-- ✅ Admin: https://kncursos.pages.dev/admin
-- 🆕 Versão atual: https://c20954f8.kncursos.pages.dev/
+- ✅ Checkout: https://vemgo.pages.dev/checkout/TIKTOK2024
+- ✅ Teste de Vendas: https://vemgo.pages.dev/test-sales
+- ✅ Home: https://vemgo.pages.dev/
+- ✅ Admin: https://vemgo.pages.dev/admin
+- 🆕 Versão atual: https://c20954f8.vemgo.pages.dev/
 
 ### **Testes:**
 
 **1. Checkout:**
 ```
-1. Acesse: https://kncursos.pages.dev/checkout/TIKTOK2024
+1. Acesse: https://vemgo.pages.dev/checkout/TIKTOK2024
 2. Veja botão "← Voltar" no topo esquerdo
 3. Clique → Volta para home
 ```
 
 **2. Teste de Vendas:**
 ```
-1. Acesse: https://kncursos.pages.dev/test-sales
+1. Acesse: https://vemgo.pages.dev/test-sales
 2. Veja botão "← Voltar para Dashboard" no topo
 3. Clique → Volta para /admin
 4. Role para baixo
@@ -204,7 +204,7 @@ DASHBOARD (/admin)
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                    HOME (/)                              │
-│                 [Logo kncursos]                          │
+│                 [Logo vemgo]                          │
 │                                                          │
 │  ┌────────────────┐  ┌────────────────┐  ┌───────────┐  │
 │  │ Curso 1        │  │ Curso 2        │  │ Curso 3   │  │
@@ -214,7 +214,7 @@ DASHBOARD (/admin)
                            ↓
 ┌─────────────────────────────────────────────────────────┐
 │           DETALHES DO CURSO (/curso/:id)                 │
-│                   [kncursos]                             │
+│                   [vemgo]                             │
 │              ❌ SEM BOTÃO VOLTAR                         │
 │                                                          │
 │  [Imagem do Curso]                                       │
@@ -229,7 +229,7 @@ DASHBOARD (/admin)
 ┌─────────────────────────────────────────────────────────┐
 │           CHECKOUT (/checkout/:code)                     │
 │  [← Voltar]          [🔒 Compra segura]                  │
-│                   [kncursos]                             │
+│                   [vemgo]                             │
 │                                                          │
 │  📋 Dados Pessoais                                       │
 │  💳 Dados do Cartão                                      │
@@ -239,7 +239,7 @@ DASHBOARD (/admin)
 
 ┌─────────────────────────────────────────────────────────┐
 │              DASHBOARD ADMIN (/admin)                    │
-│                [Logo kncursos]                           │
+│                [Logo vemgo]                           │
 │           ❌ SEM BOTÃO VOLTAR                            │
 │                                                          │
 │  [Cursos] [Vendas] ← Tabs                                │
@@ -284,6 +284,6 @@ DASHBOARD (/admin)
 3. ✅ `/admin` - Página independente
 4. ✅ `/download/:token` - Download direto
 
-**Deploy realizado:** https://c20954f8.kncursos.pages.dev/
+**Deploy realizado:** https://c20954f8.vemgo.pages.dev/
 
 🚀 **Navegação otimizada e funcional!**

@@ -84,20 +84,20 @@ Agora **HOME** e **ADMIN** possuem exatamente as **MESMAS 11 categorias**:
 ## 🧪 Como Testar
 
 ### Teste 1: Verificar Home
-1. Acesse: https://kncursos.com.br
+1. Acesse: https://vemgo.com.br
 2. Role até "Filtrar por Categoria"
 3. Verifique que existem **11 botões de categoria** (+ botão "Todos")
 4. Clique em cada categoria e verifique o filtro funciona
 
 ### Teste 2: Verificar Admin
-1. Acesse: https://kncursos.com.br/cursos
+1. Acesse: https://vemgo.com.br/cursos
 2. Clique em "Novo Curso" ou "Editar"
 3. Veja o campo "Categoria" (dropdown)
 4. Verifique que existem **11 opções** no select
 
 ### Teste 3: Consistência
 1. Crie um curso com categoria "Desenvolvimento Pessoal"
-2. Vá para https://kncursos.com.br
+2. Vá para https://vemgo.com.br
 3. Clique no filtro "Pessoal"
 4. O curso deve aparecer ✅
 
@@ -148,9 +148,9 @@ Se precisar adicionar uma nova categoria, modifique **2 lugares**:
 ---
 
 ## 🔗 Links Úteis
-- **Site:** https://kncursos.com.br
-- **Admin:** https://kncursos.com.br/cursos
-- **Painel Principal:** https://kncursos.com.br/admin
+- **Site:** https://vemgo.com.br
+- **Admin:** https://vemgo.com.br/cursos
+- **Painel Principal:** https://vemgo.com.br/admin
 
 ---
 

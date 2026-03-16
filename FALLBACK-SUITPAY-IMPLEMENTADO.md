@@ -3,14 +3,14 @@
 ## 🎯 Status: COMPLETO E FUNCIONAL
 
 **Data de Implementação:** 14 de março de 2026  
-**URL de Produção:** https://786c7c9c.kncursos.pages.dev  
+**URL de Produção:** https://786c7c9c.vemgo.pages.dev  
 **Versão:** 2.0.0 (com fallback automático)
 
 ---
 
 ## 📋 Resumo da Implementação
 
-O sistema **KN Cursos** agora possui **redundância total de pagamentos** com fallback automático entre dois gateways:
+O sistema **Vemgo** agora possui **redundância total de pagamentos** com fallback automático entre dois gateways:
 
 ### Fluxo de Pagamento
 ```
@@ -93,7 +93,7 @@ suitpay_customer_id TEXT               -- ID do cliente no SuitPay
 - `failed`, `declined`, `rejected` → Status: `failed`
 
 **Configuração no SuitPay Dashboard:**
-- **URL:** `https://786c7c9c.kncursos.pages.dev/api/webhooks/suitpay`
+- **URL:** `https://786c7c9c.vemgo.pages.dev/api/webhooks/suitpay`
 - **Método:** POST
 - **Tipo:** Rest
 - **Eventos:** Todos os status de pagamento
@@ -126,7 +126,7 @@ SUITPAY_ENV=production
 
 ### Deploy
 - **Status:** ✅ Sucesso
-- **URL:** https://786c7c9c.kncursos.pages.dev
+- **URL:** https://786c7c9c.vemgo.pages.dev
 - **Método:** Cloudflare Pages
 - **Arquivos:** 6 enviados (0 novos, 6 reutilizados)
 - **Tempo:** ~17 segundos
@@ -160,7 +160,7 @@ Cada venda terá:
 ## 🧪 Como Testar o Fallback
 
 ### Cenário 1: Testar Asaas (comportamento normal)
-1. Acessar: https://786c7c9c.kncursos.pages.dev
+1. Acessar: https://786c7c9c.vemgo.pages.dev
 2. Clicar em qualquer curso e "COMPRAR AGORA"
 3. Preencher dados do cliente (CPF: 249.715.637-92)
 4. Usar **cartão de teste Asaas aprovado:**
@@ -230,7 +230,7 @@ npx wrangler pages deployment tail
 
 ### Resend (Email)
 - **API Key:** `re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6`
-- **From:** `cursos@kncursos.com.br`
+- **From:** `cursos@vemgo.com.br`
 - **Webhook Secret:** `whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t`
 - **Status:** ✅ Ativo e funcional
 
@@ -272,7 +272,7 @@ npx wrangler pages deployment tail
 npx wrangler pages deployment tail
 
 # Verificar secrets do Cloudflare
-npx wrangler pages secret list --project-name kncursos
+npx wrangler pages secret list --project-name vemgo
 
 # Testar credenciais
 curl -X POST https://api.suitpay.app/api/v1/auth/login \
@@ -291,7 +291,7 @@ curl -X POST https://api.suitpay.app/api/v1/auth/login \
 **Solução:**
 ```bash
 # Verificar se variáveis SuitPay estão setadas
-npx wrangler pages secret list --project-name kncursos | grep SUITPAY
+npx wrangler pages secret list --project-name vemgo | grep SUITPAY
 
 # Forçar erro no Asaas para testar
 # (usar cartão de teste recusado)
@@ -309,7 +309,7 @@ npx wrangler pages secret list --project-name kncursos | grep SUITPAY
 1. Acessar: https://web.suitpay.app
 2. Ir em: **VENDAS → GATEWAY DE PAGAMENTO → Webhooks**
 3. Verificar configuração:
-   - ✅ URL: `https://786c7c9c.kncursos.pages.dev/api/webhooks/suitpay`
+   - ✅ URL: `https://786c7c9c.vemgo.pages.dev/api/webhooks/suitpay`
    - ✅ Tipo: Rest
    - ✅ Método: POST
    - ✅ Ativo: Sim
@@ -350,7 +350,7 @@ npx wrangler pages secret list --project-name kncursos | grep SUITPAY
 1. ✅ **Configurar webhook no SuitPay Dashboard**
    - Acessar https://web.suitpay.app
    - VENDAS → GATEWAY DE PAGAMENTO → Webhooks
-   - URL: `https://786c7c9c.kncursos.pages.dev/api/webhooks/suitpay`
+   - URL: `https://786c7c9c.vemgo.pages.dev/api/webhooks/suitpay`
 
 2. 🧪 **Realizar testes de produção**
    - Compra real de R$ 1,00 via Asaas
@@ -405,9 +405,9 @@ npx wrangler pages secret list --project-name kncursos | grep SUITPAY
 - 💳 **Dois gateways:** Asaas (principal) + SuitPay (backup)
 
 **URLs Importantes:**
-- 🌍 **Produção:** https://786c7c9c.kncursos.pages.dev
-- 🔧 **Admin:** https://786c7c9c.kncursos.pages.dev/admin
-- 📦 **GitHub:** https://github.com/kainow252-cmyk/kncursos
+- 🌍 **Produção:** https://786c7c9c.vemgo.pages.dev
+- 🔧 **Admin:** https://786c7c9c.vemgo.pages.dev/admin
+- 📦 **GitHub:** https://github.com/kainow252-cmyk/vemgo
 - 💳 **Asaas Dashboard:** https://www.asaas.com/
 - 💳 **SuitPay Dashboard:** https://web.suitpay.app/
 - 📧 **Resend Dashboard:** https://resend.com/

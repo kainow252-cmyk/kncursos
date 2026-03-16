@@ -2,7 +2,7 @@
 
 ## ✅ Webhook Resend Configurado
 
-**Webhook URL**: https://kncursos.pages.dev/api/webhooks/resend  
+**Webhook URL**: https://vemgo.pages.dev/api/webhooks/resend  
 **Signing Secret**: `whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t`  
 **Status**: ✅ Ativo (13 eventos)
 
@@ -14,7 +14,7 @@
 
 1. **Login**: https://dash.cloudflare.com/
 2. Vá para **Workers & Pages**
-3. Selecione o projeto **kncursos**
+3. Selecione o projeto **vemgo**
 4. Clique na aba **Settings**
 5. Role até **Environment Variables**
 
@@ -33,7 +33,7 @@
 1. Clique em **Add variable**
 2. Preencha:
    - **Variable name**: `EMAIL_FROM`
-   - **Value**: `cursos@kncursos.com.br`
+   - **Value**: `cursos@vemgo.com.br`
    - **Environment**: `Production`
    - **Type**: `Plain text`
 3. Clique em **Save**
@@ -47,11 +47,11 @@ Certifique-se de que as seguintes variáveis estão configuradas:
 | `MERCADOPAGO_PUBLIC_KEY` | `TEST-dd4f6d02-...` | Secret | ✅ |
 | `MERCADOPAGO_ACCESS_TOKEN` | `TEST-1480231898921036-...` | Secret | ✅ |
 | `RESEND_API_KEY` | `re_JDP5HjRp_...` | Secret | ✅ |
-| `EMAIL_FROM` | `cursos@kncursos.com.br` | Plain | ✅ |
+| `EMAIL_FROM` | `cursos@vemgo.com.br` | Plain | ✅ |
 | `RESEND_WEBHOOK_SECRET` | `whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t` | Secret | ⏳ Adicionar |
-| `JWT_SECRET` | `kncursos-jwt-secret-...` | Secret | ✅ |
+| `JWT_SECRET` | `vemgo-jwt-secret-...` | Secret | ✅ |
 | `ADMIN_USERNAME` | `admin` | Secret | ✅ |
-| `ADMIN_PASSWORD` | `kncursos2024` | Secret | ✅ |
+| `ADMIN_PASSWORD` | `vemgo2024` | Secret | ✅ |
 
 ### Passo 5: Deploy Novamente (Opcional)
 
@@ -60,7 +60,7 @@ Após adicionar as variáveis, faça um novo deploy:
 ```bash
 cd /home/user/webapp
 npm run build
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 ```
 
 ---
@@ -71,7 +71,7 @@ npx wrangler pages deploy dist --project-name kncursos
 
 ```bash
 # Fazer uma compra de teste
-curl -X POST https://kncursos.pages.dev/api/sales \
+curl -X POST https://vemgo.pages.dev/api/sales \
   -H "Content-Type: application/json" \
   -d '{
     "link_code": "MKT2024-001",
@@ -87,13 +87,13 @@ curl -X POST https://kncursos.pages.dev/api/sales \
   }'
 
 # Aguardar alguns segundos e verificar logs
-npx wrangler pages deployment tail --project-name kncursos | grep WEBHOOK
+npx wrangler pages deployment tail --project-name vemgo | grep WEBHOOK
 ```
 
 ### Opção 2: Teste Manual no Resend
 
 1. Acesse: https://resend.com/webhooks
-2. Clique no webhook **kncursos - Produção**
+2. Clique no webhook **vemgo - Produção**
 3. Clique em **Send test event**
 4. Selecione o tipo de evento (ex: `email.delivered`)
 5. Clique em **Send**
@@ -102,14 +102,14 @@ npx wrangler pages deployment tail --project-name kncursos | grep WEBHOOK
 ### Opção 3: Teste com cURL
 
 ```bash
-curl -X POST https://kncursos.pages.dev/api/webhooks/resend \
+curl -X POST https://vemgo.pages.dev/api/webhooks/resend \
   -H "Content-Type: application/json" \
   -d '{
     "type": "email.delivered",
     "created_at": "2024-03-13T19:00:00.000Z",
     "data": {
       "email_id": "test-webhook-123",
-      "from": "cursos@kncursos.com.br",
+      "from": "cursos@vemgo.com.br",
       "to": ["teste@exemplo.com"],
       "subject": "Teste Webhook Resend"
     }
@@ -127,10 +127,10 @@ curl -X POST https://kncursos.pages.dev/api/webhooks/resend \
 
 ```bash
 # Ver todos os logs
-npx wrangler pages deployment tail --project-name kncursos
+npx wrangler pages deployment tail --project-name vemgo
 
 # Filtrar apenas webhooks
-npx wrangler pages deployment tail --project-name kncursos | grep WEBHOOK
+npx wrangler pages deployment tail --project-name vemgo | grep WEBHOOK
 
 # Exemplo de saída:
 # [WEBHOOK RESEND] Evento recebido: email.sent
@@ -142,7 +142,7 @@ npx wrangler pages deployment tail --project-name kncursos | grep WEBHOOK
 ### Logs Locais (Desenvolvimento)
 
 ```bash
-pm2 logs kncursos --nostream --lines 50 | grep WEBHOOK
+pm2 logs vemgo --nostream --lines 50 | grep WEBHOOK
 ```
 
 ---
@@ -226,7 +226,7 @@ app.post('/api/webhooks/resend', async (c) => {
 ### ⏳ Pendente
 
 - [ ] Adicionar `RESEND_WEBHOOK_SECRET` no Cloudflare Dashboard
-- [ ] Adicionar `EMAIL_FROM=cursos@kncursos.com.br` no Cloudflare
+- [ ] Adicionar `EMAIL_FROM=cursos@vemgo.com.br` no Cloudflare
 - [ ] Testar webhook com email real
 - [ ] Verificar logs em produção
 
@@ -236,19 +236,19 @@ app.post('/api/webhooks/resend', async (c) => {
 
 1. **Adicionar secret no Cloudflare**:
    - Acesse: https://dash.cloudflare.com/
-   - Workers & Pages → kncursos → Settings
+   - Workers & Pages → vemgo → Settings
    - Environment Variables → Add variable
    - `RESEND_WEBHOOK_SECRET` = `whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t`
 
 2. **Fazer uma compra de teste**:
-   - Acesse: https://kncursos.pages.dev/
+   - Acesse: https://vemgo.pages.dev/
    - Escolha um curso
    - Faça checkout com qualquer cartão
    - Email será enviado para gelci.silva252@gmail.com
 
 3. **Verificar logs**:
    ```bash
-   npx wrangler pages deployment tail --project-name kncursos | grep WEBHOOK
+   npx wrangler pages deployment tail --project-name vemgo | grep WEBHOOK
    ```
 
 4. **Ver eventos no Resend**:

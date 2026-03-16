@@ -8,8 +8,8 @@ O dashboard administrativo agora está **protegido por login e senha** usando au
 
 **Para ambiente local (.dev.vars):**
 - **Usuário**: `admin`
-- **Senha**: `kncursos2024`
-- **JWT Secret**: `kncursos-jwt-secret-change-in-production-2024`
+- **Senha**: `vemgo2024`
+- **JWT Secret**: `vemgo-jwt-secret-change-in-production-2024`
 
 ## 🏗️ Arquitetura de Segurança
 
@@ -27,7 +27,7 @@ O dashboard administrativo agora está **protegido por login e senha** usando au
 // Request
 {
   "username": "admin",
-  "password": "kncursos2024"
+  "password": "vemgo2024"
 }
 
 // Response (sucesso)
@@ -98,19 +98,19 @@ A rota `/admin` agora:
 
 ```bash
 # 1. Definir usuário admin
-npx wrangler pages secret put ADMIN_USERNAME --project-name kncursos
+npx wrangler pages secret put ADMIN_USERNAME --project-name vemgo
 # Digite: admin (ou outro usuário de sua preferência)
 
 # 2. Definir senha admin
-npx wrangler pages secret put ADMIN_PASSWORD --project-name kncursos
+npx wrangler pages secret put ADMIN_PASSWORD --project-name vemgo
 # Digite: SuaSenhaForte123! (MUDE a senha padrão!)
 
 # 3. Definir JWT secret
-npx wrangler pages secret put JWT_SECRET --project-name kncursos
+npx wrangler pages secret put JWT_SECRET --project-name vemgo
 # Digite: Um string aleatório longo e complexo
 
 # 4. Listar secrets configurados
-npx wrangler pages secret list --project-name kncursos
+npx wrangler pages secret list --project-name vemgo
 ```
 
 ### Gerar JWT Secret Seguro
@@ -162,15 +162,15 @@ openssl rand -base64 32
 ### `.dev.vars` (local development)
 ```bash
 ADMIN_USERNAME=admin
-ADMIN_PASSWORD=kncursos2024
-JWT_SECRET=kncursos-jwt-secret-change-in-production-2024
+ADMIN_PASSWORD=vemgo2024
+JWT_SECRET=vemgo-jwt-secret-change-in-production-2024
 ```
 
 ## 🌐 URLs
 
-- **Home**: https://kncursos.pages.dev/
-- **Login**: https://kncursos.pages.dev/login
-- **Admin Protegido**: https://kncursos.pages.dev/admin (requer autenticação)
+- **Home**: https://vemgo.pages.dev/
+- **Login**: https://vemgo.pages.dev/login
+- **Admin Protegido**: https://vemgo.pages.dev/admin (requer autenticação)
 - **Local Login**: http://localhost:3000/login
 - **Local Admin**: http://localhost:3000/admin
 
@@ -203,7 +203,7 @@ JWT_SECRET=kncursos-jwt-secret-change-in-production-2024
 ```bash
 # Acesse: http://localhost:3000/login
 # Usuário: admin
-# Senha: kncursos2024
+# Senha: vemgo2024
 ```
 
 ### 2. Testar Proteção Admin
@@ -225,7 +225,7 @@ JWT_SECRET=kncursos-jwt-secret-change-in-production-2024
 # Login
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"kncursos2024"}'
+  -d '{"username":"admin","password":"vemgo2024"}'
 
 # Logout
 curl -X POST http://localhost:3000/api/auth/logout
@@ -238,7 +238,7 @@ curl http://localhost:3000/api/auth/check
 
 **ANTES de fazer deploy para produção:**
 
-1. **MUDE a senha padrão** `kncursos2024` para uma senha forte
+1. **MUDE a senha padrão** `vemgo2024` para uma senha forte
 2. **Configure JWT_SECRET** com um valor aleatório e complexo
 3. **Use wrangler secrets** para definir variáveis de ambiente
 4. **NÃO commite** o arquivo `.dev.vars` no Git (já está no .gitignore)
@@ -256,4 +256,4 @@ curl http://localhost:3000/api/auth/check
 
 **Data**: 2026-03-13  
 **Status**: ✅ Concluído  
-**Credenciais Padrão**: admin / kncursos2024
+**Credenciais Padrão**: admin / vemgo2024

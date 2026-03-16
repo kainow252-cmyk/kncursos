@@ -171,7 +171,7 @@ Independente da decisão, você pode já configurar o webhook:
 2. **Vá em:** VENDAS → GATEWAY DE PAGAMENTO → Webhooks
 3. **Adicione:**
    ```
-   URL: https://c02d2ec7.kncursos.pages.dev/webhook/suitpay
+   URL: https://c02d2ec7.vemgo.pages.dev/webhook/suitpay
    Tipo: Rest
    Método: POST
    ```

@@ -14,7 +14,7 @@ Porque anteriormente o sistema rejeitou múltiplos eventos com erro 401.
 
 - ✅ Código do webhook atualizado (aceita TODOS os eventos)
 - ✅ Token atualizado no Cloudflare
-- ✅ URL permanente configurada: `https://kncursos.com.br/api/webhooks/asaas`
+- ✅ URL permanente configurada: `https://vemgo.com.br/api/webhooks/asaas`
 - ✅ Deploy realizado
 - ✅ Testes passando (200 OK)
 
@@ -30,7 +30,7 @@ Porque anteriormente o sistema rejeitou múltiplos eventos com erro 401.
    - Menu → **Integrações** → **Webhooks**
 
 3. **Encontre o webhook penalizado**
-   - Procure: "KN Cursos - Notificações"
+   - Procure: "Vemgo - Notificações"
    - Deve estar marcado como "Penalizado" ou "Inativo"
 
 4. **Escolha UMA das opções:**
@@ -44,8 +44,8 @@ Porque anteriormente o sistema rejeitou múltiplos eventos com erro 401.
    **OPÇÃO B (se A não funcionar):**
    - **Desative** o webhook antigo (não delete)
    - Crie um **novo webhook**:
-     - **Nome:** KN Cursos - Notificações v2
-     - **URL:** `https://kncursos.com.br/api/webhooks/asaas`
+     - **Nome:** Vemgo - Notificações v2
+     - **URL:** `https://vemgo.com.br/api/webhooks/asaas`
      - **Token:** `whsec_VLXmawvFyz91ALugMOWlmwN5GTxTaaoRDC1z2QYGjT4`
      - **Status:** Ativo
      - **Eventos:** Marque TODOS (ou pelo menos todos `PAYMENT_*`)
@@ -59,7 +59,7 @@ Porque anteriormente o sistema rejeitou múltiplos eventos com erro 401.
 ## 🧪 Teste Final (Opcional mas Recomendado)
 
 Faça uma compra teste:
-1. Acesse: https://kncursos.com.br
+1. Acesse: https://vemgo.com.br
 2. Escolha um curso
 3. Use o cartão de teste:
    - **Número:** 5162 3062 1937 8829
@@ -72,7 +72,7 @@ Faça uma compra teste:
 **Resultado esperado:**
 - ✅ Pagamento aprovado
 - ✅ Email recebido com link de download
-- ✅ Venda aparece no admin: https://kncursos.com.br/admin
+- ✅ Venda aparece no admin: https://vemgo.com.br/admin
 - ✅ Status "Confirmado" no Asaas
 
 ## 📊 Status do Sistema
@@ -81,7 +81,7 @@ Faça uma compra teste:
 |------|--------|
 | Código do sistema | ✅ 100% funcional |
 | Webhook configurado | ✅ Testado e funcionando |
-| URL permanente | ✅ kncursos.com.br |
+| URL permanente | ✅ vemgo.com.br |
 | Token atualizado | ✅ Novo token ativo |
 | Deploy | ✅ Última versão online |
 | **Penalização Asaas** | ⚠️ **AGUARDANDO REMOÇÃO (você precisa fazer)** |

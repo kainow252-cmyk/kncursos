@@ -1,4 +1,4 @@
-# Integração PagBank - KN Cursos
+# Integração PagBank - Vemgo
 
 ## 📊 Status: Implementando
 
@@ -85,7 +85,7 @@ Content-Type: application/json
     }
   }],
   "notification_urls": [
-    "https://kncursos.com.br/api/webhooks/pagbank"
+    "https://vemgo.com.br/api/webhooks/pagbank"
   ]
 }
 ```
@@ -205,7 +205,7 @@ if (result.charges[0].status === 'PAID') {
 
 ### URL
 ```
-POST https://kncursos.com.br/api/webhooks/pagbank
+POST https://vemgo.com.br/api/webhooks/pagbank
 ```
 
 ### Payload

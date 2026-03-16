@@ -1,4 +1,4 @@
-# 📊 Relatório Completo de Testes - KN Cursos
+# 📊 Relatório Completo de Testes - Vemgo
 **Data:** 14/03/2026 13:30 UTC  
 **Versão:** 1.0  
 **Status:** ✅ Sistema 100% Funcional
@@ -63,9 +63,9 @@ cd /home/user/webapp && npm run build
 
 **Teste realizado:**
 ```bash
-curl -X POST https://b002e9f3.kncursos.pages.dev/api/auth/login \
+curl -X POST https://b002e9f3.vemgo.pages.dev/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"kncursos2024"}'
+  -d '{"username":"admin","password":"vemgo2024"}'
 ```
 
 ### 2.3 API de Cursos
@@ -93,7 +93,7 @@ curl -X POST https://b002e9f3.kncursos.pages.dev/api/auth/login \
 
 **Teste realizado:**
 ```bash
-curl https://b002e9f3.kncursos.pages.dev/api/payment-links/1
+curl https://b002e9f3.vemgo.pages.dev/api/payment-links/1
 # Retornou: link_code="MKT2024ABC", status="active"
 ```
 
@@ -148,7 +148,7 @@ curl https://b002e9f3.kncursos.pages.dev/api/payment-links/1
 
 **Teste Webhook Asaas:**
 ```bash
-curl -X POST https://b002e9f3.kncursos.pages.dev/api/webhooks/asaas \
+curl -X POST https://b002e9f3.vemgo.pages.dev/api/webhooks/asaas \
   -H "asaas-access-token: whsec_9YVKoFYtPFuvWqRZgrmLEXWmzVv1jwZWjm2YDl6jyms" \
   -H "Content-Type: application/json" \
   -d '{"event":"PAYMENT_RECEIVED","payment":{"id":"pay_123","status":"RECEIVED"}}'
@@ -157,7 +157,7 @@ curl -X POST https://b002e9f3.kncursos.pages.dev/api/webhooks/asaas \
 
 **Teste Webhook SuitPay:**
 ```bash
-curl -X POST https://b002e9f3.kncursos.pages.dev/api/webhooks/suitpay \
+curl -X POST https://b002e9f3.vemgo.pages.dev/api/webhooks/suitpay \
   -H "Content-Type: application/json" \
   -d '{"idTransaction":"tx123","typeTransaction":"CARD","statusTransaction":"PAID_OUT"}'
 # ✅ OK
@@ -205,7 +205,7 @@ CREATE INDEX idx_sales_suitpay ON sales(suitpay_payment_id);
 
 **Verificação:**
 ```bash
-npx wrangler d1 execute kncursos --remote --command "
+npx wrangler d1 execute vemgo --remote --command "
   SELECT sql FROM sqlite_master 
   WHERE type='table' AND name='sales'
 "
@@ -227,14 +227,14 @@ npx wrangler d1 execute kncursos --remote --command "
 | `SUITPAY_CLIENT_SECRET` | ✅ | 8585d76f3ff215bcb29... |
 | `SUITPAY_ENV` | ✅ | production |
 | `RESEND_API_KEY` | ✅ | re_... |
-| `EMAIL_FROM` | ✅ | contato@kncursos.com.br |
+| `EMAIL_FROM` | ✅ | contato@vemgo.com.br |
 | `JWT_SECRET` | ✅ | ••••••• |
 | `ADMIN_USERNAME` | ✅ | admin |
 | `ADMIN_PASSWORD` | ✅ | ••••••• |
 
 **Comando de verificação:**
 ```bash
-npx wrangler pages secret list --project-name=kncursos
+npx wrangler pages secret list --project-name=vemgo
 ```
 
 ---
@@ -246,14 +246,14 @@ npx wrangler pages secret list --project-name=kncursos
 | Configuração | Status | Valor |
 |--------------|--------|-------|
 | API Key | ✅ | Configurada |
-| Domínio | ✅ | kncursos.com.br |
-| Email FROM | ✅ | contato@kncursos.com.br |
+| Domínio | ✅ | vemgo.com.br |
+| Email FROM | ✅ | contato@vemgo.com.br |
 | Webhook | ✅ | /api/webhooks/resend |
 
 ### 5.2 Template de Email
 
 **Elementos incluídos:**
-- ✅ Logo KN Cursos
+- ✅ Logo Vemgo
 - ✅ Badge "Pagamento Aprovado"
 - ✅ Nome do cliente personalizado
 - ✅ Título do curso
@@ -270,7 +270,7 @@ POST /api/test-email
   "to": "gelci.jose.grouptrig@gmail.com",
   "customer_name": "João Silva",
   "course_title": "Curso Teste",
-  "download_link": "https://kncursos.pages.dev/download/abc123"
+  "download_link": "https://vemgo.pages.dev/download/abc123"
 }
 # ✅ Email enviado com sucesso
 ```
@@ -326,12 +326,12 @@ POST /api/test-email
 ## 🌐 7. Deploy & URLs
 
 ### 7.1 URL Principal
-- **Produção:** https://b002e9f3.kncursos.pages.dev
-- **Custom Domain:** kncursos.com.br
-- **Admin:** https://b002e9f3.kncursos.pages.dev/admin
+- **Produção:** https://b002e9f3.vemgo.pages.dev
+- **Custom Domain:** vemgo.com.br
+- **Admin:** https://b002e9f3.vemgo.pages.dev/admin
 
 ### 7.2 GitHub
-- **Repositório:** https://github.com/kainow252-cmyk/kncursos
+- **Repositório:** https://github.com/kainow252-cmyk/vemgo
 - **Branch:** main
 - **Último commit:** 1533c9c
 
@@ -402,7 +402,7 @@ npx wrangler pages deployment tail
 
 ### ✅ Aprovado para Produção
 
-O sistema KN Cursos está **100% funcional e pronto para receber vendas reais**:
+O sistema Vemgo está **100% funcional e pronto para receber vendas reais**:
 
 1. **Pagamentos funcionando:** Asaas 100% operacional
 2. **Email automático:** Enviando comprovantes e acesso
@@ -441,9 +441,9 @@ O sistema KN Cursos está **100% funcional e pronto para receber vendas reais**:
 
 ## 🔗 Links Úteis
 
-- **Site:** https://b002e9f3.kncursos.pages.dev
-- **Admin:** https://b002e9f3.kncursos.pages.dev/admin
-- **GitHub:** https://github.com/kainow252-cmyk/kncursos
+- **Site:** https://b002e9f3.vemgo.pages.dev
+- **Admin:** https://b002e9f3.vemgo.pages.dev/admin
+- **GitHub:** https://github.com/kainow252-cmyk/vemgo
 - **Asaas Dashboard:** https://www.asaas.com
 - **SuitPay Dashboard:** https://web.suitpay.app
 - **Cloudflare Dashboard:** https://dash.cloudflare.com

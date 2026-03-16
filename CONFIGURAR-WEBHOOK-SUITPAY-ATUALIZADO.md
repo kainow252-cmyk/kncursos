@@ -4,7 +4,7 @@
 
 Acabei de atualizar o código para seguir **exatamente o formato oficial** da documentação do SuitPay.
 
-**Nova URL de Produção:** https://fd5b06ca.kncursos.pages.dev
+**Nova URL de Produção:** https://fd5b06ca.vemgo.pages.dev
 
 ---
 
@@ -30,10 +30,10 @@ VENDAS → GATEWAY DE PAGAMENTO → WEBHOOK
 
 ```
 Nome/Descrição:
-KN Cursos - Pagamentos com Cartão
+Vemgo - Pagamentos com Cartão
 
 URL do Webhook:
-https://fd5b06ca.kncursos.pages.dev/api/webhooks/suitpay
+https://fd5b06ca.vemgo.pages.dev/api/webhooks/suitpay
 
 Tipo:
 Rest
@@ -110,7 +110,7 @@ Muitos dashboards de pagamento têm uma opção **"Testar Webhook"**:
 
 ### Opção 2: Fazer Compra Real de Teste
 
-1. Acesse: https://fd5b06ca.kncursos.pages.dev
+1. Acesse: https://fd5b06ca.vemgo.pages.dev
 2. Escolha um curso (ou crie um de R$ 1,00 no admin)
 3. Faça o checkout normalmente
 4. Se o pagamento passar pelo SuitPay, o webhook será disparado
@@ -188,7 +188,7 @@ npx wrangler pages deployment tail
 ```bash
 cd /home/user/webapp
 export CLOUDFLARE_API_TOKEN=$(cat .cloudflare-token)
-npx wrangler d1 execute kncursos --remote --command "
+npx wrangler d1 execute vemgo --remote --command "
   SELECT id, customer_name, amount, payment_gateway, status, suitpay_payment_id 
   FROM sales 
   WHERE payment_gateway = 'suitpay' 
@@ -231,8 +231,8 @@ Mesmo sem o webhook configurado, você pode:
 
 - [ ] Acessei o dashboard SuitPay
 - [ ] Encontrei VENDAS → GATEWAY DE PAGAMENTO → WEBHOOK
-- [ ] Criei novo webhook com nome "KN Cursos - Pagamentos com Cartão"
-- [ ] Configurei URL: https://fd5b06ca.kncursos.pages.dev/api/webhooks/suitpay
+- [ ] Criei novo webhook com nome "Vemgo - Pagamentos com Cartão"
+- [ ] Configurei URL: https://fd5b06ca.vemgo.pages.dev/api/webhooks/suitpay
 - [ ] Selecionei tipo: **Rest**, método: **POST**, formato: **JSON**
 - [ ] Marquei eventos: Todos os de Cartão (ou PAID_OUT, PAYMENT_ACCEPT, etc.)
 - [ ] Configurei email: gelci.jose.grouptrig@gmail.com
@@ -256,5 +256,5 @@ Mesmo sem o webhook configurado, você pode:
 ---
 
 **Última Atualização:** 14 de março de 2026, 13:15 UTC  
-**Deploy:** https://fd5b06ca.kncursos.pages.dev  
+**Deploy:** https://fd5b06ca.vemgo.pages.dev  
 **Commit:** d974aa0 - fix: atualizar webhook SuitPay com formato oficial

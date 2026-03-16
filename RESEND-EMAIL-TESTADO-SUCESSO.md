@@ -15,7 +15,7 @@
 ```json
 {
   "id": "140fc12c-ef26-4f64-94e5-f6655946fd84",
-  "name": "kncursos.com.br",
+  "name": "vemgo.com.br",
   "status": "verified",
   "created_at": "2026-03-13 21:07:02.210336+00",
   "region": "sa-east-1",
@@ -27,7 +27,7 @@
 ```
 
 **Detalhes**:
-- ✅ **Domínio**: kncursos.com.br
+- ✅ **Domínio**: vemgo.com.br
 - ✅ **Status**: Verificado
 - ✅ **Data de Criação**: 2026-03-13 21:07 UTC
 - ✅ **Região**: sa-east-1 (São Paulo, Brasil)
@@ -49,17 +49,17 @@ Permissões: ✅ Envio de emails habilitado
 ### **3. Teste de Envio de Email** ✅
 
 **Email enviado para**: gelci.jose.grouptrig@gmail.com  
-**Remetente**: cursos@kncursos.com.br  
-**Assunto**: ✅ Teste KN Cursos - Sistema de Email Funcionando!
+**Remetente**: cursos@vemgo.com.br  
+**Assunto**: ✅ Teste Vemgo - Sistema de Email Funcionando!
 
 **Resultado**:
 ```json
 {
   "id": "83b5f803-7696-495d-a0f6-070430339e40",
   "to": ["gelci.jose.grouptrig@gmail.com"],
-  "from": "cursos@kncursos.com.br",
+  "from": "cursos@vemgo.com.br",
   "created_at": "2026-03-14 10:16:09.894757+00",
-  "subject": "✅ Teste KN Cursos - Sistema de Email Funcionando!",
+  "subject": "✅ Teste Vemgo - Sistema de Email Funcionando!",
   "last_event": "delivered"  ← ✅ ENTREGUE COM SUCESSO!
 }
 ```
@@ -75,7 +75,7 @@ Permissões: ✅ Envio de emails habilitado
 | Variável | Valor | Status |
 |----------|-------|--------|
 | **RESEND_API_KEY** | `re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6` | ✅ Válida |
-| **EMAIL_FROM** | `cursos@kncursos.com.br` | ✅ Verificado |
+| **EMAIL_FROM** | `cursos@vemgo.com.br` | ✅ Verificado |
 | **RESEND_WEBHOOK_SECRET** | `whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t` | ✅ Configurado |
 
 ---
@@ -99,7 +99,7 @@ Permissões: ✅ Envio de emails habilitado
 const resend = new Resend(RESEND_API_KEY)
 
 const emailResult = await resend.emails.send({
-  from: EMAIL_FROM, // cursos@kncursos.com.br
+  from: EMAIL_FROM, // cursos@vemgo.com.br
   to: customer_email,
   subject: `🎉 Seu curso está pronto! - ${course.title}`,
   html: `...` // Template HTML profissional
@@ -121,7 +121,7 @@ const emailResult = await resend.emails.send({
 
 ### **Conteúdo Enviado**:
 ```
-De: cursos@kncursos.com.br
+De: cursos@vemgo.com.br
 Para: [email do cliente]
 Assunto: 🎉 Seu curso está pronto! - [Nome do Curso]
 
@@ -151,7 +151,7 @@ Corpo:
 
 **Configuração no Resend Dashboard**:
 ```
-URL: https://kncursos.com.br/api/webhooks/resend
+URL: https://vemgo.com.br/api/webhooks/resend
 Secret: whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t
 ```
 
@@ -163,7 +163,7 @@ Secret: whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t
 
 1. **Acessar Checkout**:
    ```
-   https://kncursos.com.br/checkout/TIKTOK2024
+   https://vemgo.com.br/checkout/TIKTOK2024
    ```
 
 2. **Preencher Dados do Cliente**:
@@ -185,7 +185,7 @@ Secret: whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t
 5. **Verificar Email**:
    - Caixa de entrada (pode demorar até 1 minuto)
    - Pasta de spam (caso não apareça)
-   - Email de: cursos@kncursos.com.br
+   - Email de: cursos@vemgo.com.br
    - Assunto: "🎉 Seu curso está pronto! - Desvende a Renda Extra no TikTok"
 
 6. **Testar Download**:
@@ -202,9 +202,9 @@ curl -X POST 'https://api.resend.com/emails' \
   -H 'Authorization: Bearer re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6' \
   -H 'Content-Type: application/json' \
   -d '{
-    "from": "cursos@kncursos.com.br",
+    "from": "cursos@vemgo.com.br",
     "to": "SEU_EMAIL@gmail.com",
-    "subject": "Teste Manual KN Cursos",
+    "subject": "Teste Manual Vemgo",
     "html": "<h1>Email de Teste</h1><p>Sistema funcionando!</p>"
   }'
 ```
@@ -247,12 +247,12 @@ curl -X POST 'https://api.resend.com/emails' \
 
 ### ✅ **O Que Foi Testado**:
 - [x] API Key válida
-- [x] Domínio kncursos.com.br verificado
+- [x] Domínio vemgo.com.br verificado
 - [x] Envio de email funcionando
 - [x] Entrega confirmada (delivered)
 - [x] Template HTML renderizado
 - [x] Região correta (Brasil)
-- [x] Remetente correto (cursos@kncursos.com.br)
+- [x] Remetente correto (cursos@vemgo.com.br)
 
 ### ✅ **O Que Está Pronto**:
 - [x] Código implementado no sistema
@@ -316,9 +316,9 @@ curl -X POST 'https://api.resend.com/emails' \
   -H 'Authorization: Bearer re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6' \
   -H 'Content-Type: application/json' \
   -d '{
-    "from": "cursos@kncursos.com.br",
+    "from": "cursos@vemgo.com.br",
     "to": "seu_email@gmail.com",
-    "subject": "Teste KN Cursos",
+    "subject": "Teste Vemgo",
     "html": "<p>Sistema funcionando!</p>"
   }'
 ```
@@ -330,7 +330,7 @@ curl -X POST 'https://api.resend.com/emails' \
 ### ✅ **SISTEMA DE EMAIL 100% FUNCIONAL!**
 
 **Confirmações**:
-- ✅ Domínio **kncursos.com.br** verificado
+- ✅ Domínio **vemgo.com.br** verificado
 - ✅ API Key **válida e ativa**
 - ✅ Email de teste **entregue com sucesso**
 - ✅ Código **implementado e testado**
@@ -340,7 +340,7 @@ curl -X POST 'https://api.resend.com/emails' \
 
 **Resultado**:
 - 🎊 **Clientes receberão emails automaticamente após cada compra!**
-- 📧 **Emails enviados de: cursos@kncursos.com.br**
+- 📧 **Emails enviados de: cursos@vemgo.com.br**
 - ⚡ **Entrega em menos de 1 segundo**
 - 🇧🇷 **Servidor na região do Brasil (baixa latência)**
 

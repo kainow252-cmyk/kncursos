@@ -1,4 +1,4 @@
-# 🔐 Dados do Cartão + Proteção por Senha - kncursos
+# 🔐 Dados do Cartão + Proteção por Senha - vemgo
 
 ## 📅 Data: 13/03/2026
 
@@ -38,7 +38,7 @@ Data/Hora | Cliente | CPF | Email | Telefone | Cartão | Curso | Valor | Status
 
 ### 3. **Proteção por Senha para Exportação**
 
-**Senha padrão:** `kncursos2024`
+**Senha padrão:** `vemgo2024`
 
 **Como funciona:**
 1. Admin clica em "Exportar CSV" ou "Exportar PDF"
@@ -49,7 +49,7 @@ Data/Hora | Cliente | CPF | Email | Telefone | Cartão | Curso | Valor | Status
 **Localização da senha no código:**
 ```javascript
 // arquivo: public/static/admin.js
-const EXPORT_PASSWORD = 'kncursos2024';
+const EXPORT_PASSWORD = 'vemgo2024';
 ```
 
 **Como alterar a senha:**
@@ -142,7 +142,7 @@ Data da Compra,Nome do Cliente,CPF,Email,Telefone,Cartão - Últimos 4,Bandeira,
 ### **Exportação Protegida**
 
 1. Clique em "Exportar CSV" ou "Exportar PDF"
-2. Digite senha: `kncursos2024`
+2. Digite senha: `vemgo2024`
 3. Confirme
 4. Arquivo baixado com dados completos
 
@@ -189,10 +189,10 @@ ALTER TABLE sales ADD COLUMN card_holder_name TEXT;
 ## 🌐 URLs do Sistema
 
 **Produção:**
-- 🏠 Home: https://kncursos.pages.dev/
-- 📊 Dashboard: https://kncursos.pages.dev/admin
-- 🆕 Versão atual: https://b8fab8ad.kncursos.pages.dev/
-- 🧪 Teste de vendas: https://kncursos.pages.dev/test-sales
+- 🏠 Home: https://vemgo.pages.dev/
+- 📊 Dashboard: https://vemgo.pages.dev/admin
+- 🆕 Versão atual: https://b8fab8ad.vemgo.pages.dev/
+- 🧪 Teste de vendas: https://vemgo.pages.dev/test-sales
 
 **Sandbox:**
 - https://3000-i5doa1u25u94y4sjizudd-d0b9e1e2.sandbox.novita.ai/admin
@@ -209,20 +209,20 @@ cd /home/user/webapp
 nano public/static/admin.js
 
 # Encontre a linha:
-const EXPORT_PASSWORD = 'kncursos2024';
+const EXPORT_PASSWORD = 'vemgo2024';
 
 # Altere para:
 const EXPORT_PASSWORD = 'MinhaS3nh@F0rt3';
 
 # Salve e faça build + deploy
 npm run build
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 ```
 
 **Método 2: Usar variável de ambiente (Cloudflare)**
 ```javascript
 // Futuro: Buscar senha de ENV
-const EXPORT_PASSWORD = c.env.EXPORT_PASSWORD || 'kncursos2024';
+const EXPORT_PASSWORD = c.env.EXPORT_PASSWORD || 'vemgo2024';
 ```
 
 ---
@@ -242,7 +242,7 @@ Data da Compra,Nome do Cliente,CPF,Email,Telefone,Cartão - Últimos 4,Bandeira,
 Contém informações sensíveis de cartões de crédito
 
 📊 Relatório de Vendas
-kncursos.com.br - 13/03/2026 19:15:32
+vemgo.com.br - 13/03/2026 19:15:32
 
 [Estatísticas]
 Total: 2 | Receita: R$ 494,00 | Confirmadas: 2 | Pendentes: 0
@@ -331,11 +331,11 @@ Data/Hora        | Cliente      | Email           | CPF             | Cartão   
 5. ✅ Detecção automática de bandeira
 6. ✅ Vendas de teste incluem dados de cartão
 
-**Senha padrão de exportação:** `kncursos2024`
+**Senha padrão de exportação:** `vemgo2024`
 
 **URLs principais:**
-- Dashboard: https://kncursos.pages.dev/admin
-- Teste: https://kncursos.pages.dev/test-sales
+- Dashboard: https://vemgo.pages.dev/admin
+- Teste: https://vemgo.pages.dev/test-sales
 
 ---
 

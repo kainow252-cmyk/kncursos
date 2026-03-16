@@ -161,7 +161,7 @@ npm run db:reset
 ### Erro: "Link inválido"
 ```bash
 # Verificar links disponíveis:
-npx wrangler d1 execute kncursos --local \
+npx wrangler d1 execute vemgo --local \
   --command="SELECT link_code, course_id FROM payment_links WHERE status='active'"
 
 # Links padrão criados:
@@ -186,28 +186,28 @@ npx wrangler d1 execute kncursos --local \
 ### Verificar Status do Servidor
 ```bash
 # Ver logs em tempo real
-pm2 logs kncursos --nostream
+pm2 logs vemgo --nostream
 
 # Status do serviço
 pm2 status
 
 # Reiniciar serviço
-pm2 restart kncursos
+pm2 restart vemgo
 ```
 
 ## 📊 Verificar Vendas no Banco
 
 ```bash
 # Ver todas as vendas
-npx wrangler d1 execute kncursos --local \
+npx wrangler d1 execute vemgo --local \
   --command="SELECT customer_name, customer_email, amount, status FROM sales"
 
 # Contar vendas
-npx wrangler d1 execute kncursos --local \
+npx wrangler d1 execute vemgo --local \
   --command="SELECT COUNT(*) as total FROM sales"
 
 # Vendas por status
-npx wrangler d1 execute kncursos --local \
+npx wrangler d1 execute vemgo --local \
   --command="SELECT status, COUNT(*) as total FROM sales GROUP BY status"
 ```
 
@@ -215,7 +215,7 @@ npx wrangler d1 execute kncursos --local \
 
 1. **Login**: http://localhost:3000/login
    - Usuário: `admin`
-   - Senha: `kncursos2024`
+   - Senha: `vemgo2024`
 
 2. **Dashboard**: http://localhost:3000/admin
    - Ver vendas realizadas

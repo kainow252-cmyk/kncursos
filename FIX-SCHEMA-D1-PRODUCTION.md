@@ -6,7 +6,7 @@
 
 **Causa:** A tabela `courses` no banco D1 de **produção** não tem as colunas `category` e `featured`.
 
-**Local:** Endpoint `PUT /api/courses/:id` em https://kncursos.pages.dev/api/courses/1
+**Local:** Endpoint `PUT /api/courses/:id` em https://vemgo.pages.dev/api/courses/1
 
 **Sintoma:** Erro 500 ao tentar editar curso no painel admin.
 
@@ -19,7 +19,7 @@
 1. **Acesse o D1 Database:**
    - Abra: https://dash.cloudflare.com/
    - Vá em: **Storage & Databases → D1**
-   - Clique no database: **kncursos**
+   - Clique no database: **vemgo**
 
 2. **Execute o SQL no Console:**
    - Clique na aba **Console**
@@ -68,10 +68,10 @@ Você deve ver as novas colunas:
 ```bash
 # Executar SQL no banco remoto
 cd /home/user/webapp
-npx wrangler d1 execute kncursos --file=fix-schema-production.sql --remote
+npx wrangler d1 execute vemgo --file=fix-schema-production.sql --remote
 
 # Verificar schema
-npx wrangler d1 execute kncursos --command="PRAGMA table_info(courses);" --remote
+npx wrangler d1 execute vemgo --command="PRAGMA table_info(courses);" --remote
 ```
 
 ---
@@ -80,7 +80,7 @@ npx wrangler d1 execute kncursos --command="PRAGMA table_info(courses);" --remot
 
 ### **1. Testar API Diretamente:**
 ```bash
-curl -X PUT https://kncursos.pages.dev/api/courses/1 \
+curl -X PUT https://vemgo.pages.dev/api/courses/1 \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Curso Teste",
@@ -104,8 +104,8 @@ curl -X PUT https://kncursos.pages.dev/api/courses/1 \
 ```
 
 ### **2. Testar no Admin:**
-1. Abra: https://kncursos.pages.dev/login
-2. Login: `admin` / `kncursos2024`
+1. Abra: https://vemgo.pages.dev/login
+2. Login: `admin` / `vemgo2024`
 3. Clique em **Editar** em qualquer curso
 4. Altere qualquer campo
 5. Clique em **Salvar Curso**
@@ -130,7 +130,7 @@ curl -X PUT https://kncursos.pages.dev/api/courses/1 \
 
 **Problema:** Colunas `category` e `featured` faltando no D1 Production.
 
-**Solução:** Execute o SQL no Cloudflare Dashboard → D1 → kncursos → Console.
+**Solução:** Execute o SQL no Cloudflare Dashboard → D1 → vemgo → Console.
 
 **Verificação:** Teste com `curl` e no painel admin.
 

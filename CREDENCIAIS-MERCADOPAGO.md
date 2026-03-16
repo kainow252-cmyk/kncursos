@@ -29,7 +29,7 @@
 ### 3️⃣ Crie Sua Aplicação
 
 **Preencha os dados**:
-- **Nome da aplicação**: `kncursos`
+- **Nome da aplicação**: `vemgo`
 - **Descrição**: `Plataforma de vendas de cursos online`
 - **Modelo de integração**: `Checkout API`
 - **Categoria**: `Educação`
@@ -89,11 +89,11 @@ echo ".dev.vars" >> .gitignore
 
 ```bash
 # Public Key
-npx wrangler pages secret put MERCADOPAGO_PUBLIC_KEY --project-name kncursos
+npx wrangler pages secret put MERCADOPAGO_PUBLIC_KEY --project-name vemgo
 # Cole: APP_USR-12345678-abcd-1234-5678-123456789012
 
 # Access Token
-npx wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name kncursos
+npx wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name vemgo
 # Cole: APP_USR-1234567890123456-012345-abcdefghijklmnopqrstuvwxyz123456-123456789
 ```
 
@@ -105,10 +105,10 @@ npx wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name kncursos
 
 ```bash
 # 1. Reiniciar servidor
-pm2 restart kncursos
+pm2 restart vemgo
 
 # 2. Verificar logs
-pm2 logs kncursos --nostream | grep -i mercadopago
+pm2 logs vemgo --nostream | grep -i mercadopago
 
 # 3. Testar checkout
 curl http://localhost:3000/checkout/MKT2024-001
@@ -118,14 +118,14 @@ curl http://localhost:3000/checkout/MKT2024-001
 
 ```bash
 # 1. Verificar secrets
-npx wrangler pages secret list --project-name kncursos
+npx wrangler pages secret list --project-name vemgo
 
 # 2. Deploy
 npm run build
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 
 # 3. Testar
-curl https://kncursos.pages.dev/checkout/MKT2024-001
+curl https://vemgo.pages.dev/checkout/MKT2024-001
 ```
 
 ---
@@ -193,7 +193,7 @@ APP_USR-1234567890123456-012345-abcd...
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
 │  📁 Suas Integrações                                    │
-│     ├─ kncursos (sua aplicação)                         │
+│     ├─ vemgo (sua aplicação)                         │
 │     │                                                   │
 │     ├─ 📘 Credenciais de TESTE                          │
 │     │   ├─ Public Key:  TEST-xxx...                    │
@@ -221,7 +221,7 @@ APP_USR-1234567890123456-012345-abcd...
 
 ```bash
 # Verifique se copiou corretamente
-npx wrangler pages secret list --project-name kncursos
+npx wrangler pages secret list --project-name vemgo
 
 # Deve mostrar:
 # MERCADOPAGO_PUBLIC_KEY
@@ -240,7 +240,7 @@ npx wrangler pages secret list --project-name kncursos
 cat .dev.vars | grep MERCADOPAGO
 
 # Produção (Cloudflare)
-npx wrangler pages secret list --project-name kncursos
+npx wrangler pages secret list --project-name vemgo
 ```
 
 ### "Invalid token"
@@ -270,13 +270,13 @@ https://www.mercadopago.com.br/developers/pt/support
 ## ✅ Checklist Final
 
 - [ ] Conta criada no Mercado Pago
-- [ ] Aplicação `kncursos` criada no portal
+- [ ] Aplicação `vemgo` criada no portal
 - [ ] Credenciais de TESTE copiadas
 - [ ] Credenciais de PRODUÇÃO copiadas
 - [ ] `.dev.vars` criado localmente
 - [ ] `.dev.vars` adicionado ao `.gitignore`
 - [ ] Secrets configurados no Cloudflare
-- [ ] Servidor reiniciado (`pm2 restart kncursos`)
+- [ ] Servidor reiniciado (`pm2 restart vemgo`)
 - [ ] Checkout testado com sucesso
 
 ---

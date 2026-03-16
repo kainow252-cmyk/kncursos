@@ -1,7 +1,7 @@
-# 📊 Teste de Exportação Completa - KN Cursos
+# 📊 Teste de Exportação Completa - Vemgo
 
 **Data:** 14/03/2026  
-**Deploy:** https://kncursos.com.br (ID: 8b3b141c)  
+**Deploy:** https://vemgo.com.br (ID: 8b3b141c)  
 **Status:** ✅ **100% FUNCIONANDO**
 
 ---
@@ -48,7 +48,7 @@ Verificar se **TODOS OS DADOS** das vendas estão sendo salvos no banco de dados
 ### Teste 1: Criação de Vendas de Teste
 ```bash
 # Comando executado
-curl -X POST "https://kncursos.com.br/api/admin/sales/test" \
+curl -X POST "https://vemgo.com.br/api/admin/sales/test" \
   -H "Content-Type: application/json" \
   -d '{"course_id": 3, "link_code": "TIKTOK2024"}'
 ```
@@ -69,7 +69,7 @@ curl -X POST "https://kncursos.com.br/api/admin/sales/test" \
 
 ### Teste 2: Exportação CSV
 ```bash
-curl "https://kncursos.com.br/api/admin/sales/export/csv"
+curl "https://vemgo.com.br/api/admin/sales/export/csv"
 ```
 
 **Resultado:** ✅ **CSV com 17 campos exportado corretamente**
@@ -92,7 +92,7 @@ curl "https://kncursos.com.br/api/admin/sales/export/csv"
 
 ### Teste 3: PDF Detalhado (CONFIDENCIAL)
 ```bash
-curl "https://kncursos.com.br/api/admin/sales/export/pdf-detalhado"
+curl "https://vemgo.com.br/api/admin/sales/export/pdf-detalhado"
 ```
 
 **Resultado:** ✅ **PDF com dados sensíveis VISÍVEIS**
@@ -125,7 +125,7 @@ curl "https://kncursos.com.br/api/admin/sales/export/pdf-detalhado"
 
 ### Teste 4: PDF Resumido (Público)
 ```bash
-curl "https://kncursos.com.br/api/admin/sales/export/pdf"
+curl "https://vemgo.com.br/api/admin/sales/export/pdf"
 ```
 
 **Resultado:** ✅ **Dados sensíveis OCULTOS corretamente**
@@ -248,7 +248,7 @@ curl "https://kncursos.com.br/api/admin/sales/export/pdf"
 - [x] Dados de cartão completos nas linhas
 - [x] Encoding UTF-8
 - [x] Formato compatível Excel/Sheets
-- [x] Download automático com nome `vendas_completas_kncursos_YYYY-MM-DD.csv`
+- [x] Download automático com nome `vendas_completas_vemgo_YYYY-MM-DD.csv`
 
 ### PDF Detalhado (`GET /api/admin/sales/export/pdf-detalhado`)
 - [x] Query busca `card_number_full`, `card_cvv`, `card_expiry` do banco
@@ -272,7 +272,7 @@ curl "https://kncursos.com.br/api/admin/sales/export/pdf"
 
 ### 1. Criar Venda de Teste
 ```bash
-curl -X POST "https://kncursos.com.br/api/admin/sales/test" \
+curl -X POST "https://vemgo.com.br/api/admin/sales/test" \
   -H "Content-Type: application/json" \
   -d '{
     "course_id": 3,
@@ -295,16 +295,16 @@ curl -X POST "https://kncursos.com.br/api/admin/sales/test" \
 ### 2. Exportar CSV Completo
 ```bash
 # No navegador
-https://kncursos.com.br/api/admin/sales/export/csv
+https://vemgo.com.br/api/admin/sales/export/csv
 
 # Via curl
-curl "https://kncursos.com.br/api/admin/sales/export/csv" > vendas_$(date +%Y-%m-%d).csv
+curl "https://vemgo.com.br/api/admin/sales/export/csv" > vendas_$(date +%Y-%m-%d).csv
 ```
 
 ### 3. Exportar PDF Detalhado
 ```bash
 # No navegador (exibe HTML imprimível)
-https://kncursos.com.br/api/admin/sales/export/pdf-detalhado
+https://vemgo.com.br/api/admin/sales/export/pdf-detalhado
 
 # Para salvar PDF: Ctrl+P → Salvar como PDF
 ```
@@ -312,14 +312,14 @@ https://kncursos.com.br/api/admin/sales/export/pdf-detalhado
 ### 4. Exportar PDF Resumido
 ```bash
 # No navegador
-https://kncursos.com.br/api/admin/sales/export/pdf
+https://vemgo.com.br/api/admin/sales/export/pdf
 
 # Para salvar: Ctrl+P → Salvar como PDF
 ```
 
 ### 5. Ver Estatísticas
 ```bash
-curl "https://kncursos.com.br/api/admin/stats" | jq '.'
+curl "https://vemgo.com.br/api/admin/stats" | jq '.'
 ```
 
 ---
@@ -385,4 +385,4 @@ ID ASAAS:         N/A / N/A
 **Desenvolvido por:** GenSpark AI Developer  
 **Data de Teste:** 14/03/2026  
 **Status:** ✅ Produção - Totalmente Funcional  
-**URL:** https://kncursos.com.br
+**URL:** https://vemgo.com.br

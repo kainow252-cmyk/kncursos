@@ -11,28 +11,28 @@
 ## 🌐 **URLs de Produção**
 
 ### **Aplicação Principal**:
-- ✅ **https://kncursos.pages.dev/** (Status: 200 OK, Tempo: 0.19s)
-- ✅ **https://kncursos.com.br/** (Status: 200 OK, Domínio personalizado ativo)
-- ✅ **https://e60d9e4a.kncursos.pages.dev/** (Deployment específico)
+- ✅ **https://vemgo.pages.dev/** (Status: 200 OK, Tempo: 0.19s)
+- ✅ **https://vemgo.com.br/** (Status: 200 OK, Domínio personalizado ativo)
+- ✅ **https://e60d9e4a.vemgo.pages.dev/** (Deployment específico)
 
 ### **Páginas Funcionais**:
-- **Loja**: https://kncursos.com.br/
-- **Login**: https://kncursos.com.br/login
-- **Admin**: https://kncursos.com.br/admin
-- **Checkout**: https://kncursos.com.br/checkout/TIKTOK2024
+- **Loja**: https://vemgo.com.br/
+- **Login**: https://vemgo.com.br/login
+- **Admin**: https://vemgo.com.br/admin
+- **Checkout**: https://vemgo.com.br/checkout/TIKTOK2024
 
 ### **API Endpoints**:
-- **Cursos**: https://kncursos.com.br/api/courses (✅ 3 cursos)
-- **Login**: https://kncursos.com.br/api/auth/login
-- **Upload**: https://kncursos.com.br/api/upload
-- **Download**: https://kncursos.com.br/files/*
+- **Cursos**: https://vemgo.com.br/api/courses (✅ 3 cursos)
+- **Login**: https://vemgo.com.br/api/auth/login
+- **Upload**: https://vemgo.com.br/api/upload
+- **Download**: https://vemgo.com.br/files/*
 
 ---
 
 ## 🔧 **Infraestrutura Cloudflare**
 
 ### **1. Cloudflare Pages**:
-- ✅ **Project**: kncursos
+- ✅ **Project**: vemgo
 - ✅ **Environment**: Production
 - ✅ **Branch**: main
 - ✅ **Commit**: 0033529
@@ -41,7 +41,7 @@
 - ✅ **Status**: Active (just now)
 
 ### **2. Cloudflare D1 (Database)**:
-- ✅ **Database**: kncursos
+- ✅ **Database**: vemgo
 - ✅ **ID**: 6783bc59-1fd5-48b4-894b-98c77e6ca75a
 - ✅ **Binding**: DB
 - ✅ **Tabelas**: 7 tabelas criadas
@@ -57,7 +57,7 @@
 - ✅ **Location**: EWR (Newark)
 
 ### **3. Cloudflare R2 (Storage)**:
-- ✅ **Bucket**: kncursos-files
+- ✅ **Bucket**: vemgo-files
 - ✅ **Created**: 2026-03-13 22:31 UTC
 - ✅ **Binding**: R2
 - ✅ **Status**: Active
@@ -68,10 +68,10 @@
 ✅ **ASAAS_ENV** = sandbox  
 ✅ **ASAAS_WEBHOOK_TOKEN**  
 ✅ **RESEND_API_KEY** (Email delivery)  
-✅ **EMAIL_FROM** = cursos@kncursos.com.br  
+✅ **EMAIL_FROM** = cursos@vemgo.com.br  
 ✅ **RESEND_WEBHOOK_SECRET**  
 ✅ **ADMIN_USERNAME** = admin  
-✅ **ADMIN_PASSWORD** = kncursos2024  
+✅ **ADMIN_PASSWORD** = vemgo2024  
 ✅ **JWT_SECRET** (Session token)  
 
 **Total**: 9 secrets configurados e criptografados
@@ -82,14 +82,14 @@
 
 ### **1. Homepage** ✅
 ```bash
-$ curl https://kncursos.pages.dev/
+$ curl https://vemgo.pages.dev/
 Status: 200 OK
 Time: 0.199s
 ```
 
 ### **2. API de Cursos** ✅
 ```bash
-$ curl https://kncursos.pages.dev/api/courses
+$ curl https://vemgo.pages.dev/api/courses
 1 - Curso de Marketing Digital - R$ 15
 2 - Curso de Desenvolvimento Web - R$ 10
 3 - Desvende a Renda Extra no TikTok - R$ 17
@@ -97,7 +97,7 @@ $ curl https://kncursos.pages.dev/api/courses
 
 ### **3. Domínio Personalizado** ✅
 ```bash
-$ curl https://kncursos.com.br/
+$ curl https://vemgo.com.br/
 Status: 200 OK
 SSL: Valid
 ```
@@ -107,9 +107,9 @@ SSL: Valid
 ## 🔐 **Credenciais de Acesso**
 
 ### **Admin Panel**:
-- **URL**: https://kncursos.com.br/admin
+- **URL**: https://vemgo.com.br/admin
 - **Usuário**: `admin`
-- **Senha**: `kncursos2024`
+- **Senha**: `vemgo2024`
 - **Permissões**: Full access (criar cursos, gerar links, ver vendas)
 
 ### **Teste de Pagamento**:
@@ -137,8 +137,8 @@ SSL: Valid
 
 ### **Infraestrutura Cloudflare**:
 - [x] Login na Cloudflare (token válido)
-- [x] Bucket R2 criado (kncursos-files)
-- [x] Database D1 criado (kncursos)
+- [x] Bucket R2 criado (vemgo-files)
+- [x] Database D1 criado (vemgo)
 - [x] Tabelas criadas (7/7)
 - [x] Dados populados (3 cursos, 2 usuários, 3 links)
 
@@ -176,10 +176,10 @@ npx wrangler whoami
 ### **Etapa 2: Verificação de Infraestrutura** ✅
 ```bash
 npx wrangler r2 bucket list
-# ✅ kncursos-files (created 2026-03-13)
+# ✅ vemgo-files (created 2026-03-13)
 
 npx wrangler d1 list
-# ✅ kncursos (6783bc59-1fd5-48b4-894b-98c77e6ca75a)
+# ✅ vemgo (6783bc59-1fd5-48b4-894b-98c77e6ca75a)
 ```
 
 ### **Etapa 3: Configuração de Secrets** ✅
@@ -208,22 +208,22 @@ npm run build
 
 ### **Etapa 5: Deploy** ✅
 ```bash
-npx wrangler pages deploy dist --project-name=kncursos
+npx wrangler pages deploy dist --project-name=vemgo
 # ✅ Uploading 6 files (0 new, 6 cached)
 # ✅ Worker compiled successfully
 # ✅ Deployment complete!
-# ✅ https://e60d9e4a.kncursos.pages.dev
+# ✅ https://e60d9e4a.vemgo.pages.dev
 ```
 
 ### **Etapa 6: Verificação** ✅
 ```bash
-curl https://kncursos.pages.dev/
+curl https://vemgo.pages.dev/
 # ✅ 200 OK (0.199s)
 
-curl https://kncursos.pages.dev/api/courses
+curl https://vemgo.pages.dev/api/courses
 # ✅ 3 courses returned
 
-curl https://kncursos.com.br/
+curl https://vemgo.com.br/
 # ✅ 200 OK (custom domain active)
 ```
 
@@ -257,8 +257,8 @@ curl https://kncursos.com.br/
 
 ### **Imediato** (Testes):
 1. ✅ Deploy concluído
-2. ⏳ Acessar https://kncursos.com.br/
-3. ⏳ Fazer login em /admin (admin / kncursos2024)
+2. ⏳ Acessar https://vemgo.com.br/
+3. ⏳ Fazer login em /admin (admin / vemgo2024)
 4. ⏳ Criar um novo curso de teste
 5. ⏳ Gerar link de pagamento
 6. ⏳ Simular uma compra com cartão de teste
@@ -288,15 +288,15 @@ curl https://kncursos.com.br/
 
 ### **Dashboards**:
 - **Cloudflare**: https://dash.cloudflare.com/
-- **Pages**: https://dash.cloudflare.com/pages/view/kncursos
+- **Pages**: https://dash.cloudflare.com/pages/view/vemgo
 - **D1**: https://dash.cloudflare.com/d1
 - **R2**: https://dash.cloudflare.com/r2
 - **Asaas**: https://www.asaas.com/
 - **Resend**: https://resend.com/
 
 ### **Deployments**:
-- **Atual**: https://dash.cloudflare.com/ef4dfafae6fc56ebf84a3b58aa7d8b45/pages/view/kncursos/e60d9e4a-ac25-4917-b8d1-1556cd6013d8
-- **Histórico**: https://dash.cloudflare.com/ef4dfafae6fc56ebf84a3b58aa7d8b45/pages/view/kncursos
+- **Atual**: https://dash.cloudflare.com/ef4dfafae6fc56ebf84a3b58aa7d8b45/pages/view/vemgo/e60d9e4a-ac25-4917-b8d1-1556cd6013d8
+- **Histórico**: https://dash.cloudflare.com/ef4dfafae6fc56ebf84a3b58aa7d8b45/pages/view/vemgo
 
 ### **Documentação**:
 - Cloudflare Pages: https://developers.cloudflare.com/pages/
@@ -309,9 +309,9 @@ curl https://kncursos.com.br/
 
 ## 🎉 **Conclusão**
 
-Sistema **KN Cursos** está **LIVE EM PRODUÇÃO**! 🚀
+Sistema **Vemgo** está **LIVE EM PRODUÇÃO**! 🚀
 
-✅ **Domínio**: https://kncursos.com.br/  
+✅ **Domínio**: https://vemgo.com.br/  
 ✅ **Banco de dados**: D1 configurado e populado  
 ✅ **Storage**: R2 pronto para uploads  
 ✅ **Pagamento**: Asaas sandbox configurado  

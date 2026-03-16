@@ -1,15 +1,15 @@
-# 📤 Guia de Push para GitHub - KN Cursos
+# 📤 Guia de Push para GitHub - Vemgo
 
 ## ✅ **Status Atual do Git**
 
 ### **Repositório Local**:
 - ✅ Branch principal: `main`
-- ✅ Remote configurado: `https://github.com/kainow252-cmyk/kncursos.git`
+- ✅ Remote configurado: `https://github.com/kainow252-cmyk/vemgo.git`
 - ✅ Commits realizados: 15 commits (incluindo sessão atual)
 - ✅ Último commit: `8ca8f2f - feat: deploy em produção realizado com sucesso! 🚀`
 
 ### **Repositório Remoto (GitHub)**:
-- ✅ URL: https://github.com/kainow252-cmyk/kncursos.git
+- ✅ URL: https://github.com/kainow252-cmyk/vemgo.git
 - ✅ Proprietário: kainow252-cmyk
 - ⚠️ Status: Aguardando primeiro push
 
@@ -46,7 +46,7 @@ cd webapp/
 
 3. **Configurar remote do GitHub** (se necessário):
 ```bash
-git remote add origin https://github.com/kainow252-cmyk/kncursos.git
+git remote add origin https://github.com/kainow252-cmyk/vemgo.git
 git branch -M main
 ```
 
@@ -70,7 +70,7 @@ Se você não tem um token, crie um:
 
 2. **Gerar novo token**:
    - Clicar em **Generate new token** → **Generate new token (classic)**
-   - Nome: `KN Cursos Deploy`
+   - Nome: `Vemgo Deploy`
    - Expiração: 90 dias (ou personalizado)
    - **Scopes necessários**:
      - ✅ `repo` (acesso completo ao repositório)
@@ -251,7 +251,7 @@ git commit -m "fix: remover arquivos sensíveis"
 Após fazer o push, verificar:
 
 1. **Repositório no GitHub**:
-   - https://github.com/kainow252-cmyk/kncursos
+   - https://github.com/kainow252-cmyk/vemgo
 
 2. **Verificar se arquivos sensíveis não foram enviados**:
    - Buscar por `.dev.vars` no repositório
@@ -298,7 +298,7 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: pages deploy dist --project-name=kncursos
+          command: pages deploy dist --project-name=vemgo
 ```
 
 **Secrets necessários no GitHub**:
@@ -333,8 +333,8 @@ Se necessário:
 ### **Para Push Manual no Seu PC**:
 ```bash
 # 1. Clonar o repositório vazio (se ainda não tiver)
-git clone https://github.com/kainow252-cmyk/kncursos.git
-cd kncursos
+git clone https://github.com/kainow252-cmyk/vemgo.git
+cd vemgo
 
 # 2. Ou extrair o backup
 tar -xzf webapp_backup_final_*.tar.gz
@@ -387,9 +387,9 @@ git ls-files | xargs ls -lh | sort -k5 -hr | head -10
 - [ ] **Push para GitHub** (precisa ser feito no seu PC)
 
 ### **URLs Importantes**:
-- **Repositório**: https://github.com/kainow252-cmyk/kncursos
-- **Produção**: https://kncursos.com.br/
-- **Cloudflare**: https://dash.cloudflare.com/pages/view/kncursos
+- **Repositório**: https://github.com/kainow252-cmyk/vemgo
+- **Produção**: https://vemgo.com.br/
+- **Cloudflare**: https://dash.cloudflare.com/pages/view/vemgo
 
 ---
 

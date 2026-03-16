@@ -11,7 +11,7 @@ O Wrangler CLI não tem permissão para executar scripts SQL complexos no banco 
 ### 1️⃣ **Acessar o Console D1**
 1. Acesse: https://dash.cloudflare.com/
 2. Vá em: **Storage & Databases** → **D1**
-3. Clique no banco: **kncursos**
+3. Clique no banco: **vemgo**
 4. Clique na aba: **Console**
 
 ### 2️⃣ **Executar os Comandos SQL Abaixo**
@@ -131,7 +131,7 @@ Deve aparecer:
 
 ### 1. **Testar o Checkout Novamente:**
 ```
-https://kncursos.pages.dev/checkout/DEV2024XYZ
+https://vemgo.pages.dev/checkout/DEV2024XYZ
 ```
 
 ### 2. **Preencher com Dados de Teste:**

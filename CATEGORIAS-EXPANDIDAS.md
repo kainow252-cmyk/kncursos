@@ -210,7 +210,7 @@ function getCategoryIcon(category) {
 
 ### 1. Testar Dropdown no Admin
 ```bash
-# 1. Login: http://localhost:3000/admin (admin / kncursos2024)
+# 1. Login: http://localhost:3000/admin (admin / vemgo2024)
 # 2. Clique em "Novo Curso"
 # 3. Veja dropdown de categoria com 20 opções
 # 4. Selecione "Inteligência Artificial"
@@ -246,8 +246,8 @@ function getCategoryIcon(category) {
 
 - **Home com Filtros**: http://localhost:3000/
 - **Admin**: http://localhost:3000/admin
-- **Produção**: https://kncursos.pages.dev/
-- **Versão Atual**: https://03f7ee5a.kncursos.pages.dev/
+- **Produção**: https://vemgo.pages.dev/
+- **Versão Atual**: https://03f7ee5a.vemgo.pages.dev/
 
 ## 📁 Arquivos Modificados
 

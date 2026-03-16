@@ -67,7 +67,7 @@ https://sandbox.asaas.com/
 ## 🗄️ VERIFICAR NO BANCO D1 (Local)
 
 ```bash
-npx wrangler d1 execute kncursos --local --command="SELECT * FROM sales WHERE id = 7"
+npx wrangler d1 execute vemgo --local --command="SELECT * FROM sales WHERE id = 7"
 ```
 
 **Resultado esperado:**

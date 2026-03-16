@@ -4,8 +4,8 @@
 
 ### **📋 Dados do Webhook:**
 
-- **Nome:** kncursos - Pagamentos Produção
-- **URL:** https://kncursos.pages.dev/api/webhooks/asaas
+- **Nome:** vemgo - Pagamentos Produção
+- **URL:** https://vemgo.pages.dev/api/webhooks/asaas
 - **Status:** ✅ Ativo
 - **Versão API:** v3
 - **Fila de sincronização:** ✅ Ativa
@@ -58,7 +58,7 @@ ASAAS_WEBHOOK_TOKEN=whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM
 
 **Cloudflare Pages (Produção):**
 1. https://dash.cloudflare.com/
-2. Workers & Pages → **kncursos** → Settings
+2. Workers & Pages → **vemgo** → Settings
 3. Environment Variables → **Add**
    - **Name:** `ASAAS_WEBHOOK_TOKEN`
    - **Value:** `whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM`
@@ -73,7 +73,7 @@ ASAAS_WEBHOOK_TOKEN=whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM
 ### **1. Teste Manual (cURL):**
 
 ```bash
-curl -X POST https://kncursos.pages.dev/api/webhooks/asaas \
+curl -X POST https://vemgo.pages.dev/api/webhooks/asaas \
   -H "Content-Type: application/json" \
   -H "asaas-access-token: whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM" \
   -d '{
@@ -97,7 +97,7 @@ curl -X POST https://kncursos.pages.dev/api/webhooks/asaas \
 ### **2. Teste com Token Inválido:**
 
 ```bash
-curl -X POST https://kncursos.pages.dev/api/webhooks/asaas \
+curl -X POST https://vemgo.pages.dev/api/webhooks/asaas \
   -H "Content-Type: application/json" \
   -H "asaas-access-token: token_invalido" \
   -d '{
@@ -120,7 +120,7 @@ curl -X POST https://kncursos.pages.dev/api/webhooks/asaas \
 
 1. Login no Asaas: https://sandbox.asaas.com/ (ou produção)
 2. Menu: **Integrações → Webhooks**
-3. Clique no webhook: **"kncursos - Pagamentos Produção"**
+3. Clique no webhook: **"vemgo - Pagamentos Produção"**
 4. Botão: **"Enviar teste"**
 5. Verifique os logs
 
@@ -132,12 +132,12 @@ curl -X POST https://kncursos.pages.dev/api/webhooks/asaas \
 
 **Cloudflare Pages:**
 ```bash
-npx wrangler pages deployment tail --project-name kncursos | grep "WEBHOOK ASAAS"
+npx wrangler pages deployment tail --project-name vemgo | grep "WEBHOOK ASAAS"
 ```
 
 **PM2 (Local):**
 ```bash
-pm2 logs kncursos --nostream | grep "WEBHOOK ASAAS"
+pm2 logs vemgo --nostream | grep "WEBHOOK ASAAS"
 ```
 
 ### **Logs Esperados:**
@@ -168,7 +168,7 @@ pm2 logs kncursos --nostream | grep "WEBHOOK ASAAS"
 **Causa:** Erro interno ao processar o evento
 
 **Solução:**
-1. Verificar logs: `pm2 logs kncursos` ou `wrangler pages deployment tail`
+1. Verificar logs: `pm2 logs vemgo` ou `wrangler pages deployment tail`
 2. Confirmar que o banco D1 está acessível
 3. Verificar se a coluna `asaas_payment_id` existe na tabela `sales`
 
@@ -237,7 +237,7 @@ pm2 logs kncursos --nostream | grep "WEBHOOK ASAAS"
 
 ## 🔗 Links Úteis
 
-- **Webhook URL:** https://kncursos.pages.dev/api/webhooks/asaas
+- **Webhook URL:** https://vemgo.pages.dev/api/webhooks/asaas
 - **Dashboard Asaas:** https://sandbox.asaas.com/webhooks
 - **Logs Cloudflare:** https://dash.cloudflare.com/
 - **Documentação Asaas:** https://docs.asaas.com/docs/webhooks

@@ -125,8 +125,8 @@ curl -X PUT http://localhost:3000/api/courses/1 \
 npm run build
 # ✅ Bundle: 386.82 kB
 
-npx wrangler pages deploy dist --project-name kncursos
-# ✅ Deploy: https://c5842eb1.kncursos.pages.dev
+npx wrangler pages deploy dist --project-name vemgo
+# ✅ Deploy: https://c5842eb1.vemgo.pages.dev
 ```
 
 ---
@@ -136,13 +136,13 @@ npx wrangler pages deploy dist --project-name kncursos
 ### Opção 1: Wrangler Tail (Tempo Real)
 
 ```bash
-npx wrangler pages deployment tail --project-name kncursos --format pretty
+npx wrangler pages deployment tail --project-name vemgo --format pretty
 ```
 
 ### Opção 2: Cloudflare Dashboard
 
 1. Acesse: https://dash.cloudflare.com/
-2. **Workers & Pages** → **kncursos**
+2. **Workers & Pages** → **vemgo**
 3. Clique em uma **deployment**
 4. Aba **"Logs"**
 
@@ -150,13 +150,13 @@ npx wrangler pages deployment tail --project-name kncursos --format pretty
 
 ```bash
 # Apenas logs de UPDATE
-npx wrangler pages deployment tail --project-name kncursos | grep "UPDATE COURSE"
+npx wrangler pages deployment tail --project-name vemgo | grep "UPDATE COURSE"
 
 # Apenas erros
-npx wrangler pages deployment tail --project-name kncursos | grep "❌"
+npx wrangler pages deployment tail --project-name vemgo | grep "❌"
 
 # Apenas sucessos
-npx wrangler pages deployment tail --project-name kncursos | grep "✅"
+npx wrangler pages deployment tail --project-name vemgo | grep "✅"
 ```
 
 ---
@@ -166,12 +166,12 @@ npx wrangler pages deployment tail --project-name kncursos | grep "✅"
 ### 1. Acessar Admin
 
 ```
-https://kncursos.pages.dev/login
+https://vemgo.pages.dev/login
 ```
 
 **Credenciais**:
 - Username: `admin`
-- Password: `kncursos2024`
+- Password: `vemgo2024`
 
 ### 2. Editar um Curso
 
@@ -193,7 +193,7 @@ https://kncursos.pages.dev/login
 
 Abra terminal:
 ```bash
-npx wrangler pages deployment tail --project-name kncursos --format pretty
+npx wrangler pages deployment tail --project-name vemgo --format pretty
 ```
 
 Edite curso no admin e veja os logs aparecerem:
@@ -212,7 +212,7 @@ Edite curso no admin e veja os logs aparecerem:
 
 ```bash
 # Ver últimos logs
-npx wrangler pages deployment tail --project-name kncursos | grep -A5 "❌"
+npx wrangler pages deployment tail --project-name vemgo | grep -A5 "❌"
 ```
 
 ### Possíveis Causas
@@ -289,7 +289,7 @@ npx wrangler pages deployment tail --project-name kncursos | grep -A5 "❌"
 
 ### Deploy
 - [x] Build realizado (386.82 KB)
-- [x] Deploy feito (https://c5842eb1.kncursos.pages.dev)
+- [x] Deploy feito (https://c5842eb1.vemgo.pages.dev)
 - [x] Teste local passou ✅
 - [ ] Teste em produção pendente
 
@@ -304,13 +304,13 @@ npx wrangler pages deployment tail --project-name kncursos | grep -A5 "❌"
 ## 🎯 Próximos Passos
 
 1. **Testar no Admin**:
-   - https://kncursos.pages.dev/login
+   - https://vemgo.pages.dev/login
    - Editar qualquer curso
    - Verificar se salva sem erro
 
 2. **Monitorar Logs**:
    ```bash
-   npx wrangler pages deployment tail --project-name kncursos
+   npx wrangler pages deployment tail --project-name vemgo
    ```
 
 3. **Se houver erro**:

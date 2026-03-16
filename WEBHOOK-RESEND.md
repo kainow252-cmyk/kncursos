@@ -14,7 +14,7 @@ POST /api/webhooks/resend
 
 **URL completa**:
 - Local: `http://localhost:3000/api/webhooks/resend`
-- Produção: `https://kncursos.pages.dev/api/webhooks/resend`
+- Produção: `https://vemgo.pages.dev/api/webhooks/resend`
 
 ---
 
@@ -45,8 +45,8 @@ POST /api/webhooks/resend
 **Formulário**:
 
 ```
-Nome: kncursos - Produção
-URL: https://kncursos.pages.dev/api/webhooks/resend
+Nome: vemgo - Produção
+URL: https://vemgo.pages.dev/api/webhooks/resend
 ```
 
 **Eventos (selecione todos)**:
@@ -74,7 +74,7 @@ whsec_abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
 
 ```bash
 # Adicionar signing secret
-npx wrangler pages secret put RESEND_WEBHOOK_SECRET --project-name kncursos
+npx wrangler pages secret put RESEND_WEBHOOK_SECRET --project-name vemgo
 # Cole: whsec_abc123def456ghi789jkl012mno345pqr678stu901vwx234yz
 ```
 
@@ -164,7 +164,7 @@ cloudflared tunnel --url http://localhost:3000
 
 Mais simples - configurar diretamente:
 ```
-URL: https://kncursos.pages.dev/api/webhooks/resend
+URL: https://vemgo.pages.dev/api/webhooks/resend
 ```
 
 ---
@@ -179,7 +179,7 @@ URL: https://kncursos.pages.dev/api/webhooks/resend
   "created_at": "2024-03-13T18:45:00.000Z",
   "data": {
     "email_id": "abc123-def456-ghi789",
-    "from": "cursos@kncursos.com.br",
+    "from": "cursos@vemgo.com.br",
     "to": ["cliente@exemplo.com"],
     "subject": "✅ Confirmação de Compra - Marketing Digital Completo"
   }
@@ -194,7 +194,7 @@ URL: https://kncursos.pages.dev/api/webhooks/resend
   "created_at": "2024-03-13T18:45:05.000Z",
   "data": {
     "email_id": "abc123-def456-ghi789",
-    "from": "cursos@kncursos.com.br",
+    "from": "cursos@vemgo.com.br",
     "to": ["cliente@exemplo.com"]
   }
 }
@@ -208,7 +208,7 @@ URL: https://kncursos.pages.dev/api/webhooks/resend
   "created_at": "2024-03-13T18:50:00.000Z",
   "data": {
     "email_id": "abc123-def456-ghi789",
-    "from": "cursos@kncursos.com.br",
+    "from": "cursos@vemgo.com.br",
     "to": ["cliente@exemplo.com"]
   }
 }
@@ -222,7 +222,7 @@ URL: https://kncursos.pages.dev/api/webhooks/resend
   "created_at": "2024-03-13T18:45:10.000Z",
   "data": {
     "email_id": "abc123-def456-ghi789",
-    "from": "cursos@kncursos.com.br",
+    "from": "cursos@vemgo.com.br",
     "to": ["invalido@exemplo.com"],
     "bounce_type": "hard",
     "bounce_reason": "mailbox_not_found"
@@ -238,20 +238,20 @@ URL: https://kncursos.pages.dev/api/webhooks/resend
 
 ```bash
 # Logs em tempo real
-npx wrangler pages deployment tail --project-name kncursos
+npx wrangler pages deployment tail --project-name vemgo
 
 # Filtrar webhooks
-npx wrangler pages deployment tail --project-name kncursos | grep WEBHOOK
+npx wrangler pages deployment tail --project-name vemgo | grep WEBHOOK
 ```
 
 ### Ver Logs Localmente
 
 ```bash
 # PM2 logs
-pm2 logs kncursos --nostream | grep WEBHOOK
+pm2 logs vemgo --nostream | grep WEBHOOK
 
 # Últimos 50 logs
-pm2 logs kncursos --nostream --lines 50 | grep WEBHOOK
+pm2 logs vemgo --nostream --lines 50 | grep WEBHOOK
 ```
 
 ---
@@ -344,33 +344,33 @@ app.get('/api/email-stats', async (c) => {
 
 ```bash
 # Verificar se rota existe
-curl https://kncursos.pages.dev/api/webhooks/resend
+curl https://vemgo.pages.dev/api/webhooks/resend
 
 # Deve retornar 405 (Method Not Allowed) ao invés de 404
 # Se retornar 404, fazer deploy novamente
 npm run build
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 ```
 
 ### "Webhook failed - 500"
 
 ```bash
 # Verificar logs
-npx wrangler pages deployment tail --project-name kncursos
+npx wrangler pages deployment tail --project-name vemgo
 
 # Verificar erro no código
-pm2 logs kncursos --lines 50 | grep ERROR
+pm2 logs vemgo --lines 50 | grep ERROR
 ```
 
 ### "Signature validation failed"
 
 ```bash
 # Verificar se secret está configurado
-npx wrangler pages secret list --project-name kncursos
+npx wrangler pages secret list --project-name vemgo
 
 # Deve mostrar RESEND_WEBHOOK_SECRET
 # Se não, configurar:
-npx wrangler pages secret put RESEND_WEBHOOK_SECRET --project-name kncursos
+npx wrangler pages secret put RESEND_WEBHOOK_SECRET --project-name vemgo
 ```
 
 ---

@@ -1,4 +1,4 @@
-# 🔐 Segurança e Endpoints Admin - KN Cursos
+# 🔐 Segurança e Endpoints Admin - Vemgo
 
 ## ✅ **IMPLEMENTADO COM SUCESSO!**
 
@@ -60,7 +60,7 @@ app.use('/api/checkout/*', rateLimit(10, 60000))
 
 **Exemplo de uso:**
 ```bash
-curl "https://kncursos.pages.dev/api/admin/sales/export/csv" \
+curl "https://vemgo.pages.dev/api/admin/sales/export/csv" \
   -o vendas_$(date +%Y-%m-%d).csv
 ```
 
@@ -87,7 +87,7 @@ ID,Cliente,CPF,Email,Telefone,Curso,Valor,Status,Bandeira,Final Cartão,Data Com
 
 **Exemplo de uso:**
 ```bash
-curl "https://kncursos.pages.dev/api/admin/courses/export/csv" \
+curl "https://vemgo.pages.dev/api/admin/courses/export/csv" \
   -o cursos_$(date +%Y-%m-%d).csv
 ```
 
@@ -136,13 +136,13 @@ ID,Título,Descrição,Preço,Categoria,Destaque,Ativo,Data Criação
 **Exemplo de uso:**
 ```bash
 # Criar uma venda de teste
-curl -X POST "https://kncursos.pages.dev/api/admin/sales/test" \
+curl -X POST "https://vemgo.pages.dev/api/admin/sales/test" \
   -H "Content-Type: application/json" \
   -d '{"course_id": 3, "link_code": "TIKTOK2024"}'
 
 # Criar 5 vendas de teste
 for i in {1..5}; do
-  curl -s -X POST "https://kncursos.pages.dev/api/admin/sales/test" \
+  curl -s -X POST "https://vemgo.pages.dev/api/admin/sales/test" \
     -H "Content-Type: application/json" \
     -d '{"course_id": 3, "link_code": "TIKTOK2024"}'
   sleep 1
@@ -236,12 +236,12 @@ done
 - Formato: UTF-8
 - Separador: vírgula
 - Campos textuais com aspas
-- Nome do arquivo: `vendas_kncursos_YYYY-MM-DD.csv`
+- Nome do arquivo: `vendas_vemgo_YYYY-MM-DD.csv`
 
 ### **3. Exportação CSV de Cursos**
 ✅ **3 cursos exportados**
 - Todos os campos corretamente formatados
-- Nome do arquivo: `cursos_kncursos_YYYY-MM-DD.csv`
+- Nome do arquivo: `cursos_vemgo_YYYY-MM-DD.csv`
 
 ### **4. Estatísticas**
 ✅ **Dashboard funcionando:**
@@ -265,8 +265,8 @@ done
 ### **Deploy Info**
 ```bash
 ✅ Deploy ID: 9c0fa314
-✅ Production URL: https://kncursos.pages.dev
-✅ Custom Domain: https://kncursos.com.br
+✅ Production URL: https://vemgo.pages.dev
+✅ Custom Domain: https://vemgo.com.br
 ✅ Status: LIVE ✅
 ```
 
@@ -409,7 +409,7 @@ app.use('/api/admin/*', async (c, next) => {
 ✅ **Build e deploy com sucesso**  
 
 **Status:** **PRODUÇÃO LIVE ✅**  
-**URL:** https://kncursos.com.br  
+**URL:** https://vemgo.com.br  
 **Deploy ID:** 9c0fa314  
 **Data:** 14/03/2026  
 

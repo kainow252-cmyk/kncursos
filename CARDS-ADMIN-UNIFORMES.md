@@ -56,8 +56,8 @@ Cada card agora possui:
 
 ## 🌐 URLs para Teste
 
-- **Produção**: https://kncursos.pages.dev/admin
-- **Versão Atual**: https://48fec734.kncursos.pages.dev/admin
+- **Produção**: https://vemgo.pages.dev/admin
+- **Versão Atual**: https://48fec734.vemgo.pages.dev/admin
 - **Sandbox Local**: http://localhost:3000/admin
 
 ## 🔍 Como Verificar
@@ -102,8 +102,8 @@ git commit -m "🎨 UX: Cards de estatísticas no admin com altura uniforme"
 
 ## 🚀 Deploy
 
-- **Production**: https://kncursos.pages.dev/
-- **Latest**: https://48fec734.kncursos.pages.dev/
+- **Production**: https://vemgo.pages.dev/
+- **Latest**: https://48fec734.vemgo.pages.dev/
 
 ---
 

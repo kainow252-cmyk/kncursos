@@ -4,7 +4,7 @@
 
 **ID do Email:** `aa91e061-bf56-4bcd-8b1f-33c09e5a7e5b`  
 **Para:** gelci.silva252@gmail.com  
-**De:** cursos@kncursos.com.br  
+**De:** cursos@vemgo.com.br  
 **Assunto:** ✅ Confirmação de Compra - Curso de Marketing Digital
 
 ---
@@ -28,7 +28,7 @@
 ### **1. Verificar Pasta de SPAM:**
 - Abra o Gmail
 - Vá em: **Spam** (menu lateral esquerdo)
-- Busque por: "kncursos" ou "Confirmação de Compra"
+- Busque por: "vemgo" ou "Confirmação de Compra"
 
 ### **2. Verificar Filtros do Gmail:**
 Pode estar sendo filtrado automaticamente.
@@ -53,7 +53,7 @@ http://localhost:3000/download/84xs0j3e48o5ahrxudl1uq
 
 **Ou em produção:**
 ```
-https://kncursos.pages.dev/download/84xs0j3e48o5ahrxudl1uq
+https://vemgo.pages.dev/download/84xs0j3e48o5ahrxudl1uq
 ```
 
 ---
@@ -64,7 +64,7 @@ https://kncursos.pages.dev/download/84xs0j3e48o5ahrxudl1uq
 {
   "email_id": "aa91e061-bf56-4bcd-8b1f-33c09e5a7e5b",
   "to": "gelci.silva252@gmail.com",
-  "from": "cursos@kncursos.com.br",
+  "from": "cursos@vemgo.com.br",
   "subject": "✅ Confirmação de Compra - Curso de Marketing Digital",
   "download_link": "http://localhost:3000/download/84xs0j3e48o5ahrxudl1uq"
 }
@@ -94,10 +94,10 @@ curl -X POST http://localhost:3000/api/sales \
 
 ### **Opção 2: Adicionar Email como Remetente Verificado**
 
-Se você quiser receber emails de qualquer endereço (não só @kncursos.com.br):
+Se você quiser receber emails de qualquer endereço (não só @vemgo.com.br):
 
 1. Acesse: https://resend.com/domains
-2. Verifique se **kncursos.com.br** está ativo
+2. Verifique se **vemgo.com.br** está ativo
 3. Status deve ser: ✅ **Verified**
 
 ---

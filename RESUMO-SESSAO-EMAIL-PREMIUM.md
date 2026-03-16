@@ -1,4 +1,4 @@
-# 📧 Sessão de Trabalho: Email Premium KN Cursos
+# 📧 Sessão de Trabalho: Email Premium Vemgo
 
 ## ✅ **CONCLUÍDO COM SUCESSO!**
 
@@ -192,7 +192,7 @@ Sem limites de tempo ou restrições.
 - Gradiente roxo (#6366f1 → #8b5cf6)
 - Border-radius: 100px
 - Link direto para email
-- Texto: cursos@kncursos.com.br
+- Texto: cursos@vemgo.com.br
 
 ---
 
@@ -206,7 +206,7 @@ Sem limites de tempo ou restrições.
 | **Satisfação** | 98% | Laranja (#f59e0b) |
 
 ✅ **Brand section**:
-- Logo/nome: 🎓 KN Cursos (24px bold)
+- Logo/nome: 🎓 Vemgo (24px bold)
 - Slogan: "Transformando conhecimento em resultados reais"
 
 ✅ **Separador elegante**:
@@ -215,7 +215,7 @@ background: linear-gradient(90deg, transparent 0%, #e2e8f0 50%, transparent 100%
 ```
 
 ✅ **Copyright + destinatário**:
-- © 2026 KN Cursos
+- © 2026 Vemgo
 - Email do destinatário destacado
 
 ---
@@ -255,8 +255,8 @@ background: linear-gradient(90deg, transparent 0%, #e2e8f0 50%, transparent 100%
 ### **Deploy Info**
 ```bash
 ✅ Deploy ID: 627d9092
-✅ Production URL: https://kncursos.com.br
-✅ Deploy URL: https://627d9092.kncursos.pages.dev
+✅ Production URL: https://vemgo.com.br
+✅ Deploy URL: https://627d9092.vemgo.pages.dev
 ✅ Status: LIVE ✅
 ✅ Upload: 6 files (0 novos, 6 já existentes)
 ✅ Tempo total: ~11s
@@ -303,7 +303,7 @@ background: linear-gradient(90deg, transparent 0%, #e2e8f0 50%, transparent 100%
 ### **Opção 1: Compra Real (Sandbox)**
 ```bash
 # URL do checkout
-https://kncursos.com.br/checkout/TIKTOK2024
+https://vemgo.com.br/checkout/TIKTOK2024
 
 # Dados de teste
 Cartão: 5162 3062 1937 8829
@@ -317,7 +317,7 @@ Email: seu-email@exemplo.com
 ### **Opção 2: Endpoint de Teste**
 ```bash
 # Acesse
-https://kncursos.com.br/test-email
+https://vemgo.com.br/test-email
 
 # Clique em "Enviar Email de Teste"
 # Email será enviado para gelci.silva252@gmail.com
@@ -574,7 +574,7 @@ animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 ✅ **Preview visual disponível**  
 
 **Status:** **PRODUÇÃO LIVE ✅**  
-**URL:** https://kncursos.com.br  
+**URL:** https://vemgo.com.br  
 **Deploy ID:** 627d9092  
 **Data:** 14/03/2026  
 
@@ -583,7 +583,7 @@ animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 ## 📞 **Suporte Técnico**
 
 **Dúvidas ou ajustes?**  
-Email: cursos@kncursos.com.br  
+Email: cursos@vemgo.com.br  
 Documentação: `/home/user/webapp/EMAIL-LAYOUT-PREMIUM.md`  
 Preview: `/home/user/webapp/PREVIEW-EMAIL.html`  
 

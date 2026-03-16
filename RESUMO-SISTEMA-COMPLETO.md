@@ -1,4 +1,4 @@
-# 📦 KN Cursos - Resumo Completo do Sistema
+# 📦 Vemgo - Resumo Completo do Sistema
 
 ## 🎯 **Visão Geral**
 
@@ -37,9 +37,9 @@ Sistema completo de venda de cursos online com pagamento via cartão de crédito
 - **Checkout**: `/checkout/[LINK_CODE]` (ex: `/checkout/TIKTOK2024`)
 
 ### **Produção** (após deploy):
-- **Temporária**: `https://abc123.kncursos.pages.dev`
-- **Principal**: `https://kncursos.pages.dev`
-- **Domínio personalizado**: `https://kncursos.com.br` (se configurado)
+- **Temporária**: `https://abc123.vemgo.pages.dev`
+- **Principal**: `https://vemgo.pages.dev`
+- **Domínio personalizado**: `https://vemgo.com.br` (se configurado)
 
 ---
 
@@ -47,7 +47,7 @@ Sistema completo de venda de cursos online com pagamento via cartão de crédito
 
 ### **Admin**:
 - **Usuário**: `admin`
-- **Senha**: `kncursos2024`
+- **Senha**: `vemgo2024`
 - **Permissões**: Acesso total (criar cursos, gerar links, ver vendas, gerenciar usuários)
 
 ### **Funcionário**:
@@ -63,13 +63,13 @@ Sistema completo de venda de cursos online com pagamento via cartão de crédito
 
 ### **Resend (Email)**:
 - **API Key**: `re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6`
-- **Email From**: `cursos@kncursos.com.br`
+- **Email From**: `cursos@vemgo.com.br`
 - **Webhook Secret**: `whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t`
 
 ### **Cloudflare**:
-- **Project**: `kncursos`
+- **Project**: `vemgo`
 - **D1 Database ID**: `6783bc59-1fd5-48b4-894b-98c77e6ca75a`
-- **R2 Bucket**: `kncursos-files` (precisa criar)
+- **R2 Bucket**: `vemgo-files` (precisa criar)
 - **Zone ID**: `db02931f7b8663149a198d7f28023052`
 
 ---
@@ -129,8 +129,8 @@ Sistema completo de venda de cursos online com pagamento via cartão de crédito
 - `id`, `username`, `password`, `role`, `name`, `email`, `active`, `created_at`
 
 **Usuários**:
-1. **admin** (role: admin) - admin@kncursos.com.br
-2. **funcionario** (role: employee) - funcionario@kncursos.com.br
+1. **admin** (role: admin) - admin@vemgo.com.br
+2. **funcionario** (role: employee) - funcionario@vemgo.com.br
 
 ---
 
@@ -229,28 +229,28 @@ npm run db:seed
 npm run db:reset
 
 # Consultar dados (local)
-npx wrangler d1 execute kncursos --local --command "SELECT * FROM courses"
+npx wrangler d1 execute vemgo --local --command "SELECT * FROM courses"
 
 # Consultar dados (produção)
-npx wrangler d1 execute kncursos --remote --command "SELECT * FROM courses"
+npx wrangler d1 execute vemgo --remote --command "SELECT * FROM courses"
 ```
 
 ### **R2 Storage**:
 ```bash
 # Criar bucket
-npx wrangler r2 bucket create kncursos-files
+npx wrangler r2 bucket create vemgo-files
 
 # Listar buckets
 npx wrangler r2 bucket list
 
 # Ver arquivos
-npx wrangler r2 object list kncursos-files
+npx wrangler r2 object list vemgo-files
 
 # Upload manual
-npx wrangler r2 object put kncursos-files/test.pdf --file=test.pdf
+npx wrangler r2 object put vemgo-files/test.pdf --file=test.pdf
 
 # Download
-npx wrangler r2 object get kncursos-files/test.pdf --file=downloaded.pdf
+npx wrangler r2 object get vemgo-files/test.pdf --file=downloaded.pdf
 ```
 
 ### **Deploy Cloudflare**:
@@ -265,7 +265,7 @@ bash set-secrets.sh
 npm run deploy
 
 # Ver logs
-npx wrangler pages deployment tail --project-name kncursos
+npx wrangler pages deployment tail --project-name vemgo
 ```
 
 ### **Git**:
@@ -289,7 +289,7 @@ git remote -v
 ## 🚀 **Fluxo de Uso**
 
 ### **1. Cliente acessa loja**:
-1. Entra em `https://kncursos.pages.dev/`
+1. Entra em `https://vemgo.pages.dev/`
 2. Visualiza os 3 cursos disponíveis
 3. Clica em "Comprar agora"
 
@@ -349,7 +349,7 @@ git remote -v
 
 ### **Deploy Produção** (pendente):
 - [ ] Login no Cloudflare: `npx wrangler login`
-- [ ] Criar bucket R2: `npx wrangler r2 bucket create kncursos-files`
+- [ ] Criar bucket R2: `npx wrangler r2 bucket create vemgo-files`
 - [ ] Aplicar migrations: `npm run db:migrate:prod`
 - [ ] Configurar secrets: `bash set-secrets.sh`
 - [ ] Build: `npm run build`
@@ -383,7 +383,7 @@ git remote -v
 
 ### **Imediato** (produção):
 1. ✅ Código completo
-2. ⏳ Criar bucket R2: `npx wrangler r2 bucket create kncursos-files`
+2. ⏳ Criar bucket R2: `npx wrangler r2 bucket create vemgo-files`
 3. ⏳ Configurar secrets: `bash set-secrets.sh`
 4. ⏳ Deploy: `npm run deploy`
 5. ⏳ Testar compra em produção
@@ -423,7 +423,7 @@ Sistema **100% funcional** em ambiente local (sandbox), pronto para deploy em pr
 
 ```bash
 # 1. Criar bucket R2
-npx wrangler r2 bucket create kncursos-files
+npx wrangler r2 bucket create vemgo-files
 
 # 2. Configurar secrets
 bash set-secrets.sh

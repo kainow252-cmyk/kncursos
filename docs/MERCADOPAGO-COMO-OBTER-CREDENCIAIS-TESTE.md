@@ -70,7 +70,7 @@ Agora você precisa adicionar essas credenciais no Cloudflare:
 #### Opção A: Via Dashboard Web (Mais Fácil)
 
 1. Acesse: https://dash.cloudflare.com
-2. Vá em **Pages** → **kncursos**
+2. Vá em **Pages** → **vemgo**
 3. Clique em **Settings** → **Environment variables**
 4. Clique em **Add variable**
 5. Adicione as 3 variáveis:
@@ -96,17 +96,17 @@ Environment: Production
 ```bash
 # Configurar Access Token de Teste
 npx wrangler pages secret put MERCADOPAGO_TEST_ACCESS_TOKEN \
-  --project-name=kncursos
+  --project-name=vemgo
 # Cole o valor: TEST-1234567890123456-...
 
 # Configurar Public Key de Teste
 npx wrangler pages secret put MERCADOPAGO_TEST_PUBLIC_KEY \
-  --project-name=kncursos
+  --project-name=vemgo
 # Cole o valor: APP_USR-12345678-abcd-...
 
 # Ativar modo de teste
 npx wrangler pages secret put MERCADOPAGO_TEST_MODE \
-  --project-name=kncursos
+  --project-name=vemgo
 # Digite: true
 ```
 
@@ -143,7 +143,7 @@ npm run build
 
 # Deploy
 export CLOUDFLARE_API_TOKEN="3XVV83kDwH6VAfHfn3iBG07He24veho5ENuzj2ld"
-npx wrangler pages deploy dist --project-name=kncursos
+npx wrangler pages deploy dist --project-name=vemgo
 ```
 
 ---
@@ -153,13 +153,13 @@ npx wrangler pages deploy dist --project-name=kncursos
 Agora use os cartões de teste oficiais do Mercado Pago:
 
 ```bash
-curl -X POST https://kncursos.com.br/api/sales \
+curl -X POST https://vemgo.com.br/api/sales \
   -H "Content-Type: application/json" \
   -d '{
     "link_code": "MKT2024ABC",
     "customer_name": "APRO",
     "customer_cpf": "12345678909",
-    "customer_email": "teste@kncursos.com.br",
+    "customer_email": "teste@vemgo.com.br",
     "customer_phone": "11999887766",
     "card_number": "5031433215406351",
     "card_holder_name": "APRO",
@@ -212,7 +212,7 @@ Antes de considerar concluído, verifique:
 
 ### ❌ "Payer email forbidden"
 **Causa**: Email de teste reservado
-**Solução**: Use email do seu domínio (@kncursos.com.br)
+**Solução**: Use email do seu domínio (@vemgo.com.br)
 
 ### ❌ "Invalid user identification number"
 **Causa**: CPF inválido

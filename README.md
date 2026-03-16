@@ -1,4 +1,4 @@
-# KN Cursos - Plataforma Completa de Vendas de Cursos Online 🎓
+# Vemgo - Plataforma Completa de Vendas de Cursos Online 🎓
 
 ## 🎯 Visão Geral
 Sistema profissional para vender cursos online com **entrega automática de PDF**, geração de links de pagamento, loja pública e dashboard administrativo. Integrado com Mercado Pago e PagSeguro.
@@ -296,8 +296,8 @@ npm run deploy
 
 # Gerenciar PM2
 pm2 list                     # Listar processos
-pm2 logs kncursos --nostream # Ver logs
-pm2 restart kncursos         # Reiniciar
+pm2 logs vemgo --nostream # Ver logs
+pm2 restart vemgo         # Reiniciar
 ```
 
 ---
@@ -399,7 +399,7 @@ webapp/
 
 ## 📄 Licença
 
-Projeto desenvolvido para **KN Cursos**.
+Projeto desenvolvido para **Vemgo**.
 
 ---
 

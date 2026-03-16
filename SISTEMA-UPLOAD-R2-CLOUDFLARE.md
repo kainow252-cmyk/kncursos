@@ -22,14 +22,14 @@ O sistema de upload automático para Cloudflare R2 **está 100% implementado** n
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "kncursos",
+      "database_name": "vemgo",
       "database_id": "6783bc59-1fd5-48b4-894b-98c77e6ca75a"
     }
   ],
   "r2_buckets": [
     {
       "binding": "R2",
-      "bucket_name": "kncursos-files"
+      "bucket_name": "vemgo-files"
     }
   ]
 }
@@ -53,7 +53,7 @@ O sistema de upload automático para Cloudflare R2 **está 100% implementado** n
 
 ```bash
 # Upload de uma imagem
-curl -X POST https://kncursos.pages.dev/api/upload \
+curl -X POST https://vemgo.pages.dev/api/upload \
   -F "file=@imagem.jpg"
 
 # Resposta:
@@ -81,10 +81,10 @@ curl -X POST https://kncursos.pages.dev/api/upload \
 
 ```bash
 # Acessar arquivo
-curl https://kncursos.pages.dev/files/images/1710409200-abc123.jpg
+curl https://vemgo.pages.dev/files/images/1710409200-abc123.jpg
 
 # Acessar PDF
-curl https://kncursos.pages.dev/files/pdfs/1710409200-abc456.pdf
+curl https://vemgo.pages.dev/files/pdfs/1710409200-abc456.pdf
 ```
 
 ---
@@ -120,7 +120,7 @@ O endpoint `/api/courses` (POST) aceita:
 #### **Opção A: Via Dashboard**
 1. Acesse https://dash.cloudflare.com/
 2. Menu **R2** → **Create bucket**
-3. Nome: `kncursos-files`
+3. Nome: `vemgo-files`
 4. Localização: **Automatic** (recomendado)
 5. Clique em **Create bucket**
 
@@ -128,13 +128,13 @@ O endpoint `/api/courses` (POST) aceita:
 
 ```bash
 # Criar bucket R2
-npx wrangler r2 bucket create kncursos-files
+npx wrangler r2 bucket create vemgo-files
 
 # Listar buckets
 npx wrangler r2 bucket list
 
 # Verificar binding
-npx wrangler r2 bucket info kncursos-files
+npx wrangler r2 bucket info vemgo-files
 ```
 
 ---
@@ -142,7 +142,7 @@ npx wrangler r2 bucket info kncursos-files
 ### **2. Database D1 (Já configurado)**
 
 ✅ **Database ID**: `6783bc59-1fd5-48b4-894b-98c77e6ca75a`
-✅ **Nome**: `kncursos`
+✅ **Nome**: `vemgo`
 ✅ **Status**: Operacional
 
 ---
@@ -157,7 +157,7 @@ npx wrangler r2 bucket info kncursos-files
 ✅ EMAIL_FROM
 ✅ RESEND_WEBHOOK_SECRET
 ✅ ADMIN_USERNAME=admin
-✅ ADMIN_PASSWORD=kncursos2024
+✅ ADMIN_PASSWORD=vemgo2024
 ✅ JWT_SECRET
 
 #### **Precisa configurar em produção** (Cloudflare Pages):
@@ -169,7 +169,7 @@ bash set-secrets.sh
 ```
 
 Ou manualmente:
-1. Dashboard → Workers & Pages → kncursos
+1. Dashboard → Workers & Pages → vemgo
 2. Settings → Environment variables
 3. Adicionar cada variável como **Secret** (encrypted)
 
@@ -192,11 +192,11 @@ Ou manualmente:
 
 #### **1. Criar Bucket R2**
 - [ ] Acessar dashboard Cloudflare
-- [ ] Criar bucket `kncursos-files`
-- [ ] Ou executar: `npx wrangler r2 bucket create kncursos-files`
+- [ ] Criar bucket `vemgo-files`
+- [ ] Ou executar: `npx wrangler r2 bucket create vemgo-files`
 
 #### **2. Configurar Database D1**
-- [ ] Criar database `kncursos-production` (ou usar o existente)
+- [ ] Criar database `vemgo-production` (ou usar o existente)
 - [ ] Copiar database_id
 - [ ] Atualizar `wrangler.jsonc` (se necessário)
 - [ ] Executar migrations: `npm run db:migrate:prod`
@@ -211,26 +211,26 @@ Ou manualmente:
 npm run build
 
 # Deploy para Cloudflare Pages
-npx wrangler pages deploy dist --project-name kncursos --commit-dirty=true
+npx wrangler pages deploy dist --project-name vemgo --commit-dirty=true
 
 # Ou usar o comando combinado
 npm run deploy
 ```
 
 #### **5. Verificar Bindings**
-- [ ] Dashboard → kncursos → Settings → Bindings
+- [ ] Dashboard → vemgo → Settings → Bindings
 - [ ] Verificar se `DB` está ligado ao database correto
-- [ ] Verificar se `R2` está ligado ao bucket `kncursos-files`
+- [ ] Verificar se `R2` está ligado ao bucket `vemgo-files`
 
 #### **6. Testar em Produção**
 ```bash
 # Testar upload
-curl -X POST https://kncursos.pages.dev/api/upload \
+curl -X POST https://vemgo.pages.dev/api/upload \
   -H "Cookie: auth_token=SEU_TOKEN" \
   -F "file=@test.jpg"
 
 # Testar download
-curl https://kncursos.pages.dev/files/images/ARQUIVO.jpg
+curl https://vemgo.pages.dev/files/images/ARQUIVO.jpg
 ```
 
 ---
@@ -333,10 +333,10 @@ cd /home/user/webapp && npm run dev:sandbox
 ### **Verificar R2 Produção**:
 ```bash
 # Listar arquivos no bucket
-npx wrangler r2 object list kncursos-files
+npx wrangler r2 object list vemgo-files
 
 # Ver info de um arquivo específico
-npx wrangler r2 object get kncursos-files/images/ARQUIVO.jpg
+npx wrangler r2 object get vemgo-files/images/ARQUIVO.jpg
 ```
 
 ---
@@ -350,7 +350,7 @@ npx wrangler r2 object get kncursos-files/images/ARQUIVO.jpg
 4. ⚠️ Fazer deploy
 
 ### **Melhorias Futuras**:
-- [ ] Configurar domínio customizado para R2 (ex: `cdn.kncursos.com.br`)
+- [ ] Configurar domínio customizado para R2 (ex: `cdn.vemgo.com.br`)
 - [ ] Implementar resize de imagens automático
 - [ ] Adicionar CDN na frente do R2
 - [ ] Implementar cleanup de arquivos não usados

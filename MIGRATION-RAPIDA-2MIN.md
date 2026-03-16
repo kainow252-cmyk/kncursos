@@ -3,7 +3,7 @@
 ## 🎯 O Que Fazer (SUPER RÁPIDO)
 
 1. **Abrir Dashboard:** https://dash.cloudflare.com/
-2. **Navegar:** Storage & Databases → D1 → **kncursos** → **Console**
+2. **Navegar:** Storage & Databases → D1 → **vemgo** → **Console**
 3. **Copiar e colar** os comandos abaixo (um de cada vez)
 
 ---
@@ -93,7 +93,7 @@ UPDATE courses SET image_height = 300 WHERE image_height IS NULL;
 
 Depois de executar todos os 14 comandos, teste o checkout:
 
-**URL:** https://kncursos.pages.dev/checkout/DEV2024XYZ
+**URL:** https://vemgo.pages.dev/checkout/DEV2024XYZ
 
 **Dados de teste:**
 - Nome: `Teste Silva`

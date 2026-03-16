@@ -31,10 +31,10 @@ DB
 
 **Banco de dados D1:**
 ```
-Procure por: kncursos
+Procure por: vemgo
 ```
 
-Se aparecer `kncursos` na lista → Selecione ✅
+Se aparecer `vemgo` na lista → Selecione ✅
 
 Se NÃO aparecer → Veja próxima seção
 
@@ -42,7 +42,7 @@ Se NÃO aparecer → Veja próxima seção
 
 ---
 
-## 🔍 Se "kncursos" NÃO aparecer na lista
+## 🔍 Se "vemgo" NÃO aparecer na lista
 
 Significa que você precisa criar o database D1 primeiro.
 
@@ -58,13 +58,13 @@ Significa que você precisa criar o database D1 primeiro.
 3. Clique em **D1**
 4. Clique em **"Criar"** ou **"Create database"**
 5. Preencha:
-   - **Nome**: `kncursos`
+   - **Nome**: `vemgo`
    - **Localização**: Automatic (ou South America se disponível)
 6. Clique em **"Criar"**
 
 ### Criar Tabelas
 
-1. Após criar, clique no database **kncursos**
+1. Após criar, clique no database **vemgo**
 2. Vá para aba **"Console"**
 3. Cole e execute este SQL (um por vez):
 
@@ -149,7 +149,7 @@ INSERT INTO payment_links (course_id, link_code) VALUES
 
 ### Voltar para Associações
 
-Agora volte para a aba **Workers & Pages → kncursos → Settings → Associações** e adicione o binding. Agora `kncursos` deve aparecer!
+Agora volte para a aba **Workers & Pages → vemgo → Settings → Associações** e adicione o binding. Agora `vemgo` deve aparecer!
 
 ---
 
@@ -159,7 +159,7 @@ Agora volte para a aba **Workers & Pages → kncursos → Settings → Associaç
 
 Abra em nova aba:
 ```
-https://kncursos.pages.dev/api/courses
+https://vemgo.pages.dev/api/courses
 ```
 
 **Antes** (sem binding):
@@ -180,8 +180,8 @@ Error 500
 
 ### Teste 2: Admin
 
-1. https://kncursos.pages.dev/login
-2. Login: `admin` / `kncursos2024`
+1. https://vemgo.pages.dev/login
+2. Login: `admin` / `vemgo2024`
 3. Dashboard deve mostrar os cursos
 
 ---
@@ -192,7 +192,7 @@ Na seção **Associações**, você verá:
 
 ```
 Tipo              | Nome | Valor
-Banco de dados D1 | DB   | kncursos
+Banco de dados D1 | DB   | vemgo
 ```
 
 ---
@@ -202,9 +202,9 @@ Banco de dados D1 | DB   | kncursos
 1. ✅ Você já tem as 8 variáveis configuradas
 2. ⏳ Falta vincular o banco D1
 3. 🔵 Clique em **"Adicionar"** na seção Associações
-4. 📝 Preencha: Tipo = D1, Nome = DB, Database = kncursos
+4. 📝 Preencha: Tipo = D1, Nome = DB, Database = vemgo
 5. 💾 Salvar
-6. 🧪 Testar: https://kncursos.pages.dev/api/courses
+6. 🧪 Testar: https://vemgo.pages.dev/api/courses
 
 ---
 

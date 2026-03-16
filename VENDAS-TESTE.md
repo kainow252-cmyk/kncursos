@@ -1,4 +1,4 @@
-# 🧪 Gerador de Vendas de Teste - kncursos
+# 🧪 Gerador de Vendas de Teste - vemgo
 
 ## 📋 Visão Geral
 
@@ -11,8 +11,8 @@ Sistema para criar vendas de teste **sem processar pagamentos reais** no Mercado
 ### **Página de Teste (Interface Visual)**
 ```
 Sandbox Local: https://3000-i5doa1u25u94y4sjizudd-d0b9e1e2.sandbox.novita.ai/test-sales
-Produção: https://kncursos.pages.dev/test-sales
-Versão atual: https://74907eee.kncursos.pages.dev/test-sales
+Produção: https://vemgo.pages.dev/test-sales
+Versão atual: https://74907eee.vemgo.pages.dev/test-sales
 ```
 
 ### **API Endpoint**
@@ -28,7 +28,7 @@ POST /api/test-sales
 
 1. **Acesse a página de teste:**
    ```
-   https://kncursos.pages.dev/test-sales
+   https://vemgo.pages.dev/test-sales
    ```
 
 2. **Preencha o formulário:**
@@ -42,14 +42,14 @@ POST /api/test-sales
    - Inserido diretamente no banco de dados
 
 4. **Visualize no Dashboard:**
-   - Acesse: https://kncursos.pages.dev/admin
+   - Acesse: https://vemgo.pages.dev/admin
    - Vá na aba "Vendas"
    - Veja as vendas de teste criadas
 
 ### **Método 2: API Direta (cURL/Postman)**
 
 ```bash
-curl -X POST https://kncursos.pages.dev/api/test-sales \
+curl -X POST https://vemgo.pages.dev/api/test-sales \
   -H "Content-Type: application/json" \
   -d '{
     "course_id": 1,
@@ -182,23 +182,23 @@ curl -X POST https://kncursos.pages.dev/api/test-sales \
 ```bash
 # Via D1 local
 cd /home/user/webapp
-npx wrangler d1 execute kncursos --local --command="DELETE FROM sales WHERE link_code = 'TEST'"
+npx wrangler d1 execute vemgo --local --command="DELETE FROM sales WHERE link_code = 'TEST'"
 ```
 
 ### **Limpar Vendas de Teste (Produção)**
 ```bash
 # Via D1 remoto
 cd /home/user/webapp
-CLOUDFLARE_API_TOKEN="..." npx wrangler d1 execute kncursos --remote --command="DELETE FROM sales WHERE link_code = 'TEST'"
+CLOUDFLARE_API_TOKEN="..." npx wrangler d1 execute vemgo --remote --command="DELETE FROM sales WHERE link_code = 'TEST'"
 ```
 
 ### **Contar Vendas de Teste**
 ```bash
 # Local
-npx wrangler d1 execute kncursos --local --command="SELECT COUNT(*) FROM sales WHERE link_code = 'TEST'"
+npx wrangler d1 execute vemgo --local --command="SELECT COUNT(*) FROM sales WHERE link_code = 'TEST'"
 
 # Produção
-CLOUDFLARE_API_TOKEN="..." npx wrangler d1 execute kncursos --remote --command="SELECT COUNT(*) FROM sales WHERE link_code = 'TEST'"
+CLOUDFLARE_API_TOKEN="..." npx wrangler d1 execute vemgo --remote --command="SELECT COUNT(*) FROM sales WHERE link_code = 'TEST'"
 ```
 
 ---
@@ -207,7 +207,7 @@ CLOUDFLARE_API_TOKEN="..." npx wrangler d1 execute kncursos --remote --command="
 
 ### **Exemplo 1: 5 Vendas do Curso de TikTok**
 ```bash
-curl -X POST https://kncursos.pages.dev/api/test-sales \
+curl -X POST https://vemgo.pages.dev/api/test-sales \
   -H "Content-Type: application/json" \
   -d '{
     "course_id": 3,
@@ -218,7 +218,7 @@ curl -X POST https://kncursos.pages.dev/api/test-sales \
 
 ### **Exemplo 2: 1 Venda com Email**
 ```bash
-curl -X POST https://kncursos.pages.dev/api/test-sales \
+curl -X POST https://vemgo.pages.dev/api/test-sales \
   -H "Content-Type: application/json" \
   -d '{
     "course_id": 1,
@@ -229,7 +229,7 @@ curl -X POST https://kncursos.pages.dev/api/test-sales \
 
 ### **Exemplo 3: 100 Vendas (Máximo)**
 ```bash
-curl -X POST https://kncursos.pages.dev/api/test-sales \
+curl -X POST https://vemgo.pages.dev/api/test-sales \
   -H "Content-Type: application/json" \
   -d '{
     "course_id": 2,
@@ -254,14 +254,14 @@ curl -X POST https://kncursos.pages.dev/api/test-sales \
 
 ### **Via Dashboard Admin:**
 ```
-1. Acesse: https://kncursos.pages.dev/admin
+1. Acesse: https://vemgo.pages.dev/admin
 2. Clique na aba "Vendas"
 3. Vendas de teste aparecem com link_code = "TEST"
 ```
 
 ### **Via API:**
 ```bash
-curl https://kncursos.pages.dev/api/sales
+curl https://vemgo.pages.dev/api/sales
 ```
 
 ### **Via SQL Direto:**
@@ -361,11 +361,11 @@ app.post('/api/test-sales', async (c) => {
 
 ## 🔗 Links Úteis
 
-- **Página de Teste:** https://kncursos.pages.dev/test-sales
-- **Dashboard Admin:** https://kncursos.pages.dev/admin
-- **API Cursos:** https://kncursos.pages.dev/api/courses
-- **API Vendas:** https://kncursos.pages.dev/api/sales
-- **Home:** https://kncursos.pages.dev/
+- **Página de Teste:** https://vemgo.pages.dev/test-sales
+- **Dashboard Admin:** https://vemgo.pages.dev/admin
+- **API Cursos:** https://vemgo.pages.dev/api/courses
+- **API Vendas:** https://vemgo.pages.dev/api/sales
+- **Home:** https://vemgo.pages.dev/
 
 ---
 

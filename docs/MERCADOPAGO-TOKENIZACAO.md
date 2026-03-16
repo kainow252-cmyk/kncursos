@@ -1,4 +1,4 @@
-# 💳 Integração Mercado Pago - KN Cursos
+# 💳 Integração Mercado Pago - Vemgo
 
 ## 🎯 Visão Geral
 
@@ -54,10 +54,10 @@ MERCADOPAGO_PUBLIC_KEY=APP_USR-f0b3ead2-9739-4ac0-ac36-1522181f317b
 
 # Outras
 RESEND_API_KEY=re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6
-EMAIL_FROM=cursos@kncursos.com.br
+EMAIL_FROM=cursos@vemgo.com.br
 ADMIN_USERNAME=admin
-ADMIN_PASSWORD=kncursos2024
-JWT_SECRET=kncursos-jwt-secret-production-2024
+ADMIN_PASSWORD=vemgo2024
+JWT_SECRET=vemgo-jwt-secret-production-2024
 ```
 
 ## 🚀 Como Funciona
@@ -113,7 +113,7 @@ const mpResponse = await fetch('https://api.mercadopago.com/v1/payments', {
     headers: {
         'Authorization': `Bearer ${MERCADOPAGO_ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
-        'X-Idempotency-Key': `kncursos-${Date.now()}`
+        'X-Idempotency-Key': `vemgo-${Date.now()}`
     },
     body: JSON.stringify({
         transaction_amount: parseFloat(link.price),
@@ -127,12 +127,12 @@ const mpResponse = await fetch('https://api.mercadopago.com/v1/payments', {
                 number: customer_cpf.replace(/\D/g, '')
             }
         },
-        statement_descriptor: 'KNCURSOS',
-        notification_url: 'https://kncursos.com.br/api/webhooks/mercadopago',
+        statement_descriptor: 'VEMGO',
+        notification_url: 'https://vemgo.com.br/api/webhooks/mercadopago',
         metadata: {
             link_code: link_code,
             course_id: link.course_id.toString(),
-            platform: 'kncursos'
+            platform: 'vemgo'
         }
     })
 });
@@ -170,7 +170,7 @@ CPF: 123.456.789-01 (ou qualquer CPF válido)
 
 ### Teste Manual via Web
 
-1. Acesse: https://kncursos.com.br/checkout/MKT2024ABC
+1. Acesse: https://vemgo.com.br/checkout/MKT2024ABC
 2. Preencha o formulário
 3. Use um dos cartões de teste acima
 4. Abra o Console do navegador (F12) para ver os logs:
@@ -183,7 +183,7 @@ CPF: 123.456.789-01 (ou qualquer CPF válido)
 # NOTA: Este teste NÃO funcionará porque o token precisa ser gerado pelo SDK
 # É apenas para demonstrar a estrutura da requisição
 
-curl -X POST https://kncursos.com.br/api/sales \
+curl -X POST https://vemgo.com.br/api/sales \
   -H "Content-Type: application/json" \
   -d '{
     "link_code": "MKT2024ABC",
@@ -231,7 +231,7 @@ charged_back → failed    // Contestado
 
 1. Acesse: https://www.mercadopago.com.br/developers/panel
 2. Sua integração → Notificações IPN
-3. URL: `https://kncursos.com.br/api/webhooks/mercadopago`
+3. URL: `https://vemgo.com.br/api/webhooks/mercadopago`
 4. Eventos: Selecionar todos (Payment, Chargeback, etc.)
 
 ## 🛠️ Manutenção

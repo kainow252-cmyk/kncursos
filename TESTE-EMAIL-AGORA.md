@@ -13,13 +13,13 @@ Acabei de adicionar uma rota especial para testar o envio de e-mail!
 Basta acessar esta URL no navegador:
 
 ```
-https://kncursos.pages.dev/test-email-form
+https://vemgo.pages.dev/test-email-form
 ```
 
 **OU testar via curl:**
 
 ```bash
-curl -X POST https://kncursos.pages.dev/api/test-email \
+curl -X POST https://vemgo.pages.dev/api/test-email \
   -H "Content-Type: application/json"
 ```
 
@@ -29,14 +29,14 @@ curl -X POST https://kncursos.pages.dev/api/test-email \
 
 ### ✅ Se Funcionar:
 1. E-mail será enviado para `gelci.silva252@gmail.com`
-2. Assunto: "🧪 Teste de E-mail - KN Cursos"
+2. Assunto: "🧪 Teste de E-mail - Vemgo"
 3. Resposta JSON:
 ```json
 {
   "success": true,
   "message": "E-mail de teste enviado com sucesso!",
   "resend_id": "abc123...",
-  "from": "cursos@kncursos.com.br",
+  "from": "cursos@vemgo.com.br",
   "to": "gelci.silva252@gmail.com"
 }
 ```
@@ -57,7 +57,7 @@ Resposta indicará o erro específico:
 ## 📋 Erros Comuns e Soluções
 
 ### Erro 1: "Domain not verified"
-**Causa:** Domínio `kncursos.com.br` não está verificado no Resend  
+**Causa:** Domínio `vemgo.com.br` não está verificado no Resend  
 **Solução:**
 1. Acesse: https://resend.com/domains
 2. Adicione o domínio
@@ -71,7 +71,7 @@ Resposta indicará o erro específico:
 2. Copie a chave correta
 3. Atualize no Cloudflare:
 ```bash
-echo 'SUA_CHAVE_AQUI' | npx wrangler pages secret put RESEND_API_KEY --project-name kncursos
+echo 'SUA_CHAVE_AQUI' | npx wrangler pages secret put RESEND_API_KEY --project-name vemgo
 ```
 
 ### Erro 3: "Email not in audience"
@@ -87,7 +87,7 @@ echo 'SUA_CHAVE_AQUI' | npx wrangler pages secret put RESEND_API_KEY --project-n
 Se o domínio ainda não foi verificado, use o e-mail sandbox:
 
 ```bash
-echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --project-name kncursos
+echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --project-name vemgo
 ```
 
 **Importante:** Com e-mail sandbox, precisa adicionar destinatários autorizados.
@@ -115,11 +115,11 @@ echo 'onboarding@resend.dev' | npx wrangler pages secret put EMAIL_FROM --projec
 
 ## 🎉 TESTE AGORA!
 
-**Acesse:** https://kncursos.pages.dev/api/test-email
+**Acesse:** https://vemgo.pages.dev/api/test-email
 
 Ou execute:
 ```bash
-curl -X POST https://kncursos.pages.dev/api/test-email
+curl -X POST https://vemgo.pages.dev/api/test-email
 ```
 
 **Me avise o resultado!** 🚀

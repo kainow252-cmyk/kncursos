@@ -1,4 +1,4 @@
-# Alterações de UX - kncursos.com.br
+# Alterações de UX - vemgo.com.br
 
 ## 📅 Data: 13/03/2026
 
@@ -11,7 +11,7 @@
 - ❌ Link "Ver todos os cursos" embaixo do conteúdo
 
 **DEPOIS:**
-- ✅ Header limpo, apenas com logo "kncursos" centralizado
+- ✅ Header limpo, apenas com logo "vemgo" centralizado
 - ✅ Experiência mais focada no curso
 - ✅ Cliente permanece na jornada de compra sem distrações
 
@@ -57,18 +57,18 @@ Para ativar o salvamento de cartões no futuro, seria necessário:
 ## 🌐 URLs Atualizadas
 
 ### **Produção (Cloudflare Pages):**
-- 🏠 Home: https://kncursos.pages.dev/
-- 📚 Detalhes: https://kncursos.pages.dev/curso/:id
-- 💳 Checkout: https://kncursos.pages.dev/checkout/:code
-- 🔐 Admin: https://kncursos.pages.dev/admin
-- 🆕 Versão mais recente: https://e320b75c.kncursos.pages.dev/
+- 🏠 Home: https://vemgo.pages.dev/
+- 📚 Detalhes: https://vemgo.pages.dev/curso/:id
+- 💳 Checkout: https://vemgo.pages.dev/checkout/:code
+- 🔐 Admin: https://vemgo.pages.dev/admin
+- 🆕 Versão mais recente: https://e320b75c.vemgo.pages.dev/
 
 ---
 
 ## 📊 Fluxo de Compra Atual
 
 ```
-1. Home (kncursos.pages.dev)
+1. Home (vemgo.pages.dev)
    ↓
 2. Cliente clica em "COMPRAR AGORA"
    ↓
@@ -156,7 +156,7 @@ Se quiser ativar salvamento de cartões:
 | Cards com mesma altura | ✅ Implementado | Flexbox aplicado |
 | Remover botão VOLTAR | ✅ Implementado | Header limpo |
 | Cartões salvos | ✅ Desativado | APIs existem mas não são usadas |
-| Deploy Cloudflare | ✅ Realizado | https://e320b75c.kncursos.pages.dev/ |
+| Deploy Cloudflare | ✅ Realizado | https://e320b75c.vemgo.pages.dev/ |
 | Testes API | ✅ Funcionando | 3 cursos cadastrados |
 | Email automático | ✅ Funcionando | Resend integrado |
 | Pagamento real | ✅ Funcionando | Mercado Pago ativo |

@@ -1,12 +1,12 @@
-# 🌐 Configuração do Domínio kncursos.com.br
+# 🌐 Configuração do Domínio vemgo.com.br
 
 ## ✅ Deploy Realizado com Sucesso!
 
 **URL temporária do Cloudflare Pages:**  
-https://ff1dae4f.kncursos.pages.dev
+https://ff1dae4f.vemgo.pages.dev
 
 **URL de produção (após configurar DNS):**  
-https://kncursos.com.br
+https://vemgo.com.br
 
 ---
 
@@ -20,11 +20,11 @@ https://kncursos.com.br
 
 ### Passo 2: Configurar Domínio Personalizado
 
-1. Encontre o projeto **"kncursos"** na lista
+1. Encontre o projeto **"vemgo"** na lista
 2. Clique no projeto
 3. Vá na aba **"Custom domains"**
 4. Clique em **"Set up a custom domain"**
-5. Digite: `kncursos.com.br`
+5. Digite: `vemgo.com.br`
 6. Clique em **"Continue"**
 
 ### Passo 3: Configurar DNS
@@ -33,8 +33,8 @@ A Cloudflare automaticamente configurará os registros DNS porque o domínio já
 
 **Registros que serão criados:**
 ```
-kncursos.com.br     CNAME  kncursos.pages.dev
-www.kncursos.com.br CNAME  kncursos.pages.dev
+vemgo.com.br     CNAME  vemgo.pages.dev
+www.vemgo.com.br CNAME  vemgo.pages.dev
 ```
 
 ### Passo 4: Aguardar Propagação
@@ -49,7 +49,7 @@ www.kncursos.com.br CNAME  kncursos.pages.dev
 
 ### 1. Adicionar Variáveis de Ambiente (Secrets)
 
-Acesse o projeto **kncursos** → aba **"Settings"** → **"Environment variables"**
+Acesse o projeto **vemgo** → aba **"Settings"** → **"Environment variables"**
 
 #### Para Produção:
 
@@ -72,17 +72,17 @@ EMAIL_FROM = onboarding@resend.dev
 1. Acesse: https://dash.cloudflare.com/
 2. Vá em **"Workers & Pages"** → **"D1"**
 3. Clique em **"Create database"**
-4. Nome: `kncursos-production`
+4. Nome: `vemgo-production`
 5. Clique em **"Create"**
 6. Copie o **Database ID** gerado
 
 ### 3. Vincular D1 ao Projeto
 
-1. Acesse o projeto **kncursos** → aba **"Settings"** → **"Bindings"**
+1. Acesse o projeto **vemgo** → aba **"Settings"** → **"Bindings"**
 2. Role até **"D1 database bindings"**
 3. Clique em **"Add binding"**:
    - Variable name: `DB`
-   - D1 database: `kncursos-production`
+   - D1 database: `vemgo-production`
 4. Clique em **"Save"**
 
 ### 4. Aplicar Migrations no D1 de Produção
@@ -92,7 +92,7 @@ Depois de criar o banco, rode localmente:
 ```bash
 # Atualizar wrangler.jsonc com o database_id real
 # Depois aplicar migrations
-npx wrangler d1 migrations apply kncursos-production --remote
+npx wrangler d1 migrations apply vemgo-production --remote
 ```
 
 ---
@@ -102,19 +102,19 @@ npx wrangler d1 migrations apply kncursos-production --remote
 ### URLs Disponíveis:
 
 **Temporária (funciona agora):**
-- https://ff1dae4f.kncursos.pages.dev
-- https://kncursos.pages.dev
+- https://ff1dae4f.vemgo.pages.dev
+- https://vemgo.pages.dev
 
 **Produção (após configurar domínio):**
-- https://kncursos.com.br
-- https://www.kncursos.com.br
+- https://vemgo.com.br
+- https://www.vemgo.com.br
 
 ### Páginas para Testar:
 
 ```
-https://kncursos.com.br/                      → Home (vitrine de cursos)
-https://kncursos.com.br/admin                 → Painel Admin
-https://kncursos.com.br/checkout/TIKTOK2024   → Checkout do curso TikTok
+https://vemgo.com.br/                      → Home (vitrine de cursos)
+https://vemgo.com.br/admin                 → Painel Admin
+https://vemgo.com.br/checkout/TIKTOK2024   → Checkout do curso TikTok
 ```
 
 ---
@@ -150,7 +150,7 @@ npm run db:migrate:prod
 
 # 3. Fazer novo deploy
 npm run build
-npx wrangler pages deploy dist --project-name kncursos --commit-dirty=true
+npx wrangler pages deploy dist --project-name vemgo --commit-dirty=true
 ```
 
 ---
@@ -162,7 +162,7 @@ npx wrangler pages deploy dist --project-name kncursos --commit-dirty=true
 **Opção 1: Usar domínio verificado (RECOMENDADO)**
 
 1. Acesse: https://resend.com/domains
-2. Adicione `kncursos.com.br`
+2. Adicione `vemgo.com.br`
 3. Configure os registros DNS:
    ```
    Tipo: MX
@@ -179,7 +179,7 @@ npx wrangler pages deploy dist --project-name kncursos --commit-dirty=true
    Valor: [valor fornecido pelo Resend]
    ```
 4. Aguarde verificação (1-24 horas)
-5. Atualize `EMAIL_FROM=contato@kncursos.com.br`
+5. Atualize `EMAIL_FROM=contato@vemgo.com.br`
 
 **Opção 2: Usar domínio padrão**
 - Mantém `EMAIL_FROM=onboarding@resend.dev`
@@ -189,8 +189,8 @@ npx wrangler pages deploy dist --project-name kncursos --commit-dirty=true
 
 ## 📊 Status Atual
 
-✅ **Projeto criado**: kncursos  
-✅ **Deploy realizado**: https://ff1dae4f.kncursos.pages.dev  
+✅ **Projeto criado**: vemgo  
+✅ **Deploy realizado**: https://ff1dae4f.vemgo.pages.dev  
 ✅ **Código enviado**: workers bundle uploaded  
 ⏳ **Domínio custom**: aguardando configuração manual  
 ⏳ **Banco D1**: aguardando criação manual  
@@ -206,7 +206,7 @@ npx wrangler pages deploy dist --project-name kncursos --commit-dirty=true
 4. ✅ **Vincule o D1 ao projeto**
 5. ✅ **Aplique as migrations**
 6. ✅ **Faça novo deploy**
-7. ✅ **Teste tudo em kncursos.com.br**
+7. ✅ **Teste tudo em vemgo.com.br**
 
 ---
 

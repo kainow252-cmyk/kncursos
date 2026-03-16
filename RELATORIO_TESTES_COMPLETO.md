@@ -10,7 +10,7 @@
 
 ## 📊 RESUMO EXECUTIVO
 
-O sistema KN Cursos foi submetido a uma bateria completa de 20 testes automatizados, cobrindo todas as funcionalidades críticas:
+O sistema Vemgo foi submetido a uma bateria completa de 20 testes automatizados, cobrindo todas as funcionalidades críticas:
 
 - ✅ Infraestrutura e conectividade
 - ✅ Integração com Mercado Pago
@@ -29,7 +29,7 @@ O sistema KN Cursos foi submetido a uma bateria completa de 20 testes automatiza
 ## 🎯 FASE 1: VERIFICAR INFRAESTRUTURA (3/3 testes)
 
 ### ✅ [1/20] Site principal está online
-- **URL:** https://kncursos.com.br
+- **URL:** https://vemgo.com.br
 - **Status:** HTTP 200
 - **Resultado:** PASSOU
 
@@ -39,7 +39,7 @@ O sistema KN Cursos foi submetido a uma bateria completa de 20 testes automatiza
 - **Resultado:** PASSOU (validação funcionando corretamente)
 
 ### ✅ [3/20] Banco de dados está acessível
-- **Banco:** Cloudflare D1 (kncursos)
+- **Banco:** Cloudflare D1 (vemgo)
 - **Teste:** SELECT COUNT(*) FROM courses
 - **Resultado:** PASSOU
 
@@ -68,7 +68,7 @@ O sistema KN Cursos foi submetido a uma bateria completa de 20 testes automatiza
 - **Resultado:** PASSOU
 
 ### ✅ [6/20] Verificar página de checkout
-- **URL de teste:** https://kncursos.com.br/checkout/MKT2024ABC
+- **URL de teste:** https://vemgo.com.br/checkout/MKT2024ABC
 - **Status:** HTTP 200
 - **Resultado:** PASSOU
 
@@ -112,7 +112,7 @@ O sistema KN Cursos foi submetido a uma bateria completa de 20 testes automatiza
 ## 🔄 FASE 5: TESTAR INTEGRAÇÃO COM MERCADO PAGO (2/2 testes)
 
 ### ✅ [11/20] Testando endpoint do cronjob
-- **URL:** https://kncursos.com.br/api/cron/check-pending-payments
+- **URL:** https://vemgo.com.br/api/cron/check-pending-payments
 - **Resposta:** `{"success": true, "checked": 0, "approved": 0, "rejected": 0}`
 - **Frequência:** A cada 3 minutos (*/3 * * * *)
 - **Dashboard:** https://console.cron-job.org/jobs/7375289
@@ -137,7 +137,7 @@ O sistema KN Cursos foi submetido a uma bateria completa de 20 testes automatiza
 
 ### ✅ [14/20] Testar envio de email (curso com PDF)
 - **Destinatário:** gelci.jose.grouptrig@gmail.com
-- **Link enviado:** https://kncursos.com.br/download/test_pdf_CA4EE1C7B76FA9D9
+- **Link enviado:** https://vemgo.com.br/download/test_pdf_CA4EE1C7B76FA9D9
 - **Botão no email:** "📥 Baixar Curso Agora"
 - **Resultado:** PASSOU
 
@@ -149,7 +149,7 @@ O sistema KN Cursos foi submetido a uma bateria completa de 20 testes automatiza
 
 ### ✅ [16/20] Testar envio de email (curso com URL externa)
 - **Destinatário:** gelci.jose.grouptrig@gmail.com
-- **Link enviado:** https://kncursos.com.br/download/test_url_3224E6CC7B16DD07
+- **Link enviado:** https://vemgo.com.br/download/test_url_3224E6CC7B16DD07
 - **Botão no email:** "🎓 Acessar Curso Agora"
 - **URL de destino:** https://youtube-monetizacao-2026.teachable.com/p/curso-completo
 - **Resultado:** PASSOU
@@ -159,13 +159,13 @@ O sistema KN Cursos foi submetido a uma bateria completa de 20 testes automatiza
 ## 🔐 FASE 7: TESTAR LINKS DE ACESSO PROTEGIDOS (2/2 testes)
 
 ### ✅ [17/20] Testar redirecionamento (curso com PDF)
-- **Link protegido:** https://kncursos.com.br/download/test_pdf_CA4EE1C7B76FA9D9
+- **Link protegido:** https://vemgo.com.br/download/test_pdf_CA4EE1C7B76FA9D9
 - **Redireciona para:** https://educacao-executiva.fgv.br/cursos/gratuitos
 - **Método:** HTTP 302 Redirect
 - **Resultado:** PASSOU
 
 ### ✅ [18/20] Testar redirecionamento (curso com URL externa)
-- **Link protegido:** https://kncursos.com.br/download/test_url_3224E6CC7B16DD07
+- **Link protegido:** https://vemgo.com.br/download/test_url_3224E6CC7B16DD07
 - **Redireciona para:** https://youtube-monetizacao-2026.teachable.com/p/curso-completo
 - **Método:** HTTP 302 Redirect
 - **Resultado:** PASSOU
@@ -177,13 +177,13 @@ O sistema KN Cursos foi submetido a uma bateria completa de 20 testes automatiza
 ## 📊 FASE 8: TESTAR RELATÓRIOS (2/2 testes)
 
 ### ✅ [19/20] Testando relatório HTML
-- **URL:** https://kncursos.com.br/api/admin/sales/export/pdf
+- **URL:** https://vemgo.com.br/api/admin/sales/export/pdf
 - **Status:** HTTP 200
 - **Conteúdo:** Tabela HTML formatada com todas as vendas
 - **Resultado:** PASSOU
 
 ### ✅ [20/20] Testando relatório CSV
-- **URL:** https://kncursos.com.br/api/admin/sales/export/csv
+- **URL:** https://vemgo.com.br/api/admin/sales/export/csv
 - **Headers presentes:**
   - Data/Hora ✅
   - Cliente ✅
@@ -241,7 +241,7 @@ O sistema KN Cursos foi submetido a uma bateria completa de 20 testes automatiza
 
 ### 1. Sistema de Links Protegidos
 - **Antes:** Email continha URL direta (compartilhável)
-- **Agora:** Link intermediário do tipo `https://kncursos.com.br/download/{token}`
+- **Agora:** Link intermediário do tipo `https://vemgo.com.br/download/{token}`
 - **Benefícios:**
   - ✅ Impede compartilhamento não autorizado
   - ✅ Rastreamento de acessos (`download_count`)
@@ -301,16 +301,16 @@ O sistema KN Cursos foi submetido a uma bateria completa de 20 testes automatiza
 ## 🔗 LINKS IMPORTANTES
 
 ### Produção
-- **Site principal:** https://kncursos.com.br
-- **Painel admin:** https://kncursos.com.br/admin
-- **Relatório HTML:** https://kncursos.com.br/api/admin/sales/export/pdf
-- **Relatório CSV:** https://kncursos.com.br/api/admin/sales/export/csv
+- **Site principal:** https://vemgo.com.br
+- **Painel admin:** https://vemgo.com.br/admin
+- **Relatório HTML:** https://vemgo.com.br/api/admin/sales/export/pdf
+- **Relatório CSV:** https://vemgo.com.br/api/admin/sales/export/csv
 
 ### Exemplos de Checkout
-- **Marketing Digital:** https://kncursos.com.br/checkout/MKT2024ABC
-- **Desenvolvimento Web:** https://kncursos.com.br/checkout/WEBDEV2024
-- **Instagram 2026:** https://kncursos.com.br/checkout/INSTA2026
-- **YouTube 2026:** https://kncursos.com.br/checkout/YOUTUBE2026
+- **Marketing Digital:** https://vemgo.com.br/checkout/MKT2024ABC
+- **Desenvolvimento Web:** https://vemgo.com.br/checkout/WEBDEV2024
+- **Instagram 2026:** https://vemgo.com.br/checkout/INSTA2026
+- **YouTube 2026:** https://vemgo.com.br/checkout/YOUTUBE2026
 
 ### APIs
 - **Processar venda:** POST /api/sales
@@ -386,7 +386,7 @@ chmod +x test_complete_system.sh
 
 ## ✅ CONCLUSÃO
 
-O sistema KN Cursos passou em **100% dos testes automatizados**, confirmando que todas as funcionalidades estão operacionais:
+O sistema Vemgo passou em **100% dos testes automatizados**, confirmando que todas as funcionalidades estão operacionais:
 
 1. ✅ **Infraestrutura** sólida e confiável
 2. ✅ **Pagamentos** processados corretamente (aprovados e recusados)

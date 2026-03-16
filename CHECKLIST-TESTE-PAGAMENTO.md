@@ -139,7 +139,7 @@ CVV: 123
 ### Passo 1: Login
 - [ ] Acessar: `/login`
 - [ ] Usuário: `admin`
-- [ ] Senha: `kncursos2024`
+- [ ] Senha: `vemgo2024`
 - [ ] Fazer login
 
 ### Passo 2: Visualizar Vendas

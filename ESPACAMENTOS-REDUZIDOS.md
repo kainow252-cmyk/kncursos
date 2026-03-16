@@ -62,15 +62,15 @@ O layout agora está **100px mais compacto** verticalmente, proporcionando:
 ## 🌐 URLs de Teste
 
 - **Local**: http://localhost:3000/
-- **Produção**: https://kncursos.pages.dev/
-- **Staging**: https://6c3e3d95.kncursos.pages.dev/
+- **Produção**: https://vemgo.pages.dev/
+- **Staging**: https://6c3e3d95.vemgo.pages.dev/
 
 ## 📦 Build & Deploy
 
 - **Bundle Size**: 383.81 KB (sem alteração)
 - **Alterações de Código**: 9 linhas modificadas
 - **Commit**: `48cf76b`
-- **Deploy**: https://6c3e3d95.kncursos.pages.dev/
+- **Deploy**: https://6c3e3d95.vemgo.pages.dev/
 
 ## 📝 Arquivos Alterados
 

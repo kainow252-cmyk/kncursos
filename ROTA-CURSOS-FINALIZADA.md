@@ -9,19 +9,19 @@ Criar uma rota **separada** para funcionários gerenciarem cursos **SEM acesso �
 
 ### Preview Atual (Funcional Agora)
 ```
-https://98675cde.kncursos.pages.dev/cursos
+https://98675cde.vemgo.pages.dev/cursos
 ```
 
 ### Produção (5-10 min para atualizar)
 ```
-https://kncursos.pages.dev/cursos
+https://vemgo.pages.dev/cursos
 ```
 
 ---
 
 ## 🔑 Credenciais de Teste
 - **Usuário:** `admin`
-- **Senha:** `kncursos2024`
+- **Senha:** `vemgo2024`
 
 ---
 
@@ -99,15 +99,15 @@ https://kncursos.pages.dev/cursos
 
 ### 1️⃣ Acesse a URL
 ```
-https://98675cde.kncursos.pages.dev/cursos
+https://98675cde.vemgo.pages.dev/cursos
 ```
 
 ### 2️⃣ Faça Login
 - **Usuário:** `admin`
-- **Senha:** `kncursos2024`
+- **Senha:** `vemgo2024`
 
 ### 3️⃣ Verifique a Interface
-- ✅ Header: "kncursos - Gerenciar Cursos"
+- ✅ Header: "vemgo - Gerenciar Cursos"
 - ✅ Subtítulo: "Adicione e edite cursos"
 - ✅ Botão "Novo Curso"
 - ✅ Grid de cursos
@@ -215,10 +215,10 @@ A rota `/cursos` está **100% funcional** e **completamente separada** da rota `
 
 ## 🔗 Links Úteis
 
-- **Rota Cursos (Preview):** https://98675cde.kncursos.pages.dev/cursos
-- **Rota Cursos (Produção):** https://kncursos.pages.dev/cursos
-- **Rota Admin:** https://kncursos.pages.dev/admin
-- **Login:** https://kncursos.pages.dev/login
+- **Rota Cursos (Preview):** https://98675cde.vemgo.pages.dev/cursos
+- **Rota Cursos (Produção):** https://vemgo.pages.dev/cursos
+- **Rota Admin:** https://vemgo.pages.dev/admin
+- **Login:** https://vemgo.pages.dev/login
 
 ---
 

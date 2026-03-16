@@ -132,8 +132,8 @@ const paymentData = {
 ## 🔗 URLs
 
 - **Local**: http://localhost:3000/
-- **Produção**: https://kncursos.pages.dev/
-- **Staging**: https://de79c5bc.kncursos.pages.dev/
+- **Produção**: https://vemgo.pages.dev/
+- **Staging**: https://de79c5bc.vemgo.pages.dev/
 
 ## ✅ Status
 
@@ -141,7 +141,7 @@ const paymentData = {
 ✅ **Pagamentos aprovados automaticamente**  
 ✅ **Vendas registradas no banco**  
 ✅ **Build**: 383.81 KB  
-✅ **Deploy**: https://de79c5bc.kncursos.pages.dev/  
+✅ **Deploy**: https://de79c5bc.vemgo.pages.dev/  
 
 ## 📅 Data
 

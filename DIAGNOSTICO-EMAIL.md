@@ -17,7 +17,7 @@
 ⏳ Pode levar alguns minutos para o Resend processar e enviar
 
 ### 3. **Remetente Não Verificado**
-O domínio `cursos@kncursos.com.br` precisa estar verificado no Resend.
+O domínio `cursos@vemgo.com.br` precisa estar verificado no Resend.
 
 ### 4. **Limite de Envio Sandbox**
 Se estiver no plano gratuito do Resend, há limite de e-mails por dia.
@@ -40,7 +40,7 @@ Se estiver no plano gratuito do Resend, há limite de e-mails por dia.
 ### Solução 2: Verificar Domínio no Resend
 
 1. Acesse: https://resend.com/domains
-2. Verifique se `kncursos.com.br` está **verificado**
+2. Verifique se `vemgo.com.br` está **verificado**
 3. Se não estiver:
    - Adicione o domínio
    - Configure os registros DNS (SPF, DKIM, DMARC)
@@ -51,7 +51,7 @@ Se estiver no plano gratuito do Resend, há limite de e-mails por dia.
 Se ainda não verificou o domínio, use o e-mail sandbox:
 
 1. Acesse o Cloudflare Dashboard
-2. Workers & Pages → kncursos → Settings → Environment variables
+2. Workers & Pages → vemgo → Settings → Environment variables
 3. Edite `EMAIL_FROM`
 4. Troque para: `onboarding@resend.dev`
 5. **Importante:** Com o e-mail sandbox, só pode enviar para **e-mails verificados**
@@ -124,7 +124,7 @@ Me informe:
 - Fazer novo teste de compra
 
 **Opção 2: Verificar Domínio**
-- Adicionar registros DNS do domínio `kncursos.com.br`
+- Adicionar registros DNS do domínio `vemgo.com.br`
 - Aguardar verificação (pode levar até 48h)
 
 ---

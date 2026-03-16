@@ -29,7 +29,7 @@ if (course.image_url) {
 ## 🧪 INSTRUÇÕES DE TESTE
 
 ### **PASSO 1: Abrir o Admin com Console Aberto**
-1. Acesse: **https://kncursos.com.br/admin**
+1. Acesse: **https://vemgo.com.br/admin**
 2. Faça login com suas credenciais
 3. **ANTES DE CLICAR EM QUALQUER COISA**, abra o console do navegador:
    - Chrome/Edge: `F12` ou `Ctrl+Shift+J`
@@ -89,12 +89,12 @@ O erro pode estar vindo de **outro arquivo JavaScript** sendo carregado.
 ## 📊 Status Atual
 - ✅ Código com null-checks implementado
 - ✅ Logs de debug adicionados
-- ✅ Deploy realizado: **https://kncursos.com.br/admin**
+- ✅ Deploy realizado: **https://vemgo.com.br/admin**
 - ⏳ Aguardando logs do console para diagnóstico final
 
 ## 🔗 URLs de Teste
-- **Produção:** https://kncursos.com.br/admin
-- **Preview:** https://4983311c.kncursos.pages.dev/admin
+- **Produção:** https://vemgo.com.br/admin
+- **Preview:** https://4983311c.vemgo.pages.dev/admin
 
 ## 📝 Próximos Passos
 1. ⏳ Usuário abre console e testa

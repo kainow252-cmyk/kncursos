@@ -10,12 +10,12 @@ Criei uma nova rota **`/cursos`** especificamente para funcionários gerenciarem
 
 **Produção:**
 ```
-https://kncursos.pages.dev/cursos
+https://vemgo.pages.dev/cursos
 ```
 
 **Preview:**
 ```
-https://62fd9024.kncursos.pages.dev/cursos
+https://62fd9024.vemgo.pages.dev/cursos
 ```
 
 ---
@@ -24,7 +24,7 @@ https://62fd9024.kncursos.pages.dev/cursos
 
 ### Mesmas Credenciais do Admin:
 - **Usuário:** admin
-- **Senha:** kncursos2024
+- **Senha:** vemgo2024
 
 > **Nota:** Por enquanto usa as mesmas credenciais. Você pode criar credenciais separadas para funcionários depois, se desejar.
 
@@ -65,12 +65,12 @@ https://62fd9024.kncursos.pages.dev/cursos
 
 ### 1. **Acesse a Rota:**
 ```
-https://kncursos.pages.dev/cursos
+https://vemgo.pages.dev/cursos
 ```
 
 ### 2. **Faça Login:**
 - Usuário: admin
-- Senha: kncursos2024
+- Senha: vemgo2024
 
 ### 3. **Gerencie Cursos:**
 - ✅ Clique em "Novo Curso"
@@ -90,7 +90,7 @@ https://kncursos.pages.dev/cursos
 A interface é **limpa e focada** apenas em cursos:
 
 ### Header:
-- **Título:** "kncursos - Gerenciar Cursos"
+- **Título:** "vemgo - Gerenciar Cursos"
 - **Subtítulo:** "Adicione e edite cursos"
 - **Botão Sair:** No canto superior direito
 
@@ -126,8 +126,8 @@ CREATE TABLE users (
 
 2. **Criar variáveis de ambiente para editor:**
 ```bash
-echo 'editor' | npx wrangler pages secret put EDITOR_USERNAME --project-name kncursos
-echo 'senha123' | npx wrangler pages secret put EDITOR_PASSWORD --project-name kncursos
+echo 'editor' | npx wrangler pages secret put EDITOR_USERNAME --project-name vemgo
+echo 'senha123' | npx wrangler pages secret put EDITOR_PASSWORD --project-name vemgo
 ```
 
 3. **Modificar rota de login:**
@@ -183,12 +183,12 @@ Pedro (Freelancer) → Recebe login temporário
 
 | Página | URL | Acesso |
 |--------|-----|--------|
-| **Loja** | https://kncursos.pages.dev/ | Público |
-| **Checkout** | https://kncursos.pages.dev/checkout/DEV2024XYZ | Público |
-| **Login** | https://kncursos.pages.dev/login | Restrito |
-| **Admin Completo** | https://kncursos.pages.dev/admin | Admin |
-| **🆕 Gerenciar Cursos** | https://kncursos.pages.dev/cursos | Editor |
-| **Teste E-mail** | https://kncursos.pages.dev/test-email | Admin |
+| **Loja** | https://vemgo.pages.dev/ | Público |
+| **Checkout** | https://vemgo.pages.dev/checkout/DEV2024XYZ | Público |
+| **Login** | https://vemgo.pages.dev/login | Restrito |
+| **Admin Completo** | https://vemgo.pages.dev/admin | Admin |
+| **🆕 Gerenciar Cursos** | https://vemgo.pages.dev/cursos | Editor |
+| **Teste E-mail** | https://vemgo.pages.dev/test-email | Admin |
 
 ---
 
@@ -207,7 +207,7 @@ Pedro (Freelancer) → Recebe login temporário
 - Mesma funcionalidade de CRUD de cursos
 - Upload de imagens e PDFs funcionando
 
-**Acesse agora:** https://kncursos.pages.dev/cursos
+**Acesse agora:** https://vemgo.pages.dev/cursos
 
 ---
 

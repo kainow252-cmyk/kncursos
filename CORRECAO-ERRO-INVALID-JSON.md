@@ -193,7 +193,7 @@ Cliente recebe: "✅ Pagamento aprovado! Verifique seu email"
 
 ## 🚀 Deploy Realizado
 
-**Nova URL de Produção:** https://1c097989.kncursos.pages.dev
+**Nova URL de Produção:** https://1c097989.vemgo.pages.dev
 
 **Build:**
 - Tamanho: 486.58 KB
@@ -285,10 +285,10 @@ Verificar e corrigir a API key do Asaas no Cloudflare Pages.
 ✅ **Sistema agora tem redundância real!**  
 ✅ **Vendas não serão mais perdidas!**
 
-**Teste agora:** https://1c097989.kncursos.pages.dev
+**Teste agora:** https://1c097989.vemgo.pages.dev
 
 ---
 
 **Data:** 14 de março de 2026, 13:45 UTC  
 **Commit:** e1a8b2c  
-**Deploy:** https://1c097989.kncursos.pages.dev
+**Deploy:** https://1c097989.vemgo.pages.dev

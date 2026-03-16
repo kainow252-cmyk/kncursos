@@ -1,6 +1,6 @@
-# 📅 Filtros de Data nas Exportações - KN Cursos
+# 📅 Filtros de Data nas Exportações - Vemgo
 
-**Deploy:** https://kncursos.com.br  
+**Deploy:** https://vemgo.com.br  
 **Data:** 14/03/2026  
 **Status:** ✅ **FUNCIONANDO**
 
@@ -28,24 +28,24 @@ Todos os endpoints de exportação (CSV, PDF resumido e PDF detalhado) agora sup
 
 ### 1. CSV - Todas as Vendas (sem filtro)
 ```bash
-https://kncursos.com.br/api/admin/sales/export/csv
+https://vemgo.com.br/api/admin/sales/export/csv
 ```
 
 **Arquivo gerado:**
 ```
-vendas_completas_kncursos_2026-03-14.csv
+vendas_completas_vemgo_2026-03-14.csv
 ```
 
 ---
 
 ### 2. CSV - Vendas de Um Dia Específico
 ```bash
-https://kncursos.com.br/api/admin/sales/export/csv?start_date=2026-03-14&end_date=2026-03-14
+https://vemgo.com.br/api/admin/sales/export/csv?start_date=2026-03-14&end_date=2026-03-14
 ```
 
 **Arquivo gerado:**
 ```
-vendas_completas_kncursos_2026-03-14_a_2026-03-14.csv
+vendas_completas_vemgo_2026-03-14_a_2026-03-14.csv
 ```
 
 **Resultado:** Apenas vendas do dia 14/03/2026
@@ -54,12 +54,12 @@ vendas_completas_kncursos_2026-03-14_a_2026-03-14.csv
 
 ### 3. CSV - Vendas de Um Período
 ```bash
-https://kncursos.com.br/api/admin/sales/export/csv?start_date=2026-03-01&end_date=2026-03-14
+https://vemgo.com.br/api/admin/sales/export/csv?start_date=2026-03-01&end_date=2026-03-14
 ```
 
 **Arquivo gerado:**
 ```
-vendas_completas_kncursos_2026-03-01_a_2026-03-14.csv
+vendas_completas_vemgo_2026-03-01_a_2026-03-14.csv
 ```
 
 **Resultado:** Vendas de 01/03 a 14/03/2026 (15 dias)
@@ -68,12 +68,12 @@ vendas_completas_kncursos_2026-03-01_a_2026-03-14.csv
 
 ### 4. CSV - Vendas A Partir de Uma Data
 ```bash
-https://kncursos.com.br/api/admin/sales/export/csv?start_date=2026-03-10
+https://vemgo.com.br/api/admin/sales/export/csv?start_date=2026-03-10
 ```
 
 **Arquivo gerado:**
 ```
-vendas_completas_kncursos_desde_2026-03-10.csv
+vendas_completas_vemgo_desde_2026-03-10.csv
 ```
 
 **Resultado:** Todas as vendas desde 10/03/2026 até hoje
@@ -82,12 +82,12 @@ vendas_completas_kncursos_desde_2026-03-10.csv
 
 ### 5. CSV - Vendas Até Uma Data
 ```bash
-https://kncursos.com.br/api/admin/sales/export/csv?end_date=2026-03-10
+https://vemgo.com.br/api/admin/sales/export/csv?end_date=2026-03-10
 ```
 
 **Arquivo gerado:**
 ```
-vendas_completas_kncursos_ate_2026-03-10.csv
+vendas_completas_vemgo_ate_2026-03-10.csv
 ```
 
 **Resultado:** Todas as vendas até 10/03/2026
@@ -98,36 +98,36 @@ vendas_completas_kncursos_ate_2026-03-10.csv
 
 ### Sem Filtro
 ```bash
-https://kncursos.com.br/api/admin/sales/export/pdf
+https://vemgo.com.br/api/admin/sales/export/pdf
 ```
 
 **Título do PDF:**
 ```
-🎓 Relatório de Vendas - KN Cursos
+🎓 Relatório de Vendas - Vemgo
 ```
 
 ---
 
 ### Com Período Específico
 ```bash
-https://kncursos.com.br/api/admin/sales/export/pdf?start_date=2026-03-01&end_date=2026-03-14
+https://vemgo.com.br/api/admin/sales/export/pdf?start_date=2026-03-01&end_date=2026-03-14
 ```
 
 **Título do PDF:**
 ```
-🎓 Relatório de Vendas - KN Cursos (2026-03-01 a 2026-03-14)
+🎓 Relatório de Vendas - Vemgo (2026-03-01 a 2026-03-14)
 ```
 
 ---
 
 ### Com Data Inicial Apenas
 ```bash
-https://kncursos.com.br/api/admin/sales/export/pdf?start_date=2026-03-10
+https://vemgo.com.br/api/admin/sales/export/pdf?start_date=2026-03-10
 ```
 
 **Título do PDF:**
 ```
-🎓 Relatório de Vendas - KN Cursos (desde 2026-03-10)
+🎓 Relatório de Vendas - Vemgo (desde 2026-03-10)
 ```
 
 ---
@@ -136,7 +136,7 @@ https://kncursos.com.br/api/admin/sales/export/pdf?start_date=2026-03-10
 
 ### Sem Filtro
 ```bash
-https://kncursos.com.br/api/admin/sales/export/pdf-detalhado
+https://vemgo.com.br/api/admin/sales/export/pdf-detalhado
 ```
 
 **Cabeçalho:**
@@ -150,7 +150,7 @@ https://kncursos.com.br/api/admin/sales/export/pdf-detalhado
 
 ### Com Período Específico
 ```bash
-https://kncursos.com.br/api/admin/sales/export/pdf-detalhado?start_date=2026-03-13&end_date=2026-03-13
+https://vemgo.com.br/api/admin/sales/export/pdf-detalhado?start_date=2026-03-13&end_date=2026-03-13
 ```
 
 **Cabeçalho:**
@@ -167,7 +167,7 @@ https://kncursos.com.br/api/admin/sales/export/pdf-detalhado?start_date=2026-03-
 
 ### Teste 1: Vendas de Hoje (14/03/2026)
 ```bash
-curl "https://kncursos.com.br/api/admin/sales/export/csv?start_date=2026-03-14&end_date=2026-03-14"
+curl "https://vemgo.com.br/api/admin/sales/export/csv?start_date=2026-03-14&end_date=2026-03-14"
 ```
 
 **Resultado:** ✅ 22 vendas retornadas
@@ -176,7 +176,7 @@ curl "https://kncursos.com.br/api/admin/sales/export/csv?start_date=2026-03-14&e
 
 ### Teste 2: Vendas de Ontem (13/03/2026)
 ```bash
-curl "https://kncursos.com.br/api/admin/sales/export/csv?start_date=2026-03-13&end_date=2026-03-13"
+curl "https://vemgo.com.br/api/admin/sales/export/csv?start_date=2026-03-13&end_date=2026-03-13"
 ```
 
 **Resultado:** ✅ 4 vendas retornadas (vendas do Curso de Desenvolvimento Web)
@@ -185,12 +185,12 @@ curl "https://kncursos.com.br/api/admin/sales/export/csv?start_date=2026-03-13&e
 
 ### Teste 3: PDF com Filtro de Período
 ```bash
-curl "https://kncursos.com.br/api/admin/sales/export/pdf?start_date=2026-03-14&end_date=2026-03-14"
+curl "https://vemgo.com.br/api/admin/sales/export/pdf?start_date=2026-03-14&end_date=2026-03-14"
 ```
 
 **Resultado:** ✅ PDF gerado com título:
 ```
-🎓 Relatório de Vendas - KN Cursos (2026-03-14 a 2026-03-14)
+🎓 Relatório de Vendas - Vemgo (2026-03-14 a 2026-03-14)
 ```
 
 ---
@@ -200,7 +200,7 @@ curl "https://kncursos.com.br/api/admin/sales/export/pdf?start_date=2026-03-14&e
 ### 1. Relatório Diário
 ```bash
 # Vendas de hoje
-curl "https://kncursos.com.br/api/admin/sales/export/csv?start_date=$(date +%Y-%m-%d)&end_date=$(date +%Y-%m-%d)"
+curl "https://vemgo.com.br/api/admin/sales/export/csv?start_date=$(date +%Y-%m-%d)&end_date=$(date +%Y-%m-%d)"
 ```
 
 ### 2. Relatório Semanal
@@ -208,7 +208,7 @@ curl "https://kncursos.com.br/api/admin/sales/export/csv?start_date=$(date +%Y-%
 # Últimos 7 dias
 START_DATE=$(date -d '7 days ago' +%Y-%m-%d)
 END_DATE=$(date +%Y-%m-%d)
-curl "https://kncursos.com.br/api/admin/sales/export/csv?start_date=$START_DATE&end_date=$END_DATE"
+curl "https://vemgo.com.br/api/admin/sales/export/csv?start_date=$START_DATE&end_date=$END_DATE"
 ```
 
 ### 3. Relatório Mensal
@@ -216,7 +216,7 @@ curl "https://kncursos.com.br/api/admin/sales/export/csv?start_date=$START_DATE&
 # Mês atual
 START_DATE=$(date +%Y-%m-01)
 END_DATE=$(date +%Y-%m-%d)
-curl "https://kncursos.com.br/api/admin/sales/export/csv?start_date=$START_DATE&end_date=$END_DATE"
+curl "https://vemgo.com.br/api/admin/sales/export/csv?start_date=$START_DATE&end_date=$END_DATE"
 ```
 
 ### 4. Relatório do Mês Anterior
@@ -224,7 +224,7 @@ curl "https://kncursos.com.br/api/admin/sales/export/csv?start_date=$START_DATE&
 # Mês passado (completo)
 START_DATE=$(date -d 'last month' +%Y-%m-01)
 END_DATE=$(date -d 'last month' +%Y-%m-31)
-curl "https://kncursos.com.br/api/admin/sales/export/csv?start_date=$START_DATE&end_date=$END_DATE"
+curl "https://vemgo.com.br/api/admin/sales/export/csv?start_date=$START_DATE&end_date=$END_DATE"
 ```
 
 ---
@@ -235,10 +235,10 @@ O nome do arquivo CSV é gerado automaticamente com base nos filtros:
 
 | Filtros | Formato do Nome |
 |---------|-----------------|
-| Sem filtro | `vendas_completas_kncursos_2026-03-14.csv` |
-| Período completo | `vendas_completas_kncursos_2026-03-01_a_2026-03-14.csv` |
-| Apenas início | `vendas_completas_kncursos_desde_2026-03-10.csv` |
-| Apenas fim | `vendas_completas_kncursos_ate_2026-03-10.csv` |
+| Sem filtro | `vendas_completas_vemgo_2026-03-14.csv` |
+| Período completo | `vendas_completas_vemgo_2026-03-01_a_2026-03-14.csv` |
+| Apenas início | `vendas_completas_vemgo_desde_2026-03-10.csv` |
+| Apenas fim | `vendas_completas_vemgo_ate_2026-03-10.csv` |
 
 **Vantagens:**
 - ✅ Nome do arquivo indica claramente o período
@@ -280,37 +280,37 @@ ORDER BY s.purchased_at DESC
 ### CSV
 ```bash
 # Todas
-https://kncursos.com.br/api/admin/sales/export/csv
+https://vemgo.com.br/api/admin/sales/export/csv
 
 # Hoje
-https://kncursos.com.br/api/admin/sales/export/csv?start_date=2026-03-14&end_date=2026-03-14
+https://vemgo.com.br/api/admin/sales/export/csv?start_date=2026-03-14&end_date=2026-03-14
 
 # Ontem
-https://kncursos.com.br/api/admin/sales/export/csv?start_date=2026-03-13&end_date=2026-03-13
+https://vemgo.com.br/api/admin/sales/export/csv?start_date=2026-03-13&end_date=2026-03-13
 
 # Últimos 7 dias
-https://kncursos.com.br/api/admin/sales/export/csv?start_date=2026-03-07&end_date=2026-03-14
+https://vemgo.com.br/api/admin/sales/export/csv?start_date=2026-03-07&end_date=2026-03-14
 
 # Mês atual
-https://kncursos.com.br/api/admin/sales/export/csv?start_date=2026-03-01
+https://vemgo.com.br/api/admin/sales/export/csv?start_date=2026-03-01
 ```
 
 ### PDF Resumido
 ```bash
 # Todas
-https://kncursos.com.br/api/admin/sales/export/pdf
+https://vemgo.com.br/api/admin/sales/export/pdf
 
 # Período específico
-https://kncursos.com.br/api/admin/sales/export/pdf?start_date=2026-03-01&end_date=2026-03-14
+https://vemgo.com.br/api/admin/sales/export/pdf?start_date=2026-03-01&end_date=2026-03-14
 ```
 
 ### PDF Detalhado
 ```bash
 # Todas
-https://kncursos.com.br/api/admin/sales/export/pdf-detalhado
+https://vemgo.com.br/api/admin/sales/export/pdf-detalhado
 
 # Período específico
-https://kncursos.com.br/api/admin/sales/export/pdf-detalhado?start_date=2026-03-01&end_date=2026-03-14
+https://vemgo.com.br/api/admin/sales/export/pdf-detalhado?start_date=2026-03-01&end_date=2026-03-14
 ```
 
 ---
@@ -352,7 +352,7 @@ Todos os 3 endpoints de exportação agora suportam:
 - ✅ Nome do arquivo/título reflete o período
 - ✅ Compatível com CSV, PDF resumido e PDF detalhado
 
-**Deploy:** https://kncursos.com.br (ID: 5ad33df8)  
+**Deploy:** https://vemgo.com.br (ID: 5ad33df8)  
 **Build:** 480.25 kB em 2.66s  
 **Status:** 🟢 PRODUÇÃO
 

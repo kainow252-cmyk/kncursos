@@ -21,12 +21,12 @@ Preencha os seguintes dados:
 
 #### Configurações Básicas
 ```
-Nome do Webhook: KN Cursos - Notificações de Pagamento
+Nome do Webhook: Vemgo - Notificações de Pagamento
 ```
 
 #### URL do Webhook
 ```
-https://786c7c9c.kncursos.pages.dev/api/webhooks/suitpay
+https://786c7c9c.vemgo.pages.dev/api/webhooks/suitpay
 ```
 **⚠️ IMPORTANTE:** Não adicione `/` no final da URL
 
@@ -88,7 +88,7 @@ Após salvar, verifique:
 
 ### Teste Manual (Recomendado)
 1. **Fazer uma compra de teste:**
-   - Acessar: https://786c7c9c.kncursos.pages.dev
+   - Acessar: https://786c7c9c.vemgo.pages.dev
    - Clicar em qualquer curso
    - Fazer checkout com **valor mínimo** (ex: R$ 1,00)
    - Usar cartão de teste (se disponível no SuitPay)
@@ -100,7 +100,7 @@ Após salvar, verifique:
 
 3. **Verificar Webhook:**
    - Ir em: **VENDAS → GATEWAY DE PAGAMENTO → Webhooks**
-   - Clicar no webhook **KN Cursos**
+   - Clicar no webhook **Vemgo**
    - Ver **Histórico de Envios**
    - Status esperado: **200 OK**
 
@@ -108,7 +108,7 @@ Após salvar, verifique:
    ```bash
    cd /home/user/webapp
    export CLOUDFLARE_API_TOKEN=$(cat .cloudflare-token)
-   npx wrangler d1 execute kncursos --remote --command "SELECT * FROM sales ORDER BY id DESC LIMIT 1"
+   npx wrangler d1 execute vemgo --remote --command "SELECT * FROM sales ORDER BY id DESC LIMIT 1"
    ```
    - Verificar se `suitpay_payment_id` está preenchido
    - Verificar se `payment_gateway = 'suitpay'`
@@ -128,7 +128,7 @@ cd /home/user/webapp
 export CLOUDFLARE_API_TOKEN=$(cat .cloudflare-token)
 
 # Adicionar novo secret
-echo 'whsec_ABC123DEF456GHI789' | npx wrangler pages secret put SUITPAY_WEBHOOK_TOKEN --project-name kncursos
+echo 'whsec_ABC123DEF456GHI789' | npx wrangler pages secret put SUITPAY_WEBHOOK_TOKEN --project-name vemgo
 ```
 
 ### Passo 3: Atualizar .dev.vars (desenvolvimento local)
@@ -160,7 +160,7 @@ app.post('/api/webhooks/suitpay', async (c) => {
 ```bash
 npm run build
 export CLOUDFLARE_API_TOKEN=$(cat .cloudflare-token)
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 ```
 
 ---
@@ -222,8 +222,8 @@ Se tiver problemas ao configurar o webhook:
 
 - [ ] Acessei o dashboard SuitPay (https://web.suitpay.app)
 - [ ] Naveguei até VENDAS → GATEWAY DE PAGAMENTO → Webhooks
-- [ ] Criei novo webhook com nome "KN Cursos - Notificações de Pagamento"
-- [ ] Configurei URL: https://786c7c9c.kncursos.pages.dev/api/webhooks/suitpay
+- [ ] Criei novo webhook com nome "Vemgo - Notificações de Pagamento"
+- [ ] Configurei URL: https://786c7c9c.vemgo.pages.dev/api/webhooks/suitpay
 - [ ] Configurei e-mail: gelci.jose.grouptrig@gmail.com
 - [ ] Selecionei todos os eventos de pagamento
 - [ ] Ativei fila de sincronização

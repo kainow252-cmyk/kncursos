@@ -4,7 +4,7 @@
 
 ### 🎯 Painel de Vendas Aprimorado
 
-Acesse: **https://kncursos.pages.dev/admin** → Aba "Vendas"
+Acesse: **https://vemgo.pages.dev/admin** → Aba "Vendas"
 
 ---
 
@@ -32,7 +32,7 @@ Acesse: **https://kncursos.pages.dev/admin** → Aba "Vendas"
 
 **Formato do arquivo:**
 ```
-vendas_kncursos_2026-03-13.csv
+vendas_vemgo_2026-03-13.csv
 ```
 
 **Ideal para:**
@@ -292,6 +292,6 @@ Você agora tem um **dashboard profissional** com:
 - ✅ Estatísticas em tempo real
 - ✅ Interface profissional
 
-**Acesse agora:** https://kncursos.pages.dev/admin
+**Acesse agora:** https://vemgo.pages.dev/admin
 
 **Aba:** Vendas → Teste as exportações! 📊💼

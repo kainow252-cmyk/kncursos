@@ -43,7 +43,7 @@ Pagamento → MP aprova → Status: pending (sem email)
 ### Endpoint do Cronjob
 
 ```
-GET https://kncursos.com.br/api/cron/check-pending-payments
+GET https://vemgo.com.br/api/cron/check-pending-payments
 ```
 
 ### Configurar Serviço Externo
@@ -55,7 +55,7 @@ Use um serviço gratuito de cronjob como:
 1. Acesse: https://cron-job.org/
 2. Criar conta gratuita
 3. Criar novo cronjob:
-   - **URL**: `https://kncursos.com.br/api/cron/check-pending-payments`
+   - **URL**: `https://vemgo.com.br/api/cron/check-pending-payments`
    - **Schedule**: `*/3 * * * *` (a cada 3 minutos)
    - **Method**: GET
    - **Timeout**: 30 segundos
@@ -65,7 +65,7 @@ Use um serviço gratuito de cronjob como:
 1. Acesse: https://www.easycron.com/
 2. Criar conta gratuita
 3. Criar cron job:
-   - **URL**: `https://kncursos.com.br/api/cron/check-pending-payments`
+   - **URL**: `https://vemgo.com.br/api/cron/check-pending-payments`
    - **Cron Expression**: `*/3 * * * *`
    - **HTTP Method**: GET
 
@@ -74,7 +74,7 @@ Use um serviço gratuito de cronjob como:
 1. Acesse: https://uptimerobot.com/
 2. Criar conta
 3. Adicionar monitor tipo HTTP:
-   - **URL**: `https://kncursos.com.br/api/cron/check-pending-payments`
+   - **URL**: `https://vemgo.com.br/api/cron/check-pending-payments`
    - **Monitoring Interval**: 5 minutos (plano grátis mínimo)
 
 ## 📊 Response do Cronjob
@@ -137,10 +137,10 @@ Use um serviço gratuito de cronjob como:
 
 ```bash
 # Testar o cronjob
-curl https://kncursos.com.br/api/cron/check-pending-payments
+curl https://vemgo.com.br/api/cron/check-pending-payments
 
 # Ou acessar direto no navegador
-open https://kncursos.com.br/api/cron/check-pending-payments
+open https://vemgo.com.br/api/cron/check-pending-payments
 ```
 
 ## 📈 Monitoramento
@@ -148,7 +148,7 @@ open https://kncursos.com.br/api/cron/check-pending-payments
 ### Logs do Cloudflare
 
 ```bash
-npx wrangler pages deployment tail --project-name=kncursos
+npx wrangler pages deployment tail --project-name=vemgo
 ```
 
 Procure por:

@@ -175,9 +175,9 @@ Resposta: "Pagamento por cartão não habilitado para esse usuário"
 - ✅ `/docs/CONTA-ASAAS-INATIVA.md` - Ativação de conta
 - ✅ `/docs/ERRO-ASAAS-404-SOLUCAO.md` - Troubleshooting
 
-**Repositório:** https://github.com/kainow252-cmyk/kncursos  
-**Deploy atual:** https://5a183951.kncursos.pages.dev  
-**Domínio:** https://kncursos.com.br
+**Repositório:** https://github.com/kainow252-cmyk/vemgo  
+**Deploy atual:** https://5a183951.vemgo.pages.dev  
+**Domínio:** https://vemgo.com.br
 
 ---
 

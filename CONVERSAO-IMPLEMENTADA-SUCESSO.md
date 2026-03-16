@@ -109,7 +109,7 @@ Type: image
 
 **Comando**:
 ```bash
-npx wrangler pages deploy dist --project-name=kncursos
+npx wrangler pages deploy dist --project-name=vemgo
 ```
 
 **Resultado**:
@@ -117,8 +117,8 @@ npx wrangler pages deploy dist --project-name=kncursos
 ✨ Compiled Worker successfully
 ✨ Uploading Worker bundle (441.31 KB)
 ✨ Deployment complete!
-https://4cb67416.kncursos.pages.dev
-https://kncursos.pages.dev
+https://4cb67416.vemgo.pages.dev
+https://vemgo.pages.dev
 ```
 
 **Status**: ✅ **LIVE!**
@@ -128,7 +128,7 @@ https://kncursos.pages.dev
 ### **Teste 3: Acesso à Aplicação** ✅
 
 ```bash
-curl https://kncursos.pages.dev/
+curl https://vemgo.pages.dev/
 Status: 200 OK
 ```
 
@@ -140,11 +140,11 @@ Status: 200 OK
 
 ### **Teste Manual - Admin Panel**:
 
-1. **Acessar**: https://kncursos.com.br/admin
+1. **Acessar**: https://vemgo.com.br/admin
 
 2. **Login**:
    - Usuário: `admin`
-   - Senha: `kncursos2024`
+   - Senha: `vemgo2024`
 
 3. **Criar Novo Curso**:
    - Título: `Curso de Teste URL Automática`
@@ -177,7 +177,7 @@ Status: 200 OK
    - `pdf_url`: `/files/pdfs/1773484207806-xyz123.pdf` ← **URL INTERNA!**
 
 7. **Verificar na Home**:
-   - Acessar: https://kncursos.com.br/
+   - Acessar: https://vemgo.com.br/
    - Verificar se o curso aparece
    - Imagem deve carregar do R2 (`/files/...`)
 
@@ -253,9 +253,9 @@ image_url: /files/images/1773484207805-ay2mie.jpg
 - **Status**: ✅ Live
 
 ### **URLs Ativas**:
-- https://kncursos.pages.dev/
-- https://kncursos.com.br/
-- https://4cb67416.kncursos.pages.dev/
+- https://vemgo.pages.dev/
+- https://vemgo.com.br/
+- https://4cb67416.vemgo.pages.dev/
 
 ---
 

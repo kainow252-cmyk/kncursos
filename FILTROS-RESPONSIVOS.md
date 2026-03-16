@@ -146,8 +146,8 @@ Os filtros de categoria estavam **quebrando em múltiplas linhas** e não funcio
 ## 🌐 URLs
 
 - **Local**: http://localhost:3000/
-- **Produção**: https://kncursos.pages.dev/
-- **Versão Atual**: https://cfaeec1f.kncursos.pages.dev/
+- **Produção**: https://vemgo.pages.dev/
+- **Versão Atual**: https://cfaeec1f.vemgo.pages.dev/
 
 ## 📱 Screenshots Esperados
 

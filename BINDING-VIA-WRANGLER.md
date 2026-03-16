@@ -18,7 +18,7 @@ Isso significa que o **binding já está configurado** no arquivo `wrangler.json
 
 ```jsonc
 {
-  "name": "kncursos",
+  "name": "vemgo",
   "compatibility_date": "2026-03-13",
   "pages_build_output_dir": "./dist",
   "compatibility_flags": ["nodejs_compat"],
@@ -26,14 +26,14 @@ Isso significa que o **binding já está configurado** no arquivo `wrangler.json
   "d1_databases": [
     {
       "binding": "DB",                                      ← Nome da variável
-      "database_name": "kncursos",                          ← Nome do database
+      "database_name": "vemgo",                          ← Nome do database
       "database_id": "6783bc59-1fd5-48b4-894b-98c77e6ca75a" ← ID do database
     }
   ]
 }
 ```
 
-**Isso já configura automaticamente o binding `DB` para o database `kncursos`!** ✅
+**Isso já configura automaticamente o binding `DB` para o database `vemgo`!** ✅
 
 ---
 
@@ -46,10 +46,10 @@ Como o binding é gerenciado via código, você só precisa **fazer deploy** par
 npm run build
 
 # 2. Deploy
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 
 # 3. Testar
-curl https://kncursos.pages.dev/api/courses
+curl https://vemgo.pages.dev/api/courses
 ```
 
 ---
@@ -59,7 +59,7 @@ curl https://kncursos.pages.dev/api/courses
 ### ✅ Teste 1: API de Cursos
 
 ```bash
-curl https://7f26f5f8.kncursos.pages.dev/api/courses
+curl https://7f26f5f8.vemgo.pages.dev/api/courses
 ```
 
 **Resultado**:
@@ -80,7 +80,7 @@ curl https://7f26f5f8.kncursos.pages.dev/api/courses
 ### ✅ Teste 2: Curso Específico
 
 ```bash
-curl https://7f26f5f8.kncursos.pages.dev/api/courses/1
+curl https://7f26f5f8.vemgo.pages.dev/api/courses/1
 ```
 
 **Resultado**:
@@ -97,12 +97,12 @@ curl https://7f26f5f8.kncursos.pages.dev/api/courses/1
 ### ✅ Teste 3: Página de Login
 
 ```bash
-curl https://7f26f5f8.kncursos.pages.dev/login
+curl https://7f26f5f8.vemgo.pages.dev/login
 ```
 
 **Resultado**:
 ```html
-<title>kncursos - Login</title>
+<title>vemgo - Login</title>
 ```
 
 ✅ **Funcionando!** Página carrega corretamente.
@@ -113,8 +113,8 @@ curl https://7f26f5f8.kncursos.pages.dev/login
 
 | Ambiente | URL | Status |
 |----------|-----|--------|
-| **Produção** | https://kncursos.pages.dev | ✅ Ativo |
-| **Staging** | https://7f26f5f8.kncursos.pages.dev | ✅ Ativo |
+| **Produção** | https://vemgo.pages.dev | ✅ Ativo |
+| **Staging** | https://7f26f5f8.vemgo.pages.dev | ✅ Ativo |
 | **Local** | http://localhost:3000 | ✅ Ativo |
 
 ---
@@ -159,7 +159,7 @@ Se precisar alterar o binding D1 (ex: mudar database):
 3. **Deploy**:
    ```bash
    npm run build
-   npx wrangler pages deploy dist --project-name kncursos
+   npx wrangler pages deploy dist --project-name vemgo
    ```
 
 ---
@@ -187,7 +187,7 @@ Se precisar alterar o binding D1 (ex: mudar database):
   "r2_buckets": [
     {
       "binding": "R2",
-      "bucket_name": "kncursos-files"
+      "bucket_name": "vemgo-files"
     }
   ]
 }
@@ -195,7 +195,7 @@ Se precisar alterar o binding D1 (ex: mudar database):
 
 Depois:
 ```bash
-npm run build && npx wrangler pages deploy dist --project-name kncursos
+npm run build && npx wrangler pages deploy dist --project-name vemgo
 ```
 
 ---
@@ -206,7 +206,7 @@ npm run build && npx wrangler pages deploy dist --project-name kncursos
 
 - [x] 8 variáveis de ambiente
 - [x] D1 binding via wrangler.jsonc
-- [x] Database kncursos ativo
+- [x] Database vemgo ativo
 - [x] API funcionando (200 OK)
 - [x] Admin login funcionando
 - [x] Erro 500 resolvido ✅
@@ -214,7 +214,7 @@ npm run build && npx wrangler pages deploy dist --project-name kncursos
 ### Deploy Realizado ✅
 
 - [x] Build: 385.58 kB
-- [x] Deploy: https://7f26f5f8.kncursos.pages.dev
+- [x] Deploy: https://7f26f5f8.vemgo.pages.dev
 - [x] Testes: API + Login OK
 - [x] Binding D1 ativo
 

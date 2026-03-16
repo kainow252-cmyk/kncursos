@@ -20,24 +20,24 @@
 
 **🏠 Home (Vitrine de Cursos):**
 ```
-https://kncursos.pages.dev/
-https://a7e45c6e.kncursos.pages.dev/ (versão mais recente)
+https://vemgo.pages.dev/
+https://a7e45c6e.vemgo.pages.dev/ (versão mais recente)
 ```
 
 **👨‍💼 Painel Admin:**
 ```
-https://kncursos.pages.dev/admin
+https://vemgo.pages.dev/admin
 ```
 
 **💳 Checkout (Curso TikTok):**
 ```
-https://kncursos.pages.dev/checkout/TIKTOK2024
+https://vemgo.pages.dev/checkout/TIKTOK2024
 ```
 
 **🔗 Outros Checkouts:**
 ```
-https://kncursos.pages.dev/checkout/MKT2024ABC (Marketing Digital)
-https://kncursos.pages.dev/checkout/DEV2024XYZ (Desenvolvimento Web)
+https://vemgo.pages.dev/checkout/MKT2024ABC (Marketing Digital)
+https://vemgo.pages.dev/checkout/DEV2024XYZ (Desenvolvimento Web)
 ```
 
 ---
@@ -58,7 +58,7 @@ CVV: 123
 
 1. **Acesse o checkout:**
    ```
-   https://kncursos.pages.dev/checkout/TIKTOK2024
+   https://vemgo.pages.dev/checkout/TIKTOK2024
    ```
 
 2. **Preencha o formulário:**
@@ -107,7 +107,7 @@ O Guia Definitivo para Vendas Sem Aparecer! Aprenda estratégias...
 [BOTÃO GRANDE: 📥 BAIXAR CURSO (PDF)]
 
 Link alternativo caso o botão não funcione:
-https://kncursos.pages.dev/download/[token-unico]
+https://vemgo.pages.dev/download/[token-unico]
 
 ✨ Dica: Salve este email! O link de download estará sempre disponível.
 ```
@@ -169,7 +169,7 @@ https://kncursos.pages.dev/download/[token-unico]
 
 ```
 ✅ Database ID: 6783bc59-1fd5-48b4-894b-98c77e6ca75a
-✅ Nome: kncursos
+✅ Nome: vemgo
 ✅ Binding: DB
 ✅ Tabelas: courses, payment_links, sales
 ✅ Registros: 3 cursos, 3 links
@@ -180,7 +180,7 @@ https://kncursos.pages.dev/download/[token-unico]
 ## 🎯 Fluxo Completo de Venda
 
 ```
-1. Cliente acessa → https://kncursos.pages.dev/
+1. Cliente acessa → https://vemgo.pages.dev/
 2. Vê os cursos → Cards bonitos com imagens
 3. Clica "COMPRAR AGORA" → Vai para checkout
 4. Preenche dados → Nome, CPF, email, telefone
@@ -205,13 +205,13 @@ https://www.genspark.ai/api/files/s/HcsAShR4
 
 ## 🌐 Configurar Domínio Personalizado (Opcional)
 
-Se quiser usar `kncursos.com.br`:
+Se quiser usar `vemgo.com.br`:
 
 1. Acesse: https://dash.cloudflare.com/
-2. Vá em Workers & Pages → kncursos
+2. Vá em Workers & Pages → vemgo
 3. Aba "Custom domains"
 4. Clique "Set up a custom domain"
-5. Digite: kncursos.com.br
+5. Digite: vemgo.com.br
 6. Continue (DNS configurado automaticamente)
 7. Aguarde 5-15 minutos
 
@@ -242,9 +242,9 @@ Seu sistema está:
 
 2. **Verificar domínio no Resend:**
    - Acesse: https://resend.com/domains
-   - Adicione kncursos.com.br
+   - Adicione vemgo.com.br
    - Configure DNS
-   - Use email personalizado: contato@kncursos.com.br
+   - Use email personalizado: contato@vemgo.com.br
 
 3. **Adicionar mais funcionalidades:**
    - Sistema de cupons de desconto
@@ -258,7 +258,7 @@ Seu sistema está:
 ## 📞 TESTE AGORA!
 
 **Acesse e faça uma compra teste:**
-https://kncursos.pages.dev/checkout/TIKTOK2024
+https://vemgo.pages.dev/checkout/TIKTOK2024
 
 **Use seu email real para receber o PDF!** 📧
 

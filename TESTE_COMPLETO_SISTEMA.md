@@ -31,7 +31,7 @@ VALUES (4, 'INSTA2026', 'active')
 
 **Resultado:**
 - ✅ Link Code: **INSTA2026**
-- ✅ URL: https://kncursos.com.br/checkout/INSTA2026
+- ✅ URL: https://vemgo.com.br/checkout/INSTA2026
 
 ---
 
@@ -127,7 +127,7 @@ WHERE payment_id = '149638637211'
 
 ### 4. Cronjob de Sincronização
 ```bash
-curl https://kncursos.com.br/api/cron/check-pending-payments
+curl https://vemgo.com.br/api/cron/check-pending-payments
 ```
 
 **Resposta:**
@@ -189,13 +189,13 @@ curl https://kncursos.com.br/api/cron/check-pending-payments
 
 ## 🔗 Links Importantes
 
-- 🌐 **Site Principal:** https://kncursos.com.br
-- 💳 **Novo Checkout:** https://kncursos.com.br/checkout/INSTA2026
-- 📊 **Relatório Vendas:** https://kncursos.com.br/api/admin/sales/export/pdf
-- 📥 **Exportar CSV:** https://kncursos.com.br/api/admin/sales/export/csv
-- 🔄 **Cronjob:** https://kncursos.com.br/api/cron/check-pending-payments
+- 🌐 **Site Principal:** https://vemgo.com.br
+- 💳 **Novo Checkout:** https://vemgo.com.br/checkout/INSTA2026
+- 📊 **Relatório Vendas:** https://vemgo.com.br/api/admin/sales/export/pdf
+- 📥 **Exportar CSV:** https://vemgo.com.br/api/admin/sales/export/csv
+- 🔄 **Cronjob:** https://vemgo.com.br/api/cron/check-pending-payments
 - ⚙️ **Dashboard Cron:** https://console.cron-job.org/jobs/7375289
-- 📦 **GitHub:** https://github.com/kainow252-cmyk/kncursos
+- 📦 **GitHub:** https://github.com/kainow252-cmyk/vemgo
 
 ---
 

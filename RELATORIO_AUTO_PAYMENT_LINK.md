@@ -46,7 +46,7 @@ return c.json({
   category, 
   featured,
   link_code: linkCode,
-  checkout_url: `https://kncursos.com.br/checkout/${linkCode}`
+  checkout_url: `https://vemgo.com.br/checkout/${linkCode}`
 }, 201)
 ```
 
@@ -56,7 +56,7 @@ return c.json({
 
 ### Request:
 ```bash
-POST https://kncursos.com.br/api/courses
+POST https://vemgo.com.br/api/courses
 {
   "title": "Curso Teste Auto Payment Link",
   "description": "Testando criação automática de payment link",
@@ -75,7 +75,7 @@ POST https://kncursos.com.br/api/courses
   "category": "Geral",
   "featured": false,
   "link_code": "KBINKGXI",
-  "checkout_url": "https://kncursos.com.br/checkout/KBINKGXI"
+  "checkout_url": "https://vemgo.com.br/checkout/KBINKGXI"
 }
 ```
 
@@ -97,7 +97,7 @@ POST https://kncursos.com.br/api/courses
    ```
 
 2. **Checkout Funcionando:**
-   - URL: https://kncursos.com.br/checkout/KBINKGXI
+   - URL: https://vemgo.com.br/checkout/KBINKGXI
    - **Resultado:** ✅ Página de pagamento carrega corretamente
 
 3. **API Retorna Link:**
@@ -148,7 +148,7 @@ POST https://kncursos.com.br/api/courses
 
 ### Criar Curso via API:
 ```bash
-curl -X POST https://kncursos.com.br/api/courses \
+curl -X POST https://vemgo.com.br/api/courses \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Meu Novo Curso",
@@ -170,14 +170,14 @@ curl -X POST https://kncursos.com.br/api/courses \
   "category": "Marketing Digital",
   "featured": true,
   "link_code": "XYZ12ABC",
-  "checkout_url": "https://kncursos.com.br/checkout/XYZ12ABC"
+  "checkout_url": "https://vemgo.com.br/checkout/XYZ12ABC"
 }
 ```
 
 ### Pronto para Vender:
 - ✅ Curso criado
 - ✅ Payment link ativo
-- ✅ Checkout disponível em: https://kncursos.com.br/checkout/XYZ12ABC
+- ✅ Checkout disponível em: https://vemgo.com.br/checkout/XYZ12ABC
 
 ---
 
@@ -218,10 +218,10 @@ Quando você criar um novo curso (via API ou painel admin), o sistema:
 
 ## 🔗 Links Úteis
 
-- **Site:** https://kncursos.com.br
-- **Admin:** https://kncursos.com.br/admin
-- **Painel Cursos:** https://kncursos.com.br/cursos
-- **Curso de Teste:** https://kncursos.com.br/checkout/KBINKGXI
+- **Site:** https://vemgo.com.br
+- **Admin:** https://vemgo.com.br/admin
+- **Painel Cursos:** https://vemgo.com.br/cursos
+- **Curso de Teste:** https://vemgo.com.br/checkout/KBINKGXI
 
 ---
 

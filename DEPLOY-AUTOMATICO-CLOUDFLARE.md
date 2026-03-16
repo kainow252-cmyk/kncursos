@@ -35,19 +35,19 @@ Você será redirecionado para o navegador para autorizar.
 **Opção A: Via CLI (Recomendado)**
 ```bash
 # Criar bucket
-npx wrangler r2 bucket create kncursos-files
+npx wrangler r2 bucket create vemgo-files
 
 # Verificar criação
 npx wrangler r2 bucket list
 
 # Resultado esperado:
-# kncursos-files (created: 2026-03-14)
+# vemgo-files (created: 2026-03-14)
 ```
 
 **Opção B: Via Dashboard**
 1. https://dash.cloudflare.com/
 2. Menu **R2** → **Create bucket**
-3. Nome: `kncursos-files`
+3. Nome: `vemgo-files`
 4. Location: **Automatic**
 5. Clique em **Create bucket**
 
@@ -59,12 +59,12 @@ npx wrangler r2 bucket list
 # Listar databases existentes
 npx wrangler d1 list
 
-# Se o database "kncursos" já existe, pule para 1.4
+# Se o database "vemgo" já existe, pule para 1.4
 # Se não existe, criar:
-npx wrangler d1 create kncursos
+npx wrangler d1 create vemgo
 
 # Resultado:
-# ✅ Successfully created DB 'kncursos'
+# ✅ Successfully created DB 'vemgo'
 # Database ID: 6783bc59-1fd5-48b4-894b-98c77e6ca75a
 ```
 
@@ -74,7 +74,7 @@ npx wrangler d1 create kncursos
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "kncursos",
+      "database_name": "vemgo",
       "database_id": "SEU_DATABASE_ID_AQUI"
     }
   ]
@@ -90,10 +90,10 @@ npx wrangler d1 create kncursos
 npm run db:migrate:prod
 
 # Ou manualmente:
-npx wrangler d1 migrations apply kncursos --remote
+npx wrangler d1 migrations apply vemgo --remote
 
 # Verificar tabelas criadas
-npx wrangler d1 execute kncursos --remote --command "SELECT name FROM sqlite_master WHERE type='table'"
+npx wrangler d1 execute vemgo --remote --command "SELECT name FROM sqlite_master WHERE type='table'"
 ```
 
 **Resultado esperado**:
@@ -138,25 +138,25 @@ Se preferir configurar manualmente:
 
 ```bash
 # Asaas
-echo "$aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjIwY2I2YjJiLTA0YjAtNDJjNi04YjAzLWE5NWVjYTJlZTgzMjo6JGFhY2hfOWYxOGNjOGEtMjQyYi00NGNiLThmZjUtZGY5MWI5YTA0Yjlm" | npx wrangler pages secret put ASAAS_API_KEY --project-name kncursos
+echo "$aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjIwY2I2YjJiLTA0YjAtNDJjNi04YjAzLWE5NWVjYTJlZTgzMjo6JGFhY2hfOWYxOGNjOGEtMjQyYi00NGNiLThmZjUtZGY5MWI5YTA0Yjlm" | npx wrangler pages secret put ASAAS_API_KEY --project-name vemgo
 
-echo "sandbox" | npx wrangler pages secret put ASAAS_ENV --project-name kncursos
+echo "sandbox" | npx wrangler pages secret put ASAAS_ENV --project-name vemgo
 
-echo "whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM" | npx wrangler pages secret put ASAAS_WEBHOOK_TOKEN --project-name kncursos
+echo "whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM" | npx wrangler pages secret put ASAAS_WEBHOOK_TOKEN --project-name vemgo
 
 # Resend
-echo "re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6" | npx wrangler pages secret put RESEND_API_KEY --project-name kncursos
+echo "re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6" | npx wrangler pages secret put RESEND_API_KEY --project-name vemgo
 
-echo "cursos@kncursos.com.br" | npx wrangler pages secret put EMAIL_FROM --project-name kncursos
+echo "cursos@vemgo.com.br" | npx wrangler pages secret put EMAIL_FROM --project-name vemgo
 
-echo "whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t" | npx wrangler pages secret put RESEND_WEBHOOK_SECRET --project-name kncursos
+echo "whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t" | npx wrangler pages secret put RESEND_WEBHOOK_SECRET --project-name vemgo
 
 # Admin
-echo "admin" | npx wrangler pages secret put ADMIN_USERNAME --project-name kncursos
+echo "admin" | npx wrangler pages secret put ADMIN_USERNAME --project-name vemgo
 
-echo "kncursos2024" | npx wrangler pages secret put ADMIN_PASSWORD --project-name kncursos
+echo "vemgo2024" | npx wrangler pages secret put ADMIN_PASSWORD --project-name vemgo
 
-echo "kncursos-jwt-secret-change-in-production-2024" | npx wrangler pages secret put JWT_SECRET --project-name kncursos
+echo "vemgo-jwt-secret-change-in-production-2024" | npx wrangler pages secret put JWT_SECRET --project-name vemgo
 ```
 
 ---
@@ -164,7 +164,7 @@ echo "kncursos-jwt-secret-change-in-production-2024" | npx wrangler pages secret
 #### **2.3. Via Dashboard (Interface)**
 
 1. https://dash.cloudflare.com/
-2. **Workers & Pages** → **kncursos**
+2. **Workers & Pages** → **vemgo**
 3. **Settings** → **Environment variables**
 4. **Production** tab → **Add variable**
 5. Adicionar cada variável como **Secret** (encrypted)
@@ -173,11 +173,11 @@ echo "kncursos-jwt-secret-change-in-production-2024" | npx wrangler pages secret
    - `ASAAS_ENV` = `sandbox`
    - `ASAAS_WEBHOOK_TOKEN` = `whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM`
    - `RESEND_API_KEY` = `re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6`
-   - `EMAIL_FROM` = `cursos@kncursos.com.br`
+   - `EMAIL_FROM` = `cursos@vemgo.com.br`
    - `RESEND_WEBHOOK_SECRET` = `whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t`
    - `ADMIN_USERNAME` = `admin`
-   - `ADMIN_PASSWORD` = `kncursos2024`
-   - `JWT_SECRET` = `kncursos-jwt-secret-change-in-production-2024`
+   - `ADMIN_PASSWORD` = `vemgo2024`
+   - `JWT_SECRET` = `vemgo-jwt-secret-change-in-production-2024`
 
 ---
 
@@ -211,14 +211,14 @@ npm run deploy
 
 Este comando executa:
 1. `npm run build` (build do projeto)
-2. `wrangler pages deploy dist --project-name kncursos`
+2. `wrangler pages deploy dist --project-name vemgo`
 
 ---
 
 **Opção B: Deploy Manual**
 ```bash
 npx wrangler pages deploy dist \
-  --project-name kncursos \
+  --project-name vemgo \
   --commit-dirty=true \
   --branch main
 ```
@@ -229,7 +229,7 @@ npx wrangler pages deploy dist \
 ```
 ✨ Success! Uploaded 1 files (1 already uploaded)
 
-✨ Deployment complete! Take a peek over at https://abc123.kncursos.pages.dev
+✨ Deployment complete! Take a peek over at https://abc123.vemgo.pages.dev
 ```
 
 ---
@@ -240,19 +240,19 @@ Após o primeiro deploy, verificar se os bindings estão corretos:
 
 #### **4.1. Via Dashboard**
 1. https://dash.cloudflare.com/
-2. **Workers & Pages** → **kncursos**
+2. **Workers & Pages** → **vemgo**
 3. **Settings** → **Bindings**
 4. Verificar:
-   - **D1 Database**: `DB` → `kncursos` (ID: 6783bc59-1fd5-48b4-894b-98c77e6ca75a)
-   - **R2 Bucket**: `R2` → `kncursos-files`
+   - **D1 Database**: `DB` → `vemgo` (ID: 6783bc59-1fd5-48b4-894b-98c77e6ca75a)
+   - **R2 Bucket**: `R2` → `vemgo-files`
 
 #### **4.2. Se estiver faltando, adicionar manualmente**:
 - **Add binding** → **D1 Database**
   - Variable name: `DB`
-  - D1 database: `kncursos`
+  - D1 database: `vemgo`
 - **Add binding** → **R2 Bucket**
   - Variable name: `R2`
-  - R2 bucket: `kncursos-files`
+  - R2 bucket: `vemgo-files`
 
 Após adicionar bindings, fazer **novo deploy**:
 ```bash
@@ -267,10 +267,10 @@ Se quiser adicionar cursos de exemplo:
 
 ```bash
 # Executar seed em produção
-npx wrangler d1 execute kncursos --remote --file=./seed.sql
+npx wrangler d1 execute vemgo --remote --file=./seed.sql
 
 # Verificar cursos criados
-npx wrangler d1 execute kncursos --remote --command "SELECT id, title, price FROM courses"
+npx wrangler d1 execute vemgo --remote --command "SELECT id, title, price FROM courses"
 ```
 
 ---
@@ -280,38 +280,38 @@ npx wrangler d1 execute kncursos --remote --command "SELECT id, title, price FRO
 #### **6.1. Verificar URLs**
 
 Após deploy, você terá:
-- URL temporária: `https://abc123.kncursos.pages.dev`
-- URL principal: `https://kncursos.pages.dev`
+- URL temporária: `https://abc123.vemgo.pages.dev`
+- URL principal: `https://vemgo.pages.dev`
 
 #### **6.2. Testes Básicos**
 
 ```bash
 # Testar página principal
-curl https://kncursos.pages.dev/
+curl https://vemgo.pages.dev/
 
 # Testar API de cursos
-curl https://kncursos.pages.dev/api/courses
+curl https://vemgo.pages.dev/api/courses
 
 # Testar login (deve retornar página HTML)
-curl https://kncursos.pages.dev/login
+curl https://vemgo.pages.dev/login
 
 # Testar autenticação
-curl -X POST https://kncursos.pages.dev/api/auth/login \
+curl -X POST https://vemgo.pages.dev/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"kncursos2024"}'
+  -d '{"username":"admin","password":"vemgo2024"}'
 ```
 
 #### **6.3. Testar Upload (Precisa de autenticação)**
 
 ```bash
 # 1. Fazer login e salvar cookie
-curl -X POST https://kncursos.pages.dev/api/auth/login \
+curl -X POST https://vemgo.pages.dev/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"kncursos2024"}' \
+  -d '{"username":"admin","password":"vemgo2024"}' \
   -c cookies.txt
 
 # 2. Fazer upload usando o cookie
-curl -X POST https://kncursos.pages.dev/api/upload \
+curl -X POST https://vemgo.pages.dev/api/upload \
   -b cookies.txt \
   -F "file=@test.jpg"
 
@@ -323,7 +323,7 @@ curl -X POST https://kncursos.pages.dev/api/upload \
 # }
 
 # 3. Acessar arquivo
-curl https://kncursos.pages.dev/files/images/1710409200-abc123.jpg --output downloaded.jpg
+curl https://vemgo.pages.dev/files/images/1710409200-abc123.jpg --output downloaded.jpg
 ```
 
 ---
@@ -333,7 +333,7 @@ curl https://kncursos.pages.dev/files/images/1710409200-abc123.jpg --output down
 ### **Verificar Secrets**
 ```bash
 # Listar secrets configurados
-npx wrangler pages secret list --project-name kncursos
+npx wrangler pages secret list --project-name vemgo
 
 # Resultado esperado:
 # ASAAS_API_KEY
@@ -350,16 +350,16 @@ npx wrangler pages secret list --project-name kncursos
 ### **Verificar Bindings**
 ```bash
 # Ver configuração do projeto
-npx wrangler pages project view kncursos
+npx wrangler pages project view vemgo
 ```
 
 ### **Verificar Logs em Tempo Real**
 ```bash
 # Ver logs do deployment
-npx wrangler pages deployment tail --project-name kncursos
+npx wrangler pages deployment tail --project-name vemgo
 
 # Ver logs em tempo real (após deploy)
-# Acessar dashboard → Workers & Pages → kncursos → Logs
+# Acessar dashboard → Workers & Pages → vemgo → Logs
 ```
 
 ### **Verificar R2**
@@ -368,25 +368,25 @@ npx wrangler pages deployment tail --project-name kncursos
 npx wrangler r2 bucket list
 
 # Ver arquivos no bucket
-npx wrangler r2 object list kncursos-files
+npx wrangler r2 object list vemgo-files
 
 # Fazer upload de teste
-npx wrangler r2 object put kncursos-files/test.txt --file=test.txt
+npx wrangler r2 object put vemgo-files/test.txt --file=test.txt
 
 # Ver arquivo
-npx wrangler r2 object get kncursos-files/test.txt
+npx wrangler r2 object get vemgo-files/test.txt
 ```
 
 ### **Verificar D1**
 ```bash
 # Ver tabelas
-npx wrangler d1 execute kncursos --remote --command "SELECT name FROM sqlite_master WHERE type='table'"
+npx wrangler d1 execute vemgo --remote --command "SELECT name FROM sqlite_master WHERE type='table'"
 
 # Ver cursos
-npx wrangler d1 execute kncursos --remote --command "SELECT * FROM courses"
+npx wrangler d1 execute vemgo --remote --command "SELECT * FROM courses"
 
 # Ver usuários
-npx wrangler d1 execute kncursos --remote --command "SELECT username, role, email FROM users"
+npx wrangler d1 execute vemgo --remote --command "SELECT username, role, email FROM users"
 ```
 
 ---
@@ -396,7 +396,7 @@ npx wrangler d1 execute kncursos --remote --command "SELECT username, role, emai
 ### **Erro: "Bucket not found"**
 ```bash
 # Criar bucket
-npx wrangler r2 bucket create kncursos-files
+npx wrangler r2 bucket create vemgo-files
 
 # Verificar bindings no dashboard
 ```
@@ -418,7 +418,7 @@ bash set-secrets.sh
 ```
 
 ### **Erro: "Binding R2 or DB not found"**
-1. Dashboard → kncursos → Settings → Bindings
+1. Dashboard → vemgo → Settings → Bindings
 2. Adicionar bindings manualmente
 3. Fazer novo deploy: `npm run deploy`
 
@@ -439,7 +439,7 @@ bash set-secrets.sh
 
 ### **Deploy Cloudflare**:
 - [ ] Login no Cloudflare: `npx wrangler login`
-- [ ] Criar bucket R2: `npx wrangler r2 bucket create kncursos-files`
+- [ ] Criar bucket R2: `npx wrangler r2 bucket create vemgo-files`
 - [ ] Verificar D1: `npx wrangler d1 list`
 - [ ] Aplicar migrations: `npm run db:migrate:prod`
 - [ ] Configurar secrets: `bash set-secrets.sh`
@@ -465,7 +465,7 @@ bash set-secrets.sh
 npx wrangler login
 
 # 2. Criar bucket R2
-npx wrangler r2 bucket create kncursos-files
+npx wrangler r2 bucket create vemgo-files
 
 # 3. Verificar D1
 npx wrangler d1 list
@@ -480,10 +480,10 @@ bash set-secrets.sh
 npm run deploy
 
 # 7. Verificar
-npx wrangler pages project view kncursos
+npx wrangler pages project view vemgo
 
 # 8. Testar
-curl https://kncursos.pages.dev/api/courses
+curl https://vemgo.pages.dev/api/courses
 ```
 
 ---
@@ -500,5 +500,5 @@ curl https://kncursos.pages.dev/api/courses
 
 **Criado em**: 2026-03-14  
 **Versão**: 1.0.0  
-**Autor**: KN Cursos Dev Team  
+**Autor**: Vemgo Dev Team  
 **Status**: Pronto para deploy

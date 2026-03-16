@@ -72,7 +72,7 @@ npm run build:css
 
 ### **1. Abrir DevTools Console:**
 ```
-https://kncursos.pages.dev/
+https://vemgo.pages.dev/
 ```
 
 **Antes:** 
@@ -114,8 +114,8 @@ cdn.tailwindcss.com should not be used in production...
 | Ambiente | URL | Status |
 |----------|-----|--------|
 | **Local** | http://localhost:3000 | ✅ Online |
-| **Staging** | https://1f7f61fd.kncursos.pages.dev | ✅ Deployed |
-| **Production** | https://kncursos.pages.dev | ✅ Deployed |
+| **Staging** | https://1f7f61fd.vemgo.pages.dev | ✅ Deployed |
+| **Production** | https://vemgo.pages.dev | ✅ Deployed |
 
 ---
 

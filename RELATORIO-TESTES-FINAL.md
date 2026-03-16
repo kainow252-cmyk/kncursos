@@ -1,7 +1,7 @@
-# 🧪 Relatório de Testes Completo - KN Cursos
+# 🧪 Relatório de Testes Completo - Vemgo
 
 **Data:** 14/03/2026  
-**Deploy:** https://kncursos.com.br (ID: 93142d1d)  
+**Deploy:** https://vemgo.com.br (ID: 93142d1d)  
 **Status:** ✅ **PRODUÇÃO - 100% FUNCIONAL**
 
 ---
@@ -14,7 +14,7 @@
 - 📈 **Total:** 14 testes executados
 
 ### Sistema em Produção
-- 🌐 **URL:** https://kncursos.com.br
+- 🌐 **URL:** https://vemgo.com.br
 - 🚀 **Deploy ID:** 93142d1d
 - 📦 **Build:** 480.82 kB em 2.87s
 - 📱 **Mobile-First:** Totalmente responsivo
@@ -174,14 +174,14 @@
 
 **Antes:**
 ```html
-<h1>kncursos</h1>
+<h1>vemgo</h1>
 <p>Aprenda com os melhores cursos online</p>
 ```
 
 **Depois (uma linha):**
 ```html
 <div class="flex items-baseline gap-1 md:gap-2">
-  <h1 class="text-lg md:text-2xl lg:text-3xl">kncursos</h1>
+  <h1 class="text-lg md:text-2xl lg:text-3xl">vemgo</h1>
   <span class="hidden sm:inline">-</span>
   <p class="text-xs sm:text-sm md:text-base">Aprenda com os melhores cursos online</p>
 </div>
@@ -466,7 +466,7 @@ describe('API Courses', () => {
 
 ---
 
-**Deploy:** https://kncursos.com.br  
+**Deploy:** https://vemgo.com.br  
 **Desenvolvido por:** GenSpark AI Developer  
 **Data:** 14/03/2026  
 **Status:** 🟢 PRODUÇÃO

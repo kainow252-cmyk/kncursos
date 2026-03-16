@@ -20,7 +20,7 @@
 
 1. **Acesse**: https://dash.cloudflare.com/
 2. **Storage & Databases** → **D1**
-3. Clique no database **kncursos**
+3. Clique no database **vemgo**
 4. Aba **"Console"**
 5. Execute este SQL:
 
@@ -67,10 +67,10 @@ EOF
 
 ```bash
 # Produção
-npx wrangler d1 migrations apply kncursos --remote
+npx wrangler d1 migrations apply vemgo --remote
 
 # Local (se necessário)
-npx wrangler d1 migrations apply kncursos --local
+npx wrangler d1 migrations apply vemgo --local
 ```
 
 ---
@@ -80,7 +80,7 @@ npx wrangler d1 migrations apply kncursos --local
 ### Via cURL
 
 ```bash
-curl -X PUT https://kncursos.pages.dev/api/courses/1 \
+curl -X PUT https://vemgo.pages.dev/api/courses/1 \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Curso Atualizado",
@@ -98,8 +98,8 @@ curl -X PUT https://kncursos.pages.dev/api/courses/1 \
 
 ### Via Admin
 
-1. https://kncursos.pages.dev/login
-2. Login: `admin` / `kncursos2024`
+1. https://vemgo.pages.dev/login
+2. Login: `admin` / `vemgo2024`
 3. Editar qualquer curso
 4. Salvar
 5. ✅ Deve funcionar!
@@ -164,15 +164,15 @@ CREATE TABLE courses (
 ```bash
 # Opção A: Via Dashboard (RECOMENDADO)
 # 1. Acesse: https://dash.cloudflare.com/
-# 2. Storage & Databases → D1 → kncursos → Console
+# 2. Storage & Databases → D1 → vemgo → Console
 # 3. Execute: ALTER TABLE courses ADD COLUMN category TEXT DEFAULT 'Geral';
 
 # Opção B: Via CLI (se funcionar)
-npx wrangler d1 execute kncursos --remote \
+npx wrangler d1 execute vemgo --remote \
   --command="ALTER TABLE courses ADD COLUMN category TEXT DEFAULT 'Geral';"
 
 # Verificar
-npx wrangler d1 execute kncursos --remote \
+npx wrangler d1 execute vemgo --remote \
   --command="SELECT id, title, category FROM courses LIMIT 3;"
 ```
 

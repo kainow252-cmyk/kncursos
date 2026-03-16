@@ -28,7 +28,7 @@ Você está em:
 ```
 https://dash.cloudflare.com/...
 → Workers & Pages
-→ kncursos  
+→ vemgo  
 → Settings
 → Variáveis e segredos ← VOCÊ ESTÁ AQUI
 ```
@@ -87,7 +87,7 @@ Após selecionar D1, aparecerá:
 │ [Selecione um banco de dados ▼]                 │
 │                                                 │
 │ Opções:                                         │
-│  • kncursos                      ← SE EXISTIR   │
+│  • vemgo                      ← SE EXISTIR   │
 │  • Criar novo banco de dados                    │
 └─────────────────────────────────────────────────┘
 ```
@@ -95,7 +95,7 @@ Após selecionar D1, aparecerá:
 **Preencha**:
 - **Nome da variável**: `DB` (exatamente assim, em MAIÚSCULAS)
 - **Banco de dados D1**: 
-  - Se `kncursos` aparecer na lista → Selecione
+  - Se `vemgo` aparecer na lista → Selecione
   - Se não aparecer → Veja "Cenário B" abaixo
 
 ### Passo 5: Salvar
@@ -104,7 +104,7 @@ Clique em **"Salvar"** ou **"Save"**
 
 ---
 
-## 📊 Cenário A: Database "kncursos" Aparece na Lista
+## 📊 Cenário A: Database "vemgo" Aparece na Lista
 
 ✅ **Perfeito!** Apenas selecione e salve.
 
@@ -115,7 +115,7 @@ Após salvar, você verá:
 │ Associações (Bindings)                          │
 ├─────────────────────────────────────────────────┤
 │ Tipo         Nome    Valor                      │
-│ D1 database  DB      kncursos                   │
+│ D1 database  DB      vemgo                   │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -123,7 +123,7 @@ Após salvar, você verá:
 
 ## 📊 Cenário B: Database NÃO Aparece na Lista
 
-Se `kncursos` não aparecer, você precisa criar o database primeiro.
+Se `vemgo` não aparecer, você precisa criar o database primeiro.
 
 ### Criar Database D1
 
@@ -132,14 +132,14 @@ Se `kncursos` não aparecer, você precisa criar o database primeiro.
 3. Menu lateral → **Storage & Databases** → **D1**
 4. Clique em **"Create"** ou **"Criar banco de dados"**
 5. Preencha:
-   - **Nome**: `kncursos`
+   - **Nome**: `vemgo`
    - **Localização**: Automatic (ou South America se disponível)
 6. Clique em **Create**
 7. O database será criado
 
 ### Criar Tabelas
 
-1. Clique no database **kncursos** recém-criado
+1. Clique no database **vemgo** recém-criado
 2. Vá para a aba **Console**
 3. Cole e execute este SQL:
 
@@ -216,10 +216,10 @@ INSERT INTO payment_links (course_id, link_code) VALUES
 
 Agora volte para:
 ```
-Workers & Pages → kncursos → Settings → Associações
+Workers & Pages → vemgo → Settings → Associações
 ```
 
-E adicione o binding conforme **Passo 3** acima. Agora `kncursos` deve aparecer na lista!
+E adicione o binding conforme **Passo 3** acima. Agora `vemgo` deve aparecer na lista!
 
 ---
 
@@ -228,7 +228,7 @@ E adicione o binding conforme **Passo 3** acima. Agora `kncursos` deve aparecer 
 ### Teste 1: API
 
 ```bash
-curl https://kncursos.pages.dev/api/courses
+curl https://vemgo.pages.dev/api/courses
 ```
 
 **Antes** (sem binding):
@@ -251,8 +251,8 @@ curl https://kncursos.pages.dev/api/courses
 
 ### Teste 2: Admin Dashboard
 
-1. Acesse: https://kncursos.pages.dev/login
-2. Login: `admin` / `kncursos2024`
+1. Acesse: https://vemgo.pages.dev/login
+2. Login: `admin` / `vemgo2024`
 3. Dashboard deve mostrar cursos
 4. Editar curso deve funcionar (sem erro 500)
 
@@ -276,7 +276,7 @@ Após tudo configurado, suas **Settings** devem ter:
 
 ### Associações (1 binding)
 ```
-✅ D1 database: DB → kncursos
+✅ D1 database: DB → vemgo
 ```
 
 ---
@@ -284,8 +284,8 @@ Após tudo configurado, suas **Settings** devem ter:
 ## ✅ Checklist
 
 - [x] 8 variáveis de ambiente configuradas
-- [ ] D1 binding adicionado (Nome: `DB`, Database: `kncursos`)
-- [ ] Database `kncursos` existe em D1
+- [ ] D1 binding adicionado (Nome: `DB`, Database: `vemgo`)
+- [ ] Database `vemgo` existe em D1
 - [ ] Tabelas criadas no database
 - [ ] Dados de teste adicionados
 - [ ] API testada (retorna cursos)
@@ -300,9 +300,9 @@ Após tudo configurado, suas **Settings** devem ter:
 3. Clicar em **"Adicionar"**
 4. Tipo: **D1 database**
 5. Nome da variável: **`DB`**
-6. Banco de dados: **`kncursos`** (se não existir, criar primeiro)
+6. Banco de dados: **`vemgo`** (se não existir, criar primeiro)
 7. **Salvar**
-8. **Testar**: `curl https://kncursos.pages.dev/api/courses`
+8. **Testar**: `curl https://vemgo.pages.dev/api/courses`
 
 ---
 

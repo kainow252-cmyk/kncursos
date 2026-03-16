@@ -42,7 +42,7 @@ ASAAS_API_KEY=$aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjIwY2I2
 ### 2️⃣ **Configurar no Cloudflare Pages**
 
 #### Acesse o Dashboard:
-https://dash.cloudflare.com/ → **Workers & Pages** → **kncursos** → **Settings** → **Environment variables**
+https://dash.cloudflare.com/ → **Workers & Pages** → **vemgo** → **Settings** → **Environment variables**
 
 #### Adicione as 3 variáveis essenciais para SANDBOX:
 
@@ -83,7 +83,7 @@ Encrypt: ✅ SIM
 **EMAIL_FROM**
 ```
 Variable name: EMAIL_FROM
-Value: cursos@kncursos.com.br
+Value: cursos@vemgo.com.br
 Environment: Production
 Encrypt: ❌ NÃO
 ```
@@ -107,7 +107,7 @@ Encrypt: ❌ NÃO
 **ADMIN_PASSWORD**
 ```
 Variable name: ADMIN_PASSWORD
-Value: kncursos2024
+Value: vemgo2024
 Environment: Production
 Encrypt: ✅ SIM
 ```
@@ -115,7 +115,7 @@ Encrypt: ✅ SIM
 **JWT_SECRET**
 ```
 Variable name: JWT_SECRET
-Value: kncursos-jwt-secret-change-in-production-2024
+Value: vemgo-jwt-secret-change-in-production-2024
 Environment: Production
 Encrypt: ✅ SIM
 ```
@@ -133,7 +133,7 @@ Após adicionar todas as variáveis:
 
 ### 1. **Acesse o Checkout:**
 ```
-https://kncursos.pages.dev/checkout/DEV2024XYZ
+https://vemgo.pages.dev/checkout/DEV2024XYZ
 ```
 
 ### 2. **Preencha com Dados de TESTE Asaas:**
@@ -173,7 +173,7 @@ Você deve ver:
 ```
 
 ### Na Tela:
-- Redirecionamento automático para: `https://kncursos.pages.dev/success/[TOKEN]`
+- Redirecionamento automático para: `https://vemgo.pages.dev/success/[TOKEN]`
 - Mensagem: "Pagamento aprovado!"
 - Botão de download do PDF
 
@@ -190,7 +190,7 @@ Você deve ver:
 
 ### Verificar no Console do Cloudflare:
 1. Acesse: https://dash.cloudflare.com/
-2. Workers & Pages → kncursos → Settings → Environment variables
+2. Workers & Pages → vemgo → Settings → Environment variables
 3. Confirme que `ASAAS_API_KEY` está configurada
 4. Confirme que `ASAAS_ENV` = `sandbox`
 
@@ -198,7 +198,7 @@ Você deve ver:
 ```bash
 cd /home/user/webapp
 npm run build
-pm2 restart kncursos
+pm2 restart vemgo
 
 # Testar com curl
 curl -X POST http://localhost:3000/api/sales \

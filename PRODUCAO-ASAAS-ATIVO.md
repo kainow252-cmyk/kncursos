@@ -32,15 +32,15 @@ ASAAS_WEBHOOK_TOKEN=whsec_9YVKoFYtPFuvWqRZgrmLEXWmzVv1jwZWjm2YDl6jyms
 
 ### **Produção Ativa**
 ```
-URL Principal: https://c02d2ec7.kncursos.pages.dev
-URL Anterior: https://7d5d2489.kncursos.pages.dev (ainda funciona)
+URL Principal: https://c02d2ec7.vemgo.pages.dev
+URL Anterior: https://7d5d2489.vemgo.pages.dev (ainda funciona)
 ```
 
 ### **Painel Admin**
 ```
-URL: https://c02d2ec7.kncursos.pages.dev/admin
+URL: https://c02d2ec7.vemgo.pages.dev/admin
 Login: admin
-Senha: kncursos2024
+Senha: vemgo2024
 ```
 
 ---
@@ -67,14 +67,14 @@ Senha: kncursos2024
 - ✅ `ASAAS_ENV` → `production`
 - ✅ `ASAAS_WEBHOOK_TOKEN` → Configurado
 - ✅ `RESEND_API_KEY` → Email funcionando
-- ✅ `EMAIL_FROM` → cursos@kncursos.com.br
+- ✅ `EMAIL_FROM` → cursos@vemgo.com.br
 - ✅ `JWT_SECRET` → Autenticação ativa
 
 ### **Deploy Realizado:**
 - ✅ Build: 2.78s
 - ✅ Deploy: 0.37s
 - ✅ Status: Online
-- ✅ URL: https://c02d2ec7.kncursos.pages.dev
+- ✅ URL: https://c02d2ec7.vemgo.pages.dev
 
 ---
 
@@ -113,9 +113,9 @@ Login: Com suas credenciais
 - ✅ Saldo disponível
 - ✅ Taxas cobradas
 
-### **Dashboard KN Cursos:**
+### **Dashboard Vemgo:**
 ```
-URL: https://c02d2ec7.kncursos.pages.dev/admin
+URL: https://c02d2ec7.vemgo.pages.dev/admin
 ```
 
 **O que ver:**
@@ -153,8 +153,8 @@ Para testar em produção **SEM cobrar clientes reais:**
 ## 📧 EMAILS AUTOMÁTICOS
 
 ### **Resend Configurado:**
-- ✅ Domínio verificado: kncursos.com.br
-- ✅ Email remetente: cursos@kncursos.com.br
+- ✅ Domínio verificado: vemgo.com.br
+- ✅ Email remetente: cursos@vemgo.com.br
 - ✅ Status: Ativo e entregando
 
 ### **O que acontece após compra:**
@@ -173,7 +173,7 @@ Para testar em produção **SEM cobrar clientes reais:**
 
 ### **Asaas Webhook:**
 ```
-URL: https://c02d2ec7.kncursos.pages.dev/webhook/asaas
+URL: https://c02d2ec7.vemgo.pages.dev/webhook/asaas
 Token: whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM
 ```
 
@@ -186,7 +186,7 @@ Token: whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM
 ### **Como configurar no Asaas:**
 1. Acesse: https://www.asaas.com/
 2. Vá em **Configurações** → **Integrações** → **Webhooks**
-3. Adicione: `https://c02d2ec7.kncursos.pages.dev/webhook/asaas`
+3. Adicione: `https://c02d2ec7.vemgo.pages.dev/webhook/asaas`
 4. Token: `whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM`
 5. Selecione eventos de pagamento
 6. Salve
@@ -197,7 +197,7 @@ Token: whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM
 
 ```
 1. Cliente acessa a loja
-   → https://c02d2ec7.kncursos.pages.dev/
+   → https://c02d2ec7.vemgo.pages.dev/
 
 2. Cliente clica em "COMPRAR AGORA"
    → Redirecionado para checkout
@@ -299,7 +299,7 @@ Token: whsec_JmShFzK6nmqkFL11RF_RIaB2zcNPWcpaA5akwxWw4oM
 5. Compartilhe com clientes
 6. Receba pagamentos!
 
-**🔗 URL da Loja:** https://c02d2ec7.kncursos.pages.dev
+**🔗 URL da Loja:** https://c02d2ec7.vemgo.pages.dev
 
 **Pronto para faturar!** 💰🚀
 

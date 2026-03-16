@@ -112,7 +112,7 @@ Content-Type: application/json
 
 ### **URL do Webhook (Nosso Sistema):**
 ```
-https://c02d2ec7.kncursos.pages.dev/webhook/suitpay
+https://c02d2ec7.vemgo.pages.dev/webhook/suitpay
 ```
 
 ### **Payload Recebido:**
@@ -133,7 +133,7 @@ O webhook só é válido se vier do IP:
 ### **Configurar no SuitPay:**
 1. Acesse: https://web.suitpay.app
 2. Vá em: **VENDAS → GATEWAY DE PAGAMENTO → Webhooks**
-3. Adicione a URL: `https://c02d2ec7.kncursos.pages.dev/webhook/suitpay`
+3. Adicione a URL: `https://c02d2ec7.vemgo.pages.dev/webhook/suitpay`
 4. Tipo: **Rest**
 5. Método: **POST**
 

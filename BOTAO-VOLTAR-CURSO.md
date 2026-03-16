@@ -20,7 +20,7 @@ Adicionado **botão "← Voltar para Cursos"** no header da página de detalhes 
 ```html
 <header class="bg-gradient-to-r from-blue-600 to-purple-600">
     <div class="container mx-auto px-4 py-4 text-center">
-        <h1>kncursos</h1>
+        <h1>vemgo</h1>
     </div>
 </header>
 ```
@@ -39,7 +39,7 @@ Adicionado **botão "← Voltar para Cursos"** no header da página de detalhes 
             <!-- Logo (centro) -->
             <h1 class="text-2xl font-bold">
                 <i class="fas fa-graduation-cap mr-2"></i>
-                kncursos
+                vemgo
             </h1>
             
             <!-- Spacer (direita - para centralizar logo) -->
@@ -105,8 +105,8 @@ curl -s http://localhost:3000/curso/1 | grep "Voltar para Cursos"
 ## 🌐 URLs para Teste
 
 - **Local**: http://localhost:3000/curso/1
-- **Produção**: https://kncursos.pages.dev/curso/1
-- **Versão Atual**: https://221ee960.kncursos.pages.dev/curso/1
+- **Produção**: https://vemgo.pages.dev/curso/1
+- **Versão Atual**: https://221ee960.vemgo.pages.dev/curso/1
 
 ## ✅ Benefícios
 
@@ -164,8 +164,8 @@ git commit -m "🔙 UX: Botão VOLTAR na página de detalhes do curso"
 
 ## 🚀 Deploy
 
-- **Produção**: https://kncursos.pages.dev/
-- **Versão Atual**: https://221ee960.kncursos.pages.dev/
+- **Produção**: https://vemgo.pages.dev/
+- **Versão Atual**: https://221ee960.vemgo.pages.dev/
 
 ---
 

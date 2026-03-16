@@ -76,15 +76,15 @@
 ## 🌐 URLs DO SISTEMA
 
 ### Produção
-- **Loja:** https://kncursos.pages.dev/
-- **Checkout:** https://kncursos.pages.dev/checkout/DEV2024XYZ
-- **Admin:** https://kncursos.pages.dev/admin
-- **Login:** https://kncursos.pages.dev/login
-- **Teste E-mail:** https://kncursos.pages.dev/test-email
+- **Loja:** https://vemgo.pages.dev/
+- **Checkout:** https://vemgo.pages.dev/checkout/DEV2024XYZ
+- **Admin:** https://vemgo.pages.dev/admin
+- **Login:** https://vemgo.pages.dev/login
+- **Teste E-mail:** https://vemgo.pages.dev/test-email
 
 ### Credenciais Admin
 - **Usuário:** admin
-- **Senha:** kncursos2024
+- **Senha:** vemgo2024
 
 ---
 
@@ -97,7 +97,7 @@
 
 ### Resend (E-mails)
 - ✅ `RESEND_API_KEY` - Configurada e funcionando
-- ✅ `EMAIL_FROM` = `cursos@kncursos.com.br`
+- ✅ `EMAIL_FROM` = `cursos@vemgo.com.br`
 - ✅ `RESEND_WEBHOOK_SECRET` - Configurada
 
 ### Admin
@@ -184,7 +184,7 @@ CVV: 318
 
 ### Storage
 - **Cloudflare R2** (S3-compatible)
-- Bucket: kncursos-files
+- Bucket: vemgo-files
 
 ### Integrações
 - **Asaas:** Processamento de pagamentos

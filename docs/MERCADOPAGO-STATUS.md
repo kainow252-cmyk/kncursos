@@ -117,11 +117,11 @@ export CLOUDFLARE_API_TOKEN="seu-token"
 
 # Adicionar Access Token de teste
 npx wrangler pages secret put MERCADOPAGO_TEST_ACCESS_TOKEN \
-  --project-name=kncursos
+  --project-name=vemgo
 
 # Adicionar Public Key de teste
 npx wrangler pages secret put MERCADOPAGO_TEST_PUBLIC_KEY \
-  --project-name=kncursos
+  --project-name=vemgo
 ```
 
 ### Passo 3: Atualizar Backend
@@ -142,13 +142,13 @@ const publicKey = isTestMode
 
 ### Passo 4: Testar com Cartões de Teste
 ```bash
-curl -X POST https://kncursos.com.br/api/sales \
+curl -X POST https://vemgo.com.br/api/sales \
   -H "Content-Type: application/json" \
   -d '{
     "link_code": "MKT2024ABC",
     "customer_name": "APRO",
     "customer_cpf": "12345678909",
-    "customer_email": "teste@kncursos.com.br",
+    "customer_email": "teste@vemgo.com.br",
     "customer_phone": "11999887766",
     "card_number": "5031433215406351",
     "card_holder_name": "APRO",
@@ -162,16 +162,16 @@ curl -X POST https://kncursos.com.br/api/sales \
 1. Acesse: https://www.mercadopago.com.br/developers/panel
 2. Vá em **Webhooks** → **Notifications IPN**
 3. Configure:
-   - URL: `https://kncursos.com.br/api/webhooks/mercadopago`
+   - URL: `https://vemgo.com.br/api/webhooks/mercadopago`
    - Eventos: Todos
    - Forneça um Order ID de teste (após primeiro pagamento aprovado)
 4. Salve e teste
 
 ## 📊 Status Atual do Deployment
 
-**Último Deploy**: https://a7c6c33c.kncursos.pages.dev
-**Produção**: https://kncursos.com.br
-**Checkout de Teste**: https://a7c6c33c.kncursos.pages.dev/checkout/MKT2024ABC
+**Último Deploy**: https://a7c6c33c.vemgo.pages.dev
+**Produção**: https://vemgo.com.br
+**Checkout de Teste**: https://a7c6c33c.vemgo.pages.dev/checkout/MKT2024ABC
 
 **Commits Recentes**:
 - `8690a87` - fix: corrigir tokenização (usar ACCESS_TOKEN)

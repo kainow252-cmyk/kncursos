@@ -45,7 +45,7 @@ cd /home/user/webapp
 export CLOUDFLARE_API_TOKEN=$(cat .cloudflare-token)
 
 # O comando vai pedir a chave - cole a nova chave do Asaas:
-npx wrangler pages secret put ASAAS_API_KEY --project-name=kncursos
+npx wrangler pages secret put ASAAS_API_KEY --project-name=vemgo
 ```
 
 **Quando aparecer:**
@@ -92,7 +92,7 @@ npm run deploy
 # Substitua YOUR_NEW_KEY pela nova chave:
 curl -s -w "\nHTTP_STATUS:%{http_code}\n" \
   -H "access_token: YOUR_NEW_KEY" \
-  -H "User-Agent: kncursos/1.0" \
+  -H "User-Agent: vemgo/1.0" \
   https://api.asaas.com/api/v3/customers?limit=1
 ```
 
@@ -118,7 +118,7 @@ HTTP_STATUS:200
 
 ```bash
 # Acesse:
-https://b002e9f3.kncursos.pages.dev
+https://b002e9f3.vemgo.pages.dev
 
 # Escolha um curso
 # Use o cartão de teste:
@@ -204,8 +204,8 @@ Botão "Gerar nova chave" ou "Nova chave API"
 - **Telefone:** (47) 3433-2909
 - **Chat:** Disponível no painel após login
 
-### KN Cursos (Sistema)
-- **GitHub Issues:** https://github.com/kainow252-cmyk/kncursos/issues
+### Vemgo (Sistema)
+- **GitHub Issues:** https://github.com/kainow252-cmyk/vemgo/issues
 - **Email:** gelci.jose.grouptrig@gmail.com
 
 ---

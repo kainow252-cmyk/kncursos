@@ -2,7 +2,7 @@
 
 **Data**: 2026-03-14  
 **Status**: ✅ Implementado e Funcional  
-**Deploy**: https://8f6533d3.kncursos.pages.dev
+**Deploy**: https://8f6533d3.vemgo.pages.dev
 
 ## Visão Geral
 
@@ -15,7 +15,7 @@ O webhook do Mercado Pago é responsável por receber notificações de mudança
 Quando um pagamento muda de status, o Mercado Pago envia uma requisição POST para:
 
 ```
-https://kncursos.com.br/api/webhooks/mercadopago
+https://vemgo.com.br/api/webhooks/mercadopago
 ```
 
 **Payload recebido**:
@@ -114,7 +114,7 @@ WHERE id = ?
 
 **Email enviado**:
 ```
-De: suporte@kncursos.com.br
+De: suporte@vemgo.com.br
 Para: {customer_email}
 Assunto: ✅ Pagamento Aprovado - {course_title}
 
@@ -162,7 +162,7 @@ Conteúdo:
 ### Opção 2: Fazer um Pagamento de Teste
 
 1. Use credenciais de TESTE
-2. Acesse o checkout: https://kncursos.com.br/checkout/MKT2024ABC
+2. Acesse o checkout: https://vemgo.com.br/checkout/MKT2024ABC
 3. Use cartão de teste aprovado: **5031 4332 1540 6351**
 4. Preencha os dados:
    - Nome: APRO
@@ -177,7 +177,7 @@ Conteúdo:
 ### Opção 3: Simular Manualmente (Desenvolvimento)
 
 ```bash
-curl -X POST "https://kncursos.com.br/api/webhooks/mercadopago" \
+curl -X POST "https://vemgo.com.br/api/webhooks/mercadopago" \
   -H "Content-Type: application/json" \
   -H "x-signature: test-signature" \
   -H "x-request-id: test-123" \
@@ -227,7 +227,7 @@ MERCADOPAGO_WEBHOOK_SECRET=a36f7473e2216424165967658f5255a8de98932d25e2bd9de8e6d
 
 # Email
 RESEND_API_KEY=re_xxxxxxxxxxxxx
-EMAIL_FROM=suporte@kncursos.com.br
+EMAIL_FROM=suporte@vemgo.com.br
 ```
 
 ## Segurança
@@ -279,7 +279,7 @@ if (hash !== expectedHash) {
 
 **Verificar logs**:
 ```bash
-wrangler tail --project-name=kncursos
+wrangler tail --project-name=vemgo
 ```
 
 ### Webhook retorna 500
@@ -318,11 +318,11 @@ wrangler tail --project-name=kncursos
 
 ## Links Importantes
 
-- **Webhook URL**: https://kncursos.com.br/api/webhooks/mercadopago
-- **Deploy Atual**: https://8f6533d3.kncursos.pages.dev
+- **Webhook URL**: https://vemgo.com.br/api/webhooks/mercadopago
+- **Deploy Atual**: https://8f6533d3.vemgo.pages.dev
 - **Painel MP**: https://www.mercadopago.com.br/developers/panel
 - **Docs MP Webhooks**: https://www.mercadopago.com.br/developers/pt/docs/your-integrations/notifications/webhooks
-- **Repositório**: https://github.com/kainow252-cmyk/kncursos
+- **Repositório**: https://github.com/kainow252-cmyk/vemgo
 
 ---
 

@@ -2,7 +2,7 @@
 
 ## 🎯 Status Atual
 
-O sistema **KN Cursos** está configurado para aceitar **APENAS PAGAMENTO COM CARTÃO DE CRÉDITO** via gateway Asaas.
+O sistema **Vemgo** está configurado para aceitar **APENAS PAGAMENTO COM CARTÃO DE CRÉDITO** via gateway Asaas.
 
 ---
 
@@ -191,7 +191,7 @@ CVV: 318
 
 3. **Configurar webhook:**
    - Dashboard Asaas → Integrações → Webhooks
-   - URL: `https://kncursos.pages.dev/api/webhooks/asaas`
+   - URL: `https://vemgo.pages.dev/api/webhooks/asaas`
    - Eventos: PAYMENT_CONFIRMED, PAYMENT_OVERDUE, etc.
 
 4. **Testar com cartão REAL:**
@@ -227,7 +227,7 @@ CVV: 318
 - Dashboard: https://www.asaas.com/ (produção)
 - Documentação: https://docs.asaas.com/
 
-**KN Cursos:**
+**Vemgo:**
 - Email: gelci.silva252@gmail.com
 - Dashboard: https://3000-ihzpzsrue6cd8i31gsaca-0e616f0a.sandbox.novita.ai/admin
 

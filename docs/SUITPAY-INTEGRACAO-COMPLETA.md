@@ -72,7 +72,7 @@ POST https://sandbox.ws.suitpay.app/api/v3/gateway/card
       "value": 10.00
     }
   ],
-  "callbackUrl": "https://kncursos.com.br/api/webhooks/suitpay"
+  "callbackUrl": "https://vemgo.com.br/api/webhooks/suitpay"
 }
 ```
 
@@ -128,7 +128,7 @@ POST https://sandbox.ws.suitpay.app/api/v3/gateway/card
 - Se necessário, gere novas chaves
 
 ### Passo 4: Configurar Webhook
-- URL: `https://kncursos.com.br/api/webhooks/suitpay`
+- URL: `https://vemgo.com.br/api/webhooks/suitpay`
 - Eventos:
   - `PAYMENT_ACCEPT`
   - `WAITING_FOR_APPROVAL`
@@ -238,7 +238,7 @@ ASAAS_WEBHOOK_TOKEN="whsec_VLXmawvFyz91ALugMOWlmwN5GTxTaaoRDC1z2QYGjT4"
 ## 📝 Webhooks Implementados
 
 ### SuitPay Webhook
-- **URL:** `https://kncursos.com.br/api/webhooks/suitpay`
+- **URL:** `https://vemgo.com.br/api/webhooks/suitpay`
 - **Método:** POST
 - **Validação:** IP whitelisting (3.132.137.46)
 - **Hash:** SHA-256 com ClientSecret
@@ -267,7 +267,7 @@ switch (statusTransaction) {
 ```
 
 ### Asaas Webhook
-- **URL:** `https://kncursos.com.br/api/webhooks/asaas`
+- **URL:** `https://vemgo.com.br/api/webhooks/asaas`
 - **Método:** POST
 - **Token:** `whsec_VLXmawvFyz91ALugMOWlmwN5GTxTaaoRDC1z2QYGjT4`
 - **Status:** ✅ Operacional
@@ -365,10 +365,10 @@ switch (statusTransaction) {
 - Tel: (47) 3433-2909
 - Painel: https://www.asaas.com
 
-**KN Cursos:**
-- Repositório: https://github.com/kainow252-cmyk/kncursos
-- Deploy: https://5a183951.kncursos.pages.dev
-- Domínio: https://kncursos.com.br
+**Vemgo:**
+- Repositório: https://github.com/kainow252-cmyk/vemgo
+- Deploy: https://5a183951.vemgo.pages.dev
+- Domínio: https://vemgo.com.br
 
 ---
 

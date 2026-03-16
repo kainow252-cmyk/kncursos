@@ -19,7 +19,7 @@
 3. **Suas integrações**: Clique em "Suas integrações"
 4. **Criar aplicação**: Clique em "Criar aplicação"
 5. **Preencha os dados**:
-   - Nome: `kncursos`
+   - Nome: `vemgo`
    - Descrição: `Plataforma de cursos online`
    - Categoria: `Educação`
 6. **Copie as credenciais**:
@@ -32,11 +32,11 @@
 # No terminal local ou via Cloudflare Dashboard
 
 # Access Token (backend)
-npx wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name kncursos
+npx wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name vemgo
 # Cole o Access Token quando solicitado
 
 # Public Key (frontend)
-npx wrangler pages secret put MERCADOPAGO_PUBLIC_KEY --project-name kncursos
+npx wrangler pages secret put MERCADOPAGO_PUBLIC_KEY --project-name vemgo
 # Cole o Public Key quando solicitado
 ```
 
@@ -52,18 +52,18 @@ MERCADOPAGO_ACCESS_TOKEN=TEST-1234567890-123456-abcdef1234567890abcdef1234567890
 MERCADOPAGO_PUBLIC_KEY=TEST-12345678-1234-1234-1234-123456789012
 
 # Banco de dados
-DB=kncursos
+DB=vemgo
 
 # JWT
-JWT_SECRET=kncursos-jwt-secret-change-in-production-2024
+JWT_SECRET=vemgo-jwt-secret-change-in-production-2024
 
 # Admin
 ADMIN_USERNAME=admin
-ADMIN_PASSWORD=kncursos2024
+ADMIN_PASSWORD=vemgo2024
 
 # Email (Resend)
 RESEND_API_KEY=re_123456789
-RESEND_FROM_EMAIL=cursos@kncursos.com.br
+RESEND_FROM_EMAIL=cursos@vemgo.com.br
 EOF
 ```
 
@@ -297,7 +297,7 @@ const cardForm = mp.cardForm({
           payment_method_id,
           transaction_amount: Number(amount),
           installments: Number(installments),
-          description: 'Curso kncursos',
+          description: 'Curso vemgo',
           payer: {
             email,
             identification: {
@@ -370,12 +370,12 @@ app.post('/api/sales', async (c) => {
 
 ```bash
 # 1. Configurar credenciais de teste
-npx wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name kncursos
+npx wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name vemgo
 # Cole o TEST-xxxx token
 
 # 2. Fazer build e deploy
 npm run build
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 
 # 3. Testar checkout
 # Usar cartão: 5031 4332 1540 6351
@@ -392,10 +392,10 @@ npx wrangler pages deploy dist --project-name kncursos
 
 ```bash
 # Local
-pm2 logs kncursos --nostream
+pm2 logs vemgo --nostream
 
 # Produção
-npx wrangler pages deployment tail --project-name kncursos
+npx wrangler pages deployment tail --project-name vemgo
 ```
 
 ### Logs Importantes
@@ -422,21 +422,21 @@ Access token: 8tcjo5okqx4pyjz0hmho8n     ← Token de acesso
 
 ```bash
 # Configurar credenciais (produção)
-npx wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name kncursos
-npx wrangler pages secret put MERCADOPAGO_PUBLIC_KEY --project-name kncursos
+npx wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name vemgo
+npx wrangler pages secret put MERCADOPAGO_PUBLIC_KEY --project-name vemgo
 
 # Listar secrets
-npx wrangler pages secret list --project-name kncursos
+npx wrangler pages secret list --project-name vemgo
 
 # Build e deploy
 npm run build
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 
 # Testar localmente
 npm run dev:d1
 
 # Verificar vendas no banco
-npx wrangler d1 execute kncursos --local --command="SELECT * FROM sales"
+npx wrangler d1 execute vemgo --local --command="SELECT * FROM sales"
 ```
 
 ---

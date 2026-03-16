@@ -13,7 +13,7 @@
 ```json
 {
   "binding": "DB",
-  "database_name": "kncursos",
+  "database_name": "vemgo",
   "database_id": "6783bc59-1fd5-48b4-894b-98c77e6ca75a"
 }
 ```
@@ -161,11 +161,11 @@ CREATE TABLE sales (
 
 | Username | Role | Email | Status |
 |----------|------|-------|--------|
-| `admin` | admin | admin@kncursos.com.br | ✅ Ativo |
-| `funcionario` | employee | funcionario@kncursos.com.br | ✅ Ativo |
+| `admin` | admin | admin@vemgo.com.br | ✅ Ativo |
+| `funcionario` | employee | funcionario@vemgo.com.br | ✅ Ativo |
 
 **Senhas:**
-- admin: `kncursos2024`
+- admin: `vemgo2024`
 - funcionario: `funcionario123`
 
 #### Schema da Tabela `users`:
@@ -220,12 +220,12 @@ CREATE TABLE saved_cards (
 ```json
 {
   "binding": "R2",
-  "bucket_name": "kncursos-files"
+  "bucket_name": "vemgo-files"
 }
 ```
 
 - **Status:** ✅ **Configurado**
-- **Bucket:** `kncursos-files`
+- **Bucket:** `vemgo-files`
 - **Uso atual:** 0 arquivos (bucket vazio)
 - **Localização local:** Não inicializado (será criado quando necessário)
 
@@ -316,25 +316,25 @@ CREATE TABLE saved_cards (
 ### Consultar Dados:
 ```bash
 # Ver todos os cursos
-wrangler d1 execute kncursos --local --command "SELECT * FROM courses"
+wrangler d1 execute vemgo --local --command "SELECT * FROM courses"
 
 # Ver vendas
-wrangler d1 execute kncursos --local --command "SELECT * FROM sales"
+wrangler d1 execute vemgo --local --command "SELECT * FROM sales"
 
 # Ver usuários
-wrangler d1 execute kncursos --local --command "SELECT username, role FROM users"
+wrangler d1 execute vemgo --local --command "SELECT username, role FROM users"
 ```
 
 ### Inserir Dados:
 ```bash
 # Adicionar curso
-wrangler d1 execute kncursos --local --command "
+wrangler d1 execute vemgo --local --command "
 INSERT INTO courses (title, description, price, image_url) 
 VALUES ('Novo Curso', 'Descrição', 99.90, 'https://...')
 "
 
 # Adicionar link de pagamento
-wrangler d1 execute kncursos --local --command "
+wrangler d1 execute vemgo --local --command "
 INSERT INTO payment_links (course_id, link_code) 
 VALUES (1, 'NOVO2024')
 "
@@ -343,12 +343,12 @@ VALUES (1, 'NOVO2024')
 ### Atualizar Dados:
 ```bash
 # Ativar/desativar curso
-wrangler d1 execute kncursos --local --command "
+wrangler d1 execute vemgo --local --command "
 UPDATE courses SET active = 0 WHERE id = 1
 "
 
 # Adicionar PDF a curso
-wrangler d1 execute kncursos --local --command "
+wrangler d1 execute vemgo --local --command "
 UPDATE courses SET pdf_url = 'https://...' WHERE id = 2
 "
 ```
@@ -356,12 +356,12 @@ UPDATE courses SET pdf_url = 'https://...' WHERE id = 2
 ### Deletar Dados:
 ```bash
 # Deletar curso
-wrangler d1 execute kncursos --local --command "
+wrangler d1 execute vemgo --local --command "
 DELETE FROM courses WHERE id = 1
 "
 
 # Limpar vendas
-wrangler d1 execute kncursos --local --command "
+wrangler d1 execute vemgo --local --command "
 DELETE FROM sales
 "
 ```
@@ -374,22 +374,22 @@ DELETE FROM sales
 
 1. **Aplicar migrations remotamente:**
    ```bash
-   wrangler d1 migrations apply kncursos --remote
+   wrangler d1 migrations apply vemgo --remote
    ```
 
 2. **Popular banco remoto:**
    ```bash
-   wrangler d1 execute kncursos --remote --file=seed.sql
+   wrangler d1 execute vemgo --remote --file=seed.sql
    ```
 
 3. **Fazer backup:**
    ```bash
-   wrangler d1 export kncursos --remote --output=backup.sql
+   wrangler d1 export vemgo --remote --output=backup.sql
    ```
 
 ### Para usar R2 em produção:
 
-O bucket `kncursos-files` será criado automaticamente no primeiro deploy.
+O bucket `vemgo-files` será criado automaticamente no primeiro deploy.
 
 ---
 

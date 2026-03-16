@@ -13,7 +13,7 @@
 
 ### 1️⃣ **Acesse o Checkout:**
 ```
-https://kncursos.pages.dev/checkout/DEV2024XYZ
+https://vemgo.pages.dev/checkout/DEV2024XYZ
 ```
 
 ### 2️⃣ **Preencha com Dados de Teste:**
@@ -41,7 +41,7 @@ https://kncursos.pages.dev/checkout/DEV2024XYZ
 2. **Sucesso!** Pagamento aprovado
 3. **Redirecionamento** para página de sucesso
 4. **E-mail enviado** com link de download
-5. **URL final:** `https://kncursos.pages.dev/success/[TOKEN]`
+5. **URL final:** `https://vemgo.pages.dev/success/[TOKEN]`
 
 ### ✅ No Console (F12):
 ```
@@ -76,7 +76,7 @@ https://kncursos.pages.dev/checkout/DEV2024XYZ
 Para ver o pagamento registrado:
 
 1. Acesse: https://dash.cloudflare.com/
-2. Storage & Databases → D1 → kncursos → Console
+2. Storage & Databases → D1 → vemgo → Console
 3. Execute:
 ```sql
 SELECT 
@@ -103,7 +103,7 @@ Deve aparecer seu pagamento de teste com:
 ## 📧 Verificar E-mail
 
 Verifique a caixa de entrada do e-mail que você usou:
-- **Remetente:** cursos@kncursos.com.br
+- **Remetente:** cursos@vemgo.com.br
 - **Assunto:** 🎉 Seu curso está pronto! - Curso de Desenvolvimento Web
 - **Conteúdo:**
   - Dados da compra
@@ -138,11 +138,11 @@ Todos os componentes estão funcionando:
 
 | Página | URL |
 |--------|-----|
-| **Checkout Teste** | https://kncursos.pages.dev/checkout/DEV2024XYZ |
-| **Checkout R$ 10** | https://kncursos.pages.dev/checkout/TESTE10 |
-| **Loja Pública** | https://kncursos.pages.dev/ |
-| **Admin** | https://kncursos.pages.dev/admin |
-| **Login** | https://kncursos.pages.dev/login |
+| **Checkout Teste** | https://vemgo.pages.dev/checkout/DEV2024XYZ |
+| **Checkout R$ 10** | https://vemgo.pages.dev/checkout/TESTE10 |
+| **Loja Pública** | https://vemgo.pages.dev/ |
+| **Admin** | https://vemgo.pages.dev/admin |
+| **Login** | https://vemgo.pages.dev/login |
 
 ---
 
@@ -180,6 +180,6 @@ Após testar e confirmar que funciona:
 
 ---
 
-**🚀 TESTE AGORA: https://kncursos.pages.dev/checkout/DEV2024XYZ**
+**🚀 TESTE AGORA: https://vemgo.pages.dev/checkout/DEV2024XYZ**
 
 **Me avise o resultado do teste!** 🎉

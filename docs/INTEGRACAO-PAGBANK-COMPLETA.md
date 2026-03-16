@@ -1,7 +1,7 @@
 # Integração PagBank - Completa e Funcional ✅
 
 ## Status da Implementação
-🟢 **100% COMPLETA** - Deploy: https://f70b987b.kncursos.pages.dev | Produção: https://kncursos.com.br
+🟢 **100% COMPLETA** - Deploy: https://f70b987b.vemgo.pages.dev | Produção: https://vemgo.com.br
 
 ---
 
@@ -30,7 +30,7 @@ MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvMiqU/9DIOFG8mGvDb6z0ZMIl23gVKCz9w9Q
 ### Ambiente
 - **PAGBANK_ENV:** `production`
 - **Base URL:** `https://api.pagseguro.com`
-- **Webhook URL:** `https://kncursos.com.br/api/webhooks/pagbank`
+- **Webhook URL:** `https://vemgo.com.br/api/webhooks/pagbank`
 
 ---
 
@@ -46,7 +46,7 @@ Content-Type: application/json
 ### Payload de Pagamento
 ```json
 {
-  "reference_id": "KNCURSOS-{timestamp}-{random}",
+  "reference_id": "VEMGO-{timestamp}-{random}",
   "customer": {
     "name": "string",
     "email": "string",
@@ -81,7 +81,7 @@ Content-Type: application/json
     }
   },
   "notification_urls": [
-    "https://kncursos.com.br/api/webhooks/pagbank"
+    "https://vemgo.com.br/api/webhooks/pagbank"
   ],
   "charges": [
     {
@@ -217,10 +217,10 @@ ACCESS_DENIED: whitelist access required. Contact PagSeguro
 2. Faça login com suas credenciais
 3. Navegue: **Integrações** → **API** → **Configurações de Segurança** ou **Whitelist**
 4. Adicione o domínio/IP autorizado:
-   - **Domínio:** `kncursos.com.br`
+   - **Domínio:** `vemgo.com.br`
    - **URLs permitidas:**
-     - `https://kncursos.com.br/api/sales`
-     - `https://*.kncursos.pages.dev/api/sales`
+     - `https://vemgo.com.br/api/sales`
+     - `https://*.vemgo.pages.dev/api/sales`
 5. Salve as alterações
 
 #### Opção 2: Suporte PagBank
@@ -233,12 +233,12 @@ ACCESS_DENIED: whitelist access required. Contact PagSeguro
 Olá! Preciso habilitar a whitelist da API do PagBank para minha integração.
 
 Token: 36af5904-5c62-4d9c-99b7-896326ac520104bb8...
-Domínio: kncursos.com.br
+Domínio: vemgo.com.br
 Erro atual: "ACCESS_DENIED: whitelist access required"
 
 Por favor, adicione os seguintes endpoints na whitelist:
-- https://kncursos.com.br/api/sales
-- https://*.kncursos.pages.dev/api/sales
+- https://vemgo.com.br/api/sales
+- https://*.vemgo.pages.dev/api/sales
 
 Obrigado!
 ```
@@ -270,7 +270,7 @@ Obrigado!
 
 ### Endpoint
 ```
-POST https://kncursos.com.br/api/webhooks/pagbank
+POST https://vemgo.com.br/api/webhooks/pagbank
 ```
 
 ### Headers Esperados
@@ -348,7 +348,7 @@ WHERE payment_id = ? AND gateway = 'pagbank'
 
 ### 1. Habilitar Whitelist (≈10 min)
 - Acessar painel PagBank
-- Adicionar domínio `kncursos.com.br` na whitelist
+- Adicionar domínio `vemgo.com.br` na whitelist
 - Ou contatar suporte PagBank
 
 ### 2. Testar Pagamento Real (≈5 min)
@@ -357,7 +357,7 @@ WHERE payment_id = ? AND gateway = 'pagbank'
 /tmp/test_pagbank.sh
 
 # Ou manualmente via curl
-curl -X POST https://kncursos.com.br/api/sales \
+curl -X POST https://vemgo.com.br/api/sales \
   -H "Content-Type: application/json" \
   -d '{
     "link_code": "MKT2024ABC",
@@ -405,9 +405,9 @@ curl -X POST https://kncursos.com.br/api/sales \
 
 O sistema está pronto para processar pagamentos. Basta **habilitar a whitelist no painel PagBank** (≈10 min) para começar a vender!
 
-**Deploy atual:** https://f70b987b.kncursos.pages.dev  
-**Produção:** https://kncursos.com.br  
-**Webhook:** https://kncursos.com.br/api/webhooks/pagbank
+**Deploy atual:** https://f70b987b.vemgo.pages.dev  
+**Produção:** https://vemgo.com.br  
+**Webhook:** https://vemgo.com.br/api/webhooks/pagbank
 
 ---
 

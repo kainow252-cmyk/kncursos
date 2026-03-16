@@ -140,8 +140,8 @@ Agora: "❌ Pagamento Recusado" (CORRETO!)
 
 ## URLs de Teste
 
-- Produção: https://kncursos.com.br/success/[token]
-- Preview: https://b49ceb98.kncursos.pages.dev/success/[token]
+- Produção: https://vemgo.com.br/success/[token]
+- Preview: https://b49ceb98.vemgo.pages.dev/success/[token]
 
 ## Próximos Passos
 

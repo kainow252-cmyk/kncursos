@@ -56,7 +56,7 @@ Padronizar o ID da imagem em ambos os formulários para `preview-img`:
 ## 🧪 Como Testar
 
 ### Teste Manual
-1. Acesse: https://kncursos.com.br/cursos
+1. Acesse: https://vemgo.com.br/cursos
 2. Clique em "Novo Curso"
 3. Clique em "Upload Imagem"
 4. Selecione uma imagem
@@ -97,8 +97,8 @@ Para evitar problemas futuros, todos os IDs devem ser únicos ou consistentes en
 ## 🚀 Deploy
 - **Build:** ✅ Sucesso (dist/_worker.js 478.87 kB)
 - **Deploy:** ✅ Concluído
-- **Preview:** https://960dadbd.kncursos.pages.dev
-- **Produção:** https://kncursos.com.br/cursos
+- **Preview:** https://960dadbd.vemgo.pages.dev
+- **Produção:** https://vemgo.com.br/cursos
 
 ---
 

@@ -301,8 +301,8 @@ E adicionar o código JavaScript antes do `</script>`.
 
 ## 🧪 **Como Testar**
 
-1. **Acessar**: https://kncursos.com.br/admin
-2. **Login**: admin / kncursos2024
+1. **Acessar**: https://vemgo.com.br/admin
+2. **Login**: admin / vemgo2024
 3. **Criar curso**:
    - Título: Curso Teste
    - Preço: 99.00

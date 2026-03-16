@@ -3,7 +3,7 @@
 ## ❌ Problema Atual
 
 A rota `/cursos` usa as **mesmas credenciais** do `/admin`:
-- Qualquer pessoa com `admin/kncursos2024` pode acessar **ambas as rotas**
+- Qualquer pessoa com `admin/vemgo2024` pode acessar **ambas as rotas**
 - Não há diferenciação de permissões
 
 ## ✅ Solução
@@ -21,8 +21,8 @@ Criar tabela `users` com campo `role` para diferenciar:
 https://dash.cloudflare.com/ef4dfafae6fc56ebf84a3b58aa7d8b45/workers-and-pages/d1
 ```
 
-### 2️⃣ Abra o Console do Banco `kncursos`
-1. Clique no banco **"kncursos"**
+### 2️⃣ Abra o Console do Banco `vemgo`
+1. Clique no banco **"vemgo"**
 2. Clique na aba **"Console"**
 3. Cole o SQL abaixo no editor
 
@@ -45,13 +45,13 @@ CREATE TABLE IF NOT EXISTS users (
 **Comando 2: Inserir Admin**
 ```sql
 INSERT OR IGNORE INTO users (username, password, role, name, email) VALUES 
-('admin', 'kncursos2024', 'admin', 'Administrador', 'admin@kncursos.com.br');
+('admin', 'vemgo2024', 'admin', 'Administrador', 'admin@vemgo.com.br');
 ```
 
 **Comando 3: Inserir Funcionário**
 ```sql
 INSERT OR IGNORE INTO users (username, password, role, name, email) VALUES 
-('funcionario', 'funcionario123', 'employee', 'Funcionário Teste', 'funcionario@kncursos.com.br');
+('funcionario', 'funcionario123', 'employee', 'Funcionário Teste', 'funcionario@vemgo.com.br');
 ```
 
 ---
@@ -68,8 +68,8 @@ SELECT * FROM users;
 ```
 id | username    | password        | role     | name              | email
 ---+-------------+-----------------+----------+-------------------+-------------------------
-1  | admin       | kncursos2024    | admin    | Administrador     | admin@kncursos.com.br
-2  | funcionario | funcionario123  | employee | Funcionário Teste | funcionario@kncursos.com.br
+1  | admin       | vemgo2024    | admin    | Administrador     | admin@vemgo.com.br
+2  | funcionario | funcionario123  | employee | Funcionário Teste | funcionario@vemgo.com.br
 ```
 
 ---
@@ -79,7 +79,7 @@ id | username    | password        | role     | name              | email
 ### Admin (Acesso Completo)
 - **Rota:** `/admin` e `/cursos`
 - **Usuário:** `admin`
-- **Senha:** `kncursos2024`
+- **Senha:** `vemgo2024`
 - **Permissões:** Ver vendas, gerar links, gerenciar cursos
 
 ### Funcionário (Apenas Cursos)

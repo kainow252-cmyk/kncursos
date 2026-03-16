@@ -1,4 +1,4 @@
-# 🔐 Credenciais Completas do Sistema KN Cursos
+# 🔐 Credenciais Completas do Sistema Vemgo
 
 ## 📋 Índice
 1. [Asaas (Gateway de Pagamento)](#asaas)
@@ -54,7 +54,7 @@ whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t
 
 **Email From (Remetente):**
 ```
-cursos@kncursos.com.br
+cursos@vemgo.com.br
 ```
 
 ### 🔗 URLs Úteis:
@@ -67,7 +67,7 @@ cursos@kncursos.com.br
 
 ### **Administrador Principal**
 - **Usuário:** `admin`
-- **Senha:** `kncursos2024`
+- **Senha:** `vemgo2024`
 - **Permissões:** Total (criar cursos, gerar links, ver vendas)
 
 ### **Funcionário (Exemplo)**
@@ -77,7 +77,7 @@ cursos@kncursos.com.br
 
 ### **JWT Secret:**
 ```
-kncursos-jwt-secret-change-in-production-2024
+vemgo-jwt-secret-change-in-production-2024
 ```
 
 ⚠️ **IMPORTANTE:** Alterar o JWT_SECRET em produção!
@@ -87,7 +87,7 @@ kncursos-jwt-secret-change-in-production-2024
 ## 🗄️ BANCO DE DADOS (Cloudflare D1)
 
 ### **Database Info:**
-- **Nome:** `kncursos`
+- **Nome:** `vemgo`
 - **ID:** `6783bc59-1fd5-48b4-894b-98c77e6ca75a`
 - **Tipo:** SQLite (D1)
 - **Binding:** `DB`
@@ -100,7 +100,7 @@ kncursos-jwt-secret-change-in-production-2024
 - `saved_cards` - Cartões salvos dos clientes
 
 ### **R2 Bucket:**
-- **Nome:** `kncursos-files`
+- **Nome:** `vemgo-files`
 - **Binding:** `R2`
 
 ---
@@ -146,18 +146,18 @@ ASAAS_WEBHOOK_TOKEN=[token acima]
 
 # Resend
 RESEND_API_KEY=[chave acima]
-EMAIL_FROM=cursos@kncursos.com.br
+EMAIL_FROM=cursos@vemgo.com.br
 RESEND_WEBHOOK_SECRET=[secret acima]
 
 # Admin
 ADMIN_USERNAME=admin
-ADMIN_PASSWORD=kncursos2024
+ADMIN_PASSWORD=vemgo2024
 JWT_SECRET=[secret acima]
 ```
 
 ### Como Adicionar no Cloudflare:
 1. https://dash.cloudflare.com/
-2. **Workers & Pages** → **kncursos**
+2. **Workers & Pages** → **vemgo**
 3. **Settings** → **Environment Variables**
 4. Adicionar cada variável
 5. Marcar como **Secret** (🔒) as chaves sensíveis
@@ -236,9 +236,9 @@ Acesse: http://localhost:3000
 - Email: [email protected]
 - Dashboard: https://resend.com/
 
-### KN Cursos:
+### Vemgo:
 - Email: gelci.silva252@gmail.com
-- Dashboard: https://kncursos.pages.dev/admin
+- Dashboard: https://vemgo.pages.dev/admin
 
 ---
 

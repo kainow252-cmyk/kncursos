@@ -55,7 +55,7 @@ Convertido o campo `course-category` de **input texto** para **select dropdown**
 
 ### ✅ Teste 1: Criação de Curso com Categoria
 ```bash
-curl -X POST https://kncursos.com.br/api/courses \
+curl -X POST https://vemgo.com.br/api/courses \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Teste Categoria Select",
@@ -68,12 +68,12 @@ curl -X POST https://kncursos.com.br/api/courses \
 
 ### ✅ Teste 2: Verificação no Banco de Dados
 ```bash
-curl https://kncursos.com.br/api/courses | jq '.[] | {id, title, category}'
+curl https://vemgo.com.br/api/courses | jq '.[] | {id, title, category}'
 ```
 **Resultado:** ✅ Categorias corretas armazenadas no banco
 
 ### ✅ Teste 3: Edição de Curso (UI)
-- Acesse: https://kncursos.com.br/cursos
+- Acesse: https://vemgo.com.br/cursos
 - Clique em "Editar" em qualquer curso
 - **Resultado:** ✅ Campo categoria é exibido como dropdown
 - **Resultado:** ✅ Categoria atual do curso fica automaticamente selecionada
@@ -82,9 +82,9 @@ curl https://kncursos.com.br/api/courses | jq '.[] | {id, title, category}'
 
 ## 🚀 Deployment
 - **Build:** `npm run build` - ✅ Sucesso
-- **Deploy:** `npx wrangler pages deploy dist --project-name kncursos`
-- **URL Preview:** https://84086fb8.kncursos.pages.dev
-- **URL Produção:** https://kncursos.com.br
+- **Deploy:** `npx wrangler pages deploy dist --project-name vemgo`
+- **URL Preview:** https://84086fb8.vemgo.pages.dev
+- **URL Produção:** https://vemgo.com.br
 
 ---
 
@@ -124,16 +124,16 @@ const course = await fetch(`/api/courses/${id}`).then(r => r.json())
 
 ## ✅ Status Final
 - **Campo Categoria:** ✅ Convertido para SELECT com 11 opções
-- **Deploy:** ✅ Online em https://kncursos.com.br/cursos
+- **Deploy:** ✅ Online em https://vemgo.com.br/cursos
 - **Testes:** ✅ Criação e edição funcionando
 - **JavaScript:** ✅ Preenchimento automático ao editar
 
 ---
 
 ## 🔗 Links Úteis
-- **Painel de Cursos:** https://kncursos.com.br/cursos
-- **Admin Principal:** https://kncursos.com.br/admin
-- **API de Cursos:** https://kncursos.com.br/api/courses
+- **Painel de Cursos:** https://vemgo.com.br/cursos
+- **Admin Principal:** https://vemgo.com.br/admin
+- **API de Cursos:** https://vemgo.com.br/api/courses
 - **Cloudflare Dash:** https://dash.cloudflare.com
 
 ---

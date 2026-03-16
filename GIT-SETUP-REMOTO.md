@@ -5,7 +5,7 @@
 - ✅ **Git inicializado**
 - ✅ **Branch:** main
 - ✅ **Commits:** 11 commits (último: 5ffedab)
-- ✅ **Usuário Git configurado:** KN Cursos Dev <dev@kncursos.com.br>
+- ✅ **Usuário Git configurado:** Vemgo Dev <dev@vemgo.com.br>
 - ⚠️ **Remote:** NÃO configurado ainda
 
 ---
@@ -14,7 +14,7 @@
 
 ```
 commit 5ffedab
-Author: KN Cursos Dev <dev@kncursos.com.br>
+Author: Vemgo Dev <dev@vemgo.com.br>
 Date: Hoje
 
 docs: adicionar documentação completa de credenciais e testes de pagamento
@@ -37,7 +37,7 @@ Sistema configurado com:
 
 #### Passo 1: Criar Repositório no GitHub
 1. Acesse: https://github.com/new
-2. Nome do repositório: `kncursos` (ou outro nome)
+2. Nome do repositório: `vemgo` (ou outro nome)
 3. Descrição: "Sistema de vendas de cursos online com Asaas"
 4. **NÃO** inicialize com README (já temos commits)
 5. Clique em **"Create repository"**
@@ -47,7 +47,7 @@ Sistema configurado com:
 cd /home/user/webapp
 
 # Adicionar remote
-git remote add origin https://github.com/SEU-USUARIO/kncursos.git
+git remote add origin https://github.com/SEU-USUARIO/vemgo.git
 
 # Verificar remote
 git remote -v
@@ -69,7 +69,7 @@ cd /home/user/webapp
 git remote add origin URL-DO-SEU-REPOSITORIO
 
 # Exemplo:
-# git remote add origin https://github.com/usuario/kncursos.git
+# git remote add origin https://github.com/usuario/vemgo.git
 
 # Fazer push
 git push -u origin main
@@ -85,10 +85,10 @@ Se você tem o GitHub CLI instalado:
 cd /home/user/webapp
 
 # Criar repositório e fazer push automaticamente
-gh repo create kncursos --private --source=. --remote=origin --push
+gh repo create vemgo --private --source=. --remote=origin --push
 
 # Ou público:
-# gh repo create kncursos --public --source=. --remote=origin --push
+# gh repo create vemgo --public --source=. --remote=origin --push
 ```
 
 ---
@@ -123,7 +123,7 @@ gh repo create kncursos --private --source=. --remote=origin --push
 
 1. **Gerar chave SSH:**
    ```bash
-   ssh-keygen -t ed25519 -C "dev@kncursos.com.br"
+   ssh-keygen -t ed25519 -C "dev@vemgo.com.br"
    # Pressione Enter para aceitar local padrão
    # Pressione Enter para senha vazia (ou defina uma)
    ```
@@ -140,7 +140,7 @@ gh repo create kncursos --private --source=. --remote=origin --push
 
 3. **Usar SSH no remote:**
    ```bash
-   git remote add origin git@github.com:SEU-USUARIO/kncursos.git
+   git remote add origin git@github.com:SEU-USUARIO/vemgo.git
    git push -u origin main
    ```
 
@@ -304,7 +304,7 @@ webapp/
 # 1. Crie o repositório no GitHub primeiro!
 # 2. Execute:
 cd /home/user/webapp
-git remote add origin https://github.com/SEU-USUARIO/kncursos.git
+git remote add origin https://github.com/SEU-USUARIO/vemgo.git
 git push -u origin main
 ```
 
@@ -322,7 +322,7 @@ git push -f origin main
 ```bash
 # 1. Criar repo no GitHub (interface web)
 # 2. Adicionar remote
-git remote add origin https://github.com/meuusuario/kncursos.git
+git remote add origin https://github.com/meuusuario/vemgo.git
 
 # 3. Verificar
 git remote -v
@@ -335,7 +335,7 @@ git push -u origin main
 # Counting objects: 100% (50/50), done.
 # Writing objects: 100% (50/50), 2.1 MiB | 1.5 MiB/s, done.
 # Total 50 (delta 0), reused 0 (delta 0)
-# To https://github.com/meuusuario/kncursos.git
+# To https://github.com/meuusuario/vemgo.git
 #  * [new branch]      main -> main
 # Branch 'main' set up to track remote branch 'main' from 'origin'.
 ```

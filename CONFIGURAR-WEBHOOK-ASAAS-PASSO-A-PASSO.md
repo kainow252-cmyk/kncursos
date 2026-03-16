@@ -11,13 +11,13 @@ Configurar o webhook do Asaas para receber notificações de pagamentos em tempo
 
 ```
 URL do Webhook:
-https://b002e9f3.kncursos.pages.dev/api/webhooks/asaas
+https://b002e9f3.vemgo.pages.dev/api/webhooks/asaas
 
 Token de Autenticação:
 whsec_9YVKoFYtPFuvWqRZgrmLEXWmzVv1jwZWjm2YDl6jyms
 
 Nome:
-KN Cursos - Notificações de Pagamento
+Vemgo - Notificações de Pagamento
 ```
 
 ---
@@ -52,7 +52,7 @@ Clique em "Webhooks"
 
 Você verá uma lista de webhooks. Procure por:
 ```
-Nome: "KN Cursos - Notificações"
+Nome: "Vemgo - Notificações"
 Status: ⚠️ Com Erro / ❌ Inativo
 ```
 
@@ -70,12 +70,12 @@ Status: ⚠️ Com Erro / ❌ Inativo
 
 **Campo "Nome":**
 ```
-KN Cursos - Notificações de Pagamento
+Vemgo - Notificações de Pagamento
 ```
 
 **Campo "URL":**
 ```
-https://b002e9f3.kncursos.pages.dev/api/webhooks/asaas
+https://b002e9f3.vemgo.pages.dev/api/webhooks/asaas
 ```
 ⚠️ **Copie e cole exatamente como está acima!**
 
@@ -116,12 +116,12 @@ whsec_9YVKoFYtPFuvWqRZgrmLEXWmzVv1jwZWjm2YDl6jyms
 
 **Campo "Nome":**
 ```
-KN Cursos - Notificações de Pagamento
+Vemgo - Notificações de Pagamento
 ```
 
 **Campo "URL":**
 ```
-https://b002e9f3.kncursos.pages.dev/api/webhooks/asaas
+https://b002e9f3.vemgo.pages.dev/api/webhooks/asaas
 ```
 
 **Campo "Status":**
@@ -183,15 +183,15 @@ whsec_9YVKoFYtPFuvWqRZgrmLEXWmzVv1jwZWjm2YDl6jyms
 
 No painel Asaas, você deve ver:
 ```
-Nome: KN Cursos - Notificações de Pagamento
-URL: https://b002e9f3.kncursos.pages.dev/api/webhooks/asaas
+Nome: Vemgo - Notificações de Pagamento
+URL: https://b002e9f3.vemgo.pages.dev/api/webhooks/asaas
 Status: ✅ Sincronizado / ✅ Ativo
 Última sincronização: [data/hora recente]
 ```
 
 ### Teste 2: Fazer uma compra de teste
 
-1. Acesse: https://b002e9f3.kncursos.pages.dev
+1. Acesse: https://b002e9f3.vemgo.pages.dev
 2. Escolha qualquer curso
 3. Preencha os dados:
    - Nome: Seu nome
@@ -227,7 +227,7 @@ Status: ✅ Sincronizado / ✅ Ativo
 **Soluções:**
 1. Verifique se a URL está **exatamente** assim:
    ```
-   https://b002e9f3.kncursos.pages.dev/api/webhooks/asaas
+   https://b002e9f3.vemgo.pages.dev/api/webhooks/asaas
    ```
    ⚠️ Não pode ter espaços antes ou depois!
 
@@ -260,7 +260,7 @@ Status: ✅ Sincronizado / ✅ Ativo
 
 **Teste manualmente:**
 ```bash
-curl -X POST https://b002e9f3.kncursos.pages.dev/api/webhooks/asaas \
+curl -X POST https://b002e9f3.vemgo.pages.dev/api/webhooks/asaas \
   -H "asaas-access-token: whsec_9YVKoFYtPFuvWqRZgrmLEXWmzVv1jwZWjm2YDl6jyms" \
   -H "Content-Type: application/json" \
   -d '{"event":"PAYMENT_CONFIRMED","payment":{"id":"test"}}'
@@ -308,8 +308,8 @@ Quando você configura o webhook, o Asaas envia notificações em tempo real sob
 
 - [ ] Acessei o painel Asaas
 - [ ] Fui em Integrações → Webhooks
-- [ ] Editei/Criei webhook com nome "KN Cursos - Notificações"
-- [ ] Configurei URL: `https://b002e9f3.kncursos.pages.dev/api/webhooks/asaas`
+- [ ] Editei/Criei webhook com nome "Vemgo - Notificações"
+- [ ] Configurei URL: `https://b002e9f3.vemgo.pages.dev/api/webhooks/asaas`
 - [ ] Configurei Token: `whsec_9YVKoFYtPFuvWqRZgrmLEXWmzVv1jwZWjm2YDl6jyms`
 - [ ] Marquei como "Ativo"
 - [ ] Marquei TODOS os eventos de pagamento
@@ -325,4 +325,4 @@ Quando você configura o webhook, o Asaas envia notificações em tempo real sob
 
 **Documento criado em:** 14/03/2026 14:00 UTC  
 **Status:** 📝 Guia de configuração do webhook Asaas  
-**URL do Sistema:** https://b002e9f3.kncursos.pages.dev
+**URL do Sistema:** https://b002e9f3.vemgo.pages.dev

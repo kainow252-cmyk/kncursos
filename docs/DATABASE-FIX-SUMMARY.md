@@ -51,7 +51,7 @@ Updated `wrangler.toml` with correct database ID:
 ```toml
 [[d1_databases]]
 binding = "DB"
-database_name = "kncursos"
+database_name = "vemgo"
 database_id = "6783bc59-1fd5-48b4-894b-98c77e6ca75a"
 ```
 
@@ -60,9 +60,9 @@ database_id = "6783bc59-1fd5-48b4-894b-98c77e6ca75a"
 Executed migration commands via Wrangler CLI:
 
 ```bash
-wrangler d1 execute kncursos --remote --command "ALTER TABLE sales ADD COLUMN payment_id TEXT"
-wrangler d1 execute kncursos --remote --command "ALTER TABLE sales ADD COLUMN customer_id TEXT"
-wrangler d1 execute kncursos --remote --command "ALTER TABLE sales ADD COLUMN gateway TEXT DEFAULT 'mercadopago'"
+wrangler d1 execute vemgo --remote --command "ALTER TABLE sales ADD COLUMN payment_id TEXT"
+wrangler d1 execute vemgo --remote --command "ALTER TABLE sales ADD COLUMN customer_id TEXT"
+wrangler d1 execute vemgo --remote --command "ALTER TABLE sales ADD COLUMN gateway TEXT DEFAULT 'mercadopago'"
 ```
 
 ### 4. Verified Schema
@@ -124,9 +124,9 @@ The `sales` table now includes all necessary columns:
 
 ## Deployment Information
 
-- **Latest Deploy**: https://9dfd8207.kncursos.pages.dev
-- **Production**: https://kncursos.com.br
-- **Database**: kncursos (6783bc59-1fd5-48b4-894b-98c77e6ca75a)
+- **Latest Deploy**: https://9dfd8207.vemgo.pages.dev
+- **Production**: https://vemgo.com.br
+- **Database**: vemgo (6783bc59-1fd5-48b4-894b-98c77e6ca75a)
 - **Commit**: df02f8d
 
 ## Files Changed
@@ -191,5 +191,5 @@ The remaining `cc_rejected_high_risk` error is a **Mercado Pago business/account
 
 **Document Version**: 1.0.0  
 **Last Updated**: 2026-03-14  
-**Repository**: https://github.com/kainow252-cmyk/kncursos  
+**Repository**: https://github.com/kainow252-cmyk/vemgo  
 **Author**: GenSpark AI Developer

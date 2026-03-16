@@ -1,8 +1,8 @@
-# 📧 Layout de Email Premium - KN Cursos
+# 📧 Layout de Email Premium - Vemgo
 
 ## ✅ **IMPLEMENTADO COM SUCESSO!**
 
-O novo layout de email profissional foi implementado no sistema KN Cursos com design moderno e responsivo.
+O novo layout de email profissional foi implementado no sistema Vemgo com design moderno e responsivo.
 
 ---
 
@@ -48,7 +48,7 @@ Destaque: #6366f1
 #### 1️⃣ **Hero Section**
 ```html
 - Badge "✓ Pagamento Aprovado" (verde, animado)
-- Logo/Brand "🎓 KN Cursos" (36px)
+- Logo/Brand "🎓 Vemgo" (36px)
 - Subtítulo "Seu acesso foi liberado!"
 - Info do pedido (ID + data)
 ```
@@ -108,8 +108,8 @@ Destaque: #6366f1
 
 ### **Deploy Info**
 - ✅ Deploy ID: **627d9092**
-- ✅ URL: https://627d9092.kncursos.pages.dev
-- ✅ Production: https://kncursos.com.br
+- ✅ URL: https://627d9092.vemgo.pages.dev
+- ✅ Production: https://vemgo.com.br
 - ✅ Status: **✅ LIVE**
 
 ### **Código Implementado**
@@ -166,7 +166,7 @@ O novo template foi implementado em:
 ### **Opção 1: Compra Real (Sandbox)**
 ```bash
 # Acesse o checkout
-https://kncursos.com.br/checkout/TIKTOK2024
+https://vemgo.com.br/checkout/TIKTOK2024
 
 # Use o cartão de teste
 Número: 5162 3062 1937 8829
@@ -179,7 +179,7 @@ CPF: 249.715.637-92
 ### **Opção 2: Endpoint de Teste (já existe)**
 ```bash
 # Acesse a página de teste
-https://kncursos.com.br/test-email
+https://vemgo.com.br/test-email
 
 # Clique no botão "Enviar Email de Teste"
 # Email será enviado para gelci.silva252@gmail.com
@@ -193,7 +193,7 @@ https://kncursos.com.br/test-email
 ┌─────────────────────────────────────┐
 │  HERO SECTION (Gradiente Roxo/Pink) │
 │  • Badge "Pagamento Aprovado"       │
-│  • Logo KN Cursos (36px)            │
+│  • Logo Vemgo (36px)            │
 │  • "Seu acesso foi liberado!"       │
 │  • Pedido #ABC123 • 14/mar/2026     │
 └─────────────────────────────────────┘
@@ -277,8 +277,8 @@ https://kncursos.com.br/test-email
 
 ---
 
-**Deploy:** https://627d9092.kncursos.pages.dev  
-**Production:** https://kncursos.com.br  
+**Deploy:** https://627d9092.vemgo.pages.dev  
+**Production:** https://vemgo.com.br  
 **Status:** ✅ **LIVE**
 
 **Build:** 456.08 kB • 2.67s • Vite 6.4.1  

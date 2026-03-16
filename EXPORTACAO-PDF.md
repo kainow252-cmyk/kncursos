@@ -1,4 +1,4 @@
-# 📄 Exportação em PDF - KN Cursos
+# 📄 Exportação em PDF - Vemgo
 
 ## ✅ **IMPLEMENTADO COM SUCESSO!**
 
@@ -84,12 +84,12 @@ Status: **✅ 100% Funcional em Produção**
 
 **No navegador:**
 ```
-https://kncursos.com.br/api/admin/sales/export/pdf
+https://vemgo.com.br/api/admin/sales/export/pdf
 ```
 
 **Via curl (salvar HTML):**
 ```bash
-curl "https://kncursos.com.br/api/admin/sales/export/pdf" \
+curl "https://vemgo.com.br/api/admin/sales/export/pdf" \
   -o relatorio_vendas.html
 
 # Abrir no navegador e usar Ctrl+P para salvar como PDF
@@ -107,12 +107,12 @@ curl "https://kncursos.com.br/api/admin/sales/export/pdf" \
 
 **No navegador:**
 ```
-https://kncursos.com.br/api/admin/sales/export/pdf-detalhado
+https://vemgo.com.br/api/admin/sales/export/pdf-detalhado
 ```
 
 **Via curl:**
 ```bash
-curl "https://kncursos.com.br/api/admin/sales/export/pdf-detalhado" \
+curl "https://vemgo.com.br/api/admin/sales/export/pdf-detalhado" \
   -o relatorio_detalhado.html
 ```
 
@@ -253,7 +253,7 @@ sudo apt install wkhtmltopdf
 
 # Converter HTML para PDF
 wkhtmltopdf \
-  "https://kncursos.com.br/api/admin/sales/export/pdf" \
+  "https://vemgo.com.br/api/admin/sales/export/pdf" \
   relatorio.pdf
 ```
 
@@ -264,7 +264,7 @@ const puppeteer = require('puppeteer');
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto('https://kncursos.com.br/api/admin/sales/export/pdf');
+  await page.goto('https://vemgo.com.br/api/admin/sales/export/pdf');
   await page.pdf({ path: 'relatorio.pdf', format: 'A4' });
   await browser.close();
 })();
@@ -330,7 +330,7 @@ const puppeteer = require('puppeteer');
 
 **Deploy:**
 - ✅ ID: e5e89524
-- ✅ URL: https://kncursos.com.br
+- ✅ URL: https://vemgo.com.br
 - ✅ Status: LIVE
 
 ---
@@ -362,8 +362,8 @@ const puppeteer = require('puppeteer');
 
 **Status:** **PRODUÇÃO LIVE ✅**  
 **URLs:**
-- Resumido: https://kncursos.com.br/api/admin/sales/export/pdf
-- Detalhado: https://kncursos.com.br/api/admin/sales/export/pdf-detalhado
+- Resumido: https://vemgo.com.br/api/admin/sales/export/pdf
+- Detalhado: https://vemgo.com.br/api/admin/sales/export/pdf-detalhado
 
 ---
 

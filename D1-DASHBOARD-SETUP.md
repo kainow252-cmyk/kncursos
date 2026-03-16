@@ -19,7 +19,7 @@ Ao invés de usar CLI, vamos configurar tudo pelo **Cloudflare Dashboard**.
 
 1. **Acesse**: https://dash.cloudflare.com/
 2. **Menu lateral** → **Storage & Databases** → **D1**
-3. Veja se existe um database chamado **kncursos**
+3. Veja se existe um database chamado **vemgo**
 
 ---
 
@@ -29,14 +29,14 @@ Ao invés de usar CLI, vamos configurar tudo pelo **Cloudflare Dashboard**.
 
 1. Na página D1, clique em **Create database**
 2. Preencha:
-   - **Database name**: `kncursos`
+   - **Database name**: `vemgo`
    - **Location**: **Automatic** (ou South America/São Paulo se disponível)
 3. Clique em **Create**
 4. **Copie o Database ID** mostrado (ex: `6783bc59-1fd5-48b4-894b-98c77e6ca75a`)
 
 ### Criar Tabelas Manualmente
 
-1. Clique no database **kncursos**
+1. Clique no database **vemgo**
 2. Clique na aba **Console**
 3. Execute os seguintes SQLs **um por vez**:
 
@@ -155,13 +155,13 @@ INSERT INTO payment_links (course_id, link_code) VALUES (2, 'PROG2024-001');
 ### Apenas Vincular ao Projeto
 
 1. **Acesse**: https://dash.cloudflare.com/
-2. **Workers & Pages** → **kncursos**
+2. **Workers & Pages** → **vemgo**
 3. **Settings** → **Functions**
 4. **Bindings** → **Add binding**
 5. Selecione:
    - **Type**: D1 database
    - **Variable name**: `DB` (exatamente assim)
-   - **D1 database**: Selecione `kncursos` da lista
+   - **D1 database**: Selecione `vemgo` da lista
 6. Clique em **Save**
 
 ---
@@ -172,7 +172,7 @@ INSERT INTO payment_links (course_id, link_code) VALUES (2, 'PROG2024-001');
 
 ```bash
 # Listar cursos
-curl https://kncursos.pages.dev/api/courses
+curl https://vemgo.pages.dev/api/courses
 
 # Deve retornar JSON com lista de cursos
 # Se retornar "[]", o banco está vazio
@@ -181,13 +181,13 @@ curl https://kncursos.pages.dev/api/courses
 
 ### Teste 2: Verificar Admin
 
-1. Acesse: https://kncursos.pages.dev/login
-2. Login: `admin` / `kncursos2024`
+1. Acesse: https://vemgo.pages.dev/login
+2. Login: `admin` / `vemgo2024`
 3. Dashboard deve mostrar os cursos
 
 ### Teste 3: Console SQL Direto
 
-1. **Storage & Databases** → **D1** → **kncursos**
+1. **Storage & Databases** → **D1** → **vemgo**
 2. Aba **Console**
 3. Execute:
    ```sql
@@ -224,18 +224,18 @@ Então:
 ### Database D1
 
 - [ ] Acessar: https://dash.cloudflare.com/ → Storage & Databases → D1
-- [ ] Database `kncursos` existe (se não, criar)
+- [ ] Database `vemgo` existe (se não, criar)
 - [ ] Tabelas criadas (courses, payment_links, sales)
 - [ ] Dados importados (60 cursos)
 - [ ] Payment links criados
 
 ### Cloudflare Pages Binding
 
-- [ ] Acessar: https://dash.cloudflare.com/ → Workers & Pages → kncursos → Settings
+- [ ] Acessar: https://dash.cloudflare.com/ → Workers & Pages → vemgo → Settings
 - [ ] Functions → Bindings → Add binding
 - [ ] Type: D1 database
 - [ ] Variable name: `DB`
-- [ ] D1 database: `kncursos`
+- [ ] D1 database: `vemgo`
 - [ ] Salvar
 
 ### Testes
@@ -254,8 +254,8 @@ Então:
 1. **Criar/Verificar D1**: https://dash.cloudflare.com/ → Storage & Databases → D1
 2. **Criar tabelas**: Console D1 → executar SQLs
 3. **Importar dados**: Console D1 → executar seed-add-courses.sql
-4. **Vincular ao Pages**: Workers & Pages → kncursos → Settings → Bindings → Add D1
-5. **Testar**: https://kncursos.pages.dev/api/courses
+4. **Vincular ao Pages**: Workers & Pages → vemgo → Settings → Bindings → Add D1
+5. **Testar**: https://vemgo.pages.dev/api/courses
 
 ---
 

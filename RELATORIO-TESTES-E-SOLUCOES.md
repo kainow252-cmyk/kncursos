@@ -27,7 +27,7 @@
 ```bash
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"kncursos2024"}'
+  -d '{"username":"admin","password":"vemgo2024"}'
 ```
 
 **Resultado:**
@@ -165,12 +165,12 @@ SELECT COUNT(*) as total_courses_active FROM courses WHERE active = 1;
 
 **2. Aplicação Local:**
 ```bash
-npx wrangler d1 execute kncursos --local --file=fix-activate-courses.sql
+npx wrangler d1 execute vemgo --local --file=fix-activate-courses.sql
 ```
 
 **3. Aplicação em Produção (PENDENTE):**
 ```
-Dashboard Cloudflare → D1 → kncursos → Console:
+Dashboard Cloudflare → D1 → vemgo → Console:
 UPDATE courses SET active = 1 WHERE active IS NULL OR active = 0;
 ```
 
@@ -190,13 +190,13 @@ UPDATE courses SET active = 1 WHERE active IS NULL OR active = 0;
    UPDATE courses SET active = 1 WHERE active IS NULL OR active = 0;
    ```
    - Dashboard: https://dash.cloudflare.com/ef4dfafae6fc56ebf84a3b58aa7d8b45/workers-and-pages/d1
-   - Banco: kncursos
+   - Banco: vemgo
    - Aba: Console
 
 2. **Deploy Nova Build**
    ```bash
    npm run build
-   npx wrangler pages deploy dist --project-name kncursos
+   npx wrangler pages deploy dist --project-name vemgo
    ```
 
 ---
@@ -206,17 +206,17 @@ UPDATE courses SET active = 1 WHERE active IS NULL OR active = 0;
 ### Após Aplicar o Fix
 
 1. **Loja Pública**
-   - URL: https://kncursos.pages.dev/
+   - URL: https://vemgo.pages.dev/
    - Verificar: Cursos aparecem na home
    - Verificar: Badge "PDF Incluso" funciona
 
 2. **Login e Permissões**
-   - Admin: `admin / kncursos2024`
+   - Admin: `admin / vemgo2024`
    - Funcionário: `funcionario / funcionario123`
    - Verificar redirecionamentos
 
 3. **Checkout Completo**
-   - URL: https://kncursos.pages.dev/checkout/DEV2024XYZ
+   - URL: https://vemgo.pages.dev/checkout/DEV2024XYZ
    - Dados de teste:
      - CPF: 249.715.637-92
      - Cartão: 5162 3062 1937 8829

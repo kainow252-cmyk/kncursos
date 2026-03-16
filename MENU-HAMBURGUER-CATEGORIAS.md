@@ -116,8 +116,8 @@ toggleMoreCategories()    // Expande categorias extras
 ## 🔗 URLs
 
 - **Local**: http://localhost:3000/
-- **Produção**: https://kncursos.pages.dev/
-- **Staging**: https://fa2341ba.kncursos.pages.dev/
+- **Produção**: https://vemgo.pages.dev/
+- **Staging**: https://fa2341ba.vemgo.pages.dev/
 
 ## 🐛 Correções de Login
 

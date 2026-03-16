@@ -3,11 +3,11 @@
 ## ✅ Deploy Realizado com Sucesso!
 
 **Nova URL de produção:**  
-https://cace94e4.kncursos.pages.dev
+https://cace94e4.vemgo.pages.dev
 
 **URL principal (após DNS):**  
-https://kncursos.pages.dev  
-https://kncursos.com.br
+https://vemgo.pages.dev  
+https://vemgo.com.br
 
 ---
 
@@ -17,7 +17,7 @@ https://kncursos.com.br
 
 1. Acesse: https://dash.cloudflare.com/
 2. Vá em **"Workers & Pages"** → **"D1"**
-3. Clique no banco **"kncursos"** (ID: 6783bc59-1fd5-48b4-894b-98c77e6ca75a)
+3. Clique no banco **"vemgo"** (ID: 6783bc59-1fd5-48b4-894b-98c77e6ca75a)
 4. Vá na aba **"Console"**
 
 ### Passo 2: Executar o Script SQL
@@ -110,7 +110,7 @@ INSERT INTO payment_links (course_id, link_code, status) VALUES
 
 ### No Cloudflare Pages:
 
-1. Acesse o projeto **kncursos** → aba **"Settings"** → **"Environment variables"**
+1. Acesse o projeto **vemgo** → aba **"Settings"** → **"Environment variables"**
 2. Clique em **"Add variables"**
 3. Selecione **"Production"**
 4. Adicione cada variável:
@@ -135,25 +135,25 @@ Valor: onboarding@resend.dev
 
 ## 🔗 Vincular D1 ao Projeto Pages
 
-1. Projeto **kncursos** → aba **"Settings"** → **"Functions"** → **"Bindings"**
+1. Projeto **vemgo** → aba **"Settings"** → **"Functions"** → **"Bindings"**
 2. Role até **"D1 database bindings"**
 3. Clique em **"Add binding"**:
    - **Variable name**: `DB`
-   - **D1 database**: Selecione `kncursos`
+   - **D1 database**: Selecione `vemgo`
 4. Clique em **"Save"**
 
 ---
 
 ## 🌐 Configurar Domínio Custom
 
-1. Projeto **kncursos** → aba **"Custom domains"**
+1. Projeto **vemgo** → aba **"Custom domains"**
 2. Clique em **"Set up a custom domain"**
-3. Digite: `kncursos.com.br`
+3. Digite: `vemgo.com.br`
 4. Clique em **"Continue"**
 5. Aguarde 5-15 minutos para propagação DNS
 
 **Opcionalmente adicione:**
-- `www.kncursos.com.br`
+- `www.vemgo.com.br`
 
 ---
 
@@ -164,9 +164,9 @@ Depois de configurar tudo acima, teste:
 ### URLs para Testar:
 
 ```
-https://kncursos.pages.dev/                    → Home com cursos
-https://kncursos.pages.dev/admin               → Painel Admin
-https://kncursos.pages.dev/checkout/TIKTOK2024 → Checkout
+https://vemgo.pages.dev/                    → Home com cursos
+https://vemgo.pages.dev/admin               → Painel Admin
+https://vemgo.pages.dev/checkout/TIKTOK2024 → Checkout
 ```
 
 ### Teste de Pagamento:
@@ -192,7 +192,7 @@ https://kncursos.pages.dev/checkout/TIKTOK2024 → Checkout
 - [ ] Executar script SQL no console do D1
 - [ ] Adicionar variáveis de ambiente (Secrets)
 - [ ] Vincular D1 ao projeto (Bindings)
-- [ ] Configurar domínio custom (kncursos.com.br)
+- [ ] Configurar domínio custom (vemgo.com.br)
 - [ ] Testar home - ver os 3 cursos
 - [ ] Testar checkout - fazer compra teste
 - [ ] Verificar email recebido com PDF
@@ -215,10 +215,10 @@ Depois de seguir todos esses passos, seu site estará:
 ## 🚀 URLs Finais
 
 **Produção:**
-- https://kncursos.com.br
-- https://www.kncursos.com.br
-- https://kncursos.pages.dev
-- https://cace94e4.kncursos.pages.dev (versão específica)
+- https://vemgo.com.br
+- https://www.vemgo.com.br
+- https://vemgo.pages.dev
+- https://cace94e4.vemgo.pages.dev (versão específica)
 
 **Sandbox (desenvolvimento):**
 - https://3000-i5doa1u25u94y4sjizudd-d0b9e1e2.sandbox.novita.ai

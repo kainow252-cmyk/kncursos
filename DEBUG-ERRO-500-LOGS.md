@@ -2,7 +2,7 @@
 
 ## ✅ Deploy Realizado com Logs Completos
 
-**URL de teste**: https://ccae7e64.kncursos.pages.dev  
+**URL de teste**: https://ccae7e64.vemgo.pages.dev  
 **Bundle**: 388.01 kB
 
 ---
@@ -15,7 +15,7 @@ Abra um terminal e execute:
 
 ```bash
 cd /home/user/webapp
-npx wrangler pages deployment list --project-name kncursos
+npx wrangler pages deployment list --project-name vemgo
 ```
 
 Copie o **Deployment ID** mais recente (ex: `ccae7e64`)
@@ -23,7 +23,7 @@ Copie o **Deployment ID** mais recente (ex: `ccae7e64`)
 ### Passo 2: Monitorar Logs em Tempo Real
 
 ```bash
-npx wrangler pages deployment tail kncursos ccae7e64
+npx wrangler pages deployment tail vemgo ccae7e64
 ```
 
 Deixe este terminal aberto!
@@ -31,8 +31,8 @@ Deixe este terminal aberto!
 ### Passo 3: Editar Curso no Admin
 
 1. Abra nova aba do navegador
-2. Acesse: https://kncursos.pages.dev/login
-3. Login: `admin` / `kncursos2024`
+2. Acesse: https://vemgo.pages.dev/login
+3. Login: `admin` / `vemgo2024`
 4. Clique em **"Editar"** em qualquer curso
 5. Altere algum campo (ex: título)
 6. Clique em **"Salvar Alterações"**
@@ -81,8 +81,8 @@ Volte para o terminal com os logs. Você verá algo como:
 ## 🔍 Alternativa: Ver Logs no Cloudflare Dashboard
 
 1. Acesse: https://dash.cloudflare.com/
-2. **Workers & Pages** → **kncursos**
-3. Clique no deployment mais recente (https://ccae7e64.kncursos.pages.dev)
+2. **Workers & Pages** → **vemgo**
+3. Clique no deployment mais recente (https://ccae7e64.vemgo.pages.dev)
 4. Aba **"Logs"** ou **"Real-time Logs"**
 5. Edite curso no admin
 6. Veja logs aparecerem em tempo real
@@ -147,7 +147,7 @@ Antes de testar em produção, teste localmente:
 
 ```bash
 # Terminal 1: Ver logs
-pm2 logs kncursos --nostream --lines 100 | grep "UPDATE COURSE"
+pm2 logs vemgo --nostream --lines 100 | grep "UPDATE COURSE"
 
 # Terminal 2: Testar API
 curl -X PUT http://localhost:3000/api/courses/1 \
@@ -209,9 +209,9 @@ catch (error) {
 
 ## 🎯 Checklist de Debug
 
-- [ ] Deploy feito (https://ccae7e64.kncursos.pages.dev)
+- [ ] Deploy feito (https://ccae7e64.vemgo.pages.dev)
 - [ ] Terminal aberto com `wrangler pages deployment tail`
-- [ ] Admin aberto (https://kncursos.pages.dev/login)
+- [ ] Admin aberto (https://vemgo.pages.dev/login)
 - [ ] Tentou editar curso
 - [ ] Viu logs no terminal
 - [ ] Identificou em qual "Step" o erro aconteceu
@@ -233,5 +233,5 @@ Com essas informações, posso identificar exatamente o problema! 🔍
 ---
 
 **Última atualização**: 2026-03-13  
-**Deploy**: https://ccae7e64.kncursos.pages.dev  
+**Deploy**: https://ccae7e64.vemgo.pages.dev  
 **Status**: Aguardando teste com logs

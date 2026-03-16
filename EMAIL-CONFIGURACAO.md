@@ -38,14 +38,14 @@ RESEND_TEST_EMAIL=gelci.silva252@gmail.com
 
 # Admin
 ADMIN_USERNAME=admin
-ADMIN_PASSWORD=kncursos2024
+ADMIN_PASSWORD=vemgo2024
 
 # JWT
-JWT_SECRET=kncursos-jwt-secret-change-in-production-2024
+JWT_SECRET=vemgo-jwt-secret-change-in-production-2024
 EOF
 
 # Reiniciar servidor
-pm2 restart kncursos
+pm2 restart vemgo
 ```
 
 **Teste**:
@@ -77,7 +77,7 @@ Para enviar para **qualquer email**, você precisa verificar um domínio:
 #### Passo 2: Adicionar Domínio
 
 1. Clique em **"Add Domain"**
-2. Digite seu domínio: `kncursos.com.br` (ou qualquer domínio seu)
+2. Digite seu domínio: `vemgo.com.br` (ou qualquer domínio seu)
 3. Clique em **"Add"**
 
 #### Passo 3: Configurar DNS
@@ -122,11 +122,11 @@ Valor: 10 mx.resend.com
 
 ```bash
 # .dev.vars (local)
-EMAIL_FROM=cursos@kncursos.com.br
+EMAIL_FROM=cursos@vemgo.com.br
 
 # Cloudflare (produção)
-npx wrangler pages secret put EMAIL_FROM --project-name kncursos
-# Cole: cursos@kncursos.com.br
+npx wrangler pages secret put EMAIL_FROM --project-name vemgo
+# Cole: cursos@vemgo.com.br
 ```
 
 ---
@@ -152,7 +152,7 @@ const transporter = nodemailer.createTransporter({
 })
 
 await transporter.sendMail({
-  from: '"kncursos" <seu-email@gmail.com>',
+  from: '"vemgo" <seu-email@gmail.com>',
   to: customer_email,
   subject: '✅ Confirmação de Compra',
   html: `...`
@@ -206,7 +206,7 @@ await resend.emails.send({
 
 ### 🎯 Para Produção
 
-- [ ] Verificar domínio no Resend (kncursos.com.br)
+- [ ] Verificar domínio no Resend (vemgo.com.br)
 - [ ] Configurar EMAIL_FROM com domínio verificado
 - [ ] Testar envio para qualquer email
 
@@ -274,7 +274,7 @@ curl -X POST http://localhost:3000/api/sales \
 - [ ] Verificar recebimento do email
 
 ### Produção (Próximo)
-- [ ] Comprar/configurar domínio (kncursos.com.br)
+- [ ] Comprar/configurar domínio (vemgo.com.br)
 - [ ] Verificar domínio no Resend
 - [ ] Configurar EMAIL_FROM com domínio
 - [ ] Adicionar secret no Cloudflare

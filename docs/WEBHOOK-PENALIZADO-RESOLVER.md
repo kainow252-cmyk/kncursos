@@ -36,7 +36,7 @@ O Asaas aplica **penalização automática** quando:
 
 3. **URL permanente** ✓
    - Antes: URLs temporárias (mudavam a cada deploy)
-   - Agora: `https://kncursos.com.br/api/webhooks/asaas`
+   - Agora: `https://vemgo.com.br/api/webhooks/asaas`
 
 ## 🔧 Passos para Resolver a Penalização
 
@@ -57,7 +57,7 @@ O Asaas aplica **penalização automática** quando:
 
 **Opção A: Reativar o Webhook Penalizado**
 1. Vá em **Integrações** → **Webhooks**
-2. Localize "KN Cursos - Notificações"
+2. Localize "Vemgo - Notificações"
 3. Se houver indicação de "Penalizado" ou "Desativado":
    - Clique em **Editar**
    - Marque como **"Ativo"**
@@ -68,8 +68,8 @@ O Asaas aplica **penalização automática** quando:
 **Opção B: Criar Novo Webhook (se A não funcionar)**
 1. **Desative** o webhook antigo (não delete, apenas desative)
 2. Crie um **novo webhook**:
-   - **Nome:** `KN Cursos - Notificações v2`
-   - **URL:** `https://kncursos.com.br/api/webhooks/asaas`
+   - **Nome:** `Vemgo - Notificações v2`
+   - **URL:** `https://vemgo.com.br/api/webhooks/asaas`
    - **Token:** `whsec_VLXmawvFyz91ALugMOWlmwN5GTxTaaoRDC1z2QYGjT4`
    - **Status:** `Ativo`
 3. Selecione **TODOS** os eventos (ou pelo menos todos `PAYMENT_*`)
@@ -86,7 +86,7 @@ O Asaas aplica **penalização automática** quando:
 
 **Teste 2: Terminal (opcional)**
 ```bash
-curl -X POST https://kncursos.com.br/api/webhooks/asaas \
+curl -X POST https://vemgo.com.br/api/webhooks/asaas \
   -H "Content-Type: application/json" \
   -H "asaas-access-token: whsec_VLXmawvFyz91ALugMOWlmwN5GTxTaaoRDC1z2QYGjT4" \
   -d '{
@@ -107,7 +107,7 @@ curl -X POST https://kncursos.com.br/api/webhooks/asaas \
 ```
 
 **Teste 3: Compra Real (com cartão de teste)**
-1. Acesse: https://kncursos.com.br
+1. Acesse: https://vemgo.com.br
 2. Escolha um curso
 3. Use o cartão de teste:
    - **Número:** 5162 3062 1937 8829
@@ -117,7 +117,7 @@ curl -X POST https://kncursos.com.br/api/webhooks/asaas \
 4. Confirme a compra
 5. Verifique:
    - Email de confirmação recebido
-   - Status "Confirmado" no admin: https://kncursos.com.br/admin
+   - Status "Confirmado" no admin: https://vemgo.com.br/admin
    - Status "Pago" no Asaas
 
 ## 📊 Status Esperado Após Correção
@@ -161,7 +161,7 @@ A: Sim, o código está correto. Basta remover a penalização no painel Asaas.
 **Q: E se o teste falhar?**  
 A: Verifique:
 - Token correto no webhook do Asaas
-- URL exata: `https://kncursos.com.br/api/webhooks/asaas`
+- URL exata: `https://vemgo.com.br/api/webhooks/asaas`
 - Status "Ativo"
 - Sem espaços extras no token
 
@@ -175,8 +175,8 @@ A: Não recomendado. Melhor desativar e criar novo.
 - Telefone: (47) 3433-2909
 - Chat: https://www.asaas.com (canto inferior direito)
 
-**KN Cursos:**
-- Repositório: https://github.com/kainow252-cmyk/kncursos
+**Vemgo:**
+- Repositório: https://github.com/kainow252-cmyk/vemgo
 - Documentação: `/docs/` no repositório
 
 ---

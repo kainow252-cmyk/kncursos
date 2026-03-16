@@ -12,7 +12,7 @@ As variáveis de ambiente do arquivo `.dev.vars` são **apenas para desenvolvime
 
 ### 1. Acessar Dashboard do Cloudflare
 1. Acesse: https://dash.cloudflare.com/
-2. Vá em **Workers & Pages** → **kncursos**
+2. Vá em **Workers & Pages** → **vemgo**
 3. Clique na aba **Settings**
 4. Role até **Environment variables**
 
@@ -47,7 +47,7 @@ Encrypt: ✅
 
 ```
 Variable name: EMAIL_FROM
-Value: cursos@kncursos.com.br
+Value: cursos@vemgo.com.br
 Encrypt: ❌
 ```
 
@@ -66,13 +66,13 @@ Encrypt: ❌
 
 ```
 Variable name: ADMIN_PASSWORD
-Value: kncursos2024
+Value: vemgo2024
 Encrypt: ✅
 ```
 
 ```
 Variable name: JWT_SECRET
-Value: kncursos-jwt-secret-change-in-production-2024
+Value: vemgo-jwt-secret-change-in-production-2024
 Encrypt: ✅
 ```
 
@@ -84,14 +84,14 @@ Após adicionar as variáveis, faça um novo deploy para garantir que tudo funci
 ```bash
 cd /home/user/webapp
 npm run build
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 ```
 
 ---
 
 ## ✅ Verificação
 Após configurar as variáveis:
-1. Acesse: https://kncursos.pages.dev/checkout/DEV2024XYZ
+1. Acesse: https://vemgo.pages.dev/checkout/DEV2024XYZ
 2. Preencha o formulário e clique em **Finalizar Compra**
 3. O erro **"invalid_access_token"** deve desaparecer
 
@@ -111,7 +111,7 @@ cat .dev.vars
 
 # Testar localmente
 npm run build
-pm2 restart kncursos
+pm2 restart vemgo
 
 # Deploy para produção
 npm run deploy

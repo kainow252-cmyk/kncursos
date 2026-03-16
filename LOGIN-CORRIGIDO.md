@@ -128,10 +128,10 @@ auth_token
 ## 🚀 URLs de Teste
 
 ### Produção
-- **Home**: https://kncursos.pages.dev/
-- **Login**: https://kncursos.pages.dev/login
-- **Admin**: https://kncursos.pages.dev/admin
-- **Staging**: https://6efbe701.kncursos.pages.dev/
+- **Home**: https://vemgo.pages.dev/
+- **Login**: https://vemgo.pages.dev/login
+- **Admin**: https://vemgo.pages.dev/admin
+- **Staging**: https://6efbe701.vemgo.pages.dev/
 
 ### Local
 - **Home**: http://localhost:3000/
@@ -140,22 +140,22 @@ auth_token
 
 ### Credenciais
 - **Usuário**: `admin`
-- **Senha**: `kncursos2024`
+- **Senha**: `vemgo2024`
 
 ## ✅ Testes Realizados
 
 ### Login em Produção
 ```bash
-$ curl -X POST https://6efbe701.kncursos.pages.dev/api/auth/login \
+$ curl -X POST https://6efbe701.vemgo.pages.dev/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"kncursos2024"}'
+  -d '{"username":"admin","password":"vemgo2024"}'
 
 {"success":true,"message":"Login realizado com sucesso"}
 ```
 
 ### Acesso ao Admin
 ```bash
-$ curl -b cookies.txt https://6efbe701.kncursos.pages.dev/admin | grep "Dashboard Admin"
+$ curl -b cookies.txt https://6efbe701.vemgo.pages.dev/admin | grep "Dashboard Admin"
 
 Dashboard Admin ✅
 ```

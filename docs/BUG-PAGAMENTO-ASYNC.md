@@ -89,7 +89,7 @@ console.log('[WEBHOOK MP] 📋 Vendas encontradas:', sales?.length || 0)
 
 **URL do Webhook:**
 ```
-https://kncursos.com.br/api/webhooks/mercadopago
+https://vemgo.com.br/api/webhooks/mercadopago
 ```
 
 **Como Configurar:**
@@ -109,17 +109,17 @@ Os tokens precisam estar válidos no Cloudflare:
 
 ```bash
 # Verificar se tokens estão configurados
-wrangler pages secret list --project-name=kncursos
+wrangler pages secret list --project-name=vemgo
 
 # Se necessário, atualizar
-wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name=kncursos
-wrangler pages secret put MERCADOPAGO_TEST_ACCESS_TOKEN --project-name=kncursos
+wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name=vemgo
+wrangler pages secret put MERCADOPAGO_TEST_ACCESS_TOKEN --project-name=vemgo
 ```
 
 ### 3. Testar Webhook Manualmente
 
 ```bash
-curl -X POST https://kncursos.com.br/api/webhooks/mercadopago \
+curl -X POST https://vemgo.com.br/api/webhooks/mercadopago \
   -H "Content-Type: application/json" \
   -d '{
     "action": "payment.updated",
@@ -197,4 +197,4 @@ O sistema **ESTÁ FUNCIONANDO CORRETAMENTE** no backend. O problema é:
 
 **Commit:** dfecdbc - fix: melhorar busca de venda no webhook  
 **Data:** 2026-03-14  
-**Repositório:** https://github.com/kainow252-cmyk/kncursos
+**Repositório:** https://github.com/kainow252-cmyk/vemgo

@@ -8,7 +8,7 @@ O erro 500 ao editar cursos acontece porque o banco de **produção** não tem a
 ### Opção 1: Via Cloudflare Dashboard (RECOMENDADO)
 
 1. Acesse: https://dash.cloudflare.com/
-2. Vá em: **Storage & Databases** → **D1** → **kncursos**
+2. Vá em: **Storage & Databases** → **D1** → **vemgo**
 3. Clique na aba **"Console"**
 4. Execute os comandos SQL abaixo **um por um**:
 
@@ -36,20 +36,20 @@ SELECT id, title, price, image_width, image_height FROM courses LIMIT 5;
 
 ```bash
 # Adicionar colunas
-npx wrangler d1 execute kncursos --remote --command="ALTER TABLE courses ADD COLUMN image_width INTEGER DEFAULT 400"
-npx wrangler d1 execute kncursos --remote --command="ALTER TABLE courses ADD COLUMN image_height INTEGER DEFAULT 300"
+npx wrangler d1 execute vemgo --remote --command="ALTER TABLE courses ADD COLUMN image_width INTEGER DEFAULT 400"
+npx wrangler d1 execute vemgo --remote --command="ALTER TABLE courses ADD COLUMN image_height INTEGER DEFAULT 300"
 
 # Atualizar existentes
-npx wrangler d1 execute kncursos --remote --command="UPDATE courses SET image_width = 400 WHERE image_width IS NULL"
-npx wrangler d1 execute kncursos --remote --command="UPDATE courses SET image_height = 300 WHERE image_height IS NULL"
+npx wrangler d1 execute vemgo --remote --command="UPDATE courses SET image_width = 400 WHERE image_width IS NULL"
+npx wrangler d1 execute vemgo --remote --command="UPDATE courses SET image_height = 300 WHERE image_height IS NULL"
 ```
 
 ## Verificação
 
 Depois de executar o SQL:
 
-1. Acesse: https://kncursos.pages.dev/admin
-2. Login: `admin` / `kncursos2024`
+1. Acesse: https://vemgo.pages.dev/admin
+2. Login: `admin` / `vemgo2024`
 3. Clique em **"Editar"** em qualquer curso
 4. Altere o preço
 5. Clique em **"Atualizar Curso"**

@@ -49,24 +49,24 @@ ASAAS_ENV=sandbox
 RESEND_API_KEY=re_JDP5HjRp_DEBc12yNzQbGbt4rVWpCKjU6
 
 # Email do remetente (domínio verificado)
-EMAIL_FROM=cursos@kncursos.com.br
+EMAIL_FROM=cursos@vemgo.com.br
 
 # Resend Webhook Signing Secret
 RESEND_WEBHOOK_SECRET=whsec_T2Q53tFGgdWg0F04xpa4gv7kdcrGJg7t
 
 # Admin Credentials
 ADMIN_USERNAME=admin
-ADMIN_PASSWORD=kncursos2024
+ADMIN_PASSWORD=vemgo2024
 
 # JWT Secret
-JWT_SECRET=kncursos-jwt-secret-change-in-production-2024
+JWT_SECRET=vemgo-jwt-secret-change-in-production-2024
 ```
 
 ### **Cloudflare Pages (Produção)**
 
 Adicionar as mesmas variáveis via Dashboard:
 ```
-Workers & Pages → kncursos → Settings → Environment Variables
+Workers & Pages → vemgo → Settings → Environment Variables
 ```
 
 **Tipo:** Secret (para chaves sensíveis)  
@@ -139,7 +139,7 @@ curl -X POST http://localhost:3000/api/sales \
 
 ### **2. Verificar logs:**
 ```bash
-pm2 logs kncursos --nostream | grep -E "ASAAS|EMAIL"
+pm2 logs vemgo --nostream | grep -E "ASAAS|EMAIL"
 ```
 
 **Logs esperados:**
@@ -163,7 +163,7 @@ pm2 logs kncursos --nostream | grep -E "ASAAS|EMAIL"
 1. **Login no Asaas:** https://sandbox.asaas.com/ (ou producao)
 2. **Menu:** Integrações → Webhooks
 3. **Adicionar Webhook:**
-   - **URL:** `https://kncursos.pages.dev/api/webhooks/asaas`
+   - **URL:** `https://vemgo.pages.dev/api/webhooks/asaas`
    - **Eventos:**
      - ✅ PAYMENT_RECEIVED
      - ✅ PAYMENT_CONFIRMED
@@ -250,7 +250,7 @@ ASAAS_ENV=production
 
 **Via Dashboard:**
 1. https://dash.cloudflare.com/
-2. Workers & Pages → **kncursos** → Settings → **Environment Variables**
+2. Workers & Pages → **vemgo** → Settings → **Environment Variables**
 3. Edit **ASAAS_API_KEY** → Trocar para chave de produção
 4. Edit **ASAAS_ENV** → Mudar para `production`
 5. Save
@@ -259,14 +259,14 @@ ASAAS_ENV=production
 
 ```bash
 cd /home/user/webapp
-npx wrangler d1 execute kncursos --file=add-asaas-columns.sql --remote
+npx wrangler d1 execute vemgo --file=add-asaas-columns.sql --remote
 ```
 
 ### **3. Build e Deploy:**
 
 ```bash
 npm run build
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 ```
 
 ### **4. Configurar webhook em produção:**
@@ -274,7 +274,7 @@ npx wrangler pages deploy dist --project-name kncursos
 1. Login no Asaas **PRODUÇÃO:** https://www.asaas.com/
 2. Menu: Integrações → Webhooks
 3. Adicionar webhook com URL de produção:
-   - **URL:** `https://kncursos.pages.dev/api/webhooks/asaas`
+   - **URL:** `https://vemgo.pages.dev/api/webhooks/asaas`
    - **Eventos:** Mesmos do sandbox
    - **Versão:** v3
 
@@ -360,9 +360,9 @@ npx wrangler pages deploy dist --project-name kncursos
 - Email: [email protected]
 - Chat: Dashboard → Suporte
 
-**kncursos:**
+**vemgo:**
 - Email: gelci.silva252@gmail.com
-- Dashboard: https://kncursos.pages.dev/admin
+- Dashboard: https://vemgo.pages.dev/admin
 
 ---
 

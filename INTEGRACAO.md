@@ -134,22 +134,22 @@ O email enviado inclui:
 
 ```bash
 # Mercado Pago
-wrangler pages secret put MERCADOPAGO_PUBLIC_KEY --project-name kncursos
-wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name kncursos
+wrangler pages secret put MERCADOPAGO_PUBLIC_KEY --project-name vemgo
+wrangler pages secret put MERCADOPAGO_ACCESS_TOKEN --project-name vemgo
 
 # Resend
-wrangler pages secret put RESEND_API_KEY --project-name kncursos
-wrangler pages secret put EMAIL_FROM --project-name kncursos
+wrangler pages secret put RESEND_API_KEY --project-name vemgo
+wrangler pages secret put EMAIL_FROM --project-name vemgo
 ```
 
 ### 3. **Verificar Domínio no Resend (Opcional)**
 
-Para enviar de `contato@kncursos.com.br`:
+Para enviar de `contato@vemgo.com.br`:
 1. Acesse: https://resend.com/domains
 2. Adicione seu domínio
 3. Configure os registros DNS (MX, TXT, CNAME)
 4. Aguarde verificação
-5. Atualize `EMAIL_FROM=contato@kncursos.com.br`
+5. Atualize `EMAIL_FROM=contato@vemgo.com.br`
 
 ---
 
@@ -181,7 +181,7 @@ Para enviar de `contato@kncursos.com.br`:
 
 ### Ver logs do PM2 (desenvolvimento)
 ```bash
-pm2 logs kncursos --nostream
+pm2 logs vemgo --nostream
 ```
 
 ### Ver vendas no banco
@@ -203,7 +203,7 @@ curl http://localhost:3000/api/sales
 ### Pagamento recusado
 - Verifique se está usando cartões de TESTE
 - Confirme que o Access Token está correto
-- Veja os logs: `pm2 logs kncursos`
+- Veja os logs: `pm2 logs vemgo`
 
 ### Email não chega
 - Verifique se o RESEND_API_KEY está correto
@@ -213,7 +213,7 @@ curl http://localhost:3000/api/sales
 ### Erro 500 no checkout
 - Verifique se o `.dev.vars` existe
 - Confirme que as variáveis estão carregadas
-- Reinicie: `pm2 restart kncursos`
+- Reinicie: `pm2 restart vemgo`
 
 ---
 

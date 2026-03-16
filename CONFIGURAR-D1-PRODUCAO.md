@@ -18,14 +18,14 @@
 **Seu Database ID** (de wrangler.jsonc):
 ```
 database_id: 6783bc59-1fd5-48b4-894b-98c77e6ca75a
-database_name: kncursos
+database_name: vemgo
 ```
 
 ### Passo 2: Acessar Cloudflare Dashboard
 
 1. **Login**: https://dash.cloudflare.com/
 2. **Workers & Pages** (menu lateral)
-3. Selecione o projeto **kncursos**
+3. Selecione o projeto **vemgo**
 4. Clique na aba **Settings**
 5. Role até a seção **Bindings**
 
@@ -35,7 +35,7 @@ database_name: kncursos
 2. Selecione **D1 database**
 3. Preencha:
    - **Variable name**: `DB` (exatamente assim, maiúsculo)
-   - **D1 database**: Selecione `kncursos` da lista
+   - **D1 database**: Selecione `vemgo` da lista
 4. Clique em **Save**
 
 **Screenshot de referência**:
@@ -46,7 +46,7 @@ database_name: kncursos
 │ Type: D1 database                           │
 │                                             │
 │ Variable name: DB                           │
-│ D1 database: kncursos ▼                     │
+│ D1 database: vemgo ▼                     │
 │                                             │
 │ [Cancel]  [Save]                            │
 └─────────────────────────────────────────────┘
@@ -66,7 +66,7 @@ npx wrangler d1 list
 # ┌──────────────────────────────────┬──────────┬─────────────┐
 # │ Database ID                      │ Name     │ Created     │
 # ├──────────────────────────────────┼──────────┼─────────────┤
-# │ 6783bc59-1fd5-48b4-894b-98c77e6ca75a │ kncursos │ 2024-03-13  │
+# │ 6783bc59-1fd5-48b4-894b-98c77e6ca75a │ vemgo │ 2024-03-13  │
 # └──────────────────────────────────┴──────────┴─────────────┘
 ```
 
@@ -74,7 +74,7 @@ npx wrangler d1 list
 
 1. Acesse: https://dash.cloudflare.com/
 2. **Storage & Databases** → **D1**
-3. Você deve ver o database **kncursos**
+3. Você deve ver o database **vemgo**
 
 ---
 
@@ -86,7 +86,7 @@ Se o database D1 só existe localmente, você precisa criá-lo em produção:
 
 ```bash
 # 1. Criar database remoto
-npx wrangler d1 create kncursos
+npx wrangler d1 create vemgo
 
 # 2. Copiar o database_id retornado
 # Exemplo: 6783bc59-1fd5-48b4-894b-98c77e6ca75a
@@ -95,10 +95,10 @@ npx wrangler d1 create kncursos
 ls migrations/
 
 # 4. Aplicar migrations no database remoto
-npx wrangler d1 migrations apply kncursos --remote
+npx wrangler d1 migrations apply vemgo --remote
 
 # 5. Verificar se funcionou
-npx wrangler d1 execute kncursos --remote --command="SELECT COUNT(*) FROM courses"
+npx wrangler d1 execute vemgo --remote --command="SELECT COUNT(*) FROM courses"
 
 # Deve retornar: {"count": 60}
 ```
@@ -109,17 +109,17 @@ Se o banco estiver vazio, execute os scripts:
 
 ```bash
 # 1. Adicionar cursos
-npx wrangler d1 execute kncursos --remote --file=./seed-add-courses.sql
+npx wrangler d1 execute vemgo --remote --file=./seed-add-courses.sql
 
 # 2. Adicionar payment links
-npx wrangler d1 execute kncursos --remote --file=./fix-payment-links.sql
+npx wrangler d1 execute vemgo --remote --file=./fix-payment-links.sql
 
 # 3. Adicionar PDFs
-npx wrangler d1 execute kncursos --remote --file=./add-pdfs.sql
+npx wrangler d1 execute vemgo --remote --file=./add-pdfs.sql
 
 # 4. Verificar
-npx wrangler d1 execute kncursos --remote --command="SELECT COUNT(*) FROM courses"
-npx wrangler d1 execute kncursos --remote --command="SELECT COUNT(*) FROM payment_links"
+npx wrangler d1 execute vemgo --remote --command="SELECT COUNT(*) FROM courses"
+npx wrangler d1 execute vemgo --remote --command="SELECT COUNT(*) FROM payment_links"
 ```
 
 ---
@@ -130,7 +130,7 @@ npx wrangler d1 execute kncursos --remote --command="SELECT COUNT(*) FROM paymen
 
 ```bash
 # Listar cursos
-curl https://kncursos.pages.dev/api/courses | jq 'length'
+curl https://vemgo.pages.dev/api/courses | jq 'length'
 
 # Deve retornar: 60
 ```
@@ -139,13 +139,13 @@ curl https://kncursos.pages.dev/api/courses | jq 'length'
 
 ```bash
 # 1. Fazer login
-curl -X POST https://kncursos.pages.dev/api/auth/login \
+curl -X POST https://vemgo.pages.dev/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"kncursos2024"}' \
+  -d '{"username":"admin","password":"vemgo2024"}' \
   -c /tmp/cookies.txt
 
 # 2. Editar curso
-curl -X PUT https://kncursos.pages.dev/api/courses/1 \
+curl -X PUT https://vemgo.pages.dev/api/courses/1 \
   -H "Content-Type: application/json" \
   -b /tmp/cookies.txt \
   -d '{
@@ -165,8 +165,8 @@ curl -X PUT https://kncursos.pages.dev/api/courses/1 \
 
 ### Teste 3: Ver no Admin
 
-1. Acesse: https://kncursos.pages.dev/login
-2. Login: `admin` / `kncursos2024`
+1. Acesse: https://vemgo.pages.dev/login
+2. Login: `admin` / `vemgo2024`
 3. Dashboard deve mostrar os cursos
 4. Editar um curso deve funcionar
 
@@ -176,7 +176,7 @@ curl -X PUT https://kncursos.pages.dev/api/courses/1 \
 
 ### Database D1
 
-- [ ] Database `kncursos` existe em produção
+- [ ] Database `vemgo` existe em produção
 - [ ] Database ID: `6783bc59-1fd5-48b4-894b-98c77e6ca75a`
 - [ ] Migrations aplicadas com `--remote`
 - [ ] Dados populados (60 cursos)
@@ -186,7 +186,7 @@ curl -X PUT https://kncursos.pages.dev/api/courses/1 \
 
 - [ ] D1 binding configurado
 - [ ] Variable name: `DB`
-- [ ] Database selecionado: `kncursos`
+- [ ] Database selecionado: `vemgo`
 - [ ] Binding salvo
 
 ### Testes
@@ -204,13 +204,13 @@ curl -X PUT https://kncursos.pages.dev/api/courses/1 \
 
 ```bash
 # Logs em tempo real
-npx wrangler pages deployment tail --project-name kncursos
+npx wrangler pages deployment tail --project-name vemgo
 
 # Testar API
-curl https://kncursos.pages.dev/api/courses/1
+curl https://vemgo.pages.dev/api/courses/1
 
 # Ver erro completo
-npx wrangler pages deployment tail --project-name kncursos | grep -i error
+npx wrangler pages deployment tail --project-name vemgo | grep -i error
 ```
 
 ### Erros Comuns
@@ -245,25 +245,25 @@ npx wrangler pages deployment tail --project-name kncursos | grep -i error
 npx wrangler d1 list
 
 # Criar database remoto
-npx wrangler d1 create kncursos
+npx wrangler d1 create vemgo
 
 # Aplicar migrations (remoto)
-npx wrangler d1 migrations apply kncursos --remote
+npx wrangler d1 migrations apply vemgo --remote
 
 # Executar SQL (remoto)
-npx wrangler d1 execute kncursos --remote --command="SELECT * FROM courses LIMIT 5"
+npx wrangler d1 execute vemgo --remote --command="SELECT * FROM courses LIMIT 5"
 
 # Executar arquivo SQL (remoto)
-npx wrangler d1 execute kncursos --remote --file=./seed-add-courses.sql
+npx wrangler d1 execute vemgo --remote --file=./seed-add-courses.sql
 
 # Ver info do database
-npx wrangler d1 info kncursos
+npx wrangler d1 info vemgo
 
 # Backup (local)
-npx wrangler d1 execute kncursos --local --command="SELECT * FROM courses" > backup-courses.json
+npx wrangler d1 execute vemgo --local --command="SELECT * FROM courses" > backup-courses.json
 
 # Restaurar (remoto)
-npx wrangler d1 execute kncursos --remote --file=./backup-courses.sql
+npx wrangler d1 execute vemgo --remote --file=./backup-courses.sql
 ```
 
 ---
@@ -273,7 +273,7 @@ npx wrangler d1 execute kncursos --remote --file=./backup-courses.sql
 ```
 ┌─────────────────────────────────────────────────┐
 │ LOCAL (funcionando)                             │
-│ ✅ Database: .wrangler/state/v3/d1/kncursos     │
+│ ✅ Database: .wrangler/state/v3/d1/vemgo     │
 │ ✅ 60 cursos                                    │
 │ ✅ API funcionando                              │
 └─────────────────────────────────────────────────┘
@@ -291,7 +291,7 @@ npx wrangler d1 execute kncursos --remote --file=./backup-courses.sql
                     ↓
 ┌─────────────────────────────────────────────────┐
 │ 1. Criar D1 remoto (se não existir)            │
-│    npx wrangler d1 create kncursos              │
+│    npx wrangler d1 create vemgo              │
 │                                                 │
 │ 2. Aplicar migrations                           │
 │    npx wrangler d1 migrations apply --remote    │
@@ -301,7 +301,7 @@ npx wrangler d1 execute kncursos --remote --file=./backup-courses.sql
 │                                                 │
 │ 4. Adicionar binding no Cloudflare             │
 │    Settings → Bindings → Add → D1              │
-│    Variable: DB, Database: kncursos             │
+│    Variable: DB, Database: vemgo             │
 │                                                 │
 │ 5. Testar                                       │
 │    curl /api/courses                            │
@@ -329,24 +329,24 @@ npx wrangler d1 execute kncursos --remote --file=./backup-courses.sql
 
 2. **Se não existir, criar**:
    ```bash
-   npx wrangler d1 create kncursos
-   npx wrangler d1 migrations apply kncursos --remote
+   npx wrangler d1 create vemgo
+   npx wrangler d1 migrations apply vemgo --remote
    ```
 
 3. **Popular dados**:
    ```bash
-   npx wrangler d1 execute kncursos --remote --file=./seed-add-courses.sql
+   npx wrangler d1 execute vemgo --remote --file=./seed-add-courses.sql
    ```
 
 4. **Configurar binding no Cloudflare**:
    - https://dash.cloudflare.com/
-   - Workers & Pages → kncursos → Settings
+   - Workers & Pages → vemgo → Settings
    - Bindings → Add → D1
-   - Variable: `DB`, Database: `kncursos`
+   - Variable: `DB`, Database: `vemgo`
 
 5. **Testar**:
    ```bash
-   curl https://kncursos.pages.dev/api/courses
+   curl https://vemgo.pages.dev/api/courses
    ```
 
 ---

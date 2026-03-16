@@ -1,7 +1,7 @@
 # 🔗 RELATÓRIO: LINKS DE PAGAMENTO CORRIGIDOS
 
 ## 🎯 Problema Identificado
-Ao acessar **https://kncursos.com.br/curso/8** (e outros cursos novos), o botão de pagamento mostrava:
+Ao acessar **https://vemgo.com.br/curso/8** (e outros cursos novos), o botão de pagamento mostrava:
 - ❌ **"Link de pagamento indisponível"**
 - ❌ Usuários não conseguiam comprar os cursos
 
@@ -32,9 +32,9 @@ Criados links de pagamento para os 3 cursos novos:
 
 | Curso ID | Título | Link Code | Checkout URL |
 |----------|--------|-----------|--------------|
-| 6 | Biblioteca Compacta - Desenvolvimento Pessoal | **BIBLIO2026** | https://kncursos.com.br/checkout/BIBLIO2026 |
-| 7 | Marketing Digital na Prática | **MARKET2026** | https://kncursos.com.br/checkout/MARKET2026 |
-| 8 | Introdução às Tecnologias de Informação e Comunicação | **TIC2026** | https://kncursos.com.br/checkout/TIC2026 |
+| 6 | Biblioteca Compacta - Desenvolvimento Pessoal | **BIBLIO2026** | https://vemgo.com.br/checkout/BIBLIO2026 |
+| 7 | Marketing Digital na Prática | **MARKET2026** | https://vemgo.com.br/checkout/MARKET2026 |
+| 8 | Introdução às Tecnologias de Informação e Comunicação | **TIC2026** | https://vemgo.com.br/checkout/TIC2026 |
 
 ### SQL Executado
 ```sql
@@ -57,23 +57,23 @@ VALUES (8, 'TIC2026', 'active', datetime('now'));
 
 ### ✅ Teste 1: Verificar Payment Links no Banco
 ```bash
-npx wrangler d1 execute kncursos --remote \
+npx wrangler d1 execute vemgo --remote \
   --command="SELECT * FROM payment_links WHERE course_id IN (6,7,8)"
 ```
 **Resultado:** ✅ 3 payment links criados com sucesso
 
 ### ✅ Teste 2: Verificar API
 ```bash
-curl https://kncursos.com.br/api/courses | jq '.[] | select(.id == 8)'
+curl https://vemgo.com.br/api/courses | jq '.[] | select(.id == 8)'
 ```
 **Resultado:** ✅ Curso #8 retorna com link_code válido
 
 ### ✅ Teste 3: Acessar Checkout
-- **URL:** https://kncursos.com.br/checkout/TIC2026
+- **URL:** https://vemgo.com.br/checkout/TIC2026
 - **Resultado:** ✅ Página de pagamento carregando corretamente
 
 ### ✅ Teste 4: Verificar Página do Curso
-- **URL:** https://kncursos.com.br/curso/8
+- **URL:** https://vemgo.com.br/curso/8
 - **Resultado:** ✅ Botão "Comprar Agora" funcionando
 
 ---
@@ -102,14 +102,14 @@ Total de payment links ativos: **20**
 
 | Curso | Link Principal | URL Checkout |
 |-------|----------------|--------------|
-| 1 - Emagrecer com Saúde | MKT2024ABC | https://kncursos.com.br/checkout/MKT2024ABC |
-| 2 - Psicologia Sombria | DEV2024XYZ | https://kncursos.com.br/checkout/DEV2024XYZ |
-| 3 - Etiqueta Social | TIKTOK2024 | https://kncursos.com.br/checkout/TIKTOK2024 |
-| 4 - MONETIZE TIKTOK | INSTA2026 | https://kncursos.com.br/checkout/INSTA2026 |
-| 5 - Renda Extra TikTok | YOUTUBE2026 | https://kncursos.com.br/checkout/YOUTUBE2026 |
-| 6 - Biblioteca Compacta | **BIBLIO2026** | https://kncursos.com.br/checkout/BIBLIO2026 |
-| 7 - Marketing Digital | **MARKET2026** | https://kncursos.com.br/checkout/MARKET2026 |
-| 8 - Introdução TIC | **TIC2026** | https://kncursos.com.br/checkout/TIC2026 |
+| 1 - Emagrecer com Saúde | MKT2024ABC | https://vemgo.com.br/checkout/MKT2024ABC |
+| 2 - Psicologia Sombria | DEV2024XYZ | https://vemgo.com.br/checkout/DEV2024XYZ |
+| 3 - Etiqueta Social | TIKTOK2024 | https://vemgo.com.br/checkout/TIKTOK2024 |
+| 4 - MONETIZE TIKTOK | INSTA2026 | https://vemgo.com.br/checkout/INSTA2026 |
+| 5 - Renda Extra TikTok | YOUTUBE2026 | https://vemgo.com.br/checkout/YOUTUBE2026 |
+| 6 - Biblioteca Compacta | **BIBLIO2026** | https://vemgo.com.br/checkout/BIBLIO2026 |
+| 7 - Marketing Digital | **MARKET2026** | https://vemgo.com.br/checkout/MARKET2026 |
+| 8 - Introdução TIC | **TIC2026** | https://vemgo.com.br/checkout/TIC2026 |
 
 ---
 
@@ -117,7 +117,7 @@ Total de payment links ativos: **20**
 
 ### Método 1: Usar a API Diretamente
 ```bash
-curl -X POST https://kncursos.com.br/api/payment-links \
+curl -X POST https://vemgo.com.br/api/payment-links \
   -H "Content-Type: application/json" \
   -d '{
     "course_id": 9,
@@ -145,14 +145,14 @@ VALUES (9, 'NOVO2026', 'active', datetime('now'));
 
 ## 🔗 Links Importantes
 
-- **Site:** https://kncursos.com.br
-- **Admin:** https://kncursos.com.br/admin
-- **Painel Cursos:** https://kncursos.com.br/cursos
+- **Site:** https://vemgo.com.br
+- **Admin:** https://vemgo.com.br/admin
+- **Painel Cursos:** https://vemgo.com.br/cursos
 
 ### Checkouts Ativos:
-- https://kncursos.com.br/checkout/BIBLIO2026 ⬅️ NOVO
-- https://kncursos.com.br/checkout/MARKET2026 ⬅️ NOVO
-- https://kncursos.com.br/checkout/TIC2026 ⬅️ NOVO
+- https://vemgo.com.br/checkout/BIBLIO2026 ⬅️ NOVO
+- https://vemgo.com.br/checkout/MARKET2026 ⬅️ NOVO
+- https://vemgo.com.br/checkout/TIC2026 ⬅️ NOVO
 
 ---
 

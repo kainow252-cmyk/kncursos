@@ -123,12 +123,12 @@ function showCourseForm() {
 ## 🧪 Como Testar
 
 ### Teste 1: Editar Curso na Página /cursos
-1. Acesse: https://kncursos.com.br/cursos
+1. Acesse: https://vemgo.com.br/cursos
 2. Clique em "Editar" em um curso que tem imagem
 3. **Resultado esperado:** ✅ Formulário carrega com preview da imagem, SEM ERRO
 
 ### Teste 2: Editar Curso na Página /admin
-1. Acesse: https://kncursos.com.br/admin
+1. Acesse: https://vemgo.com.br/admin
 2. Clique na tab "Cursos"
 3. Clique em "Editar" em um curso
 4. **Resultado esperado:** ✅ Formulário carrega sem erros (pode não mostrar preview se elementos não existem)
@@ -140,7 +140,7 @@ function showCourseForm() {
 4. **Resultado esperado:** ✅ Preview aparece (se elemento existe), SEM ERRO
 
 ### Teste 4: Criar Novo Curso
-1. Acesse: https://kncursos.com.br/cursos
+1. Acesse: https://vemgo.com.br/cursos
 2. Clique em "Novo Curso"
 3. Preencha os campos
 4. **Resultado esperado:** ✅ Formulário funciona normalmente
@@ -174,8 +174,8 @@ function showCourseForm() {
 ## 🚀 Deploy
 - **Arquivo:** public/static/cursos.js → dist/static/cursos.js
 - **Deploy:** ✅ Concluído
-- **Preview:** https://c3a35a2e.kncursos.pages.dev
-- **Produção:** https://kncursos.com.br
+- **Preview:** https://c3a35a2e.vemgo.pages.dev
+- **Produção:** https://vemgo.com.br
 
 ---
 

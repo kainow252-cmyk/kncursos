@@ -10,12 +10,12 @@ A rota `/cursos` agora está funcionando corretamente e **NÃO redireciona** mai
 
 **URL Atualizada (Preview):**
 ```
-https://e72cc2e4.kncursos.pages.dev/cursos
+https://e72cc2e4.vemgo.pages.dev/cursos
 ```
 
 **URL de Produção:**
 ```
-https://kncursos.pages.dev/cursos
+https://vemgo.pages.dev/cursos
 ```
 
 > **Nota:** A URL de produção principal pode levar alguns minutos para atualizar devido ao cache do Cloudflare. Use a URL de preview para testar imediatamente.
@@ -26,16 +26,16 @@ https://kncursos.pages.dev/cursos
 
 ### Passo 1: Acessar a Rota
 ```
-https://e72cc2e4.kncursos.pages.dev/cursos
+https://e72cc2e4.vemgo.pages.dev/cursos
 ```
 
 ### Passo 2: Fazer Login
 - **Usuário:** admin
-- **Senha:** kncursos2024
+- **Senha:** vemgo2024
 
 ### Passo 3: Verificar Interface
 Você deve ver:
-- ✅ **Header:** "kncursos - Gerenciar Cursos"
+- ✅ **Header:** "vemgo - Gerenciar Cursos"
 - ✅ **Subtítulo:** "Adicione e edite cursos"
 - ✅ **Botão:** "Novo Curso"
 - ✅ **Lista de cursos** em formato de grid
@@ -48,7 +48,7 @@ Você deve ver:
 
 ### /cursos (Funcionários)
 ```
-URL: https://kncursos.pages.dev/cursos
+URL: https://vemgo.pages.dev/cursos
 
 INTERFACE:
 ├─ Header: "Gerenciar Cursos"
@@ -67,7 +67,7 @@ INTERFACE:
 
 ### /admin (Administrador)
 ```
-URL: https://kncursos.pages.dev/admin
+URL: https://vemgo.pages.dev/admin
 
 INTERFACE:
 ├─ Header: "Painel Administrativo"
@@ -108,9 +108,9 @@ INTERFACE:
 Execute estes testes:
 
 ### Teste 1: Acesso ✅
-- [ ] Acessar https://e72cc2e4.kncursos.pages.dev/cursos
+- [ ] Acessar https://e72cc2e4.vemgo.pages.dev/cursos
 - [ ] Verificar redirecionamento para /login (se não autenticado)
-- [ ] Fazer login com admin/kncursos2024
+- [ ] Fazer login com admin/vemgo2024
 - [ ] Verificar se carrega a página de cursos
 
 ### Teste 2: Interface ✅
@@ -163,12 +163,12 @@ Execute estes testes:
 
 | Página | URL | Acesso |
 |--------|-----|--------|
-| 🏠 Loja | https://kncursos.pages.dev/ | Público |
-| 🛒 Checkout | https://kncursos.pages.dev/checkout/DEV2024XYZ | Público |
-| 🔐 Login | https://kncursos.pages.dev/login | Restrito |
-| 📚 **Gerenciar Cursos** | **https://e72cc2e4.kncursos.pages.dev/cursos** | **Funcionários** ✨ |
-| 👨‍💼 Admin Completo | https://kncursos.pages.dev/admin | Admin |
-| 🧪 Teste E-mail | https://kncursos.pages.dev/test-email | Admin |
+| 🏠 Loja | https://vemgo.pages.dev/ | Público |
+| 🛒 Checkout | https://vemgo.pages.dev/checkout/DEV2024XYZ | Público |
+| 🔐 Login | https://vemgo.pages.dev/login | Restrito |
+| 📚 **Gerenciar Cursos** | **https://e72cc2e4.vemgo.pages.dev/cursos** | **Funcionários** ✨ |
+| 👨‍💼 Admin Completo | https://vemgo.pages.dev/admin | Admin |
+| 🧪 Teste E-mail | https://vemgo.pages.dev/test-email | Admin |
 
 ---
 
@@ -176,13 +176,13 @@ Execute estes testes:
 
 ### URL Preview (Imediata):
 ```
-https://e72cc2e4.kncursos.pages.dev/cursos
+https://e72cc2e4.vemgo.pages.dev/cursos
 ```
 ✅ Funciona **AGORA** - Sem cache
 
 ### URL Produção (Pode demorar):
 ```
-https://kncursos.pages.dev/cursos
+https://vemgo.pages.dev/cursos
 ```
 ⏳ Pode levar **5-10 minutos** para atualizar devido ao cache do Cloudflare
 
@@ -193,7 +193,7 @@ https://kncursos.pages.dev/cursos
 ## 📝 Próximos Passos
 
 ### 1️⃣ **Testar a Rota /cursos Agora**
-- Acesse: https://e72cc2e4.kncursos.pages.dev/cursos
+- Acesse: https://e72cc2e4.vemgo.pages.dev/cursos
 - Faça login
 - Teste criar/editar cursos
 - Confirme que NÃO tem acesso a vendas
@@ -212,8 +212,8 @@ https://kncursos.pages.dev/cursos
 
 ## 🎉 TESTE AGORA!
 
-**URL:** https://e72cc2e4.kncursos.pages.dev/cursos  
-**Login:** admin / kncursos2024
+**URL:** https://e72cc2e4.vemgo.pages.dev/cursos  
+**Login:** admin / vemgo2024
 
 **Me avise:**
 - ✅ Se a interface está correta (sem aba Vendas)

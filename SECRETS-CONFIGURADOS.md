@@ -15,12 +15,12 @@ Todas as variáveis de ambiente foram configuradas no Cloudflare Pages usando o 
 
 ### ✅ RESEND (E-mails)
 - [x] `RESEND_API_KEY` - Chave de API para envio de e-mails
-- [x] `EMAIL_FROM` = `cursos@kncursos.com.br` - E-mail remetente
+- [x] `EMAIL_FROM` = `cursos@vemgo.com.br` - E-mail remetente
 - [x] `RESEND_WEBHOOK_SECRET` - Secret para webhooks
 
 ### ✅ ADMIN (Painel Administrativo)
 - [x] `ADMIN_USERNAME` = `admin` - Usuário do admin
-- [x] `ADMIN_PASSWORD` = `kncursos2024` - Senha do admin
+- [x] `ADMIN_PASSWORD` = `vemgo2024` - Senha do admin
 - [x] `JWT_SECRET` - Secret para autenticação JWT
 
 ### ✅ MERCADO PAGO (Já existentes)
@@ -32,10 +32,10 @@ Todas as variáveis de ambiente foram configuradas no Cloudflare Pages usando o 
 ## 🚀 Deploy Realizado
 
 **URL do último deploy:**
-https://bc52ddcf.kncursos.pages.dev
+https://bc52ddcf.vemgo.pages.dev
 
 **URL de produção:**
-https://kncursos.pages.dev
+https://vemgo.pages.dev
 
 ---
 
@@ -43,7 +43,7 @@ https://kncursos.pages.dev
 
 ### 1. **Acesse a página de checkout:**
 ```
-https://kncursos.pages.dev/checkout/DEV2024XYZ
+https://vemgo.pages.dev/checkout/DEV2024XYZ
 ```
 
 ### 2. **Preencha com dados de TESTE:**
@@ -95,7 +95,7 @@ Você deve ver logs como:
 # Script: set-secrets.sh
 
 # Configurar cada variável usando Wrangler CLI
-echo 'VALOR' | npx wrangler pages secret put NOME_VARIAVEL --project-name kncursos
+echo 'VALOR' | npx wrangler pages secret put NOME_VARIAVEL --project-name vemgo
 ```
 
 **Resultado:**
@@ -117,23 +117,23 @@ echo 'VALOR' | npx wrangler pages secret put NOME_VARIAVEL --project-name kncurs
 
 ### Listar todas as variáveis:
 ```bash
-npx wrangler pages secret list --project-name kncursos
+npx wrangler pages secret list --project-name vemgo
 ```
 
 ### Adicionar nova variável:
 ```bash
-echo 'VALOR' | npx wrangler pages secret put NOME_VARIAVEL --project-name kncursos
+echo 'VALOR' | npx wrangler pages secret put NOME_VARIAVEL --project-name vemgo
 ```
 
 ### Remover variável:
 ```bash
-npx wrangler pages secret delete NOME_VARIAVEL --project-name kncursos
+npx wrangler pages secret delete NOME_VARIAVEL --project-name vemgo
 ```
 
 ### Fazer novo deploy:
 ```bash
 npm run build
-npx wrangler pages deploy dist --project-name kncursos
+npx wrangler pages deploy dist --project-name vemgo
 ```
 
 ---
@@ -142,11 +142,11 @@ npx wrangler pages deploy dist --project-name kncursos
 
 | Página | URL |
 |--------|-----|
-| **Checkout (teste)** | https://kncursos.pages.dev/checkout/DEV2024XYZ |
-| **Checkout (R$ 10)** | https://kncursos.pages.dev/checkout/TESTE10 |
-| **Loja pública** | https://kncursos.pages.dev/ |
-| **Admin** | https://kncursos.pages.dev/admin |
-| **Login** | https://kncursos.pages.dev/login |
+| **Checkout (teste)** | https://vemgo.pages.dev/checkout/DEV2024XYZ |
+| **Checkout (R$ 10)** | https://vemgo.pages.dev/checkout/TESTE10 |
+| **Loja pública** | https://vemgo.pages.dev/ |
+| **Admin** | https://vemgo.pages.dev/admin |
+| **Login** | https://vemgo.pages.dev/login |
 
 ---
 
@@ -188,7 +188,7 @@ Para verificar pagamentos de teste:
 
 O sistema está pronto para testes no ambiente SANDBOX. Todos os pagamentos são simulados e não geram cobranças reais.
 
-**Teste agora:** https://kncursos.pages.dev/checkout/DEV2024XYZ
+**Teste agora:** https://vemgo.pages.dev/checkout/DEV2024XYZ
 
 ---
 

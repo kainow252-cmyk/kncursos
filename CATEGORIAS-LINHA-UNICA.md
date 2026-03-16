@@ -70,8 +70,8 @@ text-xs → Todos os ícones reduzidos para 12px
 
 ## 🚀 URLs
 
-- **Produção**: https://kncursos.pages.dev/
-- **Staging**: https://0fc69ff0.kncursos.pages.dev/
+- **Produção**: https://vemgo.pages.dev/
+- **Staging**: https://0fc69ff0.vemgo.pages.dev/
 - **Local**: http://localhost:3000/
 
 ## 📝 Arquivos Modificados

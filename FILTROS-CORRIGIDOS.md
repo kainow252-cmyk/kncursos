@@ -54,8 +54,8 @@ function renderCourses() {
 ## 🔗 URLs de Teste
 
 - **Local**: http://localhost:3000/
-- **Produção**: https://kncursos.pages.dev/
-- **Staging**: https://3abb94c9.kncursos.pages.dev/
+- **Produção**: https://vemgo.pages.dev/
+- **Staging**: https://3abb94c9.vemgo.pages.dev/
 
 ## 📝 Arquivos Modificados
 
