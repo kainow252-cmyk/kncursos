@@ -893,12 +893,16 @@ async function handlePDFUpload(event) {
         return;
     }
     
+    let originalHTML = '<i class="fas fa-upload"></i> Enviar PDF';
+    
     try {
         // Mostrar loading
         const button = event.target.previousElementSibling;
-        const originalHTML = button.innerHTML;
-        button.disabled = true;
-        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        if (button) {
+            originalHTML = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        }
         
         // Criar FormData
         const formData = new FormData();
@@ -913,16 +917,26 @@ async function handlePDFUpload(event) {
         
         // Atualizar preview
         uploadedPDFUrl = response.data.url;
-        document.getElementById('course-pdf').value = uploadedPDFUrl;
+        const coursePdfInput = document.getElementById('course-pdf');
+        if (coursePdfInput) {
+            coursePdfInput.value = uploadedPDFUrl;
+        }
         
         // Mostrar preview
-        document.getElementById('pdf-name').textContent = file.name;
-        document.getElementById('pdf-size').textContent = formatFileSize(file.size);
-        document.getElementById('pdf-preview').classList.remove('hidden');
+        const pdfName = document.getElementById('pdf-name');
+        const pdfSize = document.getElementById('pdf-size');
+        const pdfPreview = document.getElementById('pdf-preview');
+        
+        if (pdfName) pdfName.textContent = file.name;
+        if (pdfSize) pdfSize.textContent = formatFileSize(file.size);
+        if (pdfPreview) pdfPreview.classList.remove('hidden');
         
         // Restaurar botão
-        button.disabled = false;
-        button.innerHTML = originalHTML;
+        const button = event.target.previousElementSibling;
+        if (button) {
+            button.disabled = false;
+            button.innerHTML = originalHTML;
+        }
         
         alert('✅ PDF enviado com sucesso!');
         
@@ -932,8 +946,10 @@ async function handlePDFUpload(event) {
         
         // Restaurar botão
         const button = event.target.previousElementSibling;
-        button.disabled = false;
-        button.innerHTML = '<i class="fas fa-upload"></i> Enviar PDF';
+        if (button) {
+            button.disabled = false;
+            button.innerHTML = originalHTML;
+        }
     }
 }
 
