@@ -2409,7 +2409,7 @@ app.post('/api/sales', async (c) => {
     if (paymentResult.status === 'rejected') {
       saleStatus = 'failed'
     } else if (paymentResult.status === 'approved' || paymentResult.status === 'authorized') {
-      saleStatus = 'pending'  // Será confirmado pelo cronjob
+      saleStatus = 'completed'  // ✅ Aprovar imediatamente!
     }
     
     // Gerar token de acesso aleatório
@@ -2505,12 +2505,87 @@ app.post('/api/sales', async (c) => {
     console.log('[MERCADOPAGO] ✅ Pagamento aprovado!')
     console.log('[PAGAMENTO] ✅ Pagamento aprovado via MERCADO PAGO!')
     
-    // ❌ EMAIL REMOVIDO DAQUI - Será enviado pelo cronjob após confirmação real do pagamento
-    
     // Preparar URL de download (se PDF disponível)
     const downloadUrl = link.pdf_url 
       ? `https://kncursos.com.br/download/${access_token}`
       : null
+    
+    // ✅ ENVIAR EMAIL IMEDIATAMENTE se pagamento foi aprovado
+    if (saleStatus === 'completed') {
+      console.log('[EMAIL] 📧 Enviando email de acesso imediatamente...')
+      
+      const { RESEND_API_KEY, EMAIL_FROM } = c.env
+      
+      if (RESEND_API_KEY && EMAIL_FROM) {
+        try {
+          const Resend = (await import('resend')).Resend
+          const resend = new Resend(RESEND_API_KEY)
+          
+          const emailHtml = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <meta charset="utf-8">
+              <style>
+                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+                .header { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+                .header h1 { margin: 0; font-size: 28px; }
+                .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
+                .button { display: inline-block; background: #10b981; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 20px 0; }
+                .button:hover { background: #059669; }
+                .info { background: white; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #10b981; }
+                .footer { text-align: center; color: #6b7280; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
+              </style>
+            </head>
+            <body>
+              <div class="header">
+                <h1>🎉 Pagamento Confirmado!</h1>
+              </div>
+              <div class="content">
+                <p>Olá <strong>${customer_name}</strong>,</p>
+                
+                <p>Seu pagamento foi aprovado com sucesso!</p>
+                
+                <div class="info">
+                  <p><strong>Curso:</strong> ${link.title}</p>
+                  <p><strong>Valor:</strong> R$ ${parseFloat(link.price).toFixed(2)}</p>
+                  <p><strong>Gateway:</strong> Mercado Pago</p>
+                  <p><strong>ID do Pagamento:</strong> ${paymentId}</p>
+                </div>
+                
+                ${downloadUrl ? `
+                  <p>Clique no botão abaixo para ${link.pdf_url ? 'fazer o download' : 'acessar'} seu curso:</p>
+                  <a href="${downloadUrl}" class="button">${link.pdf_url ? '📥 Baixar Curso Agora' : '🎓 Acessar Curso Agora'}</a>
+                  <p><small>Este link é exclusivo e permanente para você.</small></p>
+                ` : `
+                  <p>O acesso ao curso será liberado em breve. Você receberá um novo email com as instruções.</p>
+                `}
+                
+                <div class="footer">
+                  <p>Se você tiver alguma dúvida, entre em contato conosco.</p>
+                  <p>© ${new Date().getFullYear()} KN Cursos - Todos os direitos reservados</p>
+                </div>
+              </div>
+            </body>
+            </html>
+          `
+          
+          await resend.emails.send({
+            from: EMAIL_FROM,
+            to: customer_email,
+            subject: `✅ Pagamento Aprovado - ${link.title}`,
+            html: emailHtml
+          })
+          
+          console.log('[EMAIL] ✅ Email de acesso enviado com sucesso!')
+        } catch (emailError) {
+          console.error('[EMAIL] ❌ Erro ao enviar email:', emailError)
+          // Não falhar a transação se o email não for enviado
+        }
+      } else {
+        console.log('[EMAIL] ⚠️ RESEND_API_KEY ou EMAIL_FROM não configurados')
+      }
+    }
     
     // Retornar sucesso
     return c.json({
@@ -2520,7 +2595,9 @@ app.post('/api/sales', async (c) => {
       gateway: paymentGateway,
       download_url: downloadUrl,
       course_title: link.title,
-      message: 'Pagamento em processamento! Você receberá um email em até 3 minutos com o acesso ao curso.'
+      message: saleStatus === 'completed' 
+        ? 'Pagamento aprovado! Verifique seu email para acessar o curso.'
+        : 'Pagamento em processamento! Você receberá um email quando for aprovado.'
     }, 201)
     
   } catch (error) {
