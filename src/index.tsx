@@ -3070,7 +3070,7 @@ app.get('/', async (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>vemgo - Cursos Online</title>
+        <title>Vemgo - Cursos Online</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <style>
@@ -3199,7 +3199,7 @@ app.get('/', async (c) => {
         <!-- Footer -->
         <footer class="bg-gray-800 text-white py-6 mt-8">
             <div class="container mx-auto px-4 text-center">
-                <p class="text-gray-400 text-sm">© 2024 vemgo - Todos os direitos reservados</p>
+                <p class="text-gray-400 text-sm">© 2024 Vemgo - Todos os direitos reservados</p>
             </div>
         </footer>
 
@@ -3457,7 +3457,7 @@ app.get('/curso/:id', async (c) => {
         <!-- Footer -->
         <footer class="bg-gray-800 text-white mt-12 py-6">
             <div class="container mx-auto px-4 text-center">
-                <p class="text-gray-400">© 2024 vemgo - Todos os direitos reservados</p>
+                <p class="text-gray-400">© 2024 Vemgo - Todos os direitos reservados</p>
             </div>
         </footer>
     </body>
@@ -3606,7 +3606,7 @@ app.get('/cursos', async (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>vemgo - Gerenciar Cursos</title>
+        <title>Vemgo - Gerenciar Cursos</title>
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Expires" content="0">
@@ -3816,7 +3816,7 @@ app.get('/admin', async (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>vemgo - Dashboard Admin</title>
+        <title>Vemgo - Dashboard Admin</title>
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Expires" content="0">
@@ -4346,7 +4346,7 @@ app.get('/login', (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>vemgo - Login Admin</title>
+        <title>Vemgo - Login Admin</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
     </head>
@@ -4357,7 +4357,7 @@ app.get('/login', (c) => {
                 <div class="bg-gradient-to-r from-blue-600 to-purple-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <i class="fas fa-graduation-cap text-4xl text-white"></i>
                 </div>
-                <h1 class="text-3xl font-bold text-gray-800">vemgo</h1>
+                <h1 class="text-3xl font-bold text-gray-800">Vemgo</h1>
                 <p class="text-gray-600 mt-2">Painel Administrativo</p>
             </div>
 
