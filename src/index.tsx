@@ -448,7 +448,7 @@ app.post('/api/courses', async (c) => {
       category, 
       featured,
       link_code: linkCode,
-      checkout_url: `https://vemgo.com.br/checkout/${linkCode}`
+      checkout_url: `https://kncursos.com.br/checkout/${linkCode}`
     }, 201)
   } catch (error) {
     console.error('[CREATE COURSE] ❌ Erro:', error)
@@ -650,7 +650,7 @@ app.get('/api/admin/sales/export/csv', async (c) => {
     c.header('Content-Type', 'text/csv; charset=utf-8')
     
     // Nome do arquivo baseado no filtro
-    let filename = 'vendas_completas_vemgo'
+    let filename = 'vendas_completas_kncursos'
     if (startDate && endDate) {
       filename += `_${startDate}_a_${endDate}`
     } else if (startDate) {
@@ -753,7 +753,7 @@ app.get('/api/admin/sales/export/pdf', async (c) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório de Vendas - Vemgo${periodTitle}</title>
+    <title>Relatório de Vendas - kncursos${periodTitle}</title>
     <style>
         @media print {
             body { margin: 0; }
@@ -907,7 +907,7 @@ app.get('/api/admin/sales/export/pdf', async (c) => {
     
     <div class="container">
         <div class="header">
-            <h1>🎓 Relatório de Vendas - Vemgo${periodTitle}</h1>
+            <h1>🎓 Relatório de Vendas - kncursos${periodTitle}</h1>
             <p class="subtitle">Gerado em ${new Date().toLocaleString('pt-BR', { 
               day: '2-digit', 
               month: 'long', 
@@ -980,7 +980,7 @@ app.get('/api/admin/sales/export/pdf', async (c) => {
         </table>
         
         <div class="footer">
-            <p><strong>Vemgo</strong> - Sistema de Gestão de Vendas</p>
+            <p><strong>kncursos</strong> - Sistema de Gestão de Vendas</p>
             <p>Relatório confidencial - ${totalSales} vendas • R$ ${totalRevenue.toFixed(2)} em receita</p>
         </div>
     </div>
@@ -1077,7 +1077,7 @@ app.get('/api/admin/sales/export/pdf-detalhado', async (c) => {
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Relatório Detalhado - Vemgo${periodTitle}</title>
+    <title>Relatório Detalhado - kncursos${periodTitle}</title>
     <style>
         @media print {
             body { margin: 0; }
@@ -1312,7 +1312,7 @@ app.get('/api/admin/courses/export/csv', async (c) => {
     }
     
     c.header('Content-Type', 'text/csv; charset=utf-8')
-    c.header('Content-Disposition', `attachment; filename="cursos_vemgo_${new Date().toISOString().split('T')[0]}.csv"`)
+    c.header('Content-Disposition', `attachment; filename="cursos_kncursos_${new Date().toISOString().split('T')[0]}.csv"`)
     
     return c.text(csv)
   } catch (error) {
@@ -1788,9 +1788,9 @@ app.post('/api/webhooks/mercadopago', async (c) => {
             const Resend = (await import('resend')).Resend
             const resend = new Resend(RESEND_API_KEY)
             
-            // Sempre usar o link do Vemgo para controle de acesso
+            // Sempre usar o link do kncursos para controle de acesso
             const accessLink = sale.pdf_url || c.external_url
-              ? `https://vemgo.com.br/download/${sale.access_token}`
+              ? `https://kncursos.com.br/download/${sale.access_token}`
               : null
             
             const emailHtml = `
@@ -1835,7 +1835,7 @@ app.post('/api/webhooks/mercadopago', async (c) => {
                   
                   <div class="footer">
                     <p>Se você tiver alguma dúvida, entre em contato conosco.</p>
-                    <p>© ${new Date().getFullYear()} Vemgo - Todos os direitos reservados</p>
+                    <p>© ${new Date().getFullYear()} kncursos - Todos os direitos reservados</p>
                   </div>
                 </div>
               </body>
@@ -1998,9 +1998,9 @@ app.get('/api/cron/check-pending-payments', async (c) => {
         if (newStatus === 'completed') {
           console.log(`[CRONJOB] 📧 Enviando email para ${sale.customer_email}...`)
           
-          // Sempre usar link do Vemgo para controle de acesso
+          // Sempre usar link do kncursos para controle de acesso
           const accessLink = sale.pdf_url || sale.external_url
-            ? `https://vemgo.com.br/download/${sale.access_token}`
+            ? `https://kncursos.com.br/download/${sale.access_token}`
             : null
           
           const emailHtml = `
@@ -2039,7 +2039,7 @@ app.get('/api/cron/check-pending-payments', async (c) => {
                 `}
                 <div class="footer">
                   <p>Se você tiver alguma dúvida, entre em contato conosco.</p>
-                  <p>© ${new Date().getFullYear()} Vemgo - Todos os direitos reservados</p>
+                  <p>© ${new Date().getFullYear()} kncursos - Todos os direitos reservados</p>
                 </div>
               </div>
             </body>
@@ -2131,9 +2131,9 @@ app.post('/api/resend-email/:saleId', async (c) => {
     // Preparar email
     const resend = new Resend(RESEND_API_KEY)
     
-    // Sempre usar o link do Vemgo para controle de acesso
+    // Sempre usar o link do kncursos para controle de acesso
     const accessLink = sale.pdf_url || sale.external_url
-      ? `https://vemgo.com.br/download/${sale.access_token}`
+      ? `https://kncursos.com.br/download/${sale.access_token}`
       : null
     
     const emailHtml = `
@@ -2172,7 +2172,7 @@ app.post('/api/resend-email/:saleId', async (c) => {
           `}
           <div class="footer">
             <p>Se você tiver alguma dúvida, entre em contato conosco.</p>
-            <p>© ${new Date().getFullYear()} Vemgo - Todos os direitos reservados</p>
+            <p>© ${new Date().getFullYear()} kncursos - Todos os direitos reservados</p>
           </div>
         </div>
       </body>
@@ -2357,7 +2357,7 @@ app.post('/api/sales', async (c) => {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
-        'X-Idempotency-Key': `vemgo-${Date.now()}`
+        'X-Idempotency-Key': `kncursos-${Date.now()}`
       },
       body: JSON.stringify({
         transaction_amount: parseFloat(link.price),
@@ -2371,12 +2371,12 @@ app.post('/api/sales', async (c) => {
             number: customer_cpf.replace(/\D/g, '')
           }
         },
-        statement_descriptor: 'VEMGO',
-        notification_url: 'https://vemgo.com.br/api/webhooks/mercadopago',
+        statement_descriptor: 'KNCURSOS',
+        notification_url: 'https://kncursos.com.br/api/webhooks/mercadopago',
         metadata: {
           link_code: link_code,
           course_id: link.course_id.toString(),
-          platform: 'vemgo'
+          platform: 'kncursos'
         }
       })
     })
@@ -2489,7 +2489,7 @@ app.post('/api/sales', async (c) => {
       
       // Preparar URL de download (mesmo para transações com problemas)
       const downloadUrl = link.pdf_url 
-        ? `https://vemgo.com.br/download/${access_token}`
+        ? `https://kncursos.com.br/download/${access_token}`
         : null
       
       return c.json({ 
@@ -2507,7 +2507,7 @@ app.post('/api/sales', async (c) => {
     
     // Preparar URL de download (se PDF disponível)
     const downloadUrl = link.pdf_url 
-      ? `https://vemgo.com.br/download/${access_token}`
+      ? `https://kncursos.com.br/download/${access_token}`
       : null
     
     // ✅ ENVIAR EMAIL IMEDIATAMENTE se pagamento foi aprovado
@@ -2563,7 +2563,7 @@ app.post('/api/sales', async (c) => {
                 
                 <div class="footer">
                   <p>Se você tiver alguma dúvida, entre em contato conosco.</p>
-                  <p>© ${new Date().getFullYear()} Vemgo - Todos os direitos reservados</p>
+                  <p>© ${new Date().getFullYear()} kncursos - Todos os direitos reservados</p>
                 </div>
               </div>
             </body>
@@ -2729,7 +2729,7 @@ app.post('/api/test-email', async (c) => {
     const { data, error } = await resend.emails.send({
       from: EMAIL_FROM,
       to: 'gelci.silva252@gmail.com',
-      subject: '🧪 Teste de E-mail - Vemgo',
+      subject: '🧪 Teste de E-mail - kncursos',
       html: `
         <!DOCTYPE html>
         <html>
@@ -2766,7 +2766,7 @@ app.post('/api/test-email', async (c) => {
                   <tr>
                     <td style="background-color: #f8f9fa; padding: 20px; text-align: center; border-radius: 0 0 10px 10px;">
                       <p style="margin: 0; color: #999999; font-size: 14px;">
-                        Vemgo - Sistema de Vendas de Cursos Online
+                        kncursos - Sistema de Vendas de Cursos Online
                       </p>
                     </td>
                   </tr>
@@ -2884,7 +2884,7 @@ app.get('/success/:token', async (c) => {
                       <p class="text-sm text-yellow-800">
                           <i class="fas fa-info-circle mr-2"></i>
                           <strong>Precisa de ajuda?</strong> Entre em contato conosco através do e-mail 
-                          <a href="mailto:cursos@vemgo.com.br" class="underline">cursos@vemgo.com.br</a>
+                          <a href="mailto:cursos@kncursos.com.br" class="underline">cursos@kncursos.com.br</a>
                       </p>
                   </div>
               </div>
@@ -3070,7 +3070,7 @@ app.get('/', async (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Vemgo - Cursos Online</title>
+        <title>kncursos - Cursos Online</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <style>
@@ -3102,7 +3102,7 @@ app.get('/', async (c) => {
             <div class="container mx-auto px-3 md:px-4 py-2.5 md:py-3.5">
                 <div class="flex items-baseline gap-1 md:gap-2">
                     <h1 class="text-lg md:text-2xl lg:text-3xl font-bold whitespace-nowrap">
-                        <i class="fas fa-graduation-cap mr-1 md:mr-2 text-base md:text-xl"></i>Vemgo
+                        <i class="fas fa-graduation-cap mr-1 md:mr-2 text-base md:text-xl"></i>kncursos
                     </h1>
                     <span class="hidden sm:inline text-blue-100">-</span>
                     <p class="text-blue-100 text-xs sm:text-sm md:text-base leading-tight sm:leading-normal">Livros e cursos online</p>
@@ -3199,7 +3199,7 @@ app.get('/', async (c) => {
         <!-- Footer -->
         <footer class="bg-gray-800 text-white py-6 mt-8">
             <div class="container mx-auto px-4 text-center">
-                <p class="text-gray-400 text-sm">© 2024 Vemgo - Todos os direitos reservados</p>
+                <p class="text-gray-400 text-sm">© 2024 kncursos - Todos os direitos reservados</p>
             </div>
         </footer>
 
@@ -3374,7 +3374,7 @@ app.get('/curso/:id', async (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${course.title} - vemgo</title>
+        <title>${course.title} - kncursos</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
     </head>
@@ -3389,7 +3389,7 @@ app.get('/curso/:id', async (c) => {
                     </a>
                     <h1 class="text-2xl font-bold">
                         <i class="fas fa-graduation-cap mr-2"></i>
-                        vemgo
+                        kncursos
                     </h1>
                     <div class="w-32"></div> <!-- Spacer para centralizar -->
                 </div>
@@ -3457,7 +3457,7 @@ app.get('/curso/:id', async (c) => {
         <!-- Footer -->
         <footer class="bg-gray-800 text-white mt-12 py-6">
             <div class="container mx-auto px-4 text-center">
-                <p class="text-gray-400">© 2024 Vemgo - Todos os direitos reservados</p>
+                <p class="text-gray-400">© 2024 kncursos - Todos os direitos reservados</p>
             </div>
         </footer>
     </body>
@@ -3473,7 +3473,7 @@ app.get('/test-email', (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Teste de E-mail - Vemgo</title>
+        <title>Teste de E-mail - kncursos</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
@@ -3606,7 +3606,7 @@ app.get('/cursos', async (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Vemgo - Gerenciar Cursos</title>
+        <title>kncursos - Gerenciar Cursos</title>
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Expires" content="0">
@@ -3623,7 +3623,7 @@ app.get('/cursos', async (c) => {
                         <div>
                             <h1 class="text-3xl font-bold">
                                 <i class="fas fa-book mr-2"></i>
-                                vemgo - Gerenciar Cursos
+                                kncursos - Gerenciar Cursos
                             </h1>
                             <p class="text-blue-100 mt-2">Adicione e edite cursos</p>
                         </div>
@@ -3816,7 +3816,7 @@ app.get('/admin', async (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Vemgo - Dashboard Admin</title>
+        <title>kncursos - Dashboard Admin</title>
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Expires" content="0">
@@ -3833,7 +3833,7 @@ app.get('/admin', async (c) => {
                         <div>
                             <h1 class="text-3xl font-bold">
                                 <i class="fas fa-graduation-cap mr-2"></i>
-                                vemgo - Painel Administrativo
+                                kncursos - Painel Administrativo
                             </h1>
                             <p class="text-blue-100 mt-2">Gerencie seus cursos e vendas online</p>
                         </div>
@@ -4346,7 +4346,7 @@ app.get('/login', (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Vemgo - Login Admin</title>
+        <title>kncursos - Login Admin</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
     </head>
@@ -4357,7 +4357,7 @@ app.get('/login', (c) => {
                 <div class="bg-gradient-to-r from-blue-600 to-purple-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <i class="fas fa-graduation-cap text-4xl text-white"></i>
                 </div>
-                <h1 class="text-3xl font-bold text-gray-800">Vemgo</h1>
+                <h1 class="text-3xl font-bold text-gray-800">kncursos</h1>
                 <p class="text-gray-600 mt-2">Painel Administrativo</p>
             </div>
 
@@ -4489,7 +4489,7 @@ app.get('/checkout/:code', async (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Checkout - vemgo</title>
+        <title>Checkout - kncursos</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
     </head>
@@ -4511,7 +4511,7 @@ app.get('/checkout/:code', async (c) => {
                     <div class="text-center">
                         <h1 class="text-4xl font-bold text-gray-800 mb-2">
                             <i class="fas fa-graduation-cap text-blue-600"></i>
-                            vemgo
+                            kncursos
                         </h1>
                         <p class="text-gray-600">Complete sua compra de forma segura</p>
                     </div>
@@ -5090,7 +5090,7 @@ app.get('/test-sales', (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Gerador de Vendas de Teste - vemgo</title>
+        <title>Gerador de Vendas de Teste - kncursos</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
     </head>
