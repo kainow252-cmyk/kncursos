@@ -4,6 +4,7 @@ import { serveStatic } from 'hono/cloudflare-workers'
 import { Resend } from 'resend'
 import { sign, verify } from 'hono/jwt'
 import { getCookie, setCookie } from 'hono/cookie'
+import bcrypt from 'bcryptjs'
 
 type Bindings = {
   DB: D1Database;
@@ -20,6 +21,18 @@ type Bindings = {
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
+
+// ============= SECURITY MIDDLEWARE =============
+
+// Headers de segurança
+app.use('*', async (c, next) => {
+  await next()
+  c.header('X-Frame-Options', 'DENY')
+  c.header('X-Content-Type-Options', 'nosniff')
+  c.header('X-XSS-Protection', '1; mode=block')
+  c.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains')
+  c.header('Referrer-Policy', 'strict-origin-when-cross-origin')
+})
 
 // ============= HELPER FUNCTIONS =============
 
@@ -94,44 +107,62 @@ app.post('/api/auth/login', async (c) => {
     const { username, password } = await c.req.json()
     const { DB, JWT_SECRET } = c.env
 
-    // Buscar usuário no banco de dados
-    const user = await DB.prepare(`
-      SELECT * FROM users 
-      WHERE username = ? AND password = ? AND active = 1
-    `).bind(username, password).first()
-
-    // Validar credenciais
-    if (user) {
-      // Gerar JWT token com role do usuário
-      const token = await sign(
-        {
-          username: user.username,
-          role: user.role,
-          exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 // 24 horas
-        },
-        JWT_SECRET || 'default-secret-key-change-in-production',
-        'HS256'
-      )
-
-      // Definir cookie
-      const isProduction = c.req.url.includes('https://')
-      setCookie(c, 'auth_token', token, {
-        httpOnly: true,
-        secure: isProduction,
-        sameSite: 'Lax',
-        path: '/',
-        maxAge: 60 * 60 * 24 // 24 horas
-      })
-
-      return c.json({ 
-        success: true, 
-        message: 'Login realizado com sucesso',
-        role: user.role,
-        name: user.name
-      })
+    // Validar JWT_SECRET
+    if (!JWT_SECRET) {
+      console.error('[LOGIN] ❌ JWT_SECRET não configurado!')
+      return c.json({ error: 'Erro de configuração do servidor' }, 500)
     }
 
-    return c.json({ success: false, message: 'Usuário ou senha inválidos' }, 401)
+    // Buscar usuário no banco de dados (apenas username)
+    const user = await DB.prepare(`
+      SELECT * FROM users 
+      WHERE username = ? AND active = 1
+    `).bind(username).first()
+
+    // Validar se usuário existe
+    if (!user) {
+      console.log('[LOGIN] ❌ Usuário não encontrado:', username)
+      return c.json({ error: 'Credenciais inválidas' }, 401)
+    }
+
+    // Verificar senha com bcrypt
+    const isPasswordValid = await bcrypt.compare(password, user.password)
+    
+    if (!isPasswordValid) {
+      console.log('[LOGIN] ❌ Senha inválida para usuário:', username)
+      return c.json({ error: 'Credenciais inválidas' }, 401)
+    }
+
+    // Login bem-sucedido
+    console.log('[LOGIN] ✅ Login bem-sucedido:', username, '- Role:', user.role)
+
+    // Gerar JWT token com role do usuário
+    const token = await sign(
+      {
+        username: user.username,
+        role: user.role,
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 // 24 horas
+      },
+      JWT_SECRET,
+      'HS256'
+    )
+
+    // Definir cookie
+    const isProduction = c.req.url.includes('https://')
+    setCookie(c, 'auth_token', token, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: 'Lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 // 24 horas
+    })
+
+    return c.json({ 
+      success: true, 
+      message: 'Login realizado com sucesso',
+      role: user.role,
+      name: user.name
+    })
   } catch (error: any) {
     console.error('Erro no login:', error)
     return c.json({ success: false, message: 'Erro ao processar login', error: error.message }, 500)
@@ -160,7 +191,12 @@ app.get('/api/auth/check', async (c) => {
     }
 
     const { JWT_SECRET } = c.env
-    await verify(token, JWT_SECRET || 'default-secret-key-change-in-production', 'HS256')
+    if (!JWT_SECRET) {
+      console.error('[AUTH] ❌ JWT_SECRET não configurado!')
+      return c.json({ authenticated: false }, 500)
+    }
+    
+    await verify(token, JWT_SECRET, 'HS256')
     return c.json({ authenticated: true })
   } catch (error) {
     return c.json({ authenticated: false }, 401)
@@ -3587,9 +3623,14 @@ app.get('/cursos', async (c) => {
 
     // Verifica se o token é válido e extrai dados do usuário
     const { JWT_SECRET } = c.env
+    if (!JWT_SECRET) {
+      console.error('[CURSOS] ❌ JWT_SECRET não configurado!')
+      return c.redirect('/login')
+    }
+    
     let userData: any
     try {
-      userData = await verify(token, JWT_SECRET || 'default-secret-key-change-in-production', 'HS256')
+      userData = await verify(token, JWT_SECRET, 'HS256')
     } catch (error) {
       // Token inválido, redireciona para login
       return c.redirect('/login')
@@ -3796,9 +3837,14 @@ app.get('/admin', async (c) => {
 
     // Verifica se o token é válido e extrai o role
     const { JWT_SECRET } = c.env
+    if (!JWT_SECRET) {
+      console.error('[ADMIN] ❌ JWT_SECRET não configurado!')
+      return c.redirect('/login')
+    }
+    
     let userData: any
     try {
-      userData = await verify(token, JWT_SECRET || 'default-secret-key-change-in-production', 'HS256')
+      userData = await verify(token, JWT_SECRET, 'HS256')
     } catch (error) {
       // Token inválido, redireciona para login
       return c.redirect('/login')
