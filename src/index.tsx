@@ -3849,11 +3849,8 @@ app.get('/admin', async (c) => {
             <div class="bg-white border-b">
                 <div class="container mx-auto px-4">
                     <nav class="flex space-x-8">
-                        <button onclick="showTab('courses')" id="tab-courses" class="tab-btn border-b-2 border-blue-600 text-blue-600 px-4 py-4 font-medium">
-                            <i class="fas fa-book mr-2"></i>Cursos
-                        </button>
-                        <button onclick="showTab('sales')" id="tab-sales" class="tab-btn text-gray-600 hover:text-blue-600 px-4 py-4 font-medium">
-                            <i class="fas fa-shopping-cart mr-2"></i>Vendas
+                        <button id="tab-courses" class="tab-btn border-b-2 border-blue-600 text-blue-600 px-4 py-4 font-medium">
+                            <i class="fas fa-book mr-2"></i>Meus Cursos
                         </button>
                     </nav>
                 </div>
@@ -4019,113 +4016,6 @@ app.get('/admin', async (c) => {
                     </div>
                 </div>
 
-                <!-- Sales Tab -->
-                <div id="content-sales" class="tab-content hidden">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-2xl font-bold text-gray-800">Vendas Realizadas</h2>
-                        <div class="flex gap-2">
-                            <button onclick="exportToCSV()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow-md transition flex items-center gap-2">
-                                <i class="fas fa-file-csv"></i>
-                                Exportar CSV
-                            </button>
-                            <button onclick="exportToPDF()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow-md transition flex items-center gap-2">
-                                <i class="fas fa-file-pdf"></i>
-                                Exportar PDF
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Filters -->
-                    <div class="bg-white rounded-lg shadow-md p-4 mb-6">
-                        <div class="flex flex-wrap items-end gap-4">
-                            <div class="flex-1 min-w-[200px]">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Data Inicial</label>
-                                <input type="date" id="filter-start-date" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                            </div>
-                            <div class="flex-1 min-w-[200px]">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Data Final</label>
-                                <input type="date" id="filter-end-date" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
-                            </div>
-                            <button onclick="filterSalesByDate()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow-md transition flex items-center gap-2">
-                                <i class="fas fa-filter"></i>
-                                Filtrar
-                            </button>
-                            <button onclick="clearFilters()" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg shadow-md transition flex items-center gap-2">
-                                <i class="fas fa-times"></i>
-                                Limpar
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Sales Stats -->
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                        <div class="bg-white rounded-lg shadow-md p-6 h-full flex flex-col justify-center">
-                            <div class="flex items-center justify-between">
-                                <div class="flex-1">
-                                    <p class="text-gray-500 text-sm mb-2">Total de Vendas</p>
-                                    <p class="text-2xl font-bold text-gray-800" id="total-sales">0</p>
-                                </div>
-                                <i class="fas fa-shopping-cart text-3xl text-blue-500"></i>
-                            </div>
-                        </div>
-                        <div class="bg-white rounded-lg shadow-md p-6 h-full flex flex-col justify-center">
-                            <div class="flex items-center justify-between">
-                                <div class="flex-1">
-                                    <p class="text-gray-500 text-sm mb-2">Faturamento</p>
-                                    <p class="text-2xl font-bold text-green-600" id="total-revenue">R$ 0</p>
-                                </div>
-                                <i class="fas fa-dollar-sign text-3xl text-green-500"></i>
-                            </div>
-                        </div>
-                        <div class="bg-white rounded-lg shadow-md p-6 h-full flex flex-col justify-center">
-                            <div class="flex items-center justify-between">
-                                <div class="flex-1">
-                                    <p class="text-gray-500 text-sm mb-2">Pendentes</p>
-                                    <p class="text-2xl font-bold text-yellow-600" id="pending-sales">0</p>
-                                </div>
-                                <i class="fas fa-clock text-3xl text-yellow-500"></i>
-                            </div>
-                        </div>
-                        <div class="bg-white rounded-lg shadow-md p-6 h-full flex flex-col justify-center">
-                            <div class="flex items-center justify-between">
-                                <div class="flex-1">
-                                    <p class="text-gray-500 text-sm mb-2">Confirmadas</p>
-                                    <p class="text-2xl font-bold text-green-600" id="completed-sales">0</p>
-                                </div>
-                                <i class="fas fa-check-circle text-3xl text-green-500"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sales Table -->
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Data/Hora</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cliente</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">CPF</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Telefone</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cartão</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Curso</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Valor</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="sales-list" class="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                        <td colspan="9" class="px-6 py-12 text-center text-gray-400">
-                                            <i class="fas fa-spinner fa-spin text-3xl mb-3"></i>
-                                            <p>Carregando vendas...</p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
             </main>
         </div>
 
